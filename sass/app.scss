@@ -1,0 +1,206 @@
+// Global Foundation Settings
+@import "settings";
+
+// Comment out this import if you don't want to use normalize
+@import "normalize";
+
+// Comment out this import if you are customizing you imports below
+@import "foundation";
+
+// Import specific parts of Foundation by commenting the import "foundation"
+// and uncommenting what you want below. You must uncomment the following if customizing
+
+// @import "foundation/components/global"; // *always required
+// @import "foundation/components/grid";
+
+//
+// Use this grid if you want to start using the new Foundation 5 grid early.
+// It will change breakpoints to min-width: 640px and 1024px.
+//
+// @import "foundation/components/grid-5";
+//
+
+// @import "foundation/components/visibility";
+// @import "foundation/components/block-grid";
+// @import "foundation/components/type";
+// @import "foundation/components/buttons";
+// @import "foundation/components/forms"; // *requires components/buttons
+// @import "foundation/components/custom-forms"; // *requires components/buttons, components/forms
+// @import "foundation/components/button-groups"; // *requires components/buttons
+// @import "foundation/components/dropdown-buttons"; // *requires components/buttons
+// @import "foundation/components/split-buttons"; // *requires components/buttons
+// @import "foundation/components/flex-video";
+// @import "foundation/components/section";
+// @import "foundation/components/top-bar";  // *requires components/grid
+// @import "foundation/components/orbit";
+// @import "foundation/components/reveal";
+// @import "foundation/components/joyride";
+// @import "foundation/components/clearing";
+// @import "foundation/components/alert-boxes";
+// @import "foundation/components/breadcrumbs";
+// @import "foundation/components/keystrokes";
+// @import "foundation/components/labels";
+// @import "foundation/components/inline-lists";
+// @import "foundation/components/pagination";
+// @import "foundation/components/panels";
+// @import "foundation/components/pricing-tables";
+// @import "foundation/components/progress-bars";
+// @import "foundation/components/side-nav";
+// @import "foundation/components/sub-nav";
+// @import "foundation/components/switch";
+// @import "foundation/components/magellan";
+// @import "foundation/components/tables";
+// @import "foundation/components/thumbs";
+// @import "foundation/components/tooltips";
+// @import "foundation/components/dropdown";
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+.section-1 h1 {
+	margin-top:0px;
+}
+.obb-logo {
+	display: block;
+	width: 300px;
+	height: 80px;
+	background: url("../img/obb-logo.png");
+	text-indent: -100%;
+	overflow: hidden;
+	margin-left: -14px;
+	cursor:pointer;
+	margin-top:0.2em;
+}
+.round, .notify input {
+	font-family: 'Varela Round', sans-serif;
+	font-weight:bold;
+}
+.notifywrap {
+	position:fixed;
+	bottom:-100px;
+	width:100%;
+	z-index:10;
+}
+.notify {
+	width:600px;
+	background-color:rgb(48,127,145);
+	margin:0 auto;
+	font-size:2em;
+	border-top-left-radius:12px;
+	border-top-right-radius:12px;
+}
+.notify input {
+	margin-bottom:0px;
+	margin-top:.2em;
+	margin-bottom:.2em;
+}
+.notify input[type="text"],
+.notify input[type="submit"]
+ {
+	border:none;
+	box-shadow:none;
+	background-color:rgb(48,127,145);
+	border-radius:12px;
+}
+.notify input[type="text"]:focus,
+.notify input[type="text"]:hover {
+	background-color:rgb(230,230,230);
+}
+.notify input[type="text"] {
+	color:rgb(51,51,51);
+}
+.notify input[type="submit"] {
+	color:rgb(253,221,92);
+	border:2px solid rgb(253,221,92);
+	margin-bottom:0px;
+	margin-top:16px;
+}
+.notify input::-webkit-input-placeholder { /* WebKit browsers */
+	color:rgb(253,221,92);
+}
+.notify input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:rgb(253,221,92);
+}
+.notify input::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color:rgb(253,221,92);
+}
+.notify input:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color:rgb(253,221,92);
+}
+
+.notify input:hover::-webkit-input-placeholder { /* WebKit browsers */
+	color:rgb(76,76,76);
+}
+.notify input:hover:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:rgb(76,76,76);
+}
+.notify input:hover::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color:rgb(76,76,76);
+}
+.notify input:hover:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color:rgb(76,76,76);
+}
+
+.notify input:focus::-webkit-input-placeholder { /* WebKit browsers */
+	color:rgb(51,51,51);
+}
+.notify input:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:rgb(51,51,51);
+}
+.notify input:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color:rgb(51,51,51);
+}
+.notify input:focus:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color:rgb(51,51,51);
+}
+
+.section {
+	position:relative;
+}
+.section-1 {
+	background-color:rgb(252,251,250);
+}
+.section-2 {
+	background-color:rgb(0,160,202);
+}
+.section-3 {
+	background-color:rgb(255,201,33);
+}
+.section.last { width: 100%; max-width: 100%; background-color:#000;}
+.section-1 img,
+.section-2 img,
+.section-3 img {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+.section-1 p {
+	font-size:1.5em;
+}
+.section-2 p {
+	font-size:9px;
+	color:#fff;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+}
+.section .bgimg {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+.section-2 .bgimg {
+	height:287px;
+    background-image: url(../img/laptop-bento-450-287.png);
+    opacity:0;
+}
+.section-3 .bgimg {
+	height:220px;
+    background-image: url(../img/envelope-371x220.png);
+}
+.section-2 p span {
+	font-weight:bold;
+}
