@@ -7238,7 +7238,7 @@ body {
   overflow: hidden;
   margin-left: -14px;
   cursor: pointer;
-  margin-top: 0.2eml;
+  margin-top: 0.2em;
 }
 
 /* line 73, ../sass/app.scss */
@@ -7257,7 +7257,7 @@ body {
 
 /* line 83, ../sass/app.scss */
 .notify {
-  width: 600px;
+  max-width: 600px;
   background-color: #307f91;
   margin: 0 auto;
   font-size: 2em;
@@ -7424,29 +7424,6 @@ body {
 }
 
 /* line 187, ../sass/app.scss */
-.section .bgimg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-/* line 195, ../sass/app.scss */
-.section-2 .bgimg {
-  height: 287px;
-  background-image: url(../img/laptop-bento-450-287.png);
-  opacity: 0;
-}
-
-/* line 200, ../sass/app.scss */
-.section-3 .bgimg {
-  height: 220px;
-  background-image: url(../img/envelope-371x220.png);
-}
-
-/* line 204, ../sass/app.scss */
 .section-2 p span {
   font-weight: bold;
 }

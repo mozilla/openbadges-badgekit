@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 browserHeight = ($( window ).height() - 15);
 
-$('.section, .section-3 .bgimg').not('.last').height(browserHeight);
+$('.section').height(browserHeight);
 $('.section-1 img').css('margin-top',((browserHeight/2) - 260) + 'px');
 $('.section-2 ul').css('margin-top',((browserHeight/2) - 50) + 'px');
 

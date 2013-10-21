@@ -81,7 +81,7 @@ body {
 	z-index:10;
 }
 .notify {
-	width:600px;
+	max-width:600px;
 	background-color:rgb(48,127,145);
 	margin:0 auto;
 	font-size:2em;
@@ -183,23 +183,6 @@ body {
 	top:0;
 	left:0;
 	width:100%;
-}
-.section .bgimg {
-	position:absolute;
-	left:0;
-	top:0;
-	width:100%;
-    background-repeat:no-repeat;
-    background-position:center center;
-}
-.section-2 .bgimg {
-	height:287px;
-    background-image: url(../img/laptop-bento-450-287.png);
-    opacity:0;
-}
-.section-3 .bgimg {
-	height:220px;
-    background-image: url(../img/envelope-371x220.png);
 }
 .section-2 p span {
 	font-weight:bold;
