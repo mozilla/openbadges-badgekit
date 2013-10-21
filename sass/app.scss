@@ -56,6 +56,9 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 }
+form {
+	margin:0 0 0 0;
+}
 .section-1 h1 {
 	margin-top:0px;
 }
@@ -93,7 +96,7 @@ body {
 	margin-top:.2em;
 	margin-bottom:.2em;
 }
-.notify input[type="text"],
+.notify input[type="email"],
 .notify input[type="submit"]
  {
 	border:none;
@@ -101,11 +104,11 @@ body {
 	background-color:rgb(48,127,145);
 	border-radius:12px;
 }
-.notify input[type="text"]:focus,
-.notify input[type="text"]:hover {
+.notify input[type="email"]:focus,
+.notify input[type="email"]:hover {
 	background-color:rgb(230,230,230);
 }
-.notify input[type="text"] {
+.notify input[type="email"] {
 	color:rgb(51,51,51);
 }
 .notify input[type="submit"] {
