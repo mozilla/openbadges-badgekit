@@ -75,6 +75,13 @@ img {
 h1 {
 	margin-left:0.625em;
 }
+p#slogan {
+	font-size:1.45em;
+	margin-bottom:2em;
+}
+p#slogan span {
+	font-weight:bold;
+}
 .obb-logo {
 	display: block;
 	width: 300px;
@@ -84,6 +91,9 @@ h1 {
 	overflow: hidden;
 	margin-left: -14px;
 	cursor:pointer;
+}
+.icons {
+	margin-bottom:2em;
 }
 .round, .notify input {
 	font-family: 'Open Sans', sans-serif;	
