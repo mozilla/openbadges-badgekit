@@ -56,10 +56,13 @@
 @import "compass";
 @import "compass/layout/sticky-footer";
 
-@include sticky-footer(54px, "#main", "#main_footer", "#footer");
+@include sticky-footer(100px, "#main", "#main_footer", "#footer");
 
 body {
 	font-family: 'Open Sans', sans-serif;
+}
+#footer {
+	padding-top:1.5em;
 }
 form {
 	margin:0 0 0 0;
@@ -72,7 +75,6 @@ img {
 h1 {
 	margin-left:0.625em;
 }
-
 .obb-logo {
 	display: block;
 	width: 300px;
@@ -84,73 +86,59 @@ h1 {
 	cursor:pointer;
 }
 .round, .notify input {
-	font-family: 'Varela Round', sans-serif;
-	font-weight:bold;
-}
-.notifywrap {
-	position:fixed;
-	bottom:-100px;
-	width:100%;
-	z-index:10;
+	font-family: 'Open Sans', sans-serif;	
 }
 .notify {
-	max-width:600px;
 	background-color:rgb(48,127,145);
 	margin:0 auto;
-	font-size:2em;
 	border-top-left-radius:12px;
 	border-top-right-radius:12px;
 }
-.notify input {
-	margin-bottom:0px;
-	margin-top:.2em;
-	margin-bottom:.2em;
-}
-.notify input[type="email"],
-.notify input[type="submit"]
- {
-	border:none;
+.notify input[type="email"]
+{
 	box-shadow:none;
-	background-color:rgb(48,127,145);
+	background-color:#fff;
+	border:1px solid #c0c0c0;
+	border-radius:10px;
+	color:rgb(51,51,51);
+	padding:0.5em 0.5em 0.5em 0.5em;
+	font-size:1.2em;
+}
+.notify input[type="submit"] {
 	border-radius:12px;
 }
 .notify input[type="email"]:focus,
 .notify input[type="email"]:hover {
 	background-color:rgb(230,230,230);
 }
-.notify input[type="email"] {
-	color:rgb(51,51,51);
-}
-.notify input[type="submit"] {
-	color:rgb(253,221,92);
-	border:2px solid rgb(253,221,92);
-	margin-bottom:0px;
-	margin-top:16px;
-}
 .notify input::-webkit-input-placeholder { /* WebKit browsers */
-	color:rgb(253,221,92);
+	color:rgb(78,78,78);
+	font-style:oblique;
 }
 .notify input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	color:rgb(253,221,92);
+	color:rgb(78,78,78);
+	font-style:oblique;
 }
 .notify input::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color:rgb(253,221,92);
+	color:rgb(78,78,78);
+	font-style:oblique;
 }
 .notify input:-ms-input-placeholder { /* Internet Explorer 10+ */
-	color:rgb(253,221,92);
+	color:rgb(78,78,78);
+	font-style:oblique;
 }
 
 .notify input:hover::-webkit-input-placeholder { /* WebKit browsers */
-	color:rgb(76,76,76);
+	color:rgb(25,25,25);
 }
 .notify input:hover:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	color:rgb(76,76,76);
+	color:rgb(25,25,25);
 }
 .notify input:hover::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color:rgb(76,76,76);
+	color:rgb(25,25,25);
 }
 .notify input:hover:-ms-input-placeholder { /* Internet Explorer 10+ */
-	color:rgb(76,76,76);
+	color:rgb(25,25,25);
 }
 
 .notify input:focus::-webkit-input-placeholder { /* WebKit browsers */
