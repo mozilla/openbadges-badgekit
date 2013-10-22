@@ -62,6 +62,62 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	color:#373737;
 }
+#header {
+	background: #e6e7e8;
+	border-top: solid 2px #FFF;
+	border-bottom: solid 6px #5fc9e5;
+	position: relative;
+	margin-bottom: 1em;
+}
+
+#header::before, #header::after {
+	content: "";
+	height: 6px;
+	width: 33.33%;
+	position: absolute;
+	left: 33.33%;
+	background: #b1cf37;
+}
+#header::after {
+	left: 66.66%;
+	background: #f48123;
+}
+#header::before, #header::after {
+	bottom: -6px;
+}
+#header .constrained {
+	max-width: 950px;
+	padding: 0 25px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+#header h1 {
+	display: block;
+	font-size: 2em;
+	-webkit-margin-before: 0.67em;
+	-webkit-margin-after: 0.67em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+	margin: 0;
+	padding: 25px 0;
+}
+#header a {
+	text-decoration: none;
+	color: #073A5A;
+}
+#home {
+	display: block;
+	width: 300px;
+	height: 80px;
+	background: url("../img/obb-logo.png");
+	text-indent: -100%;
+	overflow: hidden;
+	margin-left: -14px;
+}
+#tabzilla {
+	margin-top: -25px;
+}
 #footer {
 	padding-top:1em;
 }
