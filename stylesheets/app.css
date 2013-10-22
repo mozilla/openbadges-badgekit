@@ -7218,22 +7218,54 @@ a.th {
   max-width: 800px;
 }
 
-/* line 56, ../sass/app.scss */
+/* line 10, ../../../../../Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 12, ../../../../../Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#main {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -54px;
+}
+/* line 18, ../../../../../Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#main #main_footer {
+  height: 54px;
+}
+
+/* line 20, ../../../../../Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#footer {
+  clear: both;
+  position: relative;
+  height: 54px;
+}
+
+/* line 61, ../sass/app.scss */
 body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 59, ../sass/app.scss */
+/* line 64, ../sass/app.scss */
 form {
   margin: 0 0 0 0;
 }
 
-/* line 62, ../sass/app.scss */
-.section-1 h1 {
-  margin-top: 0px;
+/* line 67, ../sass/app.scss */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* line 65, ../sass/app.scss */
+/* line 72, ../sass/app.scss */
+h1 {
+  margin-left: 0.625em;
+}
+
+/* line 76, ../sass/app.scss */
 .obb-logo {
   display: block;
   width: 300px;
@@ -7245,13 +7277,13 @@ form {
   cursor: pointer;
 }
 
-/* line 75, ../sass/app.scss */
+/* line 86, ../sass/app.scss */
 .round, .notify input {
   font-family: 'Varela Round', sans-serif;
   font-weight: bold;
 }
 
-/* line 79, ../sass/app.scss */
+/* line 90, ../sass/app.scss */
 .notifywrap {
   position: fixed;
   bottom: -100px;
@@ -7259,7 +7291,7 @@ form {
   z-index: 10;
 }
 
-/* line 85, ../sass/app.scss */
+/* line 96, ../sass/app.scss */
 .notify {
   max-width: 600px;
   background-color: #307f91;
@@ -7269,14 +7301,14 @@ form {
   border-top-right-radius: 12px;
 }
 
-/* line 93, ../sass/app.scss */
+/* line 104, ../sass/app.scss */
 .notify input {
   margin-bottom: 0px;
   margin-top: .2em;
   margin-bottom: .2em;
 }
 
-/* line 100, ../sass/app.scss */
+/* line 111, ../sass/app.scss */
 .notify input[type="email"],
 .notify input[type="submit"] {
   border: none;
@@ -7285,18 +7317,18 @@ form {
   border-radius: 12px;
 }
 
-/* line 107, ../sass/app.scss */
+/* line 118, ../sass/app.scss */
 .notify input[type="email"]:focus,
 .notify input[type="email"]:hover {
   background-color: #e6e6e6;
 }
 
-/* line 110, ../sass/app.scss */
+/* line 121, ../sass/app.scss */
 .notify input[type="email"] {
   color: #333333;
 }
 
-/* line 113, ../sass/app.scss */
+/* line 124, ../sass/app.scss */
 .notify input[type="submit"] {
   color: #fddd5c;
   border: 2px solid #fddd5c;
@@ -7304,130 +7336,74 @@ form {
   margin-top: 16px;
 }
 
-/* line 119, ../sass/app.scss */
+/* line 130, ../sass/app.scss */
 .notify input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #fddd5c;
 }
 
-/* line 122, ../sass/app.scss */
+/* line 133, ../sass/app.scss */
 .notify input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #fddd5c;
 }
 
-/* line 125, ../sass/app.scss */
+/* line 136, ../sass/app.scss */
 .notify input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #fddd5c;
 }
 
-/* line 128, ../sass/app.scss */
+/* line 139, ../sass/app.scss */
 .notify input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #fddd5c;
 }
 
-/* line 132, ../sass/app.scss */
+/* line 143, ../sass/app.scss */
 .notify input:hover::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #4c4c4c;
 }
 
-/* line 135, ../sass/app.scss */
+/* line 146, ../sass/app.scss */
 .notify input:hover:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #4c4c4c;
 }
 
-/* line 138, ../sass/app.scss */
+/* line 149, ../sass/app.scss */
 .notify input:hover::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #4c4c4c;
 }
 
-/* line 141, ../sass/app.scss */
+/* line 152, ../sass/app.scss */
 .notify input:hover:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #4c4c4c;
 }
 
-/* line 145, ../sass/app.scss */
+/* line 156, ../sass/app.scss */
 .notify input:focus::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #333333;
 }
 
-/* line 148, ../sass/app.scss */
+/* line 159, ../sass/app.scss */
 .notify input:focus:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #333333;
 }
 
-/* line 151, ../sass/app.scss */
+/* line 162, ../sass/app.scss */
 .notify input:focus::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #333333;
 }
 
-/* line 154, ../sass/app.scss */
+/* line 165, ../sass/app.scss */
 .notify input:focus:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #333333;
-}
-
-/* line 158, ../sass/app.scss */
-.section {
-  position: relative;
-}
-
-/* line 161, ../sass/app.scss */
-.section-1 {
-  background-color: #fcfbfa;
-}
-
-/* line 164, ../sass/app.scss */
-.section-2 {
-  background-color: #00a0ca;
-}
-
-/* line 167, ../sass/app.scss */
-.section-3 {
-  background-color: #ffc921;
-}
-
-/* line 170, ../sass/app.scss */
-.section.last {
-  width: 100%;
-  max-width: 100%;
-  background-color: #000;
-}
-
-/* line 173, ../sass/app.scss */
-.section-1 img,
-.section-2 img,
-.section-3 img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* line 178, ../sass/app.scss */
-.section-1 p {
-  font-size: 1.5em;
-}
-
-/* line 181, ../sass/app.scss */
-.section-2 p {
-  font-size: 9px;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-/* line 189, ../sass/app.scss */
-.section-2 p span {
-  font-weight: bold;
 }
