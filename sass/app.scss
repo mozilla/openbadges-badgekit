@@ -60,6 +60,7 @@
 
 body {
 	font-family: 'Open Sans', sans-serif;
+	color:#373737;
 }
 #footer {
 	padding-top:1em;
@@ -81,6 +82,9 @@ p#slogan {
 }
 p#slogan span {
 	font-weight:bold;
+}
+#logo {
+	margin-top:-20px;
 }
 .obb-logo {
 	display: block;

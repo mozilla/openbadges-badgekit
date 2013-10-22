@@ -7246,42 +7246,48 @@ html, body {
 /* line 61, ../sass/app.scss */
 body {
   font-family: 'Open Sans', sans-serif;
+  color: #373737;
 }
 
-/* line 64, ../sass/app.scss */
+/* line 65, ../sass/app.scss */
 #footer {
   padding-top: 1em;
 }
 
-/* line 67, ../sass/app.scss */
+/* line 68, ../sass/app.scss */
 form {
   margin: 0 0 0 0;
 }
 
-/* line 70, ../sass/app.scss */
+/* line 71, ../sass/app.scss */
 img {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 75, ../sass/app.scss */
+/* line 76, ../sass/app.scss */
 h1 {
   margin-left: 0.625em;
 }
 
-/* line 78, ../sass/app.scss */
+/* line 79, ../sass/app.scss */
 p#slogan {
   font-size: 1.3em;
   margin-bottom: 1em;
 }
 
-/* line 82, ../sass/app.scss */
+/* line 83, ../sass/app.scss */
 p#slogan span {
   font-weight: bold;
 }
 
-/* line 85, ../sass/app.scss */
+/* line 86, ../sass/app.scss */
+#logo {
+  margin-top: -20px;
+}
+
+/* line 89, ../sass/app.scss */
 .obb-logo {
   display: block;
   width: 300px;
@@ -7293,19 +7299,19 @@ p#slogan span {
   cursor: pointer;
 }
 
-/* line 95, ../sass/app.scss */
+/* line 99, ../sass/app.scss */
 .icons {
   margin-bottom: 1em;
   background-color: #EBEDE4;
   padding: 1em 0;
 }
 
-/* line 100, ../sass/app.scss */
+/* line 104, ../sass/app.scss */
 .round, .notify input {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 103, ../sass/app.scss */
+/* line 107, ../sass/app.scss */
 .notify {
   background-color: #307f91;
   margin: 0 auto;
@@ -7313,7 +7319,7 @@ p#slogan span {
   border-top-right-radius: 12px;
 }
 
-/* line 110, ../sass/app.scss */
+/* line 114, ../sass/app.scss */
 .notify input[type="email"] {
   box-shadow: none;
   background-color: #fff;
@@ -7326,100 +7332,100 @@ p#slogan span {
 }
 
 @media only screen and (min-width: 768px) {
-  /* line 122, ../sass/app.scss */
+  /* line 126, ../sass/app.scss */
   .notify input[type="email"] {
     font-size: 1.2em;
     height: 2.3em;
   }
 
-  /* line 126, ../sass/app.scss */
+  /* line 130, ../sass/app.scss */
   p#slogan {
     font-size: 1.45em;
   }
 }
-/* line 131, ../sass/app.scss */
+/* line 135, ../sass/app.scss */
 .notify input[type="submit"] {
   border-radius: 12px;
   width: 100%;
 }
 
-/* line 136, ../sass/app.scss */
+/* line 140, ../sass/app.scss */
 .notify input[type="email"]:focus,
 .notify input[type="email"]:hover {
   background-color: #e6e6e6;
 }
 
-/* line 139, ../sass/app.scss */
+/* line 143, ../sass/app.scss */
 .notify input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 143, ../sass/app.scss */
+/* line 147, ../sass/app.scss */
 .notify input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 147, ../sass/app.scss */
+/* line 151, ../sass/app.scss */
 .notify input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 151, ../sass/app.scss */
+/* line 155, ../sass/app.scss */
 .notify input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 156, ../sass/app.scss */
+/* line 160, ../sass/app.scss */
 .notify input:hover::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #191919;
 }
 
-/* line 159, ../sass/app.scss */
+/* line 163, ../sass/app.scss */
 .notify input:hover:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #191919;
 }
 
-/* line 162, ../sass/app.scss */
+/* line 166, ../sass/app.scss */
 .notify input:hover::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #191919;
 }
 
-/* line 165, ../sass/app.scss */
+/* line 169, ../sass/app.scss */
 .notify input:hover:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #191919;
 }
 
-/* line 169, ../sass/app.scss */
+/* line 173, ../sass/app.scss */
 .notify input:focus::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #333333;
 }
 
-/* line 172, ../sass/app.scss */
+/* line 176, ../sass/app.scss */
 .notify input:focus:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #333333;
 }
 
-/* line 175, ../sass/app.scss */
+/* line 179, ../sass/app.scss */
 .notify input:focus::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #333333;
 }
 
-/* line 178, ../sass/app.scss */
+/* line 182, ../sass/app.scss */
 .notify input:focus:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #333333;
