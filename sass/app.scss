@@ -154,6 +154,8 @@ p#slogan span {
 }
 .icons {
 	margin-bottom:1em;
+}
+.icons > .indent {
 	background-color:#EBEDE4;
 	padding:1em 0;
 }
@@ -185,6 +187,13 @@ p#slogan span {
 	}
 	p#slogan {
 	font-size:1.45em;
+	}
+	.icons {
+	padding-left:118px;
+	padding-right:118px;
+	}
+	#tabzilla {
+	margin-right:80px;
 	}
 }
 
