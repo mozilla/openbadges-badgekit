@@ -1,16 +1,4 @@
-var browserHeight, scrollPct;
-
 $(document).ready(function() {
-
-browserHeight = ($( window ).height());
-
-$('.section').height(browserHeight);
-
-$('#emsubmit').click(function(){
-  makeReveal('blah!');
-});
-
-$('.notifywrap').stop().animate({ bottom: '0px' },250);
 
 });
 
@@ -23,7 +11,8 @@ function makeAlert(text,status) {
   $(alert).prependTo($('body')).fadeIn('fast');
 }
 
-  function makeReveal(content){
-    var reveal = $('<div id="reveal" class="reveal-modal"></div>');
-    reveal.append(content).appendTo('body').foundation('reveal','open');
-  }
+//a function to create a reveal and add to the DOM
+function makeReveal(content){
+  var reveal = $('<div id="reveal" class="reveal-modal"></div>');
+  reveal.append(content).appendTo('body').foundation('reveal','open');
+}

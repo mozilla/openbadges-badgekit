@@ -182,18 +182,21 @@ p#slogan span {
 
 @media only screen and (min-width: 768px) {
 	.notify input[type="email"] {
-	font-size:1.2em;
-	height:2.3em;
+		font-size:1.2em;
+		height:2.3em;
 	}
 	p#slogan {
-	font-size:1.45em;
+		font-size:1.45em;
 	}
 	.icons {
-	padding-left:118px;
-	padding-right:118px;
+		padding-left:118px;
+		padding-right:118px;
 	}
 	#tabzilla {
-	margin-right:80px;
+		margin-right:80px;
+	}
+	.icons > .indent {
+		border-radius:12px;
 	}
 }
 
