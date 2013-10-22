@@ -7296,14 +7296,16 @@ p#slogan span {
 /* line 95, ../sass/app.scss */
 .icons {
   margin-bottom: 2em;
+  background-color: #EBEDE4;
+  padding: 1em 0;
 }
 
-/* line 98, ../sass/app.scss */
+/* line 100, ../sass/app.scss */
 .round, .notify input {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 101, ../sass/app.scss */
+/* line 103, ../sass/app.scss */
 .notify {
   background-color: #307f91;
   margin: 0 auto;
@@ -7311,99 +7313,100 @@ p#slogan span {
   border-top-right-radius: 12px;
 }
 
-/* line 108, ../sass/app.scss */
+/* line 110, ../sass/app.scss */
 .notify input[type="email"] {
   box-shadow: none;
   background-color: #fff;
   border: 1px solid #c0c0c0;
   border-radius: 10px;
   color: #333333;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  font-size: 1.2em;
+  padding: 0.6em 0.5em;
+  font-size: 1.1em;
 }
 
-/* line 117, ../sass/app.scss */
+/* line 119, ../sass/app.scss */
 .notify input[type="submit"] {
   border-radius: 12px;
+  width: 100%;
 }
 
-/* line 121, ../sass/app.scss */
+/* line 124, ../sass/app.scss */
 .notify input[type="email"]:focus,
 .notify input[type="email"]:hover {
   background-color: #e6e6e6;
 }
 
-/* line 124, ../sass/app.scss */
+/* line 127, ../sass/app.scss */
 .notify input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 128, ../sass/app.scss */
+/* line 131, ../sass/app.scss */
 .notify input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 132, ../sass/app.scss */
+/* line 135, ../sass/app.scss */
 .notify input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 136, ../sass/app.scss */
+/* line 139, ../sass/app.scss */
 .notify input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 141, ../sass/app.scss */
+/* line 144, ../sass/app.scss */
 .notify input:hover::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #191919;
 }
 
-/* line 144, ../sass/app.scss */
+/* line 147, ../sass/app.scss */
 .notify input:hover:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #191919;
 }
 
-/* line 147, ../sass/app.scss */
+/* line 150, ../sass/app.scss */
 .notify input:hover::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #191919;
 }
 
-/* line 150, ../sass/app.scss */
+/* line 153, ../sass/app.scss */
 .notify input:hover:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #191919;
 }
 
-/* line 154, ../sass/app.scss */
+/* line 157, ../sass/app.scss */
 .notify input:focus::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #333333;
 }
 
-/* line 157, ../sass/app.scss */
+/* line 160, ../sass/app.scss */
 .notify input:focus:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #333333;
 }
 
-/* line 160, ../sass/app.scss */
+/* line 163, ../sass/app.scss */
 .notify input:focus::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #333333;
 }
 
-/* line 163, ../sass/app.scss */
+/* line 166, ../sass/app.scss */
 .notify input:focus:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #333333;

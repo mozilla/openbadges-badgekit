@@ -94,6 +94,8 @@ p#slogan span {
 }
 .icons {
 	margin-bottom:2em;
+	background-color:#EBEDE4;
+	padding:1em 0;
 }
 .round, .notify input {
 	font-family: 'Open Sans', sans-serif;	
@@ -111,11 +113,12 @@ p#slogan span {
 	border:1px solid #c0c0c0;
 	border-radius:10px;
 	color:rgb(51,51,51);
-	padding:0.5em 0.5em 0.5em 0.5em;
-	font-size:1.2em;
+	padding:0.6em 0.5em;
+	font-size:1.1em;
 }
 .notify input[type="submit"] {
 	border-radius:12px;
+	width:100%;
 }
 .notify input[type="email"]:focus,
 .notify input[type="email"]:hover {
