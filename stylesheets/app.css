@@ -7397,21 +7397,22 @@ p#slogan span {
 /* line 170, ../sass/app.scss */
 .icons {
   margin-bottom: 1.5em;
+  display: none;
 }
 
-/* line 173, ../sass/app.scss */
+/* line 174, ../sass/app.scss */
 .icons > .indent {
   background-color: #EBEDE4;
   padding: 1em 0;
 }
 
-/* line 177, ../sass/app.scss */
+/* line 178, ../sass/app.scss */
 .round, .notify input {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 1.25em;
 }
 
-/* line 181, ../sass/app.scss */
+/* line 182, ../sass/app.scss */
 .notify {
   background-color: #307f91;
   margin: 0 auto;
@@ -7419,7 +7420,7 @@ p#slogan span {
   border-top-right-radius: 12px;
 }
 
-/* line 188, ../sass/app.scss */
+/* line 189, ../sass/app.scss */
 .notify input[type="email"] {
   box-shadow: none;
   background-color: #fff;
@@ -7432,122 +7433,122 @@ p#slogan span {
 }
 
 @media only screen and (min-width: 768px) {
-  /* line 201, ../sass/app.scss */
+  /* line 202, ../sass/app.scss */
   .notify input[type="email"] {
     font-size: 1.2em;
     height: 2.3em;
   }
 
-  /* line 205, ../sass/app.scss */
+  /* line 206, ../sass/app.scss */
   p#slogan {
     font-size: 1.45em;
   }
 
-  /* line 208, ../sass/app.scss */
+  /* line 209, ../sass/app.scss */
   .icons {
     padding-left: 118px;
     padding-right: 118px;
   }
 
-  /* line 212, ../sass/app.scss */
+  /* line 213, ../sass/app.scss */
   #tabzilla {
     margin-right: 80px;
   }
 
-  /* line 215, ../sass/app.scss */
+  /* line 216, ../sass/app.scss */
   .icons > .indent {
     border-radius: 12px;
   }
 }
-@media only screen and (min-device-width: 640px) {
-  /* line 222, ../sass/app.scss */
+@media only screen and (min-width: 520px) {
+  /* line 223, ../sass/app.scss */
   .icons {
-    display: none;
+    display: block;
   }
 }
-/* line 227, ../sass/app.scss */
+/* line 228, ../sass/app.scss */
 .notify input[type="submit"] {
   border-radius: 12px;
   width: 100%;
 }
 
-/* line 232, ../sass/app.scss */
+/* line 233, ../sass/app.scss */
 .notify input[type="email"]:focus,
 .notify input[type="email"]:hover {
   background-color: #e6e6e6;
 }
 
-/* line 235, ../sass/app.scss */
+/* line 236, ../sass/app.scss */
 .notify input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 239, ../sass/app.scss */
+/* line 240, ../sass/app.scss */
 .notify input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 243, ../sass/app.scss */
+/* line 244, ../sass/app.scss */
 .notify input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 247, ../sass/app.scss */
+/* line 248, ../sass/app.scss */
 .notify input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #4e4e4e;
   font-style: oblique;
 }
 
-/* line 252, ../sass/app.scss */
+/* line 253, ../sass/app.scss */
 .notify input:hover::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #191919;
 }
 
-/* line 255, ../sass/app.scss */
+/* line 256, ../sass/app.scss */
 .notify input:hover:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #191919;
 }
 
-/* line 258, ../sass/app.scss */
+/* line 259, ../sass/app.scss */
 .notify input:hover::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #191919;
 }
 
-/* line 261, ../sass/app.scss */
+/* line 262, ../sass/app.scss */
 .notify input:hover:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #191919;
 }
 
-/* line 265, ../sass/app.scss */
+/* line 266, ../sass/app.scss */
 .notify input:focus::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #333333;
 }
 
-/* line 268, ../sass/app.scss */
+/* line 269, ../sass/app.scss */
 .notify input:focus:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #333333;
 }
 
-/* line 271, ../sass/app.scss */
+/* line 272, ../sass/app.scss */
 .notify input:focus::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #333333;
 }
 
-/* line 274, ../sass/app.scss */
+/* line 275, ../sass/app.scss */
 .notify input:focus:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #333333;

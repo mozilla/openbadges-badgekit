@@ -169,6 +169,7 @@ p#slogan span {
 }
 .icons {
 	margin-bottom:1.5em;
+	display:none;
 }
 .icons > .indent {
 	background-color:#EBEDE4;
@@ -218,9 +219,9 @@ p#slogan span {
 }
 
 //mobile
-@media only screen and (min-device-width: 640px) {
+@media only screen and (min-width: 520px) {
 	.icons {
-		display:none;
+		display:block;
 	}
 }
 
