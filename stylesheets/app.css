@@ -7459,7 +7459,7 @@ p#slogan span {
     border-radius: 12px;
   }
 }
-@media only screen and (min-device-width: 480px) {
+@media only screen and (min-device-width: 640px) {
   /* line 222, ../sass/app.scss */
   .icons {
     display: none;
