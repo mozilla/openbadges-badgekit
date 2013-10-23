@@ -196,6 +196,7 @@ p#slogan span {
 	height:2.7em;
 }
 
+//larger screns
 @media only screen and (min-width: 768px) {
 	.notify input[type="email"] {
 		font-size:1.2em;
@@ -213,6 +214,13 @@ p#slogan span {
 	}
 	.icons > .indent {
 		border-radius:12px;
+	}
+}
+
+//mobile
+@media only screen and (min-device-width: 480px) {
+	.icons {
+		display:none;
 	}
 }
 
