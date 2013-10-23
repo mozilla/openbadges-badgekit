@@ -56,7 +56,7 @@
 @import "compass";
 @import "compass/layout/sticky-footer";
 
-@include sticky-footer(100px, "#main", "#main_footer", "#footer");
+@include sticky-footer(130px, "#main", "#main_footer", "#footer");
 
 body {
 	font-family: 'Open Sans', sans-serif;
@@ -69,8 +69,17 @@ body {
 	position: relative;
 	margin-bottom: 1em;
 }
-
-#header::before, #header::after {
+#footer {
+	position: relative;
+	border-top: solid 6px #5fc9e5;
+	padding: 20px 0;
+	background-color:#000;
+}
+#footer::before, #footer::after {
+	top: -6px;
+}
+#header::before, #header::after,
+#footer::before, #footer::after {
 	content: "";
 	height: 6px;
 	width: 33.33%;
@@ -78,14 +87,17 @@ body {
 	left: 33.33%;
 	background: #b1cf37;
 }
-#header::after {
+#header::after,
+#footer::after {
 	left: 66.66%;
 	background: #f48123;
 }
-#header::before, #header::after {
+#header::before, #header::after,
+#footer::before, #footer::after {
 	bottom: -6px;
 }
-#header .constrained {
+#header .constrained,
+#footer .constrained {
 	max-width: 950px;
 	padding: 0 25px;
 	margin: 0 auto;
@@ -102,11 +114,11 @@ body {
 	margin: 0;
 	padding: 25px 0;
 }
-#header a {
+#header a, #footer a {
 	text-decoration: none;
 	color: #073A5A;
 }
-#home {
+#home, #footer .footnote a {
 	display: block;
 	width: 300px;
 	height: 80px;
@@ -118,8 +130,11 @@ body {
 #tabzilla {
 	margin-top: -25px;
 }
-#footer {
-	padding-top:1em;
+#footer .footnote a {
+	background-position: 0 -80px;
+}
+#footer a {
+	color: inherit;
 }
 form {
 	margin:0 0 0 0;
@@ -153,14 +168,15 @@ p#slogan span {
 	cursor:pointer;
 }
 .icons {
-	margin-bottom:1em;
+	margin-bottom:1.5em;
 }
 .icons > .indent {
 	background-color:#EBEDE4;
 	padding:1em 0;
 }
 .round, .notify input {
-	font-family: 'Open Sans', sans-serif;	
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom:1.25em;
 }
 .notify {
 	background-color:rgb(48,127,145);
