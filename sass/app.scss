@@ -127,6 +127,12 @@ body {
 	overflow: hidden;
 	margin-left: -14px;
 }
+#reveal p, #reveal a.button {
+	margin-bottom:0px;
+}
+#reveal a.button {
+	border-radius:10px;
+}
 #tabzilla {
 	margin-top: -25px;
 }
@@ -214,7 +220,7 @@ p#slogan span {
 		margin-right:80px;
 	}
 	.icons > .indent {
-		border-radius:12px;
+		border-radius:10px;
 	}
 }
 
@@ -229,7 +235,7 @@ p#slogan span {
 }
 
 .notify input[type="submit"] {
-	border-radius:12px;
+	border-radius:10px;
 	width:100%;
 }
 .notify input[type="email"]:focus,

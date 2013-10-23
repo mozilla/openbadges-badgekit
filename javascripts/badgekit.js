@@ -14,5 +14,9 @@ function makeAlert(text,status) {
 //a function to create a reveal and add to the DOM
 function makeReveal(content){
   var reveal = $('<div id="reveal" class="reveal-modal"></div>');
-  reveal.append(content).appendTo('body').foundation('reveal','open');
+  var closeReveal = $('<p class="text-right"><a class="button" href="#">Close</a></p>').click(function(){
+  	$('#reveal').foundation('reveal', 'close');
+  	return false;
+  });
+  reveal.append(content,closeReveal).appendTo('body').foundation('reveal','open');
 }
