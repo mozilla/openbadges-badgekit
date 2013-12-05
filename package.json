@@ -1,0 +1,19 @@
+{
+  "name": "openbadges-badgekit",
+  "description": "Mozilla Openbadges BadgeKit",
+  "version": "0.1.0",
+  "main": "app/index.js",
+  "author": "Mozilla Open Badges http://openbadges.org",
+  "license": "MPL 2.0",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mozilla/openbadges-badgekit.git"
+  },
+  "dependencies": {
+    "express": "~3.4.0",
+    "nunjucks": "~1.0.0",
+    "optimist": "~0.6.0",
+    "client-sessions": "~0.4.0"
+  }
+}
