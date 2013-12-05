@@ -44,7 +44,7 @@ If the app finds a `config.json` file in the root, it will use parameters in thi
 
 ```
 {
-  "port": 3456
+  "port": 3456,
   "cookie": {
     "secret": "chocolatechips"
   }
