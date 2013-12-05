@@ -10,7 +10,7 @@ BadgeKit evolved out of several years of work in this field as well as LOTS of u
 Setup
 ======================
 
-Configuration
+App Configuration
 -------------
 
 BadgeKit can be configured using three different methods (in order of priority):
@@ -62,10 +62,27 @@ export COOKIE_SECRET='chocolatechips'
 
 Then you can source the file like `. config.env`.
 
-Environment
+App Environment
 -----------
 
 The following environment variables are currently used:
 
 - COOKIE_SECRET: Should be a large, unguessable string.  Required.
 - PORT: The port that the BadgeKit server should listen on.  Defaults to 3000.
+
+Database Configuration
+-----------
+
+Database configuration follows the conventions of [db-migrate][db-migrate]: named database environments
+are defined in `database.json`. Values there can be defined directly or read from environment variables.
+
+The default environment is named `dev`, which expects a MySQL database defined by the environment variables:
+
+- DATABASE_HOST: database host
+- DATABASE_USER: database user
+- DATABASE_PASSWORD: database password
+- DATABASE_NAME: name of the database
+
+Modify `database.json` to suit your needs.
+
+[db-migrate]: https://github.com/kunklejr/node-db-migrate#configuration
