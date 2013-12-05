@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}BadgeKit{% endblock %}</title>
+  {% block head -%}
+    <link rel="stylesheet" href="{{ static('/css/base.css') }}">
+  {%- endblock %}
+</head>
+<body>
+  {% block body -%}
+    {% block headerWrapper -%}
+      <header id="header">
+        {% block header -%}
+        {%- endblock %}    
+      </header>
+    {%- endblock %}
+    {% block contentWrapper -%}
+      <div id="content">
+        {% block content -%}
+        {%- endblock %}
+      </div>
+    {%- endblock %}
+    {% block footerWrapper -%}
+      <footer id="footer">
+        {% block footer -%}
+        {%- endblock %}
+      </footer>
+    {%- endblock %}
+  {%- endblock %}
+  {% block scripts -%}
+  {%- endblock %}
+</body>
+</html>
