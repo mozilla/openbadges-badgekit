@@ -1,6 +1,5 @@
 const path = require('path');
-
-var config = require(path.join(__dirname, '../../lib/config'));
+const config = require('config-store');
 
 try {
   exports = module.exports = config(path.join(__dirname, '../../config.json'));
