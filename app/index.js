@@ -10,7 +10,7 @@ var env = new nunjucks.Environment(new nunjucks.FileSystemLoader(path.join(__dir
 
 env.express(app);
 
-require('../lib/router.js')(app);
+require('express-monkey-patch')(app);
 
 var staticDir = path.join(__dirname, '/static');
 var staticRoot = '/static';
