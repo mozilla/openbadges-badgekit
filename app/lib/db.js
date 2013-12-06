@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const streamsql = require('streamsql');
 const config = require('./config');
-const configStore = require('../../lib/config.js');
+const configStore = require('config-store');
 const dbm = require('db-migrate')
 
 var env = config('DATABASE_ENVIRONMENT', 'dev');
