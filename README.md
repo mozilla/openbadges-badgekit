@@ -69,7 +69,7 @@ The following environment variables are currently used:
 
 - COOKIE_SECRET: Should be a large, unguessable string.  Required.
 - PORT: The port that the BadgeKit server should listen on.  Defaults to 3000.
-- DATABASE_DRIVER: Database driver.  Defaults to mysql.
+- DATABASE_DRIVER: Database driver.  Required, currently only mysql supported.
 
 For a MySQL database, you'll also want to set:
 
