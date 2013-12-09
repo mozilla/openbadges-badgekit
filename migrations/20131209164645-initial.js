@@ -4,7 +4,7 @@ var type = dbm.dataType;
 exports.up = function(db, callback) {
   db.runSql("CREATE TABLE IF NOT EXISTS `badge` ("
             + "id               BIGINT AUTO_INCREMENT PRIMARY KEY,"
-            + "name             VARCHAR(128) UNIQUE NOT NULL,"
+            + "name             VARCHAR(128) NOT NULL,"
             + "status           ENUM('draft', 'template', 'published', 'archived') NOT NULL"
             + ") ENGINE=InnoDB;", callback);
 };
