@@ -52,7 +52,7 @@ exports.recreateDatabase = function recreateDatabase(options, callback) {
     exports.sql("USE `" + db + "`;")
   ];
   if (options.up) {
-    series.push(migrations.up);
+    series.push(exports.up());
   }
   async.series(series, function (err, results) {
     if (err) throw err;
