@@ -71,20 +71,11 @@ The following environment variables are currently used:
 - PORT: The port that the BadgeKit server should listen on.  Defaults to 3000.
 - OPENBADGER_URL: The url of the openbadger API that this application should talk to.  Required.
 - OPENBADGER_SECRET: The shared secret defined by the openbadger app.  Required.
+- DATABASE_DRIVER: Database driver.  Required, currently only mysql supported.
 
-Database Configuration
------------
+For a MySQL database, you'll also want to set:
 
-Database configuration follows the conventions of [db-migrate][db-migrate]: named database environments
-are defined in `database.json`. Values there can be defined directly or read from environment variables.
-
-The default environment is named `dev`, which expects a MySQL database defined by the environment variables:
-
-- DATABASE_HOST: database host
-- DATABASE_USER: database user
-- DATABASE_PASSWORD: database password
-- DATABASE_NAME: name of the database
-
-Modify `database.json` to suit your needs.
-
-[db-migrate]: https://github.com/kunklejr/node-db-migrate#configuration
+- DATABASE_HOST: Database host.  Defaults to localhost.
+- DATABASE_USER: Database user.
+- DATABASE_PASSWORD: Database password.
+- DATABASE_DATABASE: Name of the database to use.
