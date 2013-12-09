@@ -1,0 +1,23 @@
+.badgethumb {
+  width: 80%;
+}
+
+.badgeinfo {
+  position: relative;
+  width: 25%;
+  float: left;
+  text-align: center;
+}
+
+.badgeinfo p {
+  height: 3em;
+}
+
+.directoryheader {
+  text-align: center;
+}
+
+.pagenav {
+  clear: both;
+  text-align: center;
+}

@@ -69,6 +69,8 @@ The following environment variables are currently used:
 
 - COOKIE_SECRET: Should be a large, unguessable string.  Required.
 - PORT: The port that the BadgeKit server should listen on.  Defaults to 3000.
+- OPENBADGER_URL: The url of the openbadger API that this application should talk to.  Required.
+- OPENBADGER_SECRET: The shared secret defined by the openbadger app.  Required.
 - DATABASE_DRIVER: Database driver.  Required, currently only mysql supported.
 
 For a MySQL database, you'll also want to set:

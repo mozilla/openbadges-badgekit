@@ -3,6 +3,7 @@ const nunjucks = require('nunjucks');
 const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
+const views = require('./views');
 
 var app = express();
 
@@ -29,9 +30,8 @@ app.use(middleware.csrf({ whitelist: [] }));
 
 app.use(staticRoot, express.static(staticDir));
 
-app.get('/', function (req, res, next) {
-  res.render('home.html');
-});
+app.get('/', 'home', middleware.redirect('directory', 302));
+app.get('/directory', 'directory', views.directory);
 
 if (!module.parent) {
   const port = config('PORT', 3000);
