@@ -79,4 +79,23 @@ function describeMigration(name, getSeries) {
 
 describe('Migrations', function () {
 
+  describeMigration('initial', function (id, prevId) {
+    return [
+      up({destination: id}),
+      sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(1, "one migration recorded");
+        results[0].name.should.equal(id);
+      }),
+      sql("SELECT * FROM badge", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      down({count: 1}),
+      sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(0, "migration rolled back");
+      }),
+      sqlError("SELECT * FROM badge", "ER_NO_SUCH_TABLE")
+    ];
+  });
+
 });
