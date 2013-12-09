@@ -10,15 +10,23 @@
     "type": "git",
     "url": "git://github.com/mozilla/openbadges-badgekit.git"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R spec test/*.test.js"
+  },
   "dependencies": {
     "express": "~3.4.0",
     "express-monkey-patch": "~0.1.0",
     "nunjucks": "~1.0.0",
     "optimist": "~0.6.0",
     "client-sessions": "~0.4.0",
-    "config-store": "~0.1.0",
+    "config-store": "~0.2.0",
     "db-migrate": "~0.6.3",
     "streamsql": "~0.4.1",
     "mysql": "~2.0.0-rc1"
+  },
+  "devDependencies": {
+    "mocha": "~1.15.1",
+    "async": "~0.2.9",
+    "should": "~2.1.1"
   }
 }
