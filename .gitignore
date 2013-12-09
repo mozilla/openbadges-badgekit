@@ -16,3 +16,5 @@ node_modules
 
 config.env
 config.json
+
+.DS_Store

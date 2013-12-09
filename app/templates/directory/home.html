@@ -1,0 +1,23 @@
+{% extends "directory/layout.html" %}
+{% block content %}
+  <h1 class="directoryheader">Badge Directory</h1>
+
+  {% for badge in badges %}
+    <div class="badgeinfo">
+      <img class="badgethumb" src="{{ badge.image }}"/>
+      <p>{{ badge.name }}</p>
+    </div>
+  {% endfor %}
+
+  {% if pages > 1 %}
+    <div class="pagenav">
+      {% if page > 1 %}
+        <a href="?page={{ page - 1 }}">Previous Page</a>
+      {% endif %}
+      {% if page < pages %}
+        <a href="?page={{ page + 1 }}">Next Page</a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+{% endblock %}
