@@ -1,19 +1,20 @@
 var async = require('async');
 var migrations = require('../lib/migrations');
 var config = require('../app/lib/config');
-var connection = require('../app/lib/db')();
+var connection = require('../app/lib/db')("TEST_DATABASE");
+const DB_CONFIG = config("TEST_DATABASE");
 
 exports.up = function up(options) {
   options = options || {};
   if (!options.config)
-    options.config = config("DATABASE");
+    options.config = DB_CONFIG;
   return function(callback) { migrations.up(options, callback); };
 }
 
 exports.down = function down(options) {
   options = options || {};
   if (!options.config)
-    options.config = config("DATABASE");
+    options.config = DB_CONFIG;
   return function(callback) { migrations.down(options, callback); };
 }
 
@@ -45,7 +46,7 @@ exports.recreateDatabase = function recreateDatabase(options, callback) {
     options = {};
   }
 
-  var dbName = config("DATABASE_DATABASE");
+  var dbName = DB_CONFIG.database;
   var series = [
     exports.sql("DROP DATABASE IF EXISTS `" + dbName + "`;"),
     exports.sql("CREATE DATABASE `" + dbName + "`;"),
