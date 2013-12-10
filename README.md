@@ -79,3 +79,17 @@ For a MySQL database, you'll also want to set:
 - DATABASE_USER: Database user.
 - DATABASE_PASSWORD: Database password.
 - DATABASE_DATABASE: Name of the database to use.
+
+Tests
+-----------
+
+Tests can be run with `npm test`.
+
+You will need to define the following configuration parameters through one of the
+methods outlined above:
+
+- TEST_DATABASE_DRIVER: Database driver.  Required, currently only mysql supported.
+- TEST_DATABASE_HOST: Database host.  Defaults to localhost.
+- TEST_DATABASE_USER: Database user.
+- TEST_DATABASE_PASSWORD: Database password.
+- TEST_DATABASE_DATABASE: Name of the database to use.
