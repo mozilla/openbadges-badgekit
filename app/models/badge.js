@@ -1,4 +1,4 @@
-var db = require('../lib/db');
+var db = require('../lib/db')();
 
 module.exports = db.table('badge', {
   fields: ['name', 'status']

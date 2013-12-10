@@ -1,7 +1,7 @@
 var async = require('async');
 var migrations = require('../lib/migrations');
 var config = require('../app/lib/config');
-var connection = require('../app/lib/db');
+var connection = require('../app/lib/db')();
 
 exports.up = function up(options) {
   options = options || {};
@@ -45,11 +45,11 @@ exports.recreateDatabase = function recreateDatabase(options, callback) {
     options = {};
   }
 
-  var db = config("DATABASE_DATABASE");
+  var dbName = config("DATABASE_DATABASE");
   var series = [
-    exports.sql("DROP DATABASE IF EXISTS `" + db + "`;"),
-    exports.sql("CREATE DATABASE `" + db + "`;"),
-    exports.sql("USE `" + db + "`;")
+    exports.sql("DROP DATABASE IF EXISTS `" + dbName + "`;"),
+    exports.sql("CREATE DATABASE `" + dbName + "`;"),
+    exports.sql("USE `" + dbName + "`;")
   ];
   if (options.up) {
     series.push(exports.up());
