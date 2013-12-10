@@ -1,4 +1,4 @@
-var Badge = require('../app/models/badge');
+var Badge = require('../app/models/badge')();
 var helpers = require('./');
 
 describe('Badge Model', function () {
