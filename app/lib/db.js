@@ -3,5 +3,6 @@ const fs = require('fs');
 const streamsql = require('streamsql');
 const config = require('./config');
 
-var opts = config("DATABASE");
-module.exports = streamsql.connect(opts);
+module.exports = function getDB (key) {
+  return streamsql.connect(config(key));
+};
