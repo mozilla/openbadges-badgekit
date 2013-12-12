@@ -1,8 +1,9 @@
 var async = require('async');
 var migrations = require('../lib/migrations');
 var config = require('../app/lib/config');
-var connection = require('../app/lib/db')("TEST_DATABASE");
-const DB_CONFIG = config("TEST_DATABASE");
+var db = require('../app/lib/db');
+var connection = db.getDb("TEST_DATABASE");
+const DB_CONFIG = db.getDbConfig("TEST_DATABASE");
 
 exports.up = function up(options) {
   options = options || {};

@@ -9,7 +9,7 @@ var migrate = require('db-migrate');
 var log = require('db-migrate/lib/log');
 var mysql = require('mysql');
 var migrations = require('../lib/migrations');
-var config = require('../app/lib/config');
+var db = require('../app/lib/db');
 
 process.on('uncaughtException', function(err) {
   log.error(err.stack);
@@ -76,7 +76,7 @@ function run() {
       break;
     case 'up':
     case 'down':
-      argv.config = config('DATABASE');
+      argv.config = db.getDbConfig('DATABASE');
       if(verbose) {
         log.info("Using settings:", argv.config);
       }
