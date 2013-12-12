@@ -1,7 +1,7 @@
-var getDB = require('../lib/db');
+var getDb = require('../lib/db').getDb;
 
 module.exports = function getBadgeModel (key) {
-  var db = getDB(key);
+  var db = getDb(key);
   try {
     return db.table('badge');
   }
