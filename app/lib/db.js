@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const streamsql = require('streamsql');
 const config = require('./config');
+const mysql = require('mysql');
 
 function getDbConfig (prefix) {
   prefix += '_';
@@ -15,7 +16,28 @@ function getDbConfig (prefix) {
 }
 
 function getDb (prefix) {
-  return streamsql.connect(getDbConfig(prefix));
+  db = streamsql.connect(getDbConfig(prefix));
+
+  function handleDisconnect() {
+    db.connection = mysql.createConnection(getDbConfig(prefix));
+    db.connection.connect();
+    setErrorHandler();
+  }
+
+  function setErrorHandler() {
+    db.connection.on('error', function(err) {
+      if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        handleDisconnect();
+      }
+      else {
+        console.error(err);
+      }
+    });
+  }
+
+  setErrorHandler();
+
+  return db;
 };
 
 module.exports.getDb = getDb;
