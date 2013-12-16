@@ -18,3 +18,4 @@ config.env
 config.json
 
 .DS_Store
+.env
