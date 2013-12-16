@@ -28,10 +28,17 @@ app.use(express.bodyParser());
 app.use(middleware.session());
 app.use(middleware.csrf({ whitelist: [] }));
 
+app.use(middleware.addCsrfToken);
+
 app.use(staticRoot, express.static(staticDir));
 
 app.get('/', 'home', middleware.redirect('directory', 302));
-app.get('/directory', 'directory', views.directory);
+app.get('/directory', 'directory', views.directory.home);
+app.get('/directory/addBadge', 'directory.addBadge', views.directory.addBadge);
+
+app.get('/badge/:badgeId', 'badge', views.badge.home);
+app.post('/badge/:badgeId', 'badge.save', views.badge.save);
+app.get('/images/badge/:badgeId.png', 'badge.image', views.badge.image);
 
 if (!module.parent) {
   const port = config('PORT', 3000);
