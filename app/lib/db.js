@@ -19,8 +19,12 @@ function getDb (prefix) {
   var db = streamsql.connect(getDbConfig(prefix));
 
   function handleDisconnect() {
-    db.connection = mysql.createConnection(getDbConfig(prefix));
-    db.connection.connect();
+    var newDb = streamsql.connect(getDbConfig(prefix));
+    
+    db.connection = newDb.connection;
+    db.query = newDb.query;
+    db.queryStream = newDb.queryStream;
+    
     setErrorHandler();
   }
 
