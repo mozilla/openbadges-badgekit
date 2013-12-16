@@ -19,6 +19,11 @@ exports.session = function session () {
   });
 };
 
+exports.addCsrfToken = function addCsrfToken (req, res, next) {
+  res.locals.csrfToken = req.session._csrf;
+  next();
+};
+
 exports.redirect = function (target, params, status) {
   if (typeof params === 'number') {
     status = params;

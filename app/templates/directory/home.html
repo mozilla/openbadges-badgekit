@@ -1,12 +1,13 @@
 {% extends "directory/layout.html" %}
 {% block content %}
   <h1 class="directoryheader">Badge Directory</h1>
-
+  <p class="addbadge"><a href="{{ url('directory.addBadge') }}">Add Badge</a></p>
   {% for badge in badges %}
-    <div class="badgeinfo">
-      <img class="badgethumb" src="{{ badge.image }}"/>
+    <a class="badgeinfo" href="{{ url('badge', { badgeId: badge.id }) }}">
+      <img class="badgethumb" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
       <p>{{ badge.name }}</p>
-    </div>
+      <p>{% if badge.status %} {{ badge.status | capitalize }} {% else %} Active {% endif %}</p>
+    </a>
   {% endfor %}
 
   {% if pages > 1 %}

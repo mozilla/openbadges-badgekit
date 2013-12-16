@@ -1,0 +1,27 @@
+{% extends "badge/layout.html" %}
+
+{% macro disabled() %}
+  {{ 'disabled' if badge.status != "draft" }}
+{% endmacro %}
+
+{% block content %}
+  <h1>Edit Badge</h1>
+  <div class="badgedetails">
+    <form class="badgeform" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+      <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
+      <dl>
+        <dt>Name:</dt>
+        <dd><input type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/></dd>
+        <img class="badgeimage" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
+        <dt>Description:</dt>
+        <dd><textarea class="descriptionfield" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea></dd>
+        <dt>Criteria:</dt>
+        <dd><textarea type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea></dd>
+        <dt>Status:</dt>
+        <dd>{{ badge.status | capitalize if badge.status else 'Active' }}</dd>
+      </dl>
+      <input class="submitbutton" type="submit" {{ disabled() }} value="Save Changes">
+    </form>
+  </div>
+{% endblock %}
