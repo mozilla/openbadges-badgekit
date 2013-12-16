@@ -27,6 +27,7 @@ function getDb (prefix) {
   function setErrorHandler() {
     db.connection.on('error', function(err) {
       if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        console.log('Reconnecting to db');
         handleDisconnect();
       }
       else {
