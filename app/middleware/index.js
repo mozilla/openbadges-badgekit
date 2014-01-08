@@ -56,6 +56,6 @@ exports.sass = function (staticDir) {
     src: 'scss',
     dest: 'css',
     prefix: '/static',
-    debug: false
+    debug: config('debug', false)
   });
 };
