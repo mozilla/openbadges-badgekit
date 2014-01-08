@@ -27,6 +27,7 @@ app.use(express.compress());
 app.use(express.bodyParser());
 app.use(middleware.session());
 app.use(middleware.csrf({ whitelist: [] }));
+app.use(middleware.sass(staticDir));
 
 app.use(staticRoot, express.static(staticDir));
 
