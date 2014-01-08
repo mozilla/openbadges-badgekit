@@ -49,12 +49,12 @@ exports.redirect = function (target, params, status) {
   }
 };
 
-exports.sass = function (staticDir, staticRoot) {
+exports.sass = function (root, prefix) {
   return sass.middleware({
-    root: staticDir,
+    root: root,
     src: 'scss',
     dest: 'css',
-    prefix: staticRoot,
+    prefix: prefix,
     debug: config('debug', false)
   });
 };
