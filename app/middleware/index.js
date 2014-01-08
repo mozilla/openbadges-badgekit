@@ -3,7 +3,6 @@ var config = require('../lib/config');
 var formatUrl = require('url').format;
 var parseUrl = require('url').parse;
 var sass = require('node-sass');
-var path = require('path');
 
 exports.csrf = require('./csrf');
 
