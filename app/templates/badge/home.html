@@ -1,7 +1,7 @@
 {% extends "badge/layout.html" %}
 
 {% macro disabled() %}
-  {{ 'disabled' if badge.status != "draft" }}
+  {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
 {% endmacro %}
 
 {% block content %}

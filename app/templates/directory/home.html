@@ -1,7 +1,15 @@
 {% extends "directory/layout.html" %}
 {% block content %}
   <h1 class="directoryheader">Badge Directory</h1>
-  <p class="addbadge"><a href="{{ url('directory.addBadge') }}">Add Badge</a></p>
+  <h2 class="categories">
+    <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
+    <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
+    <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
+    <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
+  </h2>
+  {% if category == 'template' or category == 'draft' %}
+    <p class="addbadge"><a href="{{ url('directory.addBadge') }}?category={{ category }}">Add {{ category | capitalize }}</a></p>
+  {% endif %}
   {% for badge in badges %}
     <a class="badgeinfo" href="{{ url('badge', { badgeId: badge.id }) }}">
       <img class="badgethumb" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
@@ -13,10 +21,10 @@
   {% if pages > 1 %}
     <div class="pagenav">
       {% if page > 1 %}
-        <a href="?page={{ page - 1 }}">Previous Page</a>
+        <a href="?category={{ category }}&page={{ page - 1 }}">Previous Page</a>
       {% endif %}
       {% if page < pages %}
-        <a href="?page={{ page + 1 }}">Next Page</a>
+        <a href="?category={{ category }}&page={{ page + 1 }}">Next Page</a>
       {% endif %}
     </div>
   {% endif %}
