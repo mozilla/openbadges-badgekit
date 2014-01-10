@@ -1,0 +1,36 @@
+@import "base";
+
+.gray-btn {
+  text: {
+    transform: uppercase;
+    decoration: none;
+  }
+  font-weight: bold;
+  margin-bottom:7px;
+  margin-left: 7px;
+  background-color: $gray10;
+  color: $gray;
+  height:29px;
+  line-height:31px;
+  padding: 0 20px;
+  font-size:12px;
+  cursor: pointer;
+  border:1px solid $gray30;
+  letter-spacing:.1em;
+}
+
+.edit-btn {
+  display: inline-block;
+  width: 40px;
+  background-position: 55px 6px;
+  background-repeat: no-repeat;
+  background-image: url("../images/edit-btn.png");
+  height: 28px;
+  line-height: 30px;
+}
+
+.use-btn,
+.view-btn,
+.blank-import-btn {
+  display: inline-block;
+}
