@@ -32,7 +32,19 @@
 
 /* ===[ Base styles ]======================================================== */
 
+$one-wide: 13.6%;
+$two-wide: 30.9%;
+$three-wide: 48.2%;
+$four-wide: 65.5%;
+$five-wide: 82.7%;
+$six-wide: 100%;
+$quarter-wide: 22.2%;
+$three-quarters-wide:74.1%;
 
 body {
   font-family: "Open Sans", sans-serif;
+}
+
+li {
+  list-style: none;
 }

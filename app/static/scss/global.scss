@@ -1,0 +1,195 @@
+@import "base";
+
+.header-container,
+.footer-container {
+  padding: 0 0 20px 0;
+  margin-top: 30px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  h1 {
+    margin: 0;
+    padding: 28px 0 0 0;
+  }
+}
+
+.footer-container {
+  width: $six-wide;
+  padding: 45px 0;
+  .footnote-container,
+  .footer-menu {
+    margin: 0 40px;
+  }
+}
+
+.badgekit-logo {
+  width: 300px;
+}
+
+.nav-header {
+  margin: 0 auto;
+  .menu {
+    text-align: center;
+  }
+}
+
+.account-sign-in {
+  float: right;
+  margin-right: 200px;
+  span { margin: 0 10px; }
+}
+
+.menu {
+  margin: -1em 0 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1em;
+}
+
+.header-container {
+  .menu-item {
+    float: none;
+    display: inline-block;
+    border-right: 1px solid black;
+    padding: 0 1em;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.home-search {
+  float: right;
+  margin-top: -20px;
+}
+
+.open-badges-logo {
+  display: block;
+  width: 350px;
+  height: 80px;
+  background: url("../images/newoblogo.png") no-repeat;
+  text-indent: -100%;
+  overflow: hidden;
+  margin-left: -14px;
+  margin-right: 20px;
+}
+
+.footnote-container {
+  float: left;
+  width: 300px;
+  margin: 0 40px;
+}
+
+.header-tab {
+  float: right;
+  display: block;
+  background: white;
+  border: 1px solid black;
+  height: 44px;
+  width: 110px;
+  padding: 0 15px;
+  position: relative;
+  /*text-indent: -2000px;*/
+  overflow: hidden;
+  margin-top: -45px;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 25px;
+  margin: 0 auto;
+}
+
+.column {margin-bottom:20px;}
+
+.left { float: left; }
+.right { float: right; }
+.middle {
+  margin-left:3.7%;
+  float:left;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+
+.clearfix { display: block; }
+
+.cb { clear: both }
+
+
+/* ===[ Responsive Styles ] ========================*/
+  /* mobile */
+@media (max-width:568px) {
+  .header-container {
+    border: none;
+    margin-top: 20px;
+    h1 { padding: 0; }
+    .header-tab {
+      display: none;
+      padding:
+    }
+    .badgekit-logo {
+      width: $six-wide;
+      margin: 20px 0;
+      text-align: center;
+    }
+  }
+  .account-sign-in {
+    float: none;
+    margin-right: 0;
+    text-align: center;
+  }
+  .header-container {
+    .menu {
+      padding: 15px 0;
+    }
+    .menu-item {
+      width: $four-wide;
+      display: block;
+      border: 1px solid black;
+      padding: 5px;
+      margin: 10px auto;
+      &:last-child {
+        border-right: 1px solid black;
+      }
+    }
+  }
+  .home-search {
+    float: none;
+    margin-top: 0;
+    margin: 0 auto;
+    input {
+      width: $six-wide;
+    }
+  }
+  .footer-container {
+    margin-top: 30px;
+    .footnote-container {
+      width: $six-wide;
+      clear: both;
+      padding: 20px 0;
+      margin: 0;
+    }
+    .footer-menu {
+      margin: 0;
+    }
+    .other-lang {
+      float: left;
+    }
+  }
+}
+
+/* Tablet */
+@media (min-width: 551px) and (max-width: 959px) {
+}
+
