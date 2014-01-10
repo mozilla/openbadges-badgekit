@@ -1,5 +1,31 @@
 {% extends "directory/layout.html" %}
 {% block content %}
+  <div class="container">
+    <h1 class="centered-header">Badge issuing made simple</h1>
+    <h2>Get started making a badge:</h2>
+
+    <div class="badges-container clearfix">
+      <section class="badge-template left">
+        <!-- <img class="badgethumb" src=""> -->
+        <div class="badgethumb"></div>
+        <h2>ABC Title</h2>
+        <p>Status: Template</p>
+        <a href="" class="gray-btn view-btn">View</a>
+        <a href="" class="gray-btn use-btn">Use</a>
+        <a href="" class="gray-btn edit-btn ">Edit</a>
+      </section>
+
+      <section class="badge-new">
+        <!-- <img class="badgethumb" src=""> -->
+        <div class="new-placeholder"><span>+</span></div>
+        <h2>Add a New Badge</h2>
+        <a href="" class="gray-btn blank-import-btn">Blank</a>
+        <a href="" class="gray-btn blank-import-btn">Import</a>
+      </section>
+    </div>
+
+  </div>
+
   <h1 class="directoryheader">Badge Directory</h1>
   <h2 class="categories">
     <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
