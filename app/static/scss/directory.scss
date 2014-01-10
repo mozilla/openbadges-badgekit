@@ -1,5 +1,5 @@
 .badgethumb {
-  width: 80%;
+  height: 200px;
 }
 
 .badgeinfo {
@@ -7,17 +7,38 @@
   width: 25%;
   float: left;
   text-align: center;
+  height: 300px;
+  line-height: 50%;
 }
 
-.badgeinfo p {
-  height: 3em;
+a.badgeinfo {
+  text-decoration: none;
+  color: inherit;
 }
 
 .directoryheader {
   text-align: center;
 }
 
+.categories {
+  text-align: center;
+}
+
+.categories > a {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 15px;
+}
+
+a.highlighted {
+  background-color: #00AAAA;
+}
+
 .pagenav {
   clear: both;
+  text-align: center;
+}
+
+.addbadge {
   text-align: center;
 }

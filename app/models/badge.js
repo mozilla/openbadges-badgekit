@@ -7,7 +7,7 @@ module.exports = function getBadgeModel (key) {
   }
   catch (ex) {
     return db.table('badge', {
-      fields: ['name', 'status']
+      fields: ['name', 'status', 'description', 'criteria']
     });
   }
 }

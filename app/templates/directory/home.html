@@ -2,48 +2,44 @@
 {% block content %}
   <div class="container">
     <h1 class="centered-header">Badge issuing made simple</h1>
-    <h2>Get started making a badge:</h2>
+    <h2 class="categories">
+      <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
+      <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
+      <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
+      <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
+    </h2>
 
     <div class="badges-container clearfix">
-      <section class="badge-template left">
-        <!-- <img class="badgethumb" src=""> -->
-        <div class="badgethumb"></div>
-        <h2>ABC Title</h2>
-        <p>Status: Template</p>
-        <a href="" class="gray-btn view-btn">View</a>
-        <a href="" class="gray-btn use-btn">Use</a>
-        <a href="" class="gray-btn edit-btn ">Edit</a>
-      </section>
-
-      <section class="badge-new">
-        <!-- <img class="badgethumb" src=""> -->
-        <div class="new-placeholder"><span>+</span></div>
-        <h2>Add a New Badge</h2>
-        <a href="" class="gray-btn blank-import-btn">Blank</a>
-        <a href="" class="gray-btn blank-import-btn">Import</a>
-      </section>
+      {% for badge in badges %}
+        <section class="badge-template left">
+          <img class="badgethumb" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+          <h2>{{ badge.name }}</h2>
+          <p>Status: {{ badge.status | default('active') | capitalize }}</p>
+          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
+          {% if category == 'template' %} <a href="" class="gray-btn use-btn">Use</a> {% endif %}
+          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
+        </section>
+      {% endfor %}
+      {% if category == 'template' or category == 'draft' %}
+        <section class="badge-new">
+          <!-- <img class="badgethumb" src=""> -->
+          <div class="new-placeholder"><span>+</span></div>
+          <h2>Add a New {{ category | capitalize }}</h2>
+          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-import-btn">Blank</a>
+          <a href="" class="gray-btn blank-import-btn">Import</a>
+        </section>
+      {% endif %}
     </div>
 
+    {% if pages > 1 %}
+      <div class="pagenav">
+        {% if page > 1 %}
+          <a href="?category={{ category }}&page={{ page - 1 }}">Previous Page</a>
+        {% endif %}
+        {% if page < pages %}
+          <a href="?category={{ category }}&page={{ page + 1 }}">Next Page</a>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
-
-  <h1 class="directoryheader">Badge Directory</h1>
-
-  {% for badge in badges %}
-    <div class="badgeinfo">
-      <img class="badgethumb" src="{{ badge.image }}"/>
-      <p>{{ badge.name }}</p>
-    </div>
-  {% endfor %}
-
-  {% if pages > 1 %}
-    <div class="pagenav">
-      {% if page > 1 %}
-        <a href="?page={{ page - 1 }}">Previous Page</a>
-      {% endif %}
-      {% if page < pages %}
-        <a href="?page={{ page + 1 }}">Next Page</a>
-      {% endif %}
-    </div>
-  {% endif %}
-
 {% endblock %}
