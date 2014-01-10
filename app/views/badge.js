@@ -42,8 +42,6 @@ exports.save = function save (req, res, next) {
 };
 
 exports.image = function image (req, res, next) {
-  var img = fs.readFileSync(path.join(__dirname, '../static/images/default-badge.png'));
-  res.writeHead(200, {'Content-Type': 'image/png' });
-  res.end(img, 'binary');
+  res.sendfile(path.join(__dirname, '../static/images/default-badge.png'));
 };
 

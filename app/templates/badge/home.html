@@ -13,13 +13,13 @@
       <dl>
         <dt>Name:</dt>
         <dd><input type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/></dd>
-        <img class="badgeimage" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
+        <img class="badgeimage" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
         <dt>Description:</dt>
         <dd><textarea class="descriptionfield" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea></dd>
         <dt>Criteria:</dt>
         <dd><textarea type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea></dd>
         <dt>Status:</dt>
-        <dd>{{ badge.status | capitalize if badge.status else 'Active' }}</dd>
+        <dd>{{ badge.status | default('active') | capitalize }}</dd>
       </dl>
       <input class="submitbutton" type="submit" {{ disabled() }} value="Save Changes">
     </form>

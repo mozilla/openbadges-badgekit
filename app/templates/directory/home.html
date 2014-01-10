@@ -12,9 +12,9 @@
   {% endif %}
   {% for badge in badges %}
     <a class="badgeinfo" href="{{ url('badge', { badgeId: badge.id }) }}">
-      <img class="badgethumb" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
+      <img class="badgethumb" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
       <p>{{ badge.name }}</p>
-      <p>{% if badge.status %} {{ badge.status | capitalize }} {% else %} Active {% endif %}</p>
+      <p>{{ badge.status | default('active') | capitalize }}</p>
     </a>
   {% endfor %}
 
