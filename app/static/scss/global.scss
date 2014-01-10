@@ -130,14 +130,16 @@
   }
 }
 
-.badge-new{
-  border: 1px dotted $gray;
+.badge-new {
+  box-sizing: border-box;
+  border: dashed 3px $gray30;
+  float: left;
   .new-placeholder {
     margin-right: 30px;
     float: left;
     background: $gray30;
     width: 150px;
-    height: 148px;
+    height: 144px;
     span {
       font-size: 100px;
       color: white;
