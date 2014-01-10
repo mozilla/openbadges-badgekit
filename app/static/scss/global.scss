@@ -10,6 +10,9 @@
     margin: 0;
     padding: 28px 0 0 0;
   }
+  .container {
+    padding: 0 25px;
+  }
 }
 
 .footer-container {
@@ -85,7 +88,6 @@
   background: white;
   border: 1px solid black;
   height: 44px;
-  width: 110px;
   padding: 0 15px;
   position: relative;
   /*text-indent: -2000px;*/
@@ -95,17 +97,53 @@
 
 .container {
   max-width: 1200px;
-  padding: 0 25px;
+  padding: 25px;
   margin: 0 auto;
 }
 
-.column {margin-bottom:20px;}
+.centered-header {
+  text-align: center;
+}
 
-.left { float: left; }
-.right { float: right; }
-.middle {
-  margin-left:3.7%;
-  float:left;
+.badges-container {
+  width: $six-wide;
+  margin: 0 auto;
+}
+
+.badge-template,
+.badge-new {
+  width: $three-wide;
+  height: 150px;
+  border: 1px solid $gray;
+  float: left;
+  box-sizing: border-box;
+}
+
+.badge-template {
+  margin: 0 40px 20px 0;
+  .badgethumb {
+    background: $gray;
+    width: 150px;
+    height: 148px;
+    float: left;
+    margin-right: 30px;
+  }
+}
+
+.badge-new{
+  border: 1px dotted $gray;
+  .new-placeholder {
+    margin-right: 30px;
+    float: left;
+    background: $gray30;
+    width: 150px;
+    height: 148px;
+    span {
+      font-size: 100px;
+      color: white;
+      padding: 50px;
+    }
+  }
 }
 
 .clearfix:after {
