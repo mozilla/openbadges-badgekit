@@ -41,10 +41,36 @@ $six-wide: 100%;
 $quarter-wide: 22.2%;
 $three-quarters-wide:74.1%;
 
+/*** STANDARD COLORS ***/
+$black: #000;
+$white: #fff;
+$red: #FF0000;
+
+/*** BRAND COLORS  ***/
+$gray: #8892a1;
+$gray5: #f9f9fa;
+$gray10: #f3f4f5;
+$gray30: #dbdee3;
+$gray50: #c3c8d0;
+$dark-gray: #41444a;
+$warm-gray: #9a9998;
+$warm-gray30: #e2e1df;
+
 body {
   font-family: "Open Sans", sans-serif;
 }
 
+h1 { font-size: 24px; }
+
 li {
   list-style: none;
+}
+
+.column {margin-bottom:20px;}
+
+.left { float: left; }
+.right { float: right; }
+.middle {
+  margin-left:3.7%;
+  float:left;
 }
