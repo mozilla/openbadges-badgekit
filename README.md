@@ -72,6 +72,7 @@ The following environment variables are currently used:
 - OPENBADGER_URL: The url of the openbadger API that this application should talk to.  Required.
 - OPENBADGER_SECRET: The shared secret defined by the openbadger app.  Required.
 - DATABASE_DRIVER: Database driver.  Required, currently only mysql supported.
+- PERSONA_AUDIENCE: Should be set to the app's url (example: "http://localhost:3000").  Required.
 - DEBUG: If set to true, enables additional logging.  Defaults to false.
 
 For a MySQL database, you'll also want to set:

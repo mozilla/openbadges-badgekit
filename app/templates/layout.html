@@ -19,7 +19,11 @@
             </h1>
 
             <div class="account-sign-in">
-              <a href="">Sign In</a><span> or </span><a href="">Create Account</a>
+              {% if loggedInUser %}
+                Hello {{ loggedInUser }}.  <button id="logout">Sign Out</button>
+              {% else %}
+                <button id="login">Sign In</button><span> or </span><button href="">Create Account</button>
+              {% endif %}
             </div>
 
             <h1 class="badgekit-logo">
@@ -104,6 +108,8 @@
     {%- endblock %}
   {%- endblock %}
   {% block scripts -%}
+    <script src="https://login.persona.org/include.js"></script>
+    <script src="{{loginScriptUrl}}"></script>
   {%- endblock %}
 </body>
 </html>

@@ -49,3 +49,21 @@ exports.addBadge = function addBadge (req, res, next) {
     return middleware.redirect(directoryUrl, 302)(req, res, next);
   });
 };
+
+exports.useTemplate = function useTemplate (req, res, next) {
+  const templateId = req.query.templateId;
+
+  Badge.getOne({id: templateId, status: 'template'}, function(err, badge) {
+    if (err) {
+      return res.send(500, err);
+    }
+
+    badge.status = 'draft';
+    delete badge.id;
+
+    Badge.put(badge, function (err, result) {
+      var directoryUrl = res.locals.url('directory') + '?category=draft';
+      return middleware.redirect(directoryUrl, 302)(req, res, next);
+    });
+  });
+};

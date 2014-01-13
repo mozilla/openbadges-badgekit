@@ -24,6 +24,7 @@
     "db-migrate": "~0.6.3",
     "streamsql": "~0.4.1",
     "node-sass": "~0.7.0",
+    "express-persona-observer": "~0.0.1",
     "mysql": "~2.0.0-rc1"
   },
   "devDependencies": {

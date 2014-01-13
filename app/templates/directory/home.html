@@ -16,7 +16,7 @@
           <h2>{{ badge.name }}</h2>
           <p>Status: {{ badge.status | default('active') | capitalize }}</p>
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
-          {% if category == 'template' %} <a href="" class="gray-btn use-btn">Use</a> {% endif %}
+          {% if category == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a> {% endif %}
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
         </section>
       {% endfor %}
