@@ -13,6 +13,7 @@
     {% block headerWrapper -%}
       <header id="header" class="header-container">
         {% block header -%}
+        <!-- if user signed out header -->
           <div class="container">
             <h1>
               <a href="http://www.mozilla.org/" class="header-tab">Mozilla</a>
@@ -48,6 +49,27 @@
             </div>
 
           </div><!-- .header-container -->
+        <!-- if user signed out header -->
+
+        <!-- if user signed in header -->
+          <div class="container">
+            <div class="dropdown dropdown-signed-in right">
+              <select>
+                <option value="Welcome Zahra" selected="selected">Welcome Sarah</option>
+                <option value="Sign Out">Sign Out</option>
+                <option value="Settings">Settings</option>
+              </select>
+              <span class="arrow-down"></span>
+            </div>
+
+            <nav class="nav-header categories cb">
+              <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
+              <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
+              <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
+              <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
+            </nav>
+          </div>
+        <!-- if user signed in header -->
         {%- endblock %}
       </header>
     {%- endblock %}
