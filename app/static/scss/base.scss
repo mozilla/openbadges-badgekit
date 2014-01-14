@@ -31,6 +31,11 @@
 }
 
 /* ===[ Base styles ]======================================================== */
+.container {
+  width: 90%; /*width: 1200px;*/
+  max-width: 1200px;
+  margin: auto;
+}
 
 $one-wide: 13.6%;
 $two-wide: 30.9%;
@@ -74,3 +79,21 @@ li {
   margin-left:3.7%;
   float:left;
 }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+
+.clearfix { display: block; }
+
+.cb { clear: both }
