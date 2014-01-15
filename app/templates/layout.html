@@ -13,19 +13,10 @@
     {% block headerWrapper -%}
       <header id="header" class="header-container">
         {% block header -%}
-        <!-- if user signed out header -->
           <div class="container">
             <h1>
               <a href="http://www.mozilla.org/" class="header-tab">Mozilla</a>
             </h1>
-
-            <div class="account-sign-in">
-              {% if loggedInUser %}
-                Hello {{ loggedInUser }}.  <button id="logout">Sign Out</button>
-              {% else %}
-                <button id="login">Sign In</button><span> or </span><button href="">Create Account</button>
-              {% endif %}
-            </div>
 
             <h1 class="badgekit-logo">
               <a href="">BadgeKit</a>
@@ -52,54 +43,28 @@
               <input placeholder="Search" type="text">
             </div>
 
-          </div><!-- .header-container -->
-        <!-- if user signed out header -->
-
-        <!-- if user signed in header -->
-          <div class="container">
-            <div class="dropdown dropdown-signed-in right">
-              <select>
-                <option value="Welcome Zahra" selected="selected">Welcome Sarah</option>
-                <option value="Sign Out">Sign Out</option>
-                <option value="Settings">Settings</option>
-              </select>
-              <span class="arrow-down"></span>
-            </div>
-
-            <nav class="nav-header categories cb">
-              <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
-              <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
-              <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
-              <a href="">Applications</a>
-              <a href="">Awarded</a>
-              <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
-              <a href="">Applications</a>
-              <a href="" class="dropdown-nav">
-                <span class="arrow-up"></span>
-                <span class="arrow-down"></span>
-                <ul class="menu">
-                  hi
-                  <!-- <li class="menu-item">
-                    <a href="">Name</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="">Aplications</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="">Awarded</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="">Date Active</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="">Date Created</a>
-                  </li> -->
-                </ul>
-              </a>
-
-            </nav>
           </div>
-        <!-- if user signed in header -->
+
+          <div class="container">
+            {% if loggedInUser %}
+              <div class="dropdown dropdown-signed-in right">
+                <select>
+                  <option value="Welcome Zahra" selected="selected">Welcome {{ loggedInUser }}</option>
+                  <option id="logout" value="Sign Out">Sign Out</option>
+                  <option value="Settings">Settings</option>
+                </select>
+                <span class="arrow-down"></span>
+              </div>
+            {% else %}
+              <div class="dropdown dropdown-signed-in right">
+                <select>
+                  <option id="login" value="Sign In">Sign In</option>
+                  <option value="Create Account">Create Account</option>
+                </select>
+                <span class="arrow-down"></span>
+              </div>
+            {% endif %}
+          </div>
         {%- endblock %}
       </header>
     {%- endblock %}
