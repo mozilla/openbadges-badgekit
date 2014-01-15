@@ -2,12 +2,6 @@
 {% block content %}
   <div class="container">
     <h1 class="centered-header">Badge issuing made simple</h1>
-    <h2 class="categories">
-      <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
-      <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
-      <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
-      <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
-    </h2>
 
     <div class="badges-container clearfix">
       {% for badge in badges %}
@@ -32,7 +26,7 @@
     </div>
 
     {% if pages > 1 %}
-      <div class="pagenav">
+      <div class="pagenav cb">
         {% if page > 1 %}
           <a href="?category={{ category }}&page={{ page - 1 }}">Previous Page</a>
         {% endif %}
