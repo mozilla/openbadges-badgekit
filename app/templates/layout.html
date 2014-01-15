@@ -18,10 +18,6 @@
               <a href="http://www.mozilla.org/" class="header-tab">Mozilla</a>
             </h1>
 
-            <div class="account-sign-in">
-              <a href="">Sign In</a><span> or </span><a href="">Create Account</a>
-            </div>
-
             <h1 class="badgekit-logo">
               <a href="">BadgeKit</a>
             </h1>
@@ -47,7 +43,28 @@
               <input placeholder="Search" type="text">
             </div>
 
-          </div><!-- .header-container -->
+          </div>
+
+          <div class="container">
+            {% if loggedInUser %}
+              <div class="dropdown dropdown-signed-in right">
+                <select>
+                  <option value="Welcome Zahra" selected="selected">Welcome {{ loggedInUser }}</option>
+                  <option id="logout" value="Sign Out">Sign Out</option>
+                  <option value="Settings">Settings</option>
+                </select>
+                <span class="arrow-down"></span>
+              </div>
+            {% else %}
+              <div class="dropdown dropdown-signed-in right">
+                <select>
+                  <option id="login" value="Sign In">Sign In</option>
+                  <option value="Create Account">Create Account</option>
+                </select>
+                <span class="arrow-down"></span>
+              </div>
+            {% endif %}
+          </div>
         {%- endblock %}
       </header>
     {%- endblock %}
@@ -104,6 +121,8 @@
     {%- endblock %}
   {%- endblock %}
   {% block scripts -%}
+    <script src="https://login.persona.org/include.js"></script>
+    <script src="{{loginScriptUrl}}"></script>
   {%- endblock %}
 </body>
 </html>

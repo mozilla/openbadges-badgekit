@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const views = require('./views');
+const persona = require('express-persona-observer');
 
 var app = express();
 
@@ -26,16 +27,17 @@ app.use(function (req, res, next) {
 app.use(express.compress());
 app.use(express.bodyParser());
 app.use(middleware.session());
-app.use(middleware.csrf({ whitelist: [] }));
+app.use(middleware.csrf({ whitelist: [ '/persona/login', '/persona/logout', '/persona/verify'] }));
 app.use(middleware.sass(staticDir, staticRoot));
-
 app.use(middleware.addCsrfToken);
-
 app.use(staticRoot, express.static(staticDir));
+
+persona.express(app, { audience: config('PERSONA_AUDIENCE') });
 
 app.get('/', 'home', middleware.redirect('directory', 302));
 app.get('/directory', 'directory', views.directory.home);
 app.get('/directory/addBadge', 'directory.addBadge', views.directory.addBadge);
+app.get('/directory/useTemplate', 'directory.useTemplate', views.directory.useTemplate);
 
 app.get('/badge/:badgeId', 'badge', views.badge.home);
 app.post('/badge/:badgeId', 'badge.save', views.badge.save);

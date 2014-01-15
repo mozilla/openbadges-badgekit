@@ -5,3 +5,22 @@
   <link rel="stylesheet" href="{{ static('/css/directory.css') }}">
   <link rel="stylesheet" href="{{ static('/css/buttons.css') }}">
 {%- endblock %}
+
+{% block header -%}
+  {{ super() }}
+  <nav class="nav-header categories cb">
+    <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
+    <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
+    <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
+    <a href="">Applications</a>
+    <a href="">Awarded</a>
+    <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
+    <a href="">Applications</a>
+    <a href="" class="dropdown-nav">
+      <span class="arrow-up"></span>
+      <span class="arrow-down"></span>
+      <ul class="menu">
+      </ul>
+    </a>
+  </nav>
+{%- endblock %}
