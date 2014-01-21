@@ -5,23 +5,35 @@
 {% endmacro %}
 
 {% block content %}
-  <h1>Edit Badge</h1>
-  <div class="badgedetails">
-    <form class="badgeform" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
+  <div class="container">
+    <form class="badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
+      <h1>Edit Badge</h1>
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
-      <dl>
-        <dt>Name:</dt>
-        <dd><input type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/></dd>
-        <img class="badgeimage" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
-        <dt>Description:</dt>
-        <dd><textarea class="descriptionfield" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea></dd>
-        <dt>Criteria:</dt>
-        <dd><textarea type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea></dd>
-        <dt>Status:</dt>
-        <dd>{{ badge.status | default('active') | capitalize }}</dd>
-      </dl>
-      <input class="submitbutton" type="submit" {{ disabled() }} value="Save Changes">
+
+      <img class="badgeimage" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label" for="name">Name:</label>
+        <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label" class="badge-label">Description:</label>
+        <textarea class="badge-field" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label">Criteria:</label>
+        <textarea class="badge-field" type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label">Status:</label>
+        {{ badge.status | default('active') | capitalize }}
+      </div>
+
+      <button class="gray-btn submit-btn" type="submit" {{ disabled() }}>Save Changes</button>
     </form>
   </div>
 {% endblock %}
