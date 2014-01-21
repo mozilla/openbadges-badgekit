@@ -120,15 +120,14 @@
 
 .badge-template,
 .badge-new {
-  width: 46.2%;
+  width: $three-wide;
   height: 185px;
   border: 1px solid $gray;
   float: left;
-  box-sizing: border-box;
 }
 
 .badge-template {
-  margin: 0 40px 20px 0;
+  margin: 0 20px 20px 0;
   .badgethumb {
     background: $gray;
     width: 183px;
@@ -139,21 +138,25 @@
 }
 
 .badge-new {
-  box-sizing: border-box;
   border: dashed 3px $gray30;
   float: left;
-  .new-placeholder {
-    margin-right: 30px;
-    float: left;
-    background: $gray30;
-    width: 150px;
-    height: 144px;
-    span {
-      font-size: 100px;
-      color: white;
-      padding: 50px;
-    }
+}
+
+.new-placeholder {
+  margin-right: 30px;
+  float: left;
+  background: $gray30;
+  width: 183px;
+  height: 179px;
+  span {
+    font-size: 120px;
+    color: white;
+    padding: 55px;
   }
+}
+
+.status {
+  color: green;
 }
 
 .arrow-up {
@@ -170,6 +173,13 @@
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid $black;
+}
+
+.text-line {
+  border-top: 1px solid $black;
+  display: inline-block;
+  width: 82.5%;
+  margin-left: 20px;
 }
 
 .dropdown {
@@ -213,6 +223,22 @@
   .arrow-down {
     bottom: 5px;
   }
+  ul {
+    display: none;
+    &:hover {
+      display: block;
+    }
+  }
+}
+
+.bold {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.small-copy {
+  color: $gray;
+  margin-top: 0;
 }
 
 
