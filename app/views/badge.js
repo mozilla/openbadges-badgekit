@@ -45,3 +45,46 @@ exports.image = function image (req, res, next) {
   res.sendfile(path.join(__dirname, '../static/images/default-badge.png'));
 };
 
+exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  openbadger.getBadge({ id: badgeId }, function(err, data) {
+    if (err)
+      return res.send(500, err);
+
+    res.render('badge/issue-by-email.html', data);
+  });
+};
+
+exports.issueByEmail = function issueByEmail (req, res, next) {
+  const query = { 
+    learner: {
+      email: req.body.email
+    },
+    badge: req.body.badgeId
+  };
+
+  openbadger.awardBadge(query, function(err, data) {
+    if (err)
+      return res.send(500, err);
+
+    return middleware.redirect('directory', 302)(req, res, next);
+  });
+
+};
+
+exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  openbadger.getBadge({ id: badgeId }, function(err, data) {
+    if (err)
+      return res.send(500, err);
+
+    res.render('badge/issue-by-claim-code.html', data);
+  });
+};
+
+exports.issueByClaimCode = function issueByClaimCode (req, res, next) {
+  // openbadger does not yet support generation of claim codes via its API
+  return middleware.redirect('directory', 302)(req, res, next);
+};

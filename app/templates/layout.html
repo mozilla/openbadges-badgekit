@@ -19,9 +19,9 @@
             </h1>
 
             <h1 class="badgekit-logo">
-              <a href="">BadgeKit</a>
+              <a href="{{ url('directory') }}">BadgeKit</a>
             </h1>
-
+            
             <nav class="nav-header">
               <ul class="menu">
                 <li class="menu-item">
@@ -122,6 +122,7 @@
   {%- endblock %}
   {% block scripts -%}
     <script src="https://login.persona.org/include.js"></script>
+    <script src="{{ static('/js/jquery.min.js') }}"></script>
     <script src="{{loginScriptUrl}}"></script>
   {%- endblock %}
 </body>

@@ -41,6 +41,13 @@ app.get('/directory/useTemplate', 'directory.useTemplate', views.directory.useTe
 
 app.get('/badge/:badgeId', 'badge', views.badge.home);
 app.post('/badge/:badgeId', 'badge.save', views.badge.save);
+
+app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', views.badge.renderIssueByEmail);
+app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', views.badge.issueByEmail);
+
+app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.renderIssueByClaimCode);
+app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.issueByClaimCode);
+
 app.get('/images/badge/:badgeId.png', 'badge.image', views.badge.image);
 
 if (!module.parent) {

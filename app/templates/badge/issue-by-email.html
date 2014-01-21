@@ -1,0 +1,19 @@
+{% extends "badge/layout.html" %}
+
+{% block content %}
+  <h1>Issue Badge by Email Address</h1>
+  <div class="badgedetails">
+    <form class="badgeform" name="input" action="{{ url('badge.issueByEmail', { badgeId: badge.id }) }}" method="post">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+      <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
+      <dl>
+        <dt>Name:</dt>
+        <dd>{{ badge.name }}</dd>
+        <img class="badgeimage" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+        <dt>Enter an Email Address:</dt>
+        <dd><input type="text" name="email"></input></dd>
+      </dl>
+      <input class="submitbutton" type="submit" value="Issue Badge">
+    </form>
+  </div>
+{% endblock %}

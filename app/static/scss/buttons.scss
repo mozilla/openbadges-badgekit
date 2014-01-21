@@ -33,6 +33,19 @@
   margin-left: 0;
 }
 
+.action-btn {
+  display: inline-block;
+  width: 55px;
+  height: 28px;
+  line-height: 30px; 
+  .arrow-down {
+    border-top: 6px solid $gray;
+    margin-left: 5px;
+    position: relative;
+    top: 10px;
+  }
+}
+
 .use-btn,
 .view-btn,
 .blank-import-btn {
