@@ -21,12 +21,16 @@
 
 .edit-btn {
   display: inline-block;
-  width: 40px;
+  width: 80px;
   background-position: 55px 6px;
   background-repeat: no-repeat;
   background-image: url("../images/edit-btn.png");
   height: 28px;
   line-height: 30px;
+}
+
+.submit-btn {
+  margin-left: 0;
 }
 
 .use-btn,
