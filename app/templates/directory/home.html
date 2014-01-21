@@ -1,38 +1,6 @@
 {% extends "directory/layout.html" %}
 {% block content %}
   <div class="container">
-    <div class="badge-details left">
-      <!-- <img src=""> -->
-      <div class="new-placeholder"><span>+</span></div>
-      <a href="" class="gray-btn use-btn">Use</a>
-      <a href="" class="gray-btn edit-btn">Edit</a>
-      <p>Status: <span class="status">Template</span></p>
-      <p>Created: 1/5/2015</p>
-      <p>License: Share alike</p>
-    </div>
-    <div class="badge-info left">
-      <h1>ABC Template</h1>
-      <p class="bold">Program:</p>
-      <p class="small-copy">XYZ Program</p>
-
-      <p class="bold">Shortname:</p>
-      <p class="small-copy"> abc-template-654134</p>
-
-      <p class="bold">Short Description:</p>
-      <p class="small-copy">Boiler plate language. Most of our badges use some variation to describe x, y, and z.</p>
-
-      <p class="bold">Description for Earners:</p>
-      <p class="small-copy">Boiler plate language. Most of our badges use some variation to describe x, y, and z.</p>
-
-      <p class="bold">Technical Description:</p>
-      <p class="small-copy">Boiler plate language. Most of our badges use some variation to describe x, y, and z.</p>
-
-      <p class="bold">Tags:</p>
-      <p class="small-copy">common tags, in our work, tomato, tomahto</p>
-
-      <p class="bold">Criteria:</p>
-      <p class="small-copy">The Summiteer badge is a special edition badge created to acknowledge attendance at the 2013 Mozilla Summit. It is earned by working and sharing among peers at any one of three Summit locales-Santa Clara, Tronoto, Brussels-during the 2013 Mozilla Summit in Brussels, Belgium.</p>
-    </div>
     <div class="badges-container cb">
       {% for badge in badges %}
         <section class="badge-template left">
@@ -41,7 +9,7 @@
           <p>Status: {{ badge.status | default('active') | capitalize }}</p>
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
           {% if category == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a> {% endif %}
-          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
+          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
           {% if category == 'published' %} <span href="" class="gray-btn action-btn">Action<span class="arrow-down"></span>
             <ul class="action-dropdown">
               <li><a href="">SHARE</a></li>
@@ -49,7 +17,7 @@
               <li><a href="">REVIEW APPLICATIONS</a></li>
               <li><a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}">ISSUE BY EMAIL</a></li>
               <hr>
-              <li><a href="">ISSUE BY CLAIM CODE</a></li>
+              <li><a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}">ISSUE BY CLAIM CODE</a></li>
               <li><a href="">VIEW CLAIM CODES</a></li>
               <hr>
               <li><a href="">COPY AS NEW</a></li>

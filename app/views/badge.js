@@ -4,25 +4,38 @@ const Badge = require('../models/badge')("DATABASE");
 const openbadger = require('../lib/openbadger');
 const middleware = require('../middleware');
 
+function getBadgeById(badgeId, callback) {
+  // this is a gross way of distinguishing between local and openbadger-hosted badges.
+  if (parseInt(badgeId)) {
+      Badge.getOne({ id: badgeId }, function(err, row) {
+       callback(err, { badge: row });
+     });
+    }
+    else {
+      openbadger.getBadge({ id: badgeId }, callback);
+    }
+}
+
 exports.home = function home (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  if (parseInt(badgeId)) {
-    Badge.getOne({ id: req.params.badgeId }, function(err, row) {
-      if (err) 
-        return res.send(500, err);
+  getBadgeById(badgeId, function(err, data) {
+    if (err)
+      return res.send(500, err);
 
-      res.render('badge/home.html', { badge: row });
-    });
-  }
-  else {
-    openbadger.getBadge({ id: badgeId }, function(err, data) {
-      if (err)
-        return res.send(500, err);
+    res.render('badge/home.html', data);
+  });
+};
 
-      res.render('badge/home.html', data);
-    });
-  }
+exports.edit = function edit (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  getBadgeById(badgeId, function(err, data) {
+    if (err)
+      return res.send(500, err);
+
+    res.render('badge/edit.html', data);
+  });
 };
 
 exports.save = function save (req, res, next) {

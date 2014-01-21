@@ -1,39 +1,34 @@
 {% extends "badge/layout.html" %}
 
-{% macro disabled() %}
-  {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
-{% endmacro %}
-
 {% block content %}
   <div class="container">
-    <form class="badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
-      <h1>Edit Badge</h1>
-      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
-      <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
-
-      <img class="badgeimage" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
-
-      <div class="form-field-wrapper">
-        <label class="badge-label" for="name">Name:</label>
-        <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/>
+    <div class="badge-details left">
+      <div><img class="badge-image" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"></div>
+      {% if badge.status == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a> {% endif %}
+      <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
+      <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
+      <p>Created: 1/5/2015</p>
+      <p>License: Share alike</p>
       </div>
+      <div class="badge-info left">
+      <h1>{{ badge.name }} </h1>
+      <p class="bold">Program:</p>
+      <p class="small-copy">{{ badge.program.name }}</p>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label" class="badge-label">Description:</label>
-        <textarea class="badge-field" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
-      </div>
+      <p class="bold">Short Description:</p>
+      <p class="small-copy">{{ badge.description }}</p>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label">Criteria:</label>
-        <textarea class="badge-field" type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea>
-      </div>
+      <p class="bold">Description for Earners:</p>
+      <p class="small-copy">{{ badge.description }}</p>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label">Status:</label>
-        {{ badge.status | default('active') | capitalize }}
-      </div>
+      <p class="bold">Technical Description:</p>
+      <p class="small-copy">{{ badge.description }}</p>
 
-      <button class="gray-btn submit-btn" type="submit" {{ disabled() }}>Save Changes</button>
-    </form>
+      <p class="bold">Tags:</p>
+      <p class="small-copy">{{ badge.tags }}</p>
+
+      <p class="bold">Criteria:</p>
+      <p class="small-copy">{{ badge.criteria }}</p>
+    </div>
   </div>
 {% endblock %}

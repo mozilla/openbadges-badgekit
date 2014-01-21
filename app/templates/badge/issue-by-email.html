@@ -1,19 +1,24 @@
 {% extends "badge/layout.html" %}
 
 {% block content %}
-  <h1>Issue Badge by Email Address</h1>
-  <div class="badgedetails">
-    <form class="badgeform" name="input" action="{{ url('badge.issueByEmail', { badgeId: badge.id }) }}" method="post">
+  <div class="container">  
+    <form class="badge-form" name="input" action="{{ url('badge.issueByEmail', { badgeId: badge.id }) }}" method="post">
+      <h1>Issue Badge by Email Address</h1>
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
-      <dl>
-        <dt>Name:</dt>
-        <dd>{{ badge.name }}</dd>
-        <img class="badgeimage" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
-        <dt>Enter an Email Address:</dt>
-        <dd><input type="text" name="email"></input></dd>
-      </dl>
-      <input class="submitbutton" type="submit" value="Issue Badge">
+
+      <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+
+      <div class="form-field-wrapper">
+        <p><span class="badge-label" for="name">Name:</span> {{ badge.name }}
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label" for="email">Enter an Email Address:</label>
+        <input class="badge-field" type="text" name="email" value=""/>
+      </div>
+
+      <button class="gray-btn submit-btn" type="submit">Issue Badge</button>
     </form>
   </div>
 {% endblock %}

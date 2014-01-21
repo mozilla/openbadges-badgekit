@@ -1,0 +1,39 @@
+{% extends "badge/layout.html" %}
+
+{% macro disabled() %}
+  {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
+{% endmacro %}
+
+{% block content %}
+  <div class="container">
+    <form class="badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
+      <h1>Edit Badge</h1>
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+      <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
+
+      <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label" for="name">Name:</label>
+        <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label" class="badge-label">Description:</label>
+        <textarea class="badge-field" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label">Criteria:</label>
+        <textarea class="badge-field" type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label">Status:</label>
+        {{ badge.status | default('active') | capitalize }}
+      </div>
+
+      <button class="gray-btn submit-btn" type="submit" {{ disabled() }}>Save Changes</button>
+    </form>
+  </div>
+{% endblock %}
