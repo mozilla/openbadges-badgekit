@@ -3,7 +3,6 @@
 {% block head -%}
   {{ super() }}
   <link rel="stylesheet" href="{{ static('/css/directory.css') }}">
-  <link rel="stylesheet" href="{{ static('/css/buttons.css') }}">
   <link rel="stylesheet" href="{{ static('/css/badge.css') }}">
 {%- endblock %}
 
@@ -16,7 +15,6 @@
     <a href="">Applications</a>
     <a href="">Awarded</a>
     <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
-    <a href="">Applications</a>
     <a class="dropdown-nav">
       <span class="arrow-up"></span>
       <span class="arrow-down"></span>
