@@ -7,7 +7,23 @@ module.exports = function getBadgeModel (key) {
   }
   catch (ex) {
     return db.table('badge', {
-      fields: ['name', 'status', 'description', 'criteria']
+      fields: 
+        ['name', 
+         'status', 
+         'description', 
+         'criteria', 
+         'issuerUrl', 
+         'earnerDescription', 
+         'consumerDescription', 
+         'tags', 
+         'criteriaRequired',
+         'criteriaNote',
+         'rubricUrl',
+         'timeValue',
+         'timeUnits',
+         'limit',
+         'multiClaimCode',
+         'unique']
     });
   }
 }

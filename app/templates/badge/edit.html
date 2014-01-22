@@ -1,39 +1,168 @@
 {% extends "badge/layout.html" %}
 
+{% macro createSectionAnchorAttributes(s) %}
+  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}" data-section="{{ s }}" {% if section == s %} class="highlighted" {% endif %}
+{% endmacro %}
+
+{% macro createSectionDivAttributes(s) %}
+  class="form-page section-{{ s }} {% if section != s %}hidden{% endif %}"
+{% endmacro %}
+
 {% macro disabled() %}
   {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
 {% endmacro %}
 
+{% block header -%}
+  {{ super() }}
+  <nav class="nav-header categories cb">
+    <a {{ createSectionAnchorAttributes('description') }}>Description</a>
+    <a {{ createSectionAnchorAttributes('visual') }}>Visual</a>
+    <a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a>
+    <a {{ createSectionAnchorAttributes('options') }}>Options</a>
+  </nav>
+{%- endblock %}
+
 {% block content %}
   <div class="container">
     <form class="badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
-      <h1>Edit Badge</h1>
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
 
       <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label" for="name">Name:</label>
-        <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/>
+      <div {{ createSectionDivAttributes('description') }}>
+        <h1>Badge Description</h1>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="name">Name:</label>
+          <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="issuerUrl">Issuer URL:</label>
+          <input class="badge-field" type="text" name="issuerUrl" {{ disabled() }} value="{{ badge.issuerUrl }}"/>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="description">Short Description:</label>
+          <textarea class="badge-field" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="tags">Tags:</label>
+          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}"/>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="earnerDescription">Description for Earners:</label>
+          <textarea class="badge-field" {{ disabled() }} type="text" name="earnerDescription">{{ badge.earnerDescription }}</textarea>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="consumerDescription">Description for Consumers:</label>
+          <textarea class="badge-field" {{ disabled() }} type="text" name="consumerDescription">{{ badge.consumerDescription }}</textarea>
+        </div>
+
       </div>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label" class="badge-label">Description:</label>
-        <textarea class="badge-field" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
+      <div {{ createSectionDivAttributes('visual') }}>
+        <h1>Badge Visuals</h1>
+
+        <p>Not yet implemented
       </div>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label">Criteria:</label>
-        <textarea class="badge-field" type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea>
+      <div {{ createSectionDivAttributes('criteria') }}>
+        <h1>Badge Criteria</h1>
+
+        <h2>Criterion 1</h2>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="criteriaDescription">Description:</label>
+          <textarea class="badge-field" type="text" {{ disabled() }} name="criteriaDescription">{{ badge.criteria }}</textarea>
+          <input class="radio-badge-field" type="checkbox" {{ disabled() }} name="criteriaRequired" {% if badge.criteriaRequired %} checked {% endif %}>Required</input>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="criteriaEvidence">Evidence Accepted:</label>
+          <select class="badge-field" {{ disabled() }} name="criteriaEvidence">
+            <option value="Not Yet Implemented">Not Yet Implemented</option>
+          </select>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="criteriaNote">Note for Mentor and Reviewer:</label>
+          <textarea class="badge-field" type="text" {{ disabled() }} name="criteriaNote">{{ badge.criteriaNote }}</textarea>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="rubricUrl">Rubric URL:</label>
+          <input class="badge-field" type="text" name="rubricUrl" {{ disabled() }} value="{{ badge.rubricUrl }}"/>
+        </div>
+
       </div>
 
-      <div class="form-field-wrapper">
-        <label class="badge-label">Status:</label>
-        {{ badge.status | default('active') | capitalize }}
+      <div {{ createSectionDivAttributes('options') }}>
+        <h1>Badge Options</h1>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="group">Group:</label>
+          <select class="badge-field" {{ disabled() }} name="group">
+            <option value="Not Yet Implemented">Not Yet Implemented</option>
+          </select>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="timeValue">Time:</label>
+          <br><input class="short-badge-field" type="number" min="0" name="timeValue" value="{{ badge.timeValue }}"/>
+          <select{{ disabled() }} name="timeUnits">
+            <option {% if badge.timeUnits == 'minutes' %} selected {% endif %} value="minutes">Minutes</option>
+            <option {% if badge.timeUnits == 'hours' %} selected {% endif %}value="hours">Hours</option>
+            <option {% if badge.timeUnits == 'days' %} selected {% endif %}value="days">Days</ysoption>
+            <option {% if badge.timeUnits == 'weeks' %} selected {% endif %}value="weeks">Weeks</option>
+          </select>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="license">License:</label>
+          <select class="badge-field" {{ disabled() }} name="license">
+            <option value="Not Yet Implemented">Not Yet Implemented</option>
+          </select>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="issuers">Issuers:</label>
+          <select class="badge-field" {{ disabled() }} name="issuers">
+            <option value="Not Yet Implemented">Not Yet Implemented</option>
+          </select>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="limit">Limit:</label>
+          <br><input class="radio-badge-field" type="radio" name="limit" value="open" {% if not (badge.limit > 0) %} checked {% endif %}{{ disabled() }}>Open</input>
+          <input class="radio-badge-field" type="radio" name="limit" value="limit" {% if badge.limit > 0 %} checked {% endif %}{{ disabled() }}>Limit To:</input>
+          <input class="short-badge-field" type="number" name="limitNumber" min="0" value="{{ badge.limit }}" {{ disabled() }}></input>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="unique">Unique:</label>
+          <br><input class="radio-badge-field" type="radio" name="unique" value="open" {% if not badge.unique %} checked {% endif %}{{ disabled() }}>Open</input>
+          <input class="radio-badge-field" type="radio" name="unique" value="unique" {% if badge.unique %} checked {% endif %}{{ disabled() }}>Limit one-per-person</input>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="multiClaimCode">Multi-use Claim Code:</label>
+          <input class="badge-field" type="text" {{ disabled() }} name="multiClaimCode" value="{{ badge.multiClaimCode }}"></input>
+        </div>
+
       </div>
 
       <a class="gray-btn submit-btn" type="submit" {{ disabled() }}>Save Changes</a>
     </form>
   </div>
 {% endblock %}
+
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/edit-badge.js') }}"></script>
+{%- endblock %}
