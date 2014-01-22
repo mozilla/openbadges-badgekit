@@ -11,16 +11,35 @@ exports.home = function home (req, res, next) {
     if (err)
       return res.send(500, err);
 
+    switch (sort) {
+      case 'name':
+        badges.sort(function(a,b) { return (a.name > b.name) ? 1 : -1 });
+        break;
+      case 'applications':
+        // to be implemented
+        break;
+      case 'awarded':
+        // to be implemented
+        break;
+      case 'dateactive':
+        // to be implemented
+        break;
+      case 'datecreated':
+        // to be implemented
+        break;
+    }
+
     const startIndex = (pageNum-1) * PAGE_SIZE;
     const pages = Math.ceil(badges.length / PAGE_SIZE);
 
     badges = badges.slice(startIndex, startIndex + PAGE_SIZE);
 
-    return res.render('directory/home.html', { badges: badges, page: pageNum, pages: pages, category: category });
+    return res.render('directory/home.html', { badges: badges, page: pageNum, pages: pages, category: category, sort: sort });
   }
 
   const pageNum = parseInt(req.query.page) || 1;
   const category = req.query.category || 'draft';
+  const sort = req.query.sort;
 
   switch (category) {
     case 'published':

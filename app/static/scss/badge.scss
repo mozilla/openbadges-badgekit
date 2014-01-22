@@ -1,46 +1,40 @@
-.badgedetails {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 800px;
-}
+@import "base";
+@import "buttons";
 
-.badgeimage {
+.badge-image {
   height: 250px;
-  float: right;
 }
 
-.badgeform dt {
-  font-weight: bold;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+.badge-details {
+  width: $two-wide;
+  .new-placeholder {
+    float: none;
+    margin: 0 0 20px 0;
+  }
+  .use-btn {
+    margin-left: 0;
+  }
 }
 
-.badgeform textarea {
-  height: 133px;
-  width: 420px;
-  border: 1px solid rgb(204, 204, 204);
-  border-radius: 3px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-  padding: 4px 6px;
+.badge-info {
+  width: $four-wide;
 }
 
-.badgeform input {
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-  width: 420px;
-  padding: 2px 4px;
+.form-field-wrapper {
+  margin-bottom: 20px;
 }
 
-input.submitbutton {
-  width: 150px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  display: block;
-}
-
-h1 {
-  text-align: center;
+.badge-form {
+  width: $four-wide;
+  margin: 0 auto;
+  .badge-label {
+    font-weight: bold;
+  }
+  .badge-field {
+    margin-top: 10px;
+    width: $three-wide;
+  }
+  .submit-btn {
+    margin-left: 0;
+  }
 }

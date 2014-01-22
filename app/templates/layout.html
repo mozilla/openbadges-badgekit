@@ -13,13 +13,13 @@
     {% block headerWrapper -%}
       <header id="header" class="header-container">
         {% block header -%}
-          <div class="container">
+          <!-- <div class="container">
             <h1>
               <a href="http://www.mozilla.org/" class="header-tab">Mozilla</a>
             </h1>
 
             <h1 class="badgekit-logo">
-              <a href="">BadgeKit</a>
+              <a href="{{ url('directory') }}">BadgeKit</a>
             </h1>
 
             <nav class="nav-header">
@@ -43,9 +43,16 @@
               <input placeholder="Search" type="text">
             </div>
 
-          </div>
+          </div> -->
 
           <div class="container">
+            <h1 class="badgekit-logo">
+              <a href="{{ url('directory') }}">BadgeKit</a>
+            </h1>
+
+            <div class="home-search">
+              <input placeholder="Search" type="text">
+            </div>
             {% if loggedInUser %}
               <div class="dropdown dropdown-signed-in right">
                 <select>
@@ -55,6 +62,7 @@
                 </select>
                 <span class="arrow-down"></span>
               </div>
+
             {% else %}
               <div class="dropdown dropdown-signed-in right">
                 <select>
@@ -122,6 +130,7 @@
   {%- endblock %}
   {% block scripts -%}
     <script src="https://login.persona.org/include.js"></script>
+    <script src="{{ static('/js/jquery.min.js') }}"></script>
     <script src="{{loginScriptUrl}}"></script>
   {%- endblock %}
 </body>

@@ -1,24 +1,49 @@
 {% extends "directory/layout.html" %}
 {% block content %}
   <div class="container">
-    <div class="badges-container clearfix">
+    <div class="badges-container cb">
       {% for badge in badges %}
         <section class="badge-template left">
-          <img class="badgethumb" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
-          <h2>{{ badge.name }}</h2>
-          <p>Status: {{ badge.status | default('active') | capitalize }}</p>
+          <div class="badge-thumb-container">
+            <img class="badgethumb left" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+            <h2>{{ badge.name }}</h2>
+            <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
+          </div>
+          <div class="badge-container-buttons cb">
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
-          {% if category == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a> {% endif %}
-          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
+          {% if category == 'template' %}
+            <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a>
+          {% endif %}
+          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
+          {% if category == 'published' %}
+            <a href="" class="gray-btn action-btn">Action<span class="arrow-down"></span></a>
+            <ul class="action-dropdown">
+              <li><a href="">SHARE</a></li>
+              <hr>
+              <li><a href="">REVIEW APPLICATIONS</a></li>
+              <li><a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}">ISSUE BY EMAIL</a></li>
+              <hr>
+              <li><a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}">ISSUE BY CLAIM CODE</a></li>
+              <li><a href="">VIEW CLAIM CODES</a></li>
+              <hr>
+              <li><a href="">COPY AS NEW</a></li>
+              <li><a href="">ARCHIVE</a></li>
+            </ul>
+          {% endif %}
+          </div>
         </section>
       {% endfor %}
+
       {% if category == 'template' or category == 'draft' %}
         <section class="badge-new">
-          <!-- <img class="badgethumb" src=""> -->
-          <div class="new-placeholder"><span>+</span></div>
-          <h2>Add a New {{ category | capitalize }}</h2>
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-import-btn">Blank</a>
-          <a href="" class="gray-btn blank-import-btn">Import</a>
+          <div class="badge-thumb-container">
+            <div class="new-placeholder"><span>+</span></div>
+            <h2>Add a New {{ category | capitalize }}</h2>
+          </div>
+          <div class="badge-container-buttons cb">
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
+            <a href="" class="gray-btn import-btn">Import</a>
+          </div>
         </section>
       {% endif %}
     </div>
@@ -26,10 +51,10 @@
     {% if pages > 1 %}
       <div class="pagenav cb">
         {% if page > 1 %}
-          <a href="?category={{ category }}&page={{ page - 1 }}">Previous Page</a>
+          <a href="?category={{ category }}&page={{ page - 1 }}&sort={{ sort }}">Previous Page</a>
         {% endif %}
         {% if page < pages %}
-          <a href="?category={{ category }}&page={{ page + 1 }}">Next Page</a>
+          <a href="?category={{ category }}&page={{ page + 1 }}&sort={{ sort }}">Next Page</a>
         {% endif %}
       </div>
     {% endif %}

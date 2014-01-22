@@ -1,3 +1,5 @@
+@import "base";
+
 .badgethumb {
   height: 200px;
 }
@@ -30,4 +32,57 @@ a.badgeinfo {
 
 .addbadge {
   text-align: center;
+}
+
+
+.sort-dropdown {
+    display: none;
+    position: absolute;
+    background: #fff;
+    margin: 0;
+    border:solid 1px #eeeeee;
+    z-index:5;
+    padding:0;
+}
+.sort-dropdown li {
+    display: block;
+    border-bottom: solid 1px #eeeeee;
+    margin:0;
+    width: 150px;
+}
+.sort-dropdown li a {
+    color: #333;
+    height:18px;
+    padding:10px 0;
+    font-size:13px;
+    border-right: none;
+    &:hover {
+      color: red;
+    }
+}
+
+.action-dropdown {
+    display: none;
+    position: absolute;
+    background: #fff;
+    margin: 0;
+    border:solid 1px #eeeeee;
+    z-index:5;
+    padding:0;
+}
+.action-dropdown li {
+    display: block;
+    margin:0;
+}
+.action-dropdown li a {
+    color: #333;
+    height:18px;
+    padding:10px 0;
+    font-size:13px;
+    text-decoration: none;
+    color: black;
+    margin: 0 5px 0 5px;
+}
+.action-dropdown li a:hover {
+    background:#f9f9f9;
 }
