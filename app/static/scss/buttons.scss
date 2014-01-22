@@ -8,15 +8,16 @@
   font-weight: bold;
   margin-bottom:7px;
   margin-left: 7px;
-  background-color: $gray10;
-  color: $gray;
+  color: $white;
   height:29px;
   line-height:31px;
-  padding: 0 20px;
+  padding: 0 15px;
   font-size:12px;
   cursor: pointer;
-  border:1px solid $gray30;
-  letter-spacing:.1em;
+  letter-spacing: .1em;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .edit-btn {
@@ -31,23 +32,46 @@
 
 .submit-btn {
   margin-left: 0;
+  background-color: green;
 }
 
 .action-btn {
-  display: inline-block;
-  width: 100px;
-  height: 28px;
-  line-height: 30px; 
+  line-height: 30px;
+  background-color: black;
   .arrow-down {
-    border-top: 6px solid $gray;
-    margin-left: 5px;
+    border-top: 6px solid $white;
+    margin-left: 10px;
     position: relative;
     top: 10px;
   }
 }
 
+.view-btn {
+  background-color: blue;
+}
+
+.edit-btn {
+  background-color: red;
+}
+
+.import-btn {
+  background-color: pink;
+}
+
+.blank-btn {
+  background-color: yellow;
+  color: black;
+}
+
+.use-btn {
+  background-color: green;
+}
+
 .use-btn,
 .view-btn,
-.blank-import-btn {
+.blank-btn,
+.import-btn,
+.action-btn,
+.submit-btn {
   display: inline-block;
 }
