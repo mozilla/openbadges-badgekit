@@ -1,3 +1,5 @@
+@import "base";
+
 .badgethumb {
   height: 200px;
 }
@@ -36,7 +38,6 @@ a.badgeinfo {
 .sort-dropdown {
     display: none;
     position: absolute;
-    list-style-type: none;
     background: #fff;
     margin: 0;
     border:solid 1px #eeeeee;
@@ -47,21 +48,22 @@ a.badgeinfo {
     display: block;
     border-bottom: solid 1px #eeeeee;
     margin:0;
+    width: 150px;
 }
 .sort-dropdown li a {
     color: #333;
     height:18px;
     padding:10px 0;
     font-size:13px;
-}
-.sort-dropdown li a:hover {
-    background:#f9f9f9;
+    border-right: none;
+    &:hover {
+      color: red;
+    }
 }
 
 .action-dropdown {
     display: none;
     position: absolute;
-    list-style-type: none;
     background: #fff;
     margin: 0;
     border:solid 1px #eeeeee;
@@ -79,7 +81,7 @@ a.badgeinfo {
     font-size:13px;
     text-decoration: none;
     color: black;
-    margin: 0 5px 0 5px; 
+    margin: 0 5px 0 5px;
 }
 .action-dropdown li a:hover {
     background:#f9f9f9;
