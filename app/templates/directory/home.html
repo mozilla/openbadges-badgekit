@@ -4,13 +4,19 @@
     <div class="badges-container cb">
       {% for badge in badges %}
         <section class="badge-template left">
-          <img class="badgethumb" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
-          <h2>{{ badge.name }}</h2>
-          <p>Status: {{ badge.status | default('active') | capitalize }}</p>
+          <div class="badge-thumb-container">
+            <img class="badgethumb left" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+            <h2>{{ badge.name }}</h2>
+            <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
+          </div>
+          <div class="badge-container-buttons cb">
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
-          {% if category == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a> {% endif %}
+          {% if category == 'template' %}
+            <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a>
+          {% endif %}
           <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
-          {% if category == 'published' %} <span href="" class="gray-btn action-btn">Action<span class="arrow-down"></span>
+          {% if category == 'published' %}
+            <a href="" class="gray-btn action-btn">Action<span class="arrow-down"></span></a>
             <ul class="action-dropdown">
               <li><a href="">SHARE</a></li>
               <hr>
@@ -23,16 +29,21 @@
               <li><a href="">COPY AS NEW</a></li>
               <li><a href="">ARCHIVE</a></li>
             </ul>
-        </span> {% endif %}
+          {% endif %}
+          </div>
         </section>
       {% endfor %}
 
       {% if category == 'template' or category == 'draft' %}
         <section class="badge-new">
-          <div class="new-placeholder"><span>+</span></div>
-          <h2>Add a New {{ category | capitalize }}</h2>
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-import-btn">Blank</a>
-          <a href="" class="gray-btn blank-import-btn">Import</a>
+          <div class="badge-thumb-container">
+            <div class="new-placeholder"><span>+</span></div>
+            <h2>Add a New {{ category | capitalize }}</h2>
+          </div>
+          <div class="badge-container-buttons cb">
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
+            <a href="" class="gray-btn import-btn">Import</a>
+          </div>
         </section>
       {% endif %}
     </div>

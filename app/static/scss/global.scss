@@ -19,7 +19,7 @@
   padding: 45px 0;
   .footnote-container,
   .footer-menu {
-    margin: 0 40px;
+    margin: 0 4%;
   }
 }
 
@@ -43,9 +43,9 @@
     color: inherit;
     border-right: 1px solid black;
     padding: 0 1em;
-    &:last-child {
-      border-right: none;
-    }
+  }
+  .dropdown-nav {
+    border-right: none;
   }
 }
 
@@ -118,8 +118,31 @@
   margin: 0 auto;
 }
 
+.badge-status-info {
+  width: 50%;
+}
+
+.badge-thumb-container {
+  width: 100%;
+  height: 70%;
+  float: left;
+  .badgethumb {
+    height: 100%;
+    margin: 10px 20px 0 10px;
+  }
+}
+
+.badge-container-buttons {
+  position: absolute;
+  right: 10px;
+  padding: 5px 0;
+  bottom: 0;
+}
+
 .badge-template,
 .badge-new {
+  position: relative;
+  overflow: hidden;
   width: $three-wide;
   height: 185px;
   border: 1px solid $gray;
@@ -127,14 +150,7 @@
 }
 
 .badge-template {
-  margin: 0 20px 20px 0;
-  .badgethumb {
-    background: $gray;
-    width: 183px;
-    height: 183px;
-    float: left;
-    margin-right: 30px;
-  }
+  margin: 0 2% 2% 0;
 }
 
 .badge-new {
@@ -143,15 +159,16 @@
 }
 
 .new-placeholder {
-  margin-right: 30px;
+  margin: 15px 30px 15px 15px;
   float: left;
   background: $gray30;
-  width: 183px;
-  height: 179px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   span {
-    font-size: 120px;
+    font-size: 100px;
     color: white;
-    padding: 55px;
+    padding: 48px;
   }
 }
 
@@ -304,7 +321,15 @@
   }
 }
 
+/* Medium ----------- */
+@media screen and (max-width: 750px) {
+  .badge-template,
+  .badge-new {
+    width: $six-wide;
+  }
+}
+
 /* Larger ----------- */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 950px) {
 }
 
