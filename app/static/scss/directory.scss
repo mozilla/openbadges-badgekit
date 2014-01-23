@@ -69,6 +69,7 @@ a.badgeinfo {
     border:solid 1px #eeeeee;
     z-index:5;
     padding:0;
+    width: 150px;
 }
 .action-dropdown li {
     display: block;
@@ -77,7 +78,6 @@ a.badgeinfo {
 .action-dropdown li a {
     color: #333;
     height:18px;
-    padding:10px 0;
     font-size:13px;
     text-decoration: none;
     color: black;

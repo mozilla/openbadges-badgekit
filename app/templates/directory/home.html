@@ -10,12 +10,12 @@
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
           </div>
           <div class="badge-container-buttons cb">
-          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
-          {% if category == 'template' %}
-            <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a>
-          {% endif %}
-          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
-          {% if category == 'published' %}
+            <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
+            {% if category == 'template' %}
+              <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a>
+            {% endif %}
+            <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
+            {% if category == 'published' %}
             <a href="" class="gray-btn action-btn">Action<span class="arrow-down"></span></a>
             <ul class="action-dropdown">
               <li><a href="">SHARE</a></li>
@@ -29,7 +29,7 @@
               <li><a href="">COPY AS NEW</a></li>
               <li><a href="">ARCHIVE</a></li>
             </ul>
-          {% endif %}
+            {% endif %}
           </div>
         </section>
       {% endfor %}
