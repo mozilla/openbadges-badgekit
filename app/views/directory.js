@@ -1,6 +1,5 @@
 const openbadger = require('../lib/openbadger');
 const Badge = require('../models/badge')("DATABASE");
-const async = require('async');
 const middleware = require('../middleware');
 const url = require('url');
 
