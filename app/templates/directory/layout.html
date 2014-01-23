@@ -3,7 +3,7 @@
 {% block head -%}
   {{ super() }}
   <link rel="stylesheet" href="{{ static('/css/directory.css') }}">
-  <link rel="stylesheet" href="{{ static('/css/buttons.css') }}">
+  <link rel="stylesheet" href="{{ static('/css/badge.css') }}">
 {%- endblock %}
 
 {% block header -%}
@@ -15,12 +15,21 @@
     <a href="">Applications</a>
     <a href="">Awarded</a>
     <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
-    <a href="">Applications</a>
-    <a href="" class="dropdown-nav">
+    <a class="dropdown-nav">
       <span class="arrow-up"></span>
       <span class="arrow-down"></span>
-      <ul class="menu">
-      </ul>
     </a>
+    <ul class="sort-dropdown">
+      <li><a href="{{ url('directory') }}?category={{ category }}&sort=name">Name</a></li>
+      <li><a href="{{ url('directory') }}?category={{ category }}&sort=applications">Applications</a></li>
+      <li><a href="{{ url('directory') }}?category={{ category }}&sort=awarded">Awarded</a></li>
+      <li><a href="{{ url('directory') }}?category={{ category }}&sort=dateactive">Date Active</a></li>
+      <li><a href="{{ url('directory') }}?category={{ category }}&sort=datecreated">Date Created</a></li>
+    </ul>
   </nav>
+{%- endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/directory.js') }}"></script>
 {%- endblock %}

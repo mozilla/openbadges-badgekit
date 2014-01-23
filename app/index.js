@@ -8,7 +8,7 @@ const persona = require('express-persona-observer');
 
 var app = express();
 
-var env = new nunjucks.Environment(new nunjucks.FileSystemLoader(path.join(__dirname, './templates')), {autoescape: true});
+var env = new nunjucks.Environment(new nunjucks.FileSystemLoader(path.join(__dirname, './templates')), {autoescape: true, watch:true});
 
 env.express(app);
 
@@ -40,7 +40,15 @@ app.get('/directory/addBadge', 'directory.addBadge', views.directory.addBadge);
 app.get('/directory/useTemplate', 'directory.useTemplate', views.directory.useTemplate);
 
 app.get('/badge/:badgeId', 'badge', views.badge.home);
-app.post('/badge/:badgeId', 'badge.save', views.badge.save);
+app.get('/badge/:badgeId/edit', 'badge.edit', views.badge.edit);
+app.post('/badge/:badgeId/edit', 'badge.save', views.badge.save);
+
+app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', views.badge.renderIssueByEmail);
+app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', views.badge.issueByEmail);
+
+app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.renderIssueByClaimCode);
+app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.issueByClaimCode);
+
 app.get('/images/badge/:badgeId.png', 'badge.image', views.badge.image);
 
 if (!module.parent) {

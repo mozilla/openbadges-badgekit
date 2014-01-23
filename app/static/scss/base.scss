@@ -39,7 +39,7 @@
 
 $one-wide: 13.6%;
 $two-wide: 30.9%;
-$three-wide: 48.2%;
+$three-wide: 47.2%;
 $four-wide: 65.5%;
 $five-wide: 82.7%;
 $six-wide: 100%;
@@ -67,8 +67,29 @@ body {
 
 h1 { font-size: 24px; }
 
+h2 { font-size: 20px; }
+
+p { font-size: 15px; }
+
 li {
   list-style: none;
+}
+
+textarea {
+  height: 150px;
+}
+
+textarea,
+input {
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 3px;
+  display: block;
+  padding: 2px 4px;
+  &:hover {
+    -webkit-box-shadow: 0 0 2px;
+    -moz-box-shadow: 0 0 2px;
+    box-shadow: 0 0 2px;
+  }
 }
 
 .column {margin-bottom:20px;}
@@ -78,6 +99,15 @@ li {
 .middle {
   margin-left:3.7%;
   float:left;
+}
+
+/* apply a natural box layout model to all elements */
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .clearfix:after {
