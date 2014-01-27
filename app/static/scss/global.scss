@@ -30,12 +30,28 @@
 .nav-header {
   margin: 0 auto;
   text-align: center;
+  .menu-about-badges,
+  .menu-about-people,
+  .dropdown {
+    display: inline;
+    background: white;
+    padding: 15px;
+    border: 1px solid black;
+    margin-right: 10px;
+    a{
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+  .dropdown {
+    padding-left: 0.25em;
+  }
 }
 
 .categories {
-  border-top: 1px solid $black;
-  border-bottom: 1px solid $black;
-  padding: 20px 0;
+  background: gray;
+  padding: 15px 0;
   font-size: 20px;
   a {
     font-weight: bold;
@@ -146,6 +162,10 @@
   height: 185px;
   border: 1px solid $gray;
   float: left;
+}
+
+.newly-created-badge {
+  border: 10px solid;
 }
 
 .badge-template {
