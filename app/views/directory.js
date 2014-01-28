@@ -76,12 +76,17 @@ exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
 
   Badge.put({ name: 'New Badge', status: category }, function (err, result) {
+    if (err)
+      return res.send(500, err);
+    
     req.session.lastCreatedId = result.insertId;
 
     Badge.getOne({ id: result.insertId }, function(err, row) {
+      if (err)
+        return res.send(500, err);
       // we don't have the ability to add/delete criteria yet, so for now, just add three to each new badge
       row.setCriteria([{ }, { }, { }], function(err) {
-        var directoryUrl = res.locals.url('directory') + '?category=' + category;
+        const directoryUrl = res.locals.url('directory') + '?category=' + category;
         return middleware.redirect(directoryUrl, 302)(req, res, next);
       });
     });
@@ -91,16 +96,15 @@ exports.addBadge = function addBadge (req, res, next) {
 exports.useTemplate = function useTemplate (req, res, next) {
   const templateId = req.query.templateId;
 
-  Badge.getOne({id: templateId, status: 'template'}, function(err, badge) {
-    if (err) {
+  Badge.getOne({id: templateId, status: 'template'}, { relationships: true }, function(err, row) {
+    if (err)
       return res.send(500, err);
-    }
 
-    badge.status = 'draft';
-    delete badge.id;
-
-    Badge.put(badge, function (err, result) {
-      var directoryUrl = res.locals.url('directory') + '?category=draft';
+    row.createCopy({status: 'draft'}, function(err, newRow) {
+      if (err)
+        return res.send(500, err);
+      
+      const directoryUrl = res.locals.url('directory') + '?category=draft';
       return middleware.redirect(directoryUrl, 302)(req, res, next);
     });
   });

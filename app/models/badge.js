@@ -42,6 +42,38 @@ module.exports = function getBadgeModel (key) {
     });
   };
 
+  function createCopy(overrides, callback) {
+    var badge = this;
+
+    for (var property in overrides) {
+      badge[property] = overrides[property];
+    }
+
+    delete badge.id;
+
+    var criteria = badge.criteria;
+    criteria.forEach(function(criterion) {
+      delete criterion.badgeId;
+      delete criterion.id;
+    });
+    
+    delete badge.criteria;
+
+    Badge.put(badge, function (err, result) {
+      if (err)
+        return callback(err);
+
+      Badge.getOne({ id: result.insertId }, function(err, row) {
+        if (err)
+          return callback(err);
+
+        row.setCriteria(criteria, function(err) {
+          callback(err, row);
+        });
+      });
+    });
+  };
+
   var db = getDb(key);
 
   var Criteria = db.table('criteria', {
@@ -53,7 +85,7 @@ module.exports = function getBadgeModel (key) {
        'note']
   });
 
-  return db.table('badge', {
+  var Badge = db.table('badge', {
     fields: 
       ['id',
        'name', 
@@ -77,7 +109,10 @@ module.exports = function getBadgeModel (key) {
       }
     },
     methods: {
-      setCriteria: setCriteria
+      setCriteria: setCriteria,
+      createCopy: createCopy
     }
   });
+
+  return Badge;
 }
