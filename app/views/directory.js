@@ -78,8 +78,13 @@ exports.addBadge = function addBadge (req, res, next) {
   Badge.put({ name: 'New Badge', status: category }, function (err, result) {
     req.session.lastCreatedId = result.insertId;
 
-    var directoryUrl = res.locals.url('directory') + '?category=' + category;
-    return middleware.redirect(directoryUrl, 302)(req, res, next);
+    Badge.getOne({ id: result.insertId }, function(err, row) {
+      // we don't have the ability to add/delete criteria yet, so for now, just add three to each new badge
+      row.setCriteria([{ }, { }, { }], function(err) {
+        var directoryUrl = res.locals.url('directory') + '?category=' + category;
+        return middleware.redirect(directoryUrl, 302)(req, res, next);
+      });
+    });
   });
 };
 

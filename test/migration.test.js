@@ -61,4 +61,47 @@ describe('Migrations', function () {
     ];
   });
 
+  describeMigration('basic-badge-fields', function (id, prevId) {
+    return [
+      $.up({destination: id}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(2, "two migrations recorded");
+        results[1].name.should.equal(id);
+      }),
+      $.sql("SELECT criteria FROM badge", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.down({count: 1}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(1, "migration rolled back");
+      }),
+      $.sqlError("SELECT criteria FROM badge", "ER_BAD_FIELD_ERROR")
+    ];
+  });
+
+  describeMigration('initial-studio-fields', function (id, prevId) {
+    return [
+      $.up({destination: id}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(3, "three migrations recorded");
+        results[2].name.should.equal(id);
+      }),
+      $.sqlError("SELECT criteria FROM badge", "ER_BAD_FIELD_ERROR"),
+      $.sql("SELECT * FROM criteria", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.down({count: 1}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(2, "migration rolled back");
+      }),
+      $.sql("SELECT criteria FROM badge", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.sqlError("SELECT * FROM criteria", "ER_NO_SUCH_TABLE")
+    ];
+  });
+
 });

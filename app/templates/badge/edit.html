@@ -74,25 +74,29 @@
       <div {{ createSectionDivAttributes('criteria') }}>
         <h1>Badge Criteria</h1>
 
-        <h2>Criterion 1</h2>
+        {% for criterion in badge.criteria %}
+        <h2>Criterion {{ loop.index }}</h2>
 
+        <input type="hidden" name="criteria[{{ loop.index0 }}][id]" value="{{ criterion.id }}"></input>
+        
         <div class="form-field-wrapper">
-          <label class="badge-label" for="criteriaDescription">Description:</label>
-          <textarea class="badge-field" type="text" {{ disabled() }} name="criteriaDescription">{{ badge.criteria }}</textarea>
-          <input class="radio-badge-field" type="checkbox" {{ disabled() }} name="criteriaRequired" {% if badge.criteriaRequired %} checked {% endif %}>Required</input>
+          <label class="badge-label" for="criteria[{{ loop.index0 }}][description]">Description:</label>
+          <textarea class="badge-field" type="text" {{ disabled() }} name="criteria[{{ loop.index0 }}][description]">{{ criterion.description }}</textarea>
+          <input class="radio-badge-field" type="checkbox" {{ disabled() }} name="criteria[{{ loop.index0 }}][required]" {% if criterion.required %} checked {% endif %}>Required</input>
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="criteriaEvidence">Evidence Accepted:</label>
-          <select class="badge-field" {{ disabled() }} name="criteriaEvidence">
+          <label class="badge-label" for="criteria[{{ loop.index0 }}][evidence]">Evidence Accepted:</label>
+          <select class="badge-field" {{ disabled() }} name="criteria[{{ loop.index0 }}][evidence]">
             <option value="Not Yet Implemented">Not Yet Implemented</option>
           </select>
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="criteriaNote">Note for Mentor and Reviewer:</label>
-          <textarea class="badge-field" type="text" {{ disabled() }} name="criteriaNote">{{ badge.criteriaNote }}</textarea>
+          <label class="badge-label" for="criteria[{{ loop.index0 }}][note]">Note for Mentor and Reviewer:</label>
+          <textarea class="badge-field" type="text" {{ disabled() }} name="criteria[{{ loop.index0 }}][note]">{{ criterion.note }}</textarea>
         </div>
+        {% endfor %}
 
         <div class="form-field-wrapper">
           <label class="badge-label" for="rubricUrl">Rubric URL:</label>
