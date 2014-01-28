@@ -9,23 +9,31 @@
 {% block header -%}
   {{ super() }}
   <nav class="nav-header categories cb">
-    <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
-    <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
-    <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
-    <a href="">Applications</a>
-    <a href="">Awarded</a>
-    <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
-    <a class="dropdown-nav">
-      <span class="arrow-up"></span>
-      <span class="arrow-down"></span>
-    </a>
-    <ul class="sort-dropdown">
-      <li><a href="{{ url('directory') }}?category={{ category }}&sort=name">Name</a></li>
-      <li><a href="{{ url('directory') }}?category={{ category }}&sort=applications">Applications</a></li>
-      <li><a href="{{ url('directory') }}?category={{ category }}&sort=awarded">Awarded</a></li>
-      <li><a href="{{ url('directory') }}?category={{ category }}&sort=dateactive">Date Active</a></li>
-      <li><a href="{{ url('directory') }}?category={{ category }}&sort=datecreated">Date Created</a></li>
-    </ul>
+    <div class="menu-about-badges">
+      <a {% if category == 'template' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=template">Templates</a>
+      <a {% if category == 'draft' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=draft">Drafts</a>
+      <a {% if category == 'published' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=published">Published</a>
+      <a {% if category == 'archived' %} class="highlighted" {% endif %} href="{{ url('directory') }}?category=archived">Archived</a>
+    </div>
+
+    <div class="menu-about-people">
+      <a href="">Applications</a>
+      <a href="">Awarded</a>
+    </div>
+
+    <div class="dropdown">
+      <a class="dropdown-nav">
+        <span class="arrow-up"></span>
+        <span class="arrow-down"></span>
+      </a>
+      <ul class="sort-dropdown">
+        <li><a href="{{ url('directory') }}?category={{ category }}&sort=name">Name</a></li>
+        <li><a href="{{ url('directory') }}?category={{ category }}&sort=applications">Applications</a></li>
+        <li><a href="{{ url('directory') }}?category={{ category }}&sort=awarded">Awarded</a></li>
+        <li><a href="{{ url('directory') }}?category={{ category }}&sort=dateactive">Date Active</a></li>
+        <li><a href="{{ url('directory') }}?category={{ category }}&sort=datecreated">Date Created</a></li>
+      </ul>
+    </div>
   </nav>
 {%- endblock %}
 

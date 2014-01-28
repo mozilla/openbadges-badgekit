@@ -34,10 +34,23 @@ exports.home = function home (req, res, next) {
 
     badges = badges.slice(startIndex, startIndex + PAGE_SIZE);
 
-    return res.render('directory/home.html', { badges: badges, page: pageNum, pages: pages, category: category, sort: sort });
+    // If the user was redirected here after creating a new
+    // badge, we pass the ID of that badge to the template
+    // so we can highlight it with CSS.
+    const lastCreatedId = req.session.lastCreatedId;
+    delete req.session.lastCreatedId;
+
+    return res.render('directory/home.html', {
+      badges: badges,
+      page: pageNum,
+      pages: pages,
+      category: category,
+      sort: sort,
+      lastCreatedId: lastCreatedId
+    });
   }
 
-  const pageNum = parseInt(req.query.page) || 1;
+  const pageNum = parseInt(req.query.page, 10) || 1;
   const category = req.query.category || 'draft';
   const sort = req.query.sort;
 
@@ -64,6 +77,8 @@ exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
 
   Badge.put({ name: 'New Badge', status: category }, function (err, result) {
+    req.session.lastCreatedId = result.insertId;
+
     var directoryUrl = res.locals.url('directory') + '?category=' + category;
     return middleware.redirect(directoryUrl, 302)(req, res, next);
   });

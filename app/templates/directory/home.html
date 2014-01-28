@@ -3,7 +3,7 @@
   <div class="container">
     <div class="badges-container cb">
       {% for badge in badges %}
-        <section class="badge-template left">
+        <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
           <div class="badge-thumb-container">
             <img class="badgethumb left" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
             <h2>{{ badge.name }}</h2>
