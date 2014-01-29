@@ -12,7 +12,14 @@ function getBadgeById(badgeId, callback) {
      });
     }
     else {
-      openbadger.getBadge({ id: badgeId }, callback);
+      openbadger.getBadge({ slug: badgeId }, function(err, data) {
+        if (err)
+          return callback(err);
+
+        data = openbadger.convertBadgeFormat(data);
+
+        callback(err, { badge: data });
+      });
     }
 }
 
@@ -22,6 +29,8 @@ exports.home = function home (req, res, next) {
   getBadgeById(badgeId, function(err, data) {
     if (err)
       return res.send(500, err);
+
+    data.badge = openbadger.convertBadgeFormat(data.badge);
 
     res.render('badge/home.html', data);
   });
@@ -95,11 +104,12 @@ exports.image = function image (req, res, next) {
 exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge({ id: badgeId }, function(err, data) {
+  openbadger.getBadge({ slug: badgeId }, function(err, data) {
     if (err)
       return res.send(500, err);
 
-    res.render('badge/issue-by-email.html', data);
+    data = openbadger.convertBadgeFormat(data);
+    res.render('badge/issue-by-email.html', { badge: data });
   });
 };
 
@@ -123,11 +133,12 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
 exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge({ id: badgeId }, function(err, data) {
+  openbadger.getBadge({ slug: badgeId }, function(err, data) {
     if (err)
       return res.send(500, err);
 
-    res.render('badge/issue-by-claim-code.html', data);
+    data = openbadger.convertBadgeFormat(data);
+    res.render('badge/issue-by-claim-code.html', { badge: data });
   });
 };
 

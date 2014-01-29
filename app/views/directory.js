@@ -56,7 +56,11 @@ exports.home = function home (req, res, next) {
   switch (category) {
     case 'published':
       openbadger.getAllBadges(function (err, data) {
-        handleResults(err, data.badges);
+        if (err)
+          return res.send(500, err);
+        
+        var badges = data.map(openbadger.convertBadgeFormat);
+        handleResults(err, badges);
       });
       break;
     case 'archived':
