@@ -30,8 +30,6 @@ exports.home = function home (req, res, next) {
     if (err)
       return res.send(500, err);
 
-    data.badge = openbadger.convertBadgeFormat(data.badge);
-
     res.render('badge/home.html', data);
   });
 };
