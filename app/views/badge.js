@@ -7,8 +7,8 @@ const middleware = require('../middleware');
 function getBadgeById(badgeId, callback) {
   // this is a gross way of distinguishing between local and openbadger-hosted badges.
   if (parseInt(badgeId)) {
-      Badge.getOne({ id: badgeId }, function(err, row) {
-       callback(err, { badge: row });
+      Badge.getOne({ id: badgeId }, { relationships: true }, function(err, row) {
+       callback(err, { badge: row } );
      });
     }
     else {
@@ -29,28 +29,62 @@ exports.home = function home (req, res, next) {
 
 exports.edit = function edit (req, res, next) {
   const badgeId = req.params.badgeId;
+  const section = req.query.section || 'description';
 
   getBadgeById(badgeId, function(err, data) {
     if (err)
       return res.send(500, err);
+
+    data.section = section;
 
     res.render('badge/edit.html', data);
   });
 };
 
 exports.save = function save (req, res, next) {
+  const timeValue = parseInt(req.body.timeValue);
+  const limitNumber = parseInt(req.body.limitNumber);
+
   const query = { 
     id: req.body.badgeId, 
     name: req.body.name, 
     description: req.body.description, 
-    criteria: req.body.criteria
+    tags: req.body.tags,
+    issuerUrl: req.body.issuerUrl,
+    earnerDescription: req.body.earnerDescription,
+    consumerDescription: req.body.consumerDescription,
+    rubricUrl: req.body.rubricUrl,
+    timeValue: timeValue > 0 ? timeValue : 0,
+    timeUnits: req.body.timeUnits,
+    limit: req.body.limit == 'limit' ? (limitNumber > 0 ? limitNumber : 0) : 0,
+    unique: req.body.unique == 'unique' ? 1 : 0,
+    multiClaimCode: req.body.multiClaimCode,
   };
 
   Badge.put(query, function (err, result) {
     if (err)
       return res.send(500, err);
 
-    return middleware.redirect('directory', 302)(req, res, next);
+    Badge.getOne({ id: result.row.id }, function(err, row) {
+      if (err)
+        return res.send(500, err);
+
+      const criteria = req.body.criteria.map(function(criterion) {
+        return {
+          id: criterion.id,
+          description: criterion.description,
+          required: criterion.required == 'on' ? 1 : 0,
+          note: criterion.note
+        };
+      });
+
+      row.setCriteria(criteria, function(err) {
+        if (err)
+            return res.send(500, err);
+
+        return middleware.redirect('badge', { badgeId: query.id }, 302)(req, res, next);
+      });
+    });
   });
 };
 

@@ -25,11 +25,11 @@
     "streamsql": "~0.4.1",
     "node-sass": "~0.7.0",
     "express-persona-observer": "~0.0.2",
+    "async": "~0.2.9",
     "mysql": "~2.0.0-rc1"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
-    "async": "~0.2.9",
     "should": "~2.1.1"
   }
 }

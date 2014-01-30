@@ -33,8 +33,23 @@
   .badge-field {
     margin-top: 10px;
     width: $three-wide;
+    display: block;
+  }
+  .short-badge-field {
+    margin-top: 10px;
+    margin-right: 2px;
+    display: inline;
+    width: $one-wide;
+  }
+  .radio-badge-field {
+    margin-top: 10px;
+    margin-right: 5px;
+    display: inline;
   }
   .submit-btn {
     margin-left: 0;
+  }
+  .hidden {
+    display: none;
   }
 }

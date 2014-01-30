@@ -19,16 +19,18 @@
       <p class="small-copy">{{ badge.description }}</p>
 
       <p class="bold">Description for Earners:</p>
-      <p class="small-copy">{{ badge.description }}</p>
+      <p class="small-copy">{{ badge.earnerDescription }}</p>
 
       <p class="bold">Technical Description:</p>
-      <p class="small-copy">{{ badge.description }}</p>
+      <p class="small-copy">{{ badge.consumerDescription }}</p>
 
       <p class="bold">Tags:</p>
       <p class="small-copy">{{ badge.tags }}</p>
 
-      <p class="bold">Criteria:</p>
-      <p class="small-copy">{{ badge.criteria }}</p>
+      {% for criteria in badge.criteria %}
+      <p class="bold">Criteria {{ loop.index }}:</p>
+      <p class="small-copy">{{ criteria.description }}</p>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
