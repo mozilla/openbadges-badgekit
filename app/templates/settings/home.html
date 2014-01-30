@@ -3,14 +3,14 @@
   <div class="container">
     <section class="settings-tabs left">
       <ul class="tab-container">
-        <li class="tab">Profile</li>
-        <li class="tab">Notifications</li>
-        <li class="tab">Privacy</li>
-        <li class="tab">Permissions</li>
+        <li class="tab js-tab selected" data-section="profile">Profile</li>
+        <li class="tab js-tab" data-section="notifications">Notifications</li>
+        <li class="tab js-tab" data-section="privacy">Privacy</li>
+        <li class="tab js-tab" data-section="permissions">Permissions</li>
       </ul>
     </section>
 
-    <section class="settings settings-profile left">
+    <section class="settings settings-profile js-settings js-settings-profile left">
       <form class="settings-form" name="input" action="" method="post">
         <div class="form-field-wrapper">
           <label class="badge-label" for="name">Name:</label>
@@ -36,7 +36,7 @@
       </form>
     </section>
 
-    <section class="settings settings-notifications left">
+    <section class="settings settings-notifications js-settings js-settings-notifications left hidden">
       <form class="settings-form" name="input" action="" method="post">
         <div class="form-field-wrapper">
           <p>How would you like to get account notifications?</p>
@@ -56,7 +56,7 @@
       </form>
     </section>
 
-    <section class="settings settings-privacy left">
+    <section class="settings settings-privacy js-settings js-settings-privacy left hidden">
       <form class="settings-form" name="input" action="" method="post">
         <div class="form-field-wrapper">
           <p>Who can contact me?</p>
@@ -83,7 +83,7 @@
       </form>
     </section>
 
-    <section class="settings settings-permissions left">
+    <section class="settings settings-permissions js-settings js-settings-permissions left hidden">
       <p class="permissions-title">Who has access to shared programs:</p>
       <p class="permission-email">email@email.com</p>
       <p class="permission-email">secondemail@email.com</p>

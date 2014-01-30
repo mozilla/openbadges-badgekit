@@ -8,9 +8,7 @@ $(document).ready(function() {
 
     if (selectedOption.hasClass('js-navigate')) {
       window.location.href = selectedOption.val();
-      return false;
     }
-    return true;
   });
 
 });
