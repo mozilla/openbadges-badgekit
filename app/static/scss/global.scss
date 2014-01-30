@@ -143,12 +143,19 @@
 }
 
 .badge-thumb-container {
-  width: 100%;
   height: 70%;
   float: left;
+  margin-right: 20px;
   .badgethumb {
     height: 100%;
     margin: 10px 20px 0 10px;
+  }
+  .fa-plus-circle {
+    padding: 25px;
+    color: $gray;
+    font-size: 100px;
+    border: 1px solid $white;
+    @include drop-shadow
   }
 }
 
@@ -164,7 +171,6 @@
   position: relative;
   width: $three-wide;
   height: 185px;
-  border: 1px solid $gray;
   float: left;
 }
 
@@ -174,11 +180,6 @@
 
 .badge-template {
   margin: 0 2% 2% 0;
-}
-
-.badge-new {
-  border: dashed 3px $gray30;
-  float: left;
 }
 
 .new-placeholder {
