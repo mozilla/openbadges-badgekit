@@ -49,8 +49,9 @@ exports.edit = function edit (req, res, next) {
 };
 
 exports.save = function save (req, res, next) {
-  const timeValue = parseInt(req.body.timeValue);
-  const limitNumber = parseInt(req.body.limitNumber);
+  const timeValue = parseInt(req.body.timeValue, 10);
+  const limitNumber = parseInt(req.body.limitNumber, 10);
+  const numCriteria = parseInt(req.body.numCriteria, 10);
 
   const query = { 
     id: req.body.badgeId, 
@@ -76,9 +77,9 @@ exports.save = function save (req, res, next) {
       if (err)
         return res.send(500, err);
 
-      const criteria = req.body.criteria.map(function(criterion) {
+      const criteria = req.body.criteria.slice(0,numCriteria).map(function(criterion) {
         return {
-          id: criterion.id,
+          id: criterion.id || null,
           description: criterion.description,
           required: criterion.required == 'on' ? 1 : 0,
           note: criterion.note
