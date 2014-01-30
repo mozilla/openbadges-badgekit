@@ -34,7 +34,7 @@ app.use(staticRoot, express.static(staticDir));
 
 persona.express(app, { audience: config('PERSONA_AUDIENCE') });
 
-app.get('/', 'home', middleware.redirect('directory', 302));
+app.get('/', 'home', views.home);
 app.get('/directory', 'directory', views.directory.home);
 app.get('/directory/addBadge', 'directory.addBadge', views.directory.addBadge);
 app.get('/directory/useTemplate', 'directory.useTemplate', views.directory.useTemplate);
