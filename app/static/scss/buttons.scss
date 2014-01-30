@@ -67,11 +67,16 @@
   background-color: green;
 }
 
+.cancel-btn {
+  background-color: gray;
+}
+
 .use-btn,
 .view-btn,
 .blank-btn,
 .import-btn,
 .action-btn,
-.submit-btn {
+.submit-btn,
+.cancel-btn {
   display: inline-block;
 }
