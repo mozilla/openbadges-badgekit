@@ -25,7 +25,8 @@
     "node-sass": "~0.7.0",
     "express-persona-observer": "~0.0.2",
     "async": "~0.2.9",
-    "mysql": "~2.0.0-rc1"
+    "mysql": "~2.0.0-rc1",
+    "badgekit-issue-client": "git+https://github.com/mozilla/badgekit-issue-client.git"
   },
   "devDependencies": {
     "mocha": "~1.15.1",

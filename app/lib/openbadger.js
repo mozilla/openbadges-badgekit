@@ -1,6 +1,6 @@
 var config = require('./config');
 
-exports = module.exports = require('../../lib/badgekit-issue-client')(
+exports = module.exports = require('badgekit-issue-client')(
   config('OPENBADGER_URL')
 );
 
