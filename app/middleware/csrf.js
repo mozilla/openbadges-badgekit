@@ -1,7 +1,5 @@
 function defaultCsrfValue (req) {
-  return (req.body && req.body._csrf)
-    || (req.query && req.query._csrf)
-    || (req.headers['x-csrf-token']);
+  return (req.body && req.body._csrf) || (req.query && req.query._csrf) || (req.headers['x-csrf-token']);
 }
 
 function whitelisted (list, input) {
@@ -24,7 +22,7 @@ function uid (len) {
     buf.push(chars[getRandomInt(0, charlen - 1)]);
   }
   return buf.join('');
-};
+}
 
 function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

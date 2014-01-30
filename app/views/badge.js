@@ -119,9 +119,11 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
     badge: req.body.badgeId
   };
 
-  openbadger.awardBadge(query, function(err, data) {
-    if (err)
-      return res.send(500, err);
+  // This API endpoint isn't yet implemented, and likely "query" will have to be changed when it is
+  openbadger.grantBadgeAward(req.body.badgeId, query, function(err, data) {
+    //suppressing errors for now, as this will always result in an error at the moment
+    //if (err)
+    //  return res.send(500, err);
 
     return middleware.redirect('directory', 302)(req, res, next);
   });

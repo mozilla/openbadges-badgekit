@@ -11,12 +11,12 @@ function getDbConfig (prefix) {
     user:       config(prefix+'USER'),
     password:   config(prefix+'PASSWORD'),
     database:   config(prefix+'DATABASE')
-  }
+  };
 }
 
 function getDb (prefix) {
   return streamsql.connect(getDbConfig(prefix));
-};
+}
 
 module.exports.getDb = getDb;
 module.exports.getDbConfig = getDbConfig;
