@@ -1,9 +1,7 @@
 $(document).ready(function() {
-  nunjucks.configure('/static/templates', { autoescape: true });
-
   var numCriteriaSelect = $('.js-num-criteria');
 
-  numCriteriaSelect.change(function(e) {
+  numCriteriaSelect.change(function() {
     var criterionDivs = $('.js-criterion');
     var numCriteria = parseInt(numCriteriaSelect.val(),10);
 

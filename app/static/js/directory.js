@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   var dropdownNavButton = $('.dropdown-nav');
 
   dropdownNavButton.click(function() {
