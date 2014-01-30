@@ -12,7 +12,14 @@ function getBadgeById(badgeId, callback) {
      });
     }
     else {
-      openbadger.getBadge({ id: badgeId }, callback);
+      openbadger.getBadge({ slug: badgeId }, function(err, data) {
+        if (err)
+          return callback(err);
+
+        data = openbadger.convertBadgeFormat(data);
+
+        callback(err, { badge: data });
+      });
     }
 }
 
@@ -95,11 +102,12 @@ exports.image = function image (req, res, next) {
 exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge({ id: badgeId }, function(err, data) {
+  openbadger.getBadge({ slug: badgeId }, function(err, data) {
     if (err)
       return res.send(500, err);
 
-    res.render('badge/issue-by-email.html', data);
+    data = openbadger.convertBadgeFormat(data);
+    res.render('badge/issue-by-email.html', { badge: data });
   });
 };
 
@@ -111,9 +119,11 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
     badge: req.body.badgeId
   };
 
-  openbadger.awardBadge(query, function(err, data) {
-    if (err)
-      return res.send(500, err);
+  // This API endpoint isn't yet implemented, and likely "query" will have to be changed when it is
+  openbadger.grantBadgeAward(req.body.badgeId, query, function(err, data) {
+    //suppressing errors for now, as this will always result in an error at the moment
+    //if (err)
+    //  return res.send(500, err);
 
     return middleware.redirect('directory', 302)(req, res, next);
   });
@@ -123,11 +133,12 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
 exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge({ id: badgeId }, function(err, data) {
+  openbadger.getBadge({ slug: badgeId }, function(err, data) {
     if (err)
       return res.send(500, err);
 
-    res.render('badge/issue-by-claim-code.html', data);
+    data = openbadger.convertBadgeFormat(data);
+    res.render('badge/issue-by-claim-code.html', { badge: data });
   });
 };
 

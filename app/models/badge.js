@@ -40,7 +40,7 @@ module.exports = function getBadgeModel (key) {
         return callback(err);
       });
     });
-  };
+  }
 
   function createCopy(overrides, callback) {
     var badge = this;
@@ -72,7 +72,7 @@ module.exports = function getBadgeModel (key) {
         });
       });
     });
-  };
+  }
 
   var db = getDb(key);
 
@@ -115,4 +115,5 @@ module.exports = function getBadgeModel (key) {
   });
 
   return Badge;
-}
+};
+

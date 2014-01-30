@@ -12,7 +12,7 @@ exports.home = function home (req, res, next) {
 
     switch (sort) {
       case 'name':
-        badges.sort(function(a,b) { return (a.name > b.name) ? 1 : -1 });
+        badges.sort(function(a,b) { return (a.name > b.name) ? 1 : -1; });
         break;
       case 'applications':
         // to be implemented
@@ -56,7 +56,11 @@ exports.home = function home (req, res, next) {
   switch (category) {
     case 'published':
       openbadger.getAllBadges(function (err, data) {
-        handleResults(err, data.badges);
+        if (err)
+          return res.send(500, err);
+        
+        var badges = data.map(openbadger.convertBadgeFormat);
+        handleResults(err, badges);
       });
       break;
     case 'archived':
