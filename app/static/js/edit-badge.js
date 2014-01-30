@@ -15,7 +15,7 @@ $(document).ready(function() {
       }        
     }
 
-    for (var i = numCriteria-1; i >= criterionDivs.length; i--) {
+    for (i = numCriteria-1; i >= criterionDivs.length; i--) {
       var newCriterionDiv = nunjucks.render('badge/criterion.html', { index: i });
       criterionDivs.last().after(newCriterionDiv);
     }
