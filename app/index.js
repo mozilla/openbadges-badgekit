@@ -8,7 +8,7 @@ const persona = require('express-persona-observer');
 
 var app = express();
 
-var env = new nunjucks.Environment(new nunjucks.FileSystemLoader([path.join(__dirname, './templates'), 
+var env = new nunjucks.Environment(new nunjucks.FileSystemLoader([path.join(__dirname, './templates'),
                                                                   path.join(__dirname, './static/templates')]),
                                    { autoescape: true, watch: true });
 
