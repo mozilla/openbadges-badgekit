@@ -162,6 +162,13 @@
     border: 1px solid $white;
     @include drop-shadow;
   }
+  .fa-plus-circle {
+    padding: 25px;
+    color: $gray;
+    font-size: 100px;
+    border: 1px solid $white;
+    @include drop-shadow
+  }
 }
 
 /*.badge-container-buttons {
@@ -191,6 +198,10 @@
 
 .newly-created-badge {
   border: 10px solid;
+}
+
+.badge-template {
+  margin: 0 2% 2% 0;
 }
 
 .new-placeholder {
