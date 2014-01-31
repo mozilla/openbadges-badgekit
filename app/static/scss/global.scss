@@ -149,14 +149,14 @@
 .badge-thumb-container {
   height: 85%;
   float: left;
-  margin: 0 20px 20px 0;
+  margin: 10px 40px 20px 10px;
   .badgethumb {
     @include drop-shadow;
     height: 100%;
-    margin: 10px 20px 0 10px;
   }
   .fa-plus-circle {
-    padding: 25px;
+    width: 100%;
+    text-align: center;
     color: $gray;
     font-size: 100px;
     border: 1px solid $white;

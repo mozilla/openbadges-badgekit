@@ -16,7 +16,7 @@
         <div class="badge-thumb-container">
           <i class="fa fa-plus-circle"></i>
         </div>
-        <h2>Add a New Template</h2>
+        <h2>Add a New Template</h2><br>
         <div class="upload-edit">
           <i class="fa fa-cloud-upload"></i>
           <a class="js-login" >Upload a badge</a>
@@ -26,7 +26,7 @@
 
       <section class="badge-template left">
         <div class="badge-thumb-container">
-          <i class="fa fa-plus-circle"></i><!--  this needs to be replaced with a placeholder badge -->
+          <img class="badgethumb left" src="{{ static('images/default-badge.png') }}"/>
         </div>
           <h2>Cat in Space</h2>
           <p class="small-copy">Status: Template</p>
@@ -38,3 +38,8 @@
     </div>
   </div>
 {% endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/home.js') }}"></script>
+{%- endblock %}
