@@ -10,7 +10,7 @@
           <h2>{{ badge.name }}</h2>
           <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
           <div class="upload-edit">
-            <i class="fa fa-pencil"><a href="">Edit</a></i>
+            <i class="fa fa-pencil"><a href="{{ url('badge.edit', { badgeId: badge.id }) }}">Edit</a></i>
           </div>
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
           {% if category == 'template' %}

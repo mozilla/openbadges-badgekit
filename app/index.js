@@ -34,26 +34,28 @@ app.use(middleware.sass(staticDir, staticRoot));
 app.use(middleware.addCsrfToken);
 app.use(staticRoot, express.static(staticDir));
 
-persona.express(app, { audience: config('PERSONA_AUDIENCE') });
+persona.express(app, { audience: config('PERSONA_AUDIENCE'),
+                       redirects: { notLoggedIn: '/', notLoggedOut: '/directory' },
+                       selectors: { login: '.js-login', logout: '.js-logout' } });
 
-app.get('/', 'home', views.home);
-app.get('/directory', 'directory', views.directory.home);
-app.get('/directory/addBadge', 'directory.addBadge', views.directory.addBadge);
-app.get('/directory/useTemplate', 'directory.useTemplate', views.directory.useTemplate);
+app.get('/', 'home', [persona.ensureLoggedOut()], views.home);
+app.get('/directory', 'directory', [persona.ensureLoggedIn()], views.directory.home);
+app.get('/directory/addBadge', 'directory.addBadge', [persona.ensureLoggedIn()], views.directory.addBadge);
+app.get('/directory/useTemplate', 'directory.useTemplate', [persona.ensureLoggedIn()], views.directory.useTemplate);
 
-app.get('/badge/:badgeId', 'badge', views.badge.home);
-app.get('/badge/:badgeId/edit', 'badge.edit', views.badge.edit);
-app.post('/badge/:badgeId/edit', 'badge.save', views.badge.save);
+app.get('/badge/:badgeId', 'badge', [persona.ensureLoggedIn()], views.badge.home);
+app.get('/badge/:badgeId/edit', 'badge.edit', [persona.ensureLoggedIn()], views.badge.edit);
+app.post('/badge/:badgeId/edit', 'badge.save', [persona.ensureLoggedIn()], views.badge.save);
 
-app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', views.badge.renderIssueByEmail);
-app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', views.badge.issueByEmail);
+app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLoggedIn()], views.badge.renderIssueByEmail);
+app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLoggedIn()], views.badge.issueByEmail);
 
-app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.renderIssueByClaimCode);
-app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.issueByClaimCode);
+app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', [persona.ensureLoggedIn()], views.badge.renderIssueByClaimCode);
+app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', [persona.ensureLoggedIn()], views.badge.issueByClaimCode);
 
 app.get('/images/badge/:badgeId.png', 'badge.image', views.badge.image);
 
-app.get('/settings', 'settings', views.settings.home);
+app.get('/settings', 'settings', [persona.ensureLoggedIn()], views.settings.home);
 
 if (!module.parent) {
   const port = config('PORT', 3000);

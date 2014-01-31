@@ -27,7 +27,7 @@
               <div class="dropdown dropdown-signed-in right">
                 <select class="js-user-dropdown">
                   <option selected="selected">Welcome {{ loggedInUser }}</option>
-                  <option id="logout">Sign Out</option>
+                  <option class="js-logout">Sign Out</option>
                   <option class="js-navigate" value="{{ url('settings') }}">Settings</option>
                 </select>
                 <span class="arrow-down"></span>
@@ -54,7 +54,7 @@
               </div>
               <div class="dropdown dropdown-signed-in right">
                 <select>
-                  <option id="login">Sign In</option>
+                  <option class="js-login">Sign In</option>
                   <option>Create Account</option>
                 </select>
                 <span class="arrow-down"></span>
