@@ -86,6 +86,11 @@ li {
   list-style: none;
 }
 
+a {
+  color: $light-blue;
+  text-decoration: none;
+}
+
 textarea {
   height: 150px;
 }
