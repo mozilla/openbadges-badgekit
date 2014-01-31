@@ -9,11 +9,19 @@ $(document).ready(function() {
     if (selectedOption.hasClass('js-navigate')) {
       window.location.href = selectedOption.val();
     }
+
+    if (selectedOption.hasClass('js-login')) {
+      navigator.id.request();
+    }
+
+    if (selectedOption.hasClass('js-logout')) {
+      navigator.id.logout();
+    }
   });
 
   var badgeThumbContainer = $('.badge-thumb-container');
 
-  badgeThumbContainer.resize(function() {
+  function resizeBadgeThumbContainer() {
     var container = $(this);
     container.width(container.height());
 
@@ -23,7 +31,8 @@ $(document).ready(function() {
 
     plusCircle.css('padding-top', newPadding);
     plusCircle.css('padding-bottom', newPadding);
-  });
+  }
 
-  badgeThumbContainer.resize();
+  badgeThumbContainer.resize(resizeBadgeThumbContainer);
+  badgeThumbContainer.each(resizeBadgeThumbContainer);
 });

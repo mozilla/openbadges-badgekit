@@ -2,8 +2,10 @@ $(document).ready(function() {
   var leftWhatIsContainer = $('.home-what-is-badge');
   var rightWhatIsContainer = $('.home-what-is-image');
 
-  leftWhatIsContainer.resize(function() {
+  function resizeWhatIsContainer() {
     rightWhatIsContainer.height(leftWhatIsContainer.height());
-  });
-  leftWhatIsContainer.resize();
+  }
+
+  leftWhatIsContainer.resize(resizeWhatIsContainer);
+  resizeWhatIsContainer();
 });
