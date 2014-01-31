@@ -1,0 +1,49 @@
+@import "base";
+@import "buttons";
+
+.settings-tabs {
+  width: $two-wide;
+  .tab-container { margin-right: 30px; }
+  .tab {
+    border: 1px solid $white;
+    padding: 10px;
+    background: $gray30;
+    color: $black;
+    cursor: pointer;
+  }
+  .tab.selected {
+    background: $warm-gray;
+  }
+}
+
+.settings-profile,
+.settings-notifications,
+.settings-privacy,
+.settings-permissions {
+  width: $four-wide;
+  padding: 0 25px 30px 25px;
+  .badge-field {
+    width: $six-wide;
+  }
+  .checkbox-input {
+    margin-left: 10px;
+  }
+  .checkbox {
+    display: inline;
+  }
+  .permissions-title { font-weight: bold; }
+  .permission-email {
+    border-bottom: 1px solid $gray;
+    padding-bottom: 10px;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.settings-form {
+  .badge-field {
+    margin-bottom: 20px;
+  }
+}

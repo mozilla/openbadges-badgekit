@@ -8,7 +8,9 @@ const persona = require('express-persona-observer');
 
 var app = express();
 
-var env = new nunjucks.Environment(new nunjucks.FileSystemLoader(path.join(__dirname, './templates')), {autoescape: true, watch:true});
+var env = new nunjucks.Environment(new nunjucks.FileSystemLoader([path.join(__dirname, './templates'), 
+                                                                  path.join(__dirname, './static/templates')]),
+                                   { autoescape: true, watch: true });
 
 env.express(app);
 
@@ -50,6 +52,8 @@ app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badg
 app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', views.badge.issueByClaimCode);
 
 app.get('/images/badge/:badgeId.png', 'badge.image', views.badge.image);
+
+app.get('/settings', 'settings', views.settings.home);
 
 if (!module.parent) {
   const port = config('PORT', 3000);

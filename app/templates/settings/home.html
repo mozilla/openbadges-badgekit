@@ -1,0 +1,111 @@
+{% extends "settings/layout.html" %}
+{% block content %}
+  <div class="container">
+    <section class="settings-tabs left">
+      <ul class="tab-container">
+        <li class="tab js-tab selected" data-section="profile">Profile</li>
+        <li class="tab js-tab" data-section="notifications">Notifications</li>
+        <li class="tab js-tab" data-section="privacy">Privacy</li>
+        <li class="tab js-tab" data-section="permissions">Permissions</li>
+      </ul>
+    </section>
+
+    <section class="settings settings-profile js-settings js-settings-profile left">
+      <form class="settings-form" name="input" action="" method="post">
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="name">Name:</label>
+          <input class="badge-field" type="text" name="name" value="">
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="email">Email Address:</label>
+          <input class="badge-field" type="text" name="email" value="">
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="sms">SMS:</label>
+          <input class="badge-field" type="text" name="sms" value="">
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="badge-label" for="language">Language:</label>
+          <input class="badge-field" type="text" name="language" value="">
+        </div>
+
+        <a class="gray-btn submit-btn" type="submit">Save</a>
+      </form>
+    </section>
+
+    <section class="settings settings-notifications js-settings js-settings-notifications left hidden">
+      <form class="settings-form" name="input" action="" method="post">
+        <div class="form-field-wrapper">
+          <p>How would you like to get account notifications?</p>
+          <input type="checkbox" name="email" value="By Email" class="checkbox"><span class="checkbox-input">By Email</span><br>
+          <input type="checkbox" name="push-notifications" value="Push Notifications" class="checkbox"><span class="checkbox-input">Push Notifications</span><br>
+          <input type="checkbox" name="sms" value="SMS" class="checkbox"><span class="checkbox-input">SMS</span><br>
+        </div>
+
+        <div class="form-field-wrapper">
+          <p>Would your emials synthesize into daily digests?</p>
+          <input type="checkbox" name="yes" value="yes" class="checkbox"><span class="checkbox-input">Yes</span><br>
+          <input type="checkbox" name="no" value="no" class="checkbox"><span class="checkbox-input">No</span><br>
+        </div>
+
+        <a class="gray-btn submit-btn" type="submit">Save</a>
+
+      </form>
+    </section>
+
+    <section class="settings settings-privacy js-settings js-settings-privacy left hidden">
+      <form class="settings-form" name="input" action="" method="post">
+        <div class="form-field-wrapper">
+          <p>Who can contact me?</p>
+          <input type="checkbox" name="anyone" value="Anyone" class="checkbox"><span class="checkbox-input">Anyone</span><br>
+          <input type="checkbox" name="" value="Willy Wonka" class="checkbox"><span class="checkbox-input">Willy Wonka</span><br>
+          <input type="checkbox" name="" value="The Lilipop Guild" class="checkbox"><span class="checkbox-input">The Lilipop Guild</span><br>
+        </div>
+
+        <div class="form-field-wrapper">
+          <p>Who can look me up?</p>
+          <input type="checkbox" name="anyone" value="Anyone" class="checkbox"><span class="checkbox-input">Anyone</span><br>
+          <input type="checkbox" name="" value="Willy Wonka" class="checkbox"><span class="checkbox-input">Willy Wonka</span><br>
+          <input type="checkbox" name="" value="The Lilipop Guild" class="checkbox"><span class="checkbox-input">The Lilipop Guild</span><br>
+        </div>
+
+        <div class="form-field-wrapper">
+          <p>Who can access and use my data?</p>
+          <input type="checkbox" name="anyone" value="Anyone" class="checkbox"><span class="checkbox-input">Anyone</span><br>
+          <input type="checkbox" name="" value="Willy Wonka" class="checkbox"><span class="checkbox-input">Willy Wonka</span><br>
+          <input type="checkbox" name="" value="The Lilipop Guild" class="checkbox"><span class="checkbox-input">The Lilipop Guild</span><br>
+        </div>
+
+        <a class="gray-btn submit-btn" type="submit">Save</a>
+      </form>
+    </section>
+
+    <section class="settings settings-permissions js-settings js-settings-permissions left hidden">
+      <p class="permissions-title">Who has access to shared programs:</p>
+      <p class="permission-email">email@email.com</p>
+      <p class="permission-email">secondemail@email.com</p>
+      <form class="settings-form" name="input" action="" method="post">
+        <div class="form-field-wrapper">
+          <p>Invite people to join your shared programs:</p>
+          <input class="badge-field" type="text" name="Email" value="">
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can edit badge content</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can read badge content</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can publish badge content</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can access badges</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can define badge requirements</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can define and modify rubrics</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can define badge thresholds</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can define pre-canned messages for <3 badge earner feedback</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can define acceptable media for badge evidence</span><br>
+          <input type="checkbox" name="" value="" class="checkbox"><span class="checkbox-input">Can issue a badge to a qualifie applicant</span><br>
+        </div>
+
+        <a class="gray-btn submit-btn" type="submit">Grant Access & Save</a>
+        <a class="gray-btn cancel-btn" type="submit">Cancel</a>
+      </form>
+    </section>
+  </div>
+{% endblock %}

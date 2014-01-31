@@ -5,7 +5,7 @@
       {% for badge in badges %}
         <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
           <div class="badge-thumb-container">
-            <img class="badgethumb left" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+            <img class="badgethumb left" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}">
             <h2>{{ badge.name }}</h2>
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
           </div>
