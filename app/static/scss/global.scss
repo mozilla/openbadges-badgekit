@@ -143,10 +143,11 @@
 }
 
 .badge-thumb-container {
-  height: 70%;
+  height: 85%;
   float: left;
-  margin-right: 20px;
+  margin: 0 20px 20px 0;
   .badgethumb {
+    @include drop-shadow;
     height: 100%;
     margin: 10px 20px 0 10px;
   }
@@ -155,16 +156,16 @@
     color: $gray;
     font-size: 100px;
     border: 1px solid $white;
-    @include drop-shadow
+    @include drop-shadow;
   }
 }
 
-.badge-container-buttons {
+/*.badge-container-buttons {
   position: absolute;
   right: 10px;
   padding: 5px 0;
   bottom: 0;
-}
+}*/
 
 .badge-template,
 .badge-new {
@@ -172,14 +173,20 @@
   width: $three-wide;
   height: 185px;
   float: left;
+  .fa-cloud-upload {
+    font-size: 20px;
+    color: $gray;
+  }
+  .upload-edit {
+    padding: 5px 0 20px 0;
+  }
+  .small-copy {
+    margin-top: -15px;
+  }
 }
 
 .newly-created-badge {
   border: 10px solid;
-}
-
-.badge-template {
-  margin: 0 2% 2% 0;
 }
 
 .new-placeholder {
