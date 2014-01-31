@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="container">
+  <div class="container clearfix">
     <section class="home-what-is-badge left">
       <h1 class="what-is-header">Badge Issuing made simple.</h1>
       <p class="small-copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -12,25 +12,28 @@
 
     <div class="home-get-started cb">
       <h1>Get started making badges:</h1>
-      <section class="badge-new">
+      <section class="badge-new left">
         <div class="badge-thumb-container">
           <i class="fa fa-plus-circle"></i>
         </div>
-          <h2>Add a New</h2>
-
-        <div class="badge-container-buttons cb">
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
+        <h2>Add a New Template</h2>
+        <div class="upload-edit">
+          <i class="fa fa-cloud-upload"></i>
+          <a href="">Upload a badge</a>
         </div>
+        <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
       </section>
+
       <section class="badge-template left">
         <div class="badge-thumb-container">
-          <img class="badgethumb left" src=""/>
-          <h2></h2>
-          <p class="small-copy">Status: </p>
+          <i class="fa fa-plus-circle"></i><!--  this needs to be replaced with a placeholder badge -->
         </div>
-        <div class="badge-container-buttons cb">
+          <h2>Cat in Space</h2>
+          <p class="small-copy">Status: Template</p>
+          <div class="upload-edit">
+            <i class="fa fa-pencil"><a href="">Edit</a></i>
+          </div>
           <a href="" class="gray-btn view-btn">View</a>
-        </div>
       </section>
     </div>
   </div>
