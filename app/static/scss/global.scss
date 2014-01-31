@@ -149,7 +149,8 @@
 .badge-thumb-container {
   height: 85%;
   float: left;
-  margin: 10px 40px 20px 10px;
+  margin: 0 20px 20px 0;
+  .badgethumb {
     @include drop-shadow;
     height: 100%;
   }
@@ -173,7 +174,7 @@
     color: $gray;
     font-size: 100px;
     border: 1px solid $white;
-    @include drop-shadow
+    @include drop-shadow;
   }
 }
 
@@ -204,10 +205,6 @@
 
 .newly-created-badge {
   border: 10px solid;
-}
-
-.badge-template {
-  margin: 0 2% 2% 0;
 }
 
 .new-placeholder {

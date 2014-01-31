@@ -15,7 +15,7 @@
           <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
         </section>
       {% endif %}
-      
+
       {% for badge in badges %}
         <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
           <div class="badge-thumb-container">
