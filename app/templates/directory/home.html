@@ -2,6 +2,20 @@
 {% block content %}
   <div class="container">
     <div class="badges-container cb">
+    {% if category == 'template' or category == 'draft' %}
+        <section class="badge-new left">
+          <div class="badge-thumb-container">
+            <i class="fa fa-plus-circle"></i>
+          </div>
+          <h2>Add a New {{ category | capitalize }}</h2><br>
+          <div class="upload-edit">
+            <i class="fa fa-cloud-upload"></i>
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}">Upload a badge</a>
+          </div>
+          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
+        </section>
+      {% endif %}
+      
       {% for badge in badges %}
         <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
           <div class="badge-thumb-container">
@@ -33,20 +47,6 @@
           {% endif %}
         </section>
       {% endfor %}
-
-      {% if category == 'template' or category == 'draft' %}
-        <section class="badge-new left">
-          <div class="badge-thumb-container">
-            <i class="fa fa-plus-circle"></i>
-          </div>
-          <h2>Add a New {{ category | capitalize }}</h2><br>
-          <div class="upload-edit">
-            <i class="fa fa-cloud-upload"></i>
-            <a href="{{ url('directory.addBadge') }}?category={{ category }}">Upload a badge</a>
-          </div>
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
-        </section>
-      {% endif %}
     </div>
 
     {% if pages > 1 %}

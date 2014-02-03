@@ -10,6 +10,31 @@ exports.home = function home (req, res, next) {
     if (err)
       return res.send(500, err);
 
+    // If the user was redirected here after creating a new
+    // badge, we pass the ID of that badge to the template
+    // so we can highlight it with CSS.
+    const lastCreatedId = req.session.lastCreatedId;
+    delete req.session.lastCreatedId;
+
+    var newBadge = null;
+
+    if (lastCreatedId) {
+      var newIndex = -1;
+
+      for (var i = 0; i < badges.length; i++) {
+        if (badges[i].id === lastCreatedId) {
+          newIndex = i;
+          break;
+        }
+      }
+
+      if (newIndex !== -1) {
+        newBadge = badges[newIndex];
+        badges.splice(newIndex, 1);
+      }
+    }
+
+
     switch (sort) {
       case 'name':
         badges.sort(function(a,b) { return (a.name > b.name) ? 1 : -1; });
@@ -28,16 +53,20 @@ exports.home = function home (req, res, next) {
         break;
     }
 
-    const startIndex = (pageNum-1) * PAGE_SIZE;
-    const pages = Math.ceil(badges.length / PAGE_SIZE);
+    var pageSize = PAGE_SIZE;
+    if (category === 'template' || category === 'draft') {
+      pageSize--;
+    }
 
-    badges = badges.slice(startIndex, startIndex + PAGE_SIZE);
+    const startIndex = (pageNum-1) * pageSize;
+    const pages = Math.ceil(badges.length / pageSize);
 
-    // If the user was redirected here after creating a new
-    // badge, we pass the ID of that badge to the template
-    // so we can highlight it with CSS.
-    const lastCreatedId = req.session.lastCreatedId;
-    delete req.session.lastCreatedId;
+    if (newBadge) {
+      badges = [newBadge].concat(badges.slice(startIndex, startIndex + pageSize - 1));
+    }
+    else {
+      badges = badges.slice(startIndex, startIndex + pageSize);
+    }
 
     return res.render('directory/home.html', {
       badges: badges,
