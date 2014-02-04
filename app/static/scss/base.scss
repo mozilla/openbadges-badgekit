@@ -72,6 +72,20 @@ $gray50: #c3c8d0;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
+@mixin dropdown-boxshadow {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+@mixin transition {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background-color: #d5d2c7;
