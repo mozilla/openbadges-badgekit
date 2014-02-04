@@ -22,8 +22,6 @@
 .nav-header {
   position: relative;
   margin-left: 150px;
-  .menu-about-badges,
-  .menu-about-people,
   .dropdown {
     display: inline;
     background: white;
@@ -41,6 +39,65 @@
   }
 }
 
+.nav-header {
+  .arrow-down {
+    border-top-color: $dark-gray;
+    position: relative;
+    top: 17px;
+    left: 160px;;
+  }
+  .badges-dropdown,
+  .people-dropdown {
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 15px 4px 17px 0;
+    list-style: none;
+    li {
+      color: $dark-gray;
+      display: inline-block;
+      position: relative;
+      padding: 5px 20px;
+      cursor: pointer;
+      @include transition;
+      &::hover {
+        background: #555;
+        color: #fff;
+      }
+      ul {
+        padding: 0;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 173px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        @include transition;
+        li {
+          background-color: $white;
+          display: block;
+          color: $dark-gray;
+          &:hover { color: $light-blue; }
+        }
+      }
+    }
+  }
+  ul li:hover {
+    .menu-hover {
+      @include dropdown-boxshadow;
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      border-top: 4px solid $light-green;
+    }
+  }
+}
+
 .highlight-arrow {
   position: absolute;
   top: 51px;
@@ -50,26 +107,6 @@
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   border-bottom: 9px solid $white;
-}
-
-.categories {
-  background: gray;
-  padding: 15px 0;
-  font-size: 20px;
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    color: inherit;
-    border-right: 1px solid black;
-    padding: 0 1em;
-  }
-  .dropdown-nav {
-    border-right: none;
-  }
-}
-
-.highlighted {
-  background-color: #00AAAA;
 }
 
 .account-sign-in {
