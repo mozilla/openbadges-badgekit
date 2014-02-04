@@ -35,16 +35,15 @@
   width: 90%; /*width: 1200px;*/
   max-width: 1200px;
   margin: auto;
+  padding: 25px;
 }
 
 $one-wide: 13.6%;
 $two-wide: 30.9%;
-$three-wide: 47.2%;
+$three-wide: 50%;
 $four-wide: 65.5%;
 $five-wide: 82.7%;
 $six-wide: 100%;
-$quarter-wide: 22.2%;
-$three-quarters-wide:74.1%;
 
 /*** STANDARD COLORS ***/
 $black: #000;
@@ -59,11 +58,12 @@ $medium-green: #4bb96b;
 $light-green: #6ac1a3;
 $dark-green: #349776;
 $gray: #aeb0b1;
+$dark-gray: #404041;
 $gray5: #f9f9fa;
 $gray10: #f3f4f5;
 $gray30: #dbdee3;
 $gray50: #c3c8d0;
-$dark-gray: #828485;
+
 
 @mixin drop-shadow {
   // use this to add a consistent shadow to modules with dropshadow
@@ -74,6 +74,7 @@ $dark-gray: #828485;
 
 body {
   font-family: "Open Sans", sans-serif;
+  background-color: #d5d2c7;
 }
 
 h1 { font-size: 24px; }
@@ -106,6 +107,10 @@ input {
     -moz-box-shadow: 0 0 2px;
     box-shadow: 0 0 2px;
   }
+}
+
+.white-container {
+  background-color: $white;
 }
 
 .checkbox {
