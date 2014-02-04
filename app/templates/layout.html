@@ -16,49 +16,22 @@
       <header id="header" class="header-container">
         {% block header -%}
           <div class="container">
-            <h1 class="badgekit-logo">
+            <h1 class="badgekit-logo left">
               <a href="{{ url('directory') }}">BadgeKit</a>
             </h1>
-
-            <div class="home-search">
-              <input placeholder="Search" type="text">
-            </div>
             {% if loggedInUser %}
-              <div class="dropdown dropdown-signed-in right">
-                <select class="js-user-dropdown">
-                  <option selected="selected">Welcome {{ loggedInUser }}</option>
-                  <option class="js-logout">Sign Out</option>
-                  <option class="js-navigate" value="{{ url('settings') }}">Settings</option>
-                </select>
-                <span class="arrow-down"></span>
-              </div>
+              <!-- SECONDARY NAV GOES HERE -->
             {% else %}
-              <div class="container">
-                <nav class="nav-header">
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="#">Build</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="#">Assess</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="#">About</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="#">Glossary</a>
-                    </li>
-                  </ul>
-                </nav>
-
-              </div>
-              <div class="dropdown dropdown-signed-in right">
-                <select class="js-user-dropdown">
-                  <option class="js-login">Sign In</option>
-                  <option>Create Account</option>
-                </select>
-                <span class="arrow-down"></span>
-              </div>
+              <nav class="nav-header">
+                <a href="#" class="menu-item"><i class="fa fa-briefcase"></i>Badges<span class="arrow-down"></span></a>
+                <a href="#" class="menu-item">About<span class="arrow-down"></span></a>
+                <a href="#" class="menu-item">Help<span class="arrow-down"></span></a>
+                <a href="#" class="menu-item" id="js-login"><i class="fa fa-sign-in"></i>Log In</a>
+                </ul>
+                <!-- arrow up for link selected start -->
+                <span class="highlight-arrow"></span>
+                <!-- arrow up for link selected end -->
+              </nav>
             {% endif %}
           </div>
         {%- endblock %}
@@ -75,7 +48,6 @@
     {% block footerWrapper -%}
       <footer id="footer" class="footer-container left">
         {% block footer -%}
-        <div class="container clearfix">
           <a href="http://openbadges.org" class="open-badges-logo left">Mozilla Open Badges</a>
           <section class="footnote-container">
             <p class="footnote">Portions of this content are &copy; 1998-2013 by individual <a href="">mozilla.org</a> contributors. Content available under a <a href="">Creative Commons license.</a></p>
@@ -111,7 +83,6 @@
               <option value="Other">Other</option>
             </select>
           </section>
-        </div>
         {%- endblock %}
       </footer>
     {%- endblock %}

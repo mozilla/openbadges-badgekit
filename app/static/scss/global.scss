@@ -2,13 +2,7 @@
 
 .header-container,
 .footer-container {
-  padding: 0 0 20px 0;
-  margin-top: 30px;
-  border-top: 1px solid black;
-  h1 {
-    margin: 0;
-    padding: 28px 0 0 0;
-  }
+  padding: 35px 0 20px 0;
   .container {
     padding: 0 25px;
   }
@@ -16,20 +10,18 @@
 
 .footer-container {
   width: $six-wide;
-  padding: 45px 0;
+  margin: 30px 0 0 0;
+  padding: 30px 170px;
+  background-color: $white;
   .footnote-container,
   .footer-menu {
     margin: 0 4%;
   }
 }
 
-.badgekit-logo {
-  width: 300px;
-}
-
 .nav-header {
-  margin: 0 auto;
-  text-align: center;
+  position: relative;
+  margin-left: 150px;
   .menu-about-badges,
   .menu-about-people,
   .dropdown {
@@ -47,6 +39,17 @@
   .dropdown {
     padding-left: 0.25em;
   }
+}
+
+.highlight-arrow {
+  position: absolute;
+  top: 51px;
+  left: 100px;
+  width: 0px;
+  height: 0px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 9px solid $white;
 }
 
 .categories {
@@ -79,21 +82,27 @@
   cursor: pointer;
 }
 
-.menu {
-  margin: -1em 0 0;
-  padding: 0;
-  list-style: none;
-  line-height: 1em;
-}
-
 .header-container {
   .menu-item {
-    float: none;
-    display: inline-block;
-    border-right: 1px solid black;
-    padding: 0 1em;
-    &:last-child {
-      border-right: none;
+    font-size: 18px;
+    padding: 0 25px;
+    color: $dark-gray;
+    &:hover { color: $light-blue; }
+    .arrow-down {
+      border-top-color: $dark-gray;
+      position: relative;
+      top: 17px;
+      left: 5px;
+    }
+    .fa-briefcase {
+      font-size: 40px;
+      margin-right: 10px;
+      color: $dark-blue;
+    }
+    .fa-sign-in {
+      color: $dark-gray;
+      margin-right: 10px;
+      font-size: 20px;
     }
   }
 }
@@ -191,10 +200,12 @@
   width: $three-wide;
   height: 185px;
   float: left;
-  .fa-cloud-upload {
-    font-size: 20px;
+  .fa-cloud-upload,
+  .fa-pencil {
     color: $gray;
+    a { margin-left: 5px; }
   }
+  .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
   }
@@ -267,15 +278,7 @@
   }
 }
 
-.dropdown-signed-in {
-  top: -22px;
-  right: 20px;
-  .arrow-down {
-    position: absolute;
-    top: 15px;
-    right: 10px;
-  }
-}
+
 
 .dropdown-nav {
   position: relative;
@@ -354,7 +357,6 @@
     }
   }
   .footer-container {
-    margin-top: 30px;
     .footnote-container {
       width: $six-wide;
       clear: both;
