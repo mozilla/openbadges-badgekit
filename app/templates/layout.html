@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ static('/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ static('/css/base.css') }}">
     <link rel="stylesheet" href="{{ static('/css/global.css') }}">
+    <link rel="stylesheet" href="{{ static('/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ static('/css/home.css') }}">
   {%- endblock %}
 </head>
 <body>
@@ -13,38 +15,6 @@
     {% block headerWrapper -%}
       <header id="header" class="header-container">
         {% block header -%}
-          <!-- <div class="container">
-            <h1>
-              <a href="http://www.mozilla.org/" class="header-tab">Mozilla</a>
-            </h1>
-
-            <h1 class="badgekit-logo">
-              <a href="{{ url('directory') }}">BadgeKit</a>
-            </h1>
-
-            <nav class="nav-header">
-              <ul class="menu">
-                <li class="menu-item">
-                  <a href="#">Build</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#">Assess</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#">About</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#">Glossary</a>
-                </li>
-              </ul>
-            </nav>
-
-            <div class="home-search">
-              <input placeholder="Search" type="text">
-            </div>
-
-          </div> -->
-
           <div class="container">
             <h1 class="badgekit-logo">
               <a href="{{ url('directory') }}">BadgeKit</a>
@@ -57,16 +27,34 @@
               <div class="dropdown dropdown-signed-in right">
                 <select class="js-user-dropdown">
                   <option selected="selected">Welcome {{ loggedInUser }}</option>
-                  <option id="logout">Sign Out</option>
+                  <option class="js-logout">Sign Out</option>
                   <option class="js-navigate" value="{{ url('settings') }}">Settings</option>
                 </select>
                 <span class="arrow-down"></span>
               </div>
-
             {% else %}
+              <div class="container">
+                <nav class="nav-header">
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="#">Build</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="#">Assess</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="#">About</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="#">Glossary</a>
+                    </li>
+                  </ul>
+                </nav>
+
+              </div>
               <div class="dropdown dropdown-signed-in right">
-                <select>
-                  <option id="login">Sign In</option>
+                <select class="js-user-dropdown">
+                  <option class="js-login">Sign In</option>
                   <option>Create Account</option>
                 </select>
                 <span class="arrow-down"></span>

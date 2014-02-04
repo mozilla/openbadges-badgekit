@@ -1,0 +1,29 @@
+@import "base";
+@import "buttons";
+
+.home-what-is-badge,
+.home-what-is-image {
+  width: 50%;
+  padding: 60px 45px;
+}
+
+.home-what-is-badge {
+  color: $white;
+  background-color: $medium-blue;
+  .small-copy { color: white; }
+  .what-is-header {
+    font-size: 50px;
+    margin: 0 0 20px 0;
+    line-height: 1.25em;
+  }
+}
+
+.home-what-is-image {
+  background-color: $medium-green;
+  height: 359px;
+  margin-top: -12px;
+}
+
+.home-get-started {
+  padding: 20px 0;
+}

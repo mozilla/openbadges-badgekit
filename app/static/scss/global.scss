@@ -75,6 +75,10 @@
   span { margin: 0 10px; }
 }
 
+.js-login {
+  cursor: pointer;
+}
+
 .menu {
   margin: -1em 0 0;
   padding: 0;
@@ -143,42 +147,50 @@
 }
 
 .badge-thumb-container {
-  width: 100%;
-  height: 70%;
+  height: 85%;
   float: left;
+  margin: 10px 40px 20px 10px;
   .badgethumb {
+    @include drop-shadow;
     height: 100%;
-    margin: 10px 20px 0 10px;
+  }
+  .fa-plus-circle {
+    width: 100%;
+    text-align: center;
+    color: $gray;
+    font-size: 100px;
+    border: 1px solid $white;
+    @include drop-shadow;
   }
 }
 
-.badge-container-buttons {
+/*.badge-container-buttons {
   position: absolute;
   right: 10px;
   padding: 5px 0;
   bottom: 0;
-}
+}*/
 
 .badge-template,
 .badge-new {
   position: relative;
   width: $three-wide;
   height: 185px;
-  border: 1px solid $gray;
   float: left;
+  .fa-cloud-upload {
+    font-size: 20px;
+    color: $gray;
+  }
+  .upload-edit {
+    padding: 5px 0 20px 0;
+  }
+  .small-copy {
+    margin-top: -15px;
+  }
 }
 
 .newly-created-badge {
   border: 10px solid;
-}
-
-.badge-template {
-  margin: 0 2% 2% 0;
-}
-
-.badge-new {
-  border: dashed 3px $gray30;
-  float: left;
 }
 
 .new-placeholder {

@@ -52,14 +52,25 @@ $white: #fff;
 $red: #FF0000;
 
 /*** BRAND COLORS  ***/
-$gray: #8892a1;
+$light-blue: #63c6f4;
+$medium-blue: #3184bd;
+$dark-blue: #52b0dc;
+$medium-green: #4bb96b;
+$light-green: #6ac1a3;
+$dark-green: #349776;
+$gray: #aeb0b1;
 $gray5: #f9f9fa;
 $gray10: #f3f4f5;
 $gray30: #dbdee3;
 $gray50: #c3c8d0;
-$dark-gray: #41444a;
-$warm-gray: #9a9998;
-$warm-gray30: #e2e1df;
+$dark-gray: #828485;
+
+@mixin drop-shadow {
+  // use this to add a consistent shadow to modules with dropshadow
+  -webkit-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -73,6 +84,11 @@ p { font-size: 15px; }
 
 li {
   list-style: none;
+}
+
+a {
+  color: $light-blue;
+  text-decoration: none;
 }
 
 textarea {
@@ -92,14 +108,15 @@ input {
   }
 }
 
+.checkbox {
+  display: inline;
+}
+
 .column {margin-bottom:20px;}
 
 .left { float: left; }
 .right { float: right; }
-.middle {
-  margin-left:3.7%;
-  float:left;
-}
+.middle { margin-left:3.7%; float:left; }
 
 /* apply a natural box layout model to all elements */
 *,
