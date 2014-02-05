@@ -81,6 +81,9 @@
           &:hover { color: $light-blue; }
         }
       }
+      .hover-applications,
+      .logout-hover,
+      .about-hover { top: 33px; }
     }
   }
   ul li:hover {
