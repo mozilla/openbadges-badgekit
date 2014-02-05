@@ -1,6 +1,6 @@
 {% extends "directory/layout.html" %}
 {% block content %}
-  <div class="container">
+  <div class="container beige-container clearfix">
     <div class="badges-container cb">
     {% if category == 'template' or category == 'draft' %}
         <section class="badge-new left">
@@ -15,7 +15,7 @@
           <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-btn">Blank</a>
         </section>
       {% endif %}
-      
+
       {% for badge in badges %}
         <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
           <div class="badge-thumb-container">

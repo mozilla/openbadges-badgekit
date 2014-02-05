@@ -35,16 +35,15 @@
   width: 90%; /*width: 1200px;*/
   max-width: 1200px;
   margin: auto;
+  padding: 25px;
 }
 
 $one-wide: 13.6%;
 $two-wide: 30.9%;
-$three-wide: 47.2%;
+$three-wide: 50%;
 $four-wide: 65.5%;
 $five-wide: 82.7%;
 $six-wide: 100%;
-$quarter-wide: 22.2%;
-$three-quarters-wide:74.1%;
 
 /*** STANDARD COLORS ***/
 $black: #000;
@@ -54,16 +53,19 @@ $red: #FF0000;
 /*** BRAND COLORS  ***/
 $light-blue: #63c6f4;
 $medium-blue: #3184bd;
-$dark-blue: #52b0dc;
+$dark-blue: #109eda;
 $medium-green: #4bb96b;
 $light-green: #6ac1a3;
 $dark-green: #349776;
+$light-beige: #f8f9f5;
+$dark-beige: #cbcbc6;
 $gray: #aeb0b1;
+$dark-gray: #404041;
 $gray5: #f9f9fa;
 $gray10: #f3f4f5;
 $gray30: #dbdee3;
 $gray50: #c3c8d0;
-$dark-gray: #828485;
+
 
 @mixin drop-shadow {
   // use this to add a consistent shadow to modules with dropshadow
@@ -72,8 +74,34 @@ $dark-gray: #828485;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
+@mixin dropdown-boxshadow {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+@mixin transition {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+@mixin gradient {
+  background: #d7d4c9; /* Old browsers */
+  background: -moz-linear-gradient(top,  #d7d4c9 0%, #fbfbfb 50%, #fdfdfd 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d7d4c9), color-stop(50%,#fbfbfb), color-stop(100%,#fdfdfd)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7d4c9', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
+}
+
 body {
   font-family: "Open Sans", sans-serif;
+  @include gradient;
 }
 
 h1 { font-size: 24px; }
@@ -106,6 +134,15 @@ input {
     -moz-box-shadow: 0 0 2px;
     box-shadow: 0 0 2px;
   }
+}
+
+.white-container {
+  background-color: $white;
+}
+
+.beige-container {
+  background-color: $light-beige;
+  border: 30px solid $dark-beige;
 }
 
 .checkbox {

@@ -1,12 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="container clearfix">
+  <div class="container white-container clearfix">
     <section class="home-what-is-badge left">
       <h1 class="what-is-header">Badge Issuing made simple.</h1>
-      <p class="small-copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. </p>
+      <p class="small-copy">Welcome! BadgeKit helps you build, assess and issue badges. The new platform easily connects with your website and services so you can bring Open Badges to your community. Learn <a href="">more</a> and get <a href="">started</a>.</p>
     </section>
     <section class="home-what-is-image left"></section>
 
@@ -41,5 +38,4 @@
 
 {% block scripts -%}
   {{ super() }}
-  <script src="{{ static('/js/home.js') }}"></script>
 {%- endblock %}

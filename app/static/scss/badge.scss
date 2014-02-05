@@ -53,3 +53,18 @@
     display: none;
   }
 }
+
+.categories {
+  text-align: center;
+  padding: 15px 0;
+  font-size: 20px;
+  a {
+      font-weight: bold;
+      text-decoration: none;
+      color: inherit;
+      padding: 0 1em;
+  }
+  .highlighted {
+    background-color: #00AAAA;
+  }
+}

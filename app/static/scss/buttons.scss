@@ -33,6 +33,12 @@
 .submit-btn {
   margin-left: 0;
   background-color: green;
+  &:disabled {
+    background-color: $gray;
+    &:hover {
+      opacity: 1.0;
+    }
+  }
 }
 
 .action-btn {

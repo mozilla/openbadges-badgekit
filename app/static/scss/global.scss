@@ -2,36 +2,22 @@
 
 .header-container,
 .footer-container {
-  padding: 0 0 20px 0;
-  margin-top: 30px;
-  border-top: 1px solid black;
-  h1 {
-    margin: 0;
-    padding: 28px 0 0 0;
-  }
-  .container {
-    padding: 0 25px;
-  }
+  width: $six-wide;
+  margin: 30px 0 0 0;
+  padding: 30px 120px;
 }
 
 .footer-container {
-  width: $six-wide;
-  padding: 45px 0;
+  background-color: $white;
   .footnote-container,
   .footer-menu {
     margin: 0 4%;
   }
 }
 
-.badgekit-logo {
-  width: 300px;
-}
-
 .nav-header {
-  margin: 0 auto;
-  text-align: center;
-  .menu-about-badges,
-  .menu-about-people,
+  position: relative;
+  margin-left: 150px;
   .dropdown {
     display: inline;
     background: white;
@@ -49,25 +35,81 @@
   }
 }
 
-.categories {
-  background: gray;
-  padding: 15px 0;
-  font-size: 20px;
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    color: inherit;
-    border-right: 1px solid black;
-    padding: 0 1em;
+.nav-header {
+  .arrow-down {
+    border-top-color: $dark-gray;
+    position: relative;
+    top: 17px;
+    left: 150px;;
   }
-  .dropdown-nav {
-    border-right: none;
+  .about-arrow { left: 90px; }
+  .logout-arrow { left: 190px; }
+  .navigation-dropdown {
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 15px 4px 17px 0;
+    list-style: none;
+    li {
+      color: $dark-gray;
+      display: inline-block;
+      position: relative;
+      padding: 5px 20px;
+      cursor: pointer;
+      @include transition;
+      &::hover {
+        background: #555;
+        color: #fff;
+      }
+      .menu-hover {
+        padding: 0;
+        position: absolute;
+        top: 48px;
+        left: 0;
+        width: 173px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        @include transition;
+        li {
+          background-color: $white;
+          display: block;
+          color: $dark-gray;
+          &:hover { color: $light-blue; }
+        }
+      }
+      .hover-applications,
+      .logout-hover,
+      .about-hover { top: 33px; }
+    }
+  }
+  ul li:hover {
+    .menu-hover {
+      @include dropdown-boxshadow;
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      border-top: 4px solid $light-green;
+    }
   }
 }
 
-.highlighted {
-  background-color: #00AAAA;
+.highlight-arrow {
+  position: absolute;
+  top: 71px;
+  left: 100px;
+  width: 0px;
+  height: 0px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 9px solid $white;
 }
+
+.logged-in-highligh-arrow { border-bottom: 9px solid $dark-beige; }
 
 .account-sign-in {
   float: right;
@@ -79,21 +121,27 @@
   cursor: pointer;
 }
 
-.menu {
-  margin: -1em 0 0;
-  padding: 0;
-  list-style: none;
-  line-height: 1em;
-}
-
 .header-container {
   .menu-item {
-    float: none;
-    display: inline-block;
-    border-right: 1px solid black;
-    padding: 0 1em;
-    &:last-child {
-      border-right: none;
+    font-size: 18px;
+    padding: 0 25px;
+    color: $dark-gray;
+    &:hover { color: $light-blue; }
+    .arrow-down {
+      border-top-color: $dark-gray;
+      position: relative;
+      top: 17px;
+      left: 5px;
+    }
+    .fa-briefcase {
+      font-size: 40px;
+      margin-right: 10px;
+      color: $dark-blue;
+    }
+    .fa-sign-in {
+      color: $dark-gray;
+      margin-right: 10px;
+      font-size: 20px;
     }
   }
 }
@@ -149,7 +197,7 @@
 .badge-thumb-container {
   height: 85%;
   float: left;
-  margin: 10px 40px 20px 10px;
+  margin: 0 20px 20px 0;
   .badgethumb {
     @include drop-shadow;
     height: 100%;
@@ -157,6 +205,20 @@
   .fa-plus-circle {
     width: 100%;
     text-align: center;
+    color: $gray;
+    font-size: 100px;
+    border: 1px solid $white;
+    @include drop-shadow;
+  }
+  .fa-plus-circle {
+    padding: 25px;
+    color: $gray;
+    font-size: 100px;
+    border: 1px solid $white;
+    @include drop-shadow
+  }
+  .fa-plus-circle {
+    padding: 25px;
     color: $gray;
     font-size: 100px;
     border: 1px solid $white;
@@ -177,10 +239,12 @@
   width: $three-wide;
   height: 185px;
   float: left;
-  .fa-cloud-upload {
-    font-size: 20px;
+  .fa-cloud-upload,
+  .fa-pencil {
     color: $gray;
+    a { margin-left: 5px; }
   }
+  .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
   }
@@ -253,15 +317,7 @@
   }
 }
 
-.dropdown-signed-in {
-  top: -22px;
-  right: 20px;
-  .arrow-down {
-    position: absolute;
-    top: 15px;
-    right: 10px;
-  }
-}
+
 
 .dropdown-nav {
   position: relative;
@@ -340,7 +396,6 @@
     }
   }
   .footer-container {
-    margin-top: 30px;
     .footnote-container {
       width: $six-wide;
       clear: both;
