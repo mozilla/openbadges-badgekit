@@ -2,10 +2,12 @@
 {% block content %}
   <div class="container beige-container clearfix">
     <div class="badges-container clearfix">
-    {% if category == 'template' or category == 'draft' %}
+      {% if category == 'template' %}
       <section class="templates-info">
         <span class="tempalates-info-heading">Find a template, then remix it!</span><span class="templates-info-text"> Templates are guides to help you create unique badges. A few designs are featured below. They are editable, all the way from the metadata information to the featured image. Browse the options below to start working within one of the existing styles. You can modify the template you choose to align it with your vision. Or you can make a template from scratch by clicking the "Add a new template" button below.</span>
       </section>
+      {% endif %}
+      
       <nav class="nav-header right">
         <ul class="navigation-dropdown sort-dropdown">
           <span class="sort-by">Sort badges by:</span>
@@ -22,6 +24,7 @@
         </ul>
       </nav>
       <div class="cb"></div>
+      {% if category == 'template' or category == 'draft' %}
         <section class="badge-new left">
           <div class="badge-thumb-container">
             <i class="fa fa-plus-circle"></i>
