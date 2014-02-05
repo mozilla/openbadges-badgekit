@@ -53,11 +53,10 @@
             <span class="arrow-down logout-arrow"></span>
             <ul class="navigation-dropdown">
               <li class="menu-item">
-                <!-- users email address -->
-                zahra@logout.org
+                {{ loggedInUser }}
                 <ul class="menu-hover logout-hover">
-                  <a href=""><li>Settings</li></a>
-                  <a href=""><li>Logout</li></a>
+                  <a href="{{ url('settings') }}"><li>Settings</li></a>
+                  <a class="js-logout" href=""><li>Logout</li></a>
                 </ul>
               </li>
             </ul>
