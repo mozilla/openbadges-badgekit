@@ -26,7 +26,7 @@
 
 {% block content %}
   <div class="container">
-    <form class="badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
+    <form class="badge-form js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
 
@@ -150,7 +150,8 @@
 
       </div>
 
-      <input class="gray-btn submit-btn" type="submit" value="Save Changes" {{ disabled() }}/>
+      <input class="gray-btn submit-btn js-submit-btn" type="submit" value="Save Changes" {{ disabled() }}/>
+      <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
     </form>
   </div>
 {% endblock %}
