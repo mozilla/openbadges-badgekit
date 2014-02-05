@@ -2,16 +2,12 @@
 
 .header-container,
 .footer-container {
-  padding: 35px 0 20px 0;
-  .container {
-    padding: 0 25px;
-  }
+  width: $six-wide;
+  margin: 30px 0 0 0;
+  padding: 30px 120px;
 }
 
 .footer-container {
-  width: $six-wide;
-  margin: 30px 0 0 0;
-  padding: 30px 170px;
   background-color: $white;
   .footnote-container,
   .footer-menu {
@@ -44,10 +40,11 @@
     border-top-color: $dark-gray;
     position: relative;
     top: 17px;
-    left: 160px;;
+    left: 150px;;
   }
-  .badges-dropdown,
-  .people-dropdown {
+  .about-arrow { left: 90px; }
+  .logout-arrow { left: 190px; }
+  .navigation-dropdown {
     text-align: left;
     display: inline;
     margin: 0;
@@ -64,10 +61,10 @@
         background: #555;
         color: #fff;
       }
-      ul {
+      .menu-hover {
         padding: 0;
         position: absolute;
-        top: 40px;
+        top: 48px;
         left: 0;
         width: 173px;
         -webkit-box-shadow: none;
@@ -100,7 +97,7 @@
 
 .highlight-arrow {
   position: absolute;
-  top: 51px;
+  top: 71px;
   left: 100px;
   width: 0px;
   height: 0px;
