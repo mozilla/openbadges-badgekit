@@ -279,6 +279,22 @@
   border-top: 6px solid $black;
 }
 
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid $black;
+}
+
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right:6px solid $black;
+}
+
 .text-line {
   border-top: 1px solid $black;
   display: inline-block;

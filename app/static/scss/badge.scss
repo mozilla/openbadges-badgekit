@@ -46,8 +46,24 @@
       top: 3px;
       left: 155px;
       padding: 3px;
+      cursor: pointer;
     }
   }
+  .review-publish-btn {
+    padding-left: 23px;
+  }
+  .ingoing,
+  .outgoing {
+    border-top: 14px solid transparent;
+    border-bottom: 15px solid transparent;
+    position: relative;
+  }
+  .ingoing {
+    border-left: 15px solid $brown;
+    left: 316px; }
+  .outgoing {
+    border-left: 15px solid $light-beige;
+    left: 468px; }
 }
 
 .badge-image {
