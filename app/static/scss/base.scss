@@ -59,6 +59,7 @@ $light-green: #6ac1a3;
 $dark-green: #349776;
 $light-beige: #f8f9f5;
 $dark-beige: #cbcbc6;
+$brown: #5d5b57;
 $gray: #aeb0b1;
 $dark-gray: #404041;
 $gray5: #f9f9fa;
@@ -142,7 +143,7 @@ input {
 
 .beige-container {
   background-color: $light-beige;
-  border: 30px solid $dark-beige;
+  border: 20px solid $dark-beige;
 }
 
 .checkbox {

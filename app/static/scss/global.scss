@@ -4,7 +4,7 @@
 .footer-container {
   width: $six-wide;
   margin: 30px 0 0 0;
-  padding: 30px 120px;
+  padding: 30px 120px 15px 119px;
 }
 
 .footer-container {
@@ -12,26 +12,6 @@
   .footnote-container,
   .footer-menu {
     margin: 0 4%;
-  }
-}
-
-.nav-header {
-  position: relative;
-  margin-left: 150px;
-  .dropdown {
-    display: inline;
-    background: white;
-    padding: 15px;
-    border: 1px solid black;
-    margin-right: 10px;
-    a{
-      &:last-child {
-        border-right: none;
-      }
-    }
-  }
-  .dropdown {
-    padding-left: 0.25em;
   }
 }
 
@@ -44,12 +24,15 @@
   }
   .about-arrow { left: 90px; }
   .logout-arrow { left: 190px; }
-  .navigation-dropdown {
+  .navigation-dropdown,
+  .sort-dropdown {
     text-align: left;
     display: inline;
     margin: 0;
     padding: 15px 4px 17px 0;
     list-style: none;
+    .sort-arrow { left: 0; }
+    .sort-by { color: $brown; }
     li {
       color: $dark-gray;
       display: inline-block;
@@ -81,6 +64,7 @@
           &:hover { color: $light-blue; }
         }
       }
+      .sort-menu-hover { left: -140px; }
       .hover-applications,
       .logout-hover,
       .about-hover { top: 33px; }
@@ -100,7 +84,7 @@
 
 .highlight-arrow {
   position: absolute;
-  top: 71px;
+  top: 56px;
   left: 100px;
   width: 0px;
   height: 0px;
@@ -109,7 +93,11 @@
   border-bottom: 9px solid $white;
 }
 
-.logged-in-highligh-arrow { border-bottom: 9px solid $dark-beige; }
+.logged-in-highlight-arrow {
+  top: 117px;
+  left: 260px;
+  border-bottom: 9px solid $dark-beige;
+}
 
 .account-sign-in {
   float: right;
@@ -188,6 +176,19 @@
 .badges-container {
   width: $six-wide;
   margin: 0 auto;
+  .templates-info {
+    width: $four-wide;
+    padding-bottom: 40px;
+  }
+  .templates-info-heading {
+    font-size: 20px;
+    font-weight: bold;
+    color: $light-blue;
+    .templates-info-text {
+      color: $brown;
+      font-size: 12px;
+    }
+  }
 }
 
 .badge-status-info {
@@ -198,6 +199,7 @@
   height: 85%;
   float: left;
   margin: 0 20px 20px 0;
+  background-color: $white;
   .badgethumb {
     @include drop-shadow;
     height: 100%;
@@ -225,13 +227,6 @@
     @include drop-shadow;
   }
 }
-
-/*.badge-container-buttons {
-  position: absolute;
-  right: 10px;
-  padding: 5px 0;
-  bottom: 0;
-}*/
 
 .badge-template,
 .badge-new {
@@ -296,47 +291,6 @@
   display: inline-block;
   width: 82.5%;
   margin-left: 20px;
-}
-
-.dropdown {
-  overflow: hidden;
-  border: 1px solid $gray;
-  background: $white;
-  width: 150px;
-  height: 32px;
-  position: relative;
-  select {
-    -webkit-appearance: none;
-    cursor: pointer;
-    width: 170px;
-    padding: 6px 7px;
-    border: 0;
-    color: #41444a;
-    font-size: 15px;
-    background: transparent;
-  }
-}
-
-
-
-.dropdown-nav {
-  position: relative;
-  .arrow-up,
-  .arrow-down {
-    position: absolute;
-  }
-  .arrow-up {
-    top: 5px;
-  }
-  .arrow-down {
-    bottom: 5px;
-  }
-  ul {
-    display: none;
-    &:hover {
-      display: block;
-    }
-  }
 }
 
 .bold {

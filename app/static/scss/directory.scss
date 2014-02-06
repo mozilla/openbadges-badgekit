@@ -13,11 +13,6 @@
   line-height: 50%;
 }
 
-a.badgeinfo {
-  text-decoration: none;
-  color: inherit;
-}
-
 .directoryheader {
   text-align: center;
 }
@@ -28,33 +23,6 @@ a.badgeinfo {
 
 .addbadge {
   text-align: center;
-}
-
-
-.sort-dropdown {
-    display: none;
-    position: absolute;
-    background: #fff;
-    margin: 0;
-    border:solid 1px #eeeeee;
-    z-index:5;
-    padding:0;
-}
-.sort-dropdown li {
-    display: block;
-    border-bottom: solid 1px #eeeeee;
-    margin:0;
-    width: 150px;
-}
-.sort-dropdown li a {
-    color: #333;
-    height:18px;
-    padding:10px 0;
-    font-size:13px;
-    border-right: none;
-    &:hover {
-      color: red;
-    }
 }
 
 .action-dropdown {
