@@ -3,7 +3,7 @@
 {% import "badge/criterion.html" as criterionTemplate %}
 
 {% macro createSectionAnchorAttributes(s) %}
-  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}" data-section="{{ s }}" {% if section == s %} class="highlighted" {% endif %}
+  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}" data-section="{{ s }}" class="js-category-anchor"
 {% endmacro %}
 
 {% macro createSectionDivAttributes(s) %}
@@ -14,19 +14,63 @@
   {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
 {% endmacro %}
 
-{% block header -%}
+<!-- {% block header -%}
   {{ super() }}
-  <nav class="nav-header categories js-categories cb">
-    <a {{ createSectionAnchorAttributes('description') }}>Description</a>
-    <a {{ createSectionAnchorAttributes('visual') }}>Visual</a>
-    <a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a>
-    <a {{ createSectionAnchorAttributes('options') }}>Options</a>
-  </nav>
-{%- endblock %}
+{%- endblock %} -->
 
 {% block content %}
-  <div class="container">
-    <form class="badge-form js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
+  <div class="container beige-container clearfix">
+    <nav class="nav-header nav-categories cb">
+      <div class="hexagon left js-hamburger-btn"></div>
+      <div class="categories-dropdown js-hamburger-dropdown">
+        <span class="arrow-up js-hamburger-dropdown-arrow"></span>
+        <section class="left categories-item">
+          <a {{ createSectionAnchorAttributes('milestone') }}><i class="fa fa-shield"></i>Milestone</a>
+        </section>
+        <section class="right categories-item">
+          <a {{ createSectionAnchorAttributes('options') }}><i class="fa fa-wrench"></i>Options</a>
+        </section>
+        <div class="cb"></div>
+        <section class="left categories-item">
+          <a {{ createSectionAnchorAttributes('visual') }}><i class="fa fa-eye"></i>Visual</a>
+        </section>
+        <section class="right categories-item">
+          <a {{ createSectionAnchorAttributes('description') }}><i class="fa fa-list-ul"></i>Description</a>
+        </section>
+        <div class="cb"></div>
+        <section class="left categories-item">
+          <a {{ createSectionAnchorAttributes('criteria') }}><i class="fa fa-check"></i>Criteria</a>
+        </section>
+        <section class="right categories-item">
+          <a href="{{ url('directory') }}" class="js-save-and-exit-btn"><i class="fa fa-sign-out"></i>Save & Exit</a>
+        </section>
+        <div class="cb"></div>
+      </div>
+
+      <div class="nav-inputs left">
+        <input class="badge-field js-name-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}">
+        <i class="fa fa-pencil"></i>
+      </div>
+      <div class="save-box left">
+        <input class="gray-btn submit-btn js-save-btn" type="submit" value="Save" {{ disabled() }}/>
+        <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
+      </div>
+      <a class="gray-btn light-btn light-share">Share Draft</a>
+      <a class="gray-btn light-btn">Save As Draft</a>
+
+      <div class="arrow-right left ingoing"></div>
+      <a class="gray-btn light-btn review-publish-btn">Review & Publish</a>
+      <div class="arrow-right left outgoing"></div>
+    </nav>
+
+    <section class="templates-info">
+      <span class="tempalates-info-heading">Edit all the things.</span><span class="templates-info-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.</span>
+    </section>
+
+    <form class="badge-form clearfix js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
 
@@ -34,11 +78,6 @@
 
       <div {{ createSectionDivAttributes('description') }}>
         <h1>Badge Description</h1>
-
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="name">Name:</label>
-          <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/>
-        </div>
 
         <div class="form-field-wrapper">
           <label class="badge-label" for="issuerUrl">Issuer URL:</label>
@@ -69,6 +108,12 @@
 
       <div {{ createSectionDivAttributes('visual') }}>
         <h1>Badge Visuals</h1>
+
+        <p>Not yet implemented
+      </div>
+
+      <div {{ createSectionDivAttributes('milestone') }}>
+        <h1>Badge Milestones</h1>
 
         <p>Not yet implemented
       </div>
@@ -149,9 +194,6 @@
         </div>
 
       </div>
-
-      <input class="gray-btn submit-btn js-submit-btn" type="submit" value="Save Changes" {{ disabled() }}/>
-      <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
     </form>
   </div>
 {% endblock %}

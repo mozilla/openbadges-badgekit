@@ -35,7 +35,7 @@
   width: 90%; /*width: 1200px;*/
   max-width: 1200px;
   margin: auto;
-  padding: 25px;
+  padding: 20px;
 }
 
 $one-wide: 13.6%;
@@ -54,6 +54,7 @@ $red: #FF0000;
 $light-blue: #63c6f4;
 $medium-blue: #3184bd;
 $dark-blue: #109eda;
+$tiffany-blue: #00c1cb;
 $medium-green: #4bb96b;
 $light-green: #6ac1a3;
 $dark-green: #349776;
@@ -61,7 +62,8 @@ $light-beige: #f8f9f5;
 $dark-beige: #cbcbc6;
 $brown: #5d5b57;
 $gray: #aeb0b1;
-$dark-gray: #404041;
+$dark-gray: #828487;
+$light-gray: #ebf0e8;
 $gray5: #f9f9fa;
 $gray10: #f3f4f5;
 $gray30: #dbdee3;
@@ -127,13 +129,50 @@ textarea {
 textarea,
 input {
   border: 1px solid rgb(204, 204, 204);
-  border-radius: 3px;
   display: block;
   padding: 2px 4px;
-  &:hover {
+  &:hover:enabled {
     -webkit-box-shadow: 0 0 2px;
     -moz-box-shadow: 0 0 2px;
     box-shadow: 0 0 2px;
+  }
+}
+
+input[type="submit"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.hexagon {
+  width: 50px;
+  height: 27.5px;
+  background: $gray;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 12.5px solid $gray;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 12.5px solid $gray;
+  }
+  &:hover {
+    cursor: pointer;
   }
 }
 

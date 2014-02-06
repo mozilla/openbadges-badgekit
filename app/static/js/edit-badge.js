@@ -5,17 +5,31 @@ $(document).ready(function() {
 
   function saveBadge() {
     clearTimeout(timeoutID);
-    submitButton.attr('disabled', true);
-    submitButton.val(SAVING_TEXT);
+    saveButton.attr('disabled', true);
+    saveButton.val(SAVING_TEXT);
     saveSpinner.removeClass('hidden');
 
-    $.post(form.attr('action'), form.serialize(), function(data) {
-      submitButton.removeAttr('disabled');
-      submitButton.val(submitButtonText);
+    $.post(form.attr('action'), allData.serialize(), function(data) {
+      saveButton.removeAttr('disabled');
+      saveButton.val(saveButtonText);
       saveSpinner.addClass('hidden');
       timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
     });
   }
+
+  var hamburgerButton = $('.js-hamburger-btn');
+  var hamburgerDropdown = $('.js-hamburger-dropdown');
+  var hamburgerDropdownArrow = $('.js-hamburger-dropdown-arrow');
+
+  hamburgerButton.click(function() {
+    hamburgerDropdown.toggle();
+    var arrowSize = -hamburgerDropdownArrow.position().top;
+    var hamburgerDropdownOffset = { top: hamburgerButton.offset().top + hamburgerButton.height() + arrowSize,
+                                    left: hamburgerButton.offset().left - hamburgerDropdownArrow.position().left + (hamburgerButton.width())/2 - arrowSize};
+    console.log(hamburgerDropdownArrow.width());
+    hamburgerDropdown.offset(hamburgerDropdownOffset);
+    return false;
+  });
 
   var numCriteriaSelect = $('.js-num-criteria');
 
@@ -37,33 +51,36 @@ $(document).ready(function() {
     }
   });
 
-  var categoryAnchors = $('.js-categories > a');
+  var categoryAnchors = $('.js-category-anchor');
   var formPages = $('.js-form-page');
 
   categoryAnchors.click(function() {
-    categoryAnchors.removeClass('highlighted');
-    $(this).addClass('highlighted');
-
     formPages.addClass('hidden');
-
     var section = $(this).data('section');
-
     $('.js-section-' + section).removeClass('hidden');
-
+    hamburgerDropdown.hide();
     return false;
   });
 
-  var submitButton = $('.js-submit-btn');
+  var saveButton = $('.js-save-btn');
   var saveSpinner = $('.js-save-spinner');
   var form = $('.js-badge-form');
-  var submitButtonText = submitButton.val();
+  var allData = $('.js-badge-form, .js-name-field');
+
+  var saveButtonText = saveButton.val();
   // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
-  submitButton.width(submitButton.width());
+  saveButton.width(saveButton.width());
 
   var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
-  submitButton.click(function() {
+  saveButton.click(function() {
     saveBadge();
     return false;
+  });
+
+  $('.js-save-and-exit-btn').click(saveBadge);
+
+  $(document).click(function() {
+    hamburgerDropdown.hide();
   });
 });
 
