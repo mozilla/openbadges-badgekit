@@ -8,7 +8,6 @@
   position: relative;
   .hexagon { margin-right: 20px; }
   .categories-dropdown {
-    display: none;
     @include dropdown-boxshadow;
     z-index: 1;
     top: 60px;
