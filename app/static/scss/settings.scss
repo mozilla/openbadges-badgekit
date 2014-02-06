@@ -1,5 +1,4 @@
 @import "base";
-@import "buttons";
 
 .settings-tabs {
   width: $two-wide;
@@ -9,10 +8,6 @@
     padding: 10px;
     background: $gray30;
     color: $black;
-    cursor: pointer;
-  }
-  .tab.selected {
-    background: $dark-gray;
   }
 }
 
@@ -28,18 +23,11 @@
   .checkbox-input {
     margin-left: 10px;
   }
-  .checkbox {
-    display: inline;
-  }
   .permissions-title { font-weight: bold; }
   .permission-email {
     border-bottom: 1px solid $gray;
     padding-bottom: 10px;
   }
-}
-
-.hidden {
-  display: none;
 }
 
 .settings-form {
