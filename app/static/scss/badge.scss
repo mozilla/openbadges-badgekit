@@ -9,6 +9,7 @@
   .hexagon { margin-right: 20px; }
   .categories-dropdown {
     @include dropdown-boxshadow;
+    display: none;
     z-index: 1;
     top: 60px;
     left: 43px;
@@ -87,7 +88,10 @@
     position: absolute;
     left: 20px;
     top: 7px;
-    color: green
+    color: green;
+    &.hidden {
+      display: none;
+    }
   }
 }
 
@@ -143,20 +147,5 @@
   }
   .hidden {
     display: none;
-  }
-}
-
-.categories {
-  text-align: center;
-  padding: 15px 0;
-  font-size: 20px;
-  a {
-      font-weight: bold;
-      text-decoration: none;
-      color: inherit;
-      padding: 0 1em;
-  }
-  .highlighted {
-    background-color: #00AAAA;
   }
 }

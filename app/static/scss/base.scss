@@ -131,7 +131,7 @@ input {
   border: 1px solid rgb(204, 204, 204);
   display: block;
   padding: 2px 4px;
-  &:hover {
+  &:hover:enabled {
     -webkit-box-shadow: 0 0 2px;
     -moz-box-shadow: 0 0 2px;
     box-shadow: 0 0 2px;
