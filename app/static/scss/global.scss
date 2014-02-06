@@ -204,21 +204,8 @@
   }
   .fa-plus-circle {
     width: 100%;
+    padding: 25px;
     text-align: center;
-    color: $gray;
-    font-size: 100px;
-    border: 1px solid $white;
-    @include drop-shadow;
-  }
-  .fa-plus-circle {
-    padding: 25px;
-    color: $gray;
-    font-size: 100px;
-    border: 1px solid $white;
-    @include drop-shadow
-  }
-  .fa-plus-circle {
-    padding: 25px;
     color: $gray;
     font-size: 100px;
     border: 1px solid $white;
@@ -241,7 +228,7 @@
   float: left;
   .fa-cloud-upload,
   .fa-pencil {
-    color: $gray;
+    color: $brown;
     a { margin-left: 5px; }
   }
   .fa-cloud-upload { font-size: 20px; }
