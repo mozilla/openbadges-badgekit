@@ -2,7 +2,7 @@
 
 .nav-categories {
   background-color: $brown;
-  padding: 20px 20px 20px 50px;
+  padding: 20px 20px 15px 50px;
   margin-left: 0;
   margin-bottom: 20px;
   position: relative;
@@ -52,6 +52,7 @@
   .review-publish-btn {
     padding-left: 23px;
   }
+  .light-share { margin-left: -10px; }
   .ingoing,
   .outgoing {
     border-top: 14px solid transparent;
@@ -60,10 +61,35 @@
   }
   .ingoing {
     border-left: 15px solid $brown;
-    left: 316px; }
+    left: 299px; }
   .outgoing {
     border-left: 15px solid $light-beige;
-    left: 468px; }
+    left: 451px; }
+}
+
+.save-box {
+  position: relative;
+  margin-top: -5px;
+  margin-left: 15px;
+  .submit-btn {
+    padding: 0 5px;
+    font-size: 6px;
+    line-height: 57px;
+    background-color: $brown;
+    width: 40px;
+    height: 40px;
+    border: 2px solid $dark-green;
+    border-radius: 5px;
+    &:hover {
+      color: $white;
+    }
+  }
+  .fa-spin {
+    position: absolute;
+    left: 20px;
+    top: 7px;
+    color: green
+  }
 }
 
 .badge-image {

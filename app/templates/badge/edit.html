@@ -57,7 +57,11 @@
         <input class="badge-field" type="text" name="name" {{ disabled() }} value="{{ badge.name }}">
         <i class="fa fa-pencil"></i>
       </div>
-      <a class="gray-btn light-btn">Share Draft</a>
+      <div class="save-box left">
+        <input class="gray-btn submit-btn js-submit-btn" type="submit" value="Save" {{ disabled() }}/>
+        <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
+      </div>
+      <a class="gray-btn light-btn light-share">Share Draft</a>
       <a class="gray-btn light-btn">Save As Draft</a>
 
       <div class="arrow-right left ingoing"></div>
@@ -195,9 +199,6 @@
         </div>
 
       </div>
-
-      <input class="gray-btn submit-btn js-submit-btn" type="submit" value="Save Changes" {{ disabled() }}/>
-      <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
     </form>
   </div>
 {% endblock %}
