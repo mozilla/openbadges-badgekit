@@ -6,7 +6,9 @@
   margin-left: 0;
   margin-bottom: 20px;
   position: relative;
+  .hexagon { margin-right: 20px; }
   .categories-dropdown {
+    display: none;
     @include dropdown-boxshadow;
     z-index: 1;
     top: 60px;
@@ -33,6 +35,17 @@
       border-bottom: 12px solid $white;
       position: absolute;
       top: -12px;
+    }
+  }
+  .nav-inputs {
+    position: relative;
+    i {
+      position: absolute;
+      background-color: $light-gray;
+      color: $dark-green;
+      top: 3px;
+      left: 155px;
+      padding: 3px;
     }
   }
 }
