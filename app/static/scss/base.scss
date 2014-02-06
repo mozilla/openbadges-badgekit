@@ -171,6 +171,9 @@ input[type="submit"] {
     border-right: 25px solid transparent;
     border-top: 12.5px solid $gray;
   }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .white-container {
