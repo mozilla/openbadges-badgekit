@@ -30,17 +30,6 @@
   line-height: 30px;
 }
 
-.submit-btn {
-  margin-left: 0;
-  background-color: green;
-  &:disabled {
-    background-color: $gray;
-    &:hover {
-      opacity: 1.0;
-    }
-  }
-}
-
 .action-btn {
   line-height: 30px;
   background-color: black;
@@ -65,7 +54,8 @@
   background-color: pink;
 }
 
-.blank-btn {
+.blank-btn,
+.submit-btn {
   background-color: $light-blue;
   border-bottom: 5px solid $dark-blue;
 }

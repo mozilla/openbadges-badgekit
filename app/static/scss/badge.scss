@@ -1,5 +1,41 @@
 @import "base";
-@import "buttons";
+
+.nav-categories {
+  background-color: $brown;
+  padding: 20px 20px 20px 50px;
+  margin-left: 0;
+  margin-bottom: 20px;
+  position: relative;
+  .categories-dropdown {
+    @include dropdown-boxshadow;
+    z-index: 1;
+    top: 60px;
+    left: 43px;
+    padding: 20px;
+    background-color: $white;
+    position:absolute;
+    &:hover { cursor: pointer; }
+    i {
+      display: block;
+      text-align: center;
+    }
+    .categories-item {
+      padding: 10px;
+      color: $brown;
+      a {
+        color: $brown;
+        &:hover { color: $light-blue; }
+      }
+    }
+    .arrow-up {
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 12px solid $white;
+      position: absolute;
+      top: -12px;
+    }
+  }
+}
 
 .badge-image {
   height: 250px;
@@ -25,8 +61,10 @@
 }
 
 .badge-form {
-  width: $four-wide;
+  width: $five-wide;
   margin: 0 auto;
+  background-color: $white;
+  padding: 20px;
   .badge-label {
     font-weight: bold;
   }
