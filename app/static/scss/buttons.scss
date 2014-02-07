@@ -26,6 +26,11 @@
   color: $brown;
 }
 
+.add-btn {
+  background-color: $light-blue;
+  &:hover { color: $brown; }
+}
+
 .edit-btn {
   display: inline-block;
   width: 80px;

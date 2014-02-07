@@ -177,18 +177,17 @@
 .badges-container {
   width: $six-wide;
   margin: 0 auto;
-  .templates-info {
-    width: $four-wide;
-    padding-bottom: 40px;
-  }
-  .templates-info-heading {
-    font-size: 20px;
-    font-weight: bold;
-    color: $light-blue;
-    .templates-info-text {
-      color: $brown;
-      font-size: 12px;
-    }
+}
+
+.templates-info { width: $four-wide; }
+
+.templates-info-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: $light-blue;
+  .templates-info-text {
+    color: $brown;
+    font-size: 12px;
   }
 }
 
@@ -234,6 +233,41 @@
   .small-copy {
     margin-top: -15px;
   }
+}
+
+.form-dropdown {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #dbdee3;
+  width: $three-wide;
+  height: 28px;
+  position: relative;
+  top: 5px;
+  &:hover {
+    -webkit-box-shadow: 0 0 2px;
+    -moz-box-shadow: 0 0 2px;
+    box-shadow: 0 0 2px;
+  }
+  .arrow-down {
+    position: absolute;
+    right: 5px;
+    top: 12px;
+  }
+  select {
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 105%;
+    padding: 6px 7px;
+    border: 0;
+    font-size: 12px;
+    background: transparent;
+  }
+}
+
+.short-dropdown {
+  width: $one-wide;
+  display: inline-block;
+  top: 8px;
 }
 
 .newly-created-badge {

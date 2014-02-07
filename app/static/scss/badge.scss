@@ -8,6 +8,7 @@
   position: relative;
   .hexagon { margin-right: 20px; }
   .categories-dropdown {
+    display: none;
     @include dropdown-boxshadow;
     display: none;
     z-index: 1;
@@ -120,17 +121,20 @@
 
 .badge-form {
   width: $five-wide;
-  margin: 0 auto;
+  margin: 30px auto;
   background-color: $white;
-  padding: 20px;
+  padding: 30px;
   .badge-label {
     font-weight: bold;
+    width: $two-wide;
+    margin-right: 6%;
   }
   .badge-field {
-    margin-top: 10px;
     width: $three-wide;
-    display: block;
   }
+  .short-description { height: 80px; }
+  .with-button-field { width: 40.6%; }
+  .fa-plus { margin-left: 5px; }
   .short-badge-field {
     margin-top: 10px;
     margin-right: 2px;
