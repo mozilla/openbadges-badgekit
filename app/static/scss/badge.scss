@@ -6,7 +6,17 @@
   margin-left: 0;
   margin-bottom: 20px;
   position: relative;
-  .hexagon { margin-right: 20px; }
+  .hexagon {
+    margin-right: 20px;
+    .fa-align-justify {
+      position: absolute;
+      top: 5px;
+      left: 14px;
+      font-size: 22px;
+      color: $white;
+      &:hover { color: $tiffany-blue; }
+    }
+  }
   .categories-dropdown {
     display: none;
     @include dropdown-boxshadow;
