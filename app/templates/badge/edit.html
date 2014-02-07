@@ -21,7 +21,9 @@
 {% block content %}
   <div class="container beige-container clearfix">
     <nav class="nav-header nav-categories cb">
-      <div class="hexagon left js-hamburger-btn"></div>
+      <div class="hexagon left js-hamburger-btn">
+        <i class="fa fa-align-justify"></i>
+      </div>
       <div class="categories-dropdown js-hamburger-dropdown">
         <span class="arrow-up js-hamburger-dropdown-arrow"></span>
         <section class="left categories-item">
@@ -63,8 +65,8 @@
       <div class="arrow-right left outgoing"></div>
     </nav>
 
-    <section class="templates-info">
-      <span class="tempalates-info-heading">Edit all the things.</span><span class="templates-info-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    <section class="templates-edit-info">
+      <span class="templates-info-heading">Edit all the things.</span><span class="templates-info-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
       consequat.</span>
@@ -74,33 +76,33 @@
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
 
-      <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+      <!-- <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/> -->
 
       <div {{ createSectionDivAttributes('description') }}>
-        <h1>Badge Description</h1>
-
         <div class="form-field-wrapper">
-          <label class="badge-label" for="issuerUrl">Issuer URL:</label>
-          <input class="badge-field" type="text" name="issuerUrl" {{ disabled() }} value="{{ badge.issuerUrl }}"/>
+          <label class="badge-label left" for="issuerUrl">Issuer</label>
+          <input class="badge-field" type="text" name="issuerUrl" {{ disabled() }} value="{{ badge.issuerUrl }}" placeholder="Issuer Website URL Here"/>
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="description">Short Description:</label>
-          <textarea class="badge-field" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
+          <label class="badge-label left" for="description">Short Description<p class="small-copy">Like a tagline. 140 characters.</p></label>
+          <textarea class="badge-field short-description" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="tags">Tags:</label>
-          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}"/>
+          <label class="badge-label left" for="tags">Tags</label>
+          <input class="badge-field tags-field left" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}"/>
+          <a class="gray-btn add-btn">Add<i class="fa fa-plus"></i></a>
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="earnerDescription">Description for Earners:</label>
+          <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">A few wise words to guide the badge maker.<i class="fa fa-question-circle"></i></p></label>
+
           <textarea class="badge-field" {{ disabled() }} type="text" name="earnerDescription">{{ badge.earnerDescription }}</textarea>
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="consumerDescription">Description for Consumers:</label>
+          <label class="badge-label left" for="consumerDescription">Description for Consumers<p class="small-copy">A few wise words to guide the badge maker.<i class="fa fa-question-circle"></i></p></label>
           <textarea class="badge-field" {{ disabled() }} type="text" name="consumerDescription">{{ badge.consumerDescription }}</textarea>
         </div>
 
@@ -119,15 +121,17 @@
       </div>
 
       <div {{ createSectionDivAttributes('criteria') }}>
-        <h1>Badge Criteria</h1>
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="numCriteria">How Many?</label>
-          <select name="numCriteria" class="js-num-criteria" {{ disabled() }}>
-            {% for i in range(1, 10) %}
-            <option {% if i == badge.criteria.length %} selected {% endif %} value="{{i}}">{{i}}</option>
-            {% endfor %}
-          </select>
+          <label class="badge-label left" for="numCriteria">How Many?</label>
+          <div class="form-dropdown short-dropdown">
+            <span class="arrow-down"></span>
+            <select name="numCriteria" class="js-num-criteria" {{ disabled() }}>
+              {% for i in range(1, 10) %}
+              <option {% if i == badge.criteria.length %} selected {% endif %} value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
+          </div>
         </div>
 
         {% for criterion in badge.criteria %}
@@ -135,61 +139,72 @@
         {% endfor %}
 
         <div class="form-field-wrapper">
-          <label class="badge-label" for="rubricUrl">Rubric URL:</label>
+          <label class="badge-label left" for="rubricUrl">Rubric URL<p class="small-copy">Link to external materials.<i class="fa fa-question-circle"></i></p></label>
           <input class="badge-field" type="text" name="rubricUrl" {{ disabled() }} value="{{ badge.rubricUrl }}"/>
         </div>
       </div>
 
       <div {{ createSectionDivAttributes('options') }}>
-        <h1>Badge Options</h1>
-
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="group">Group:</label>
-          <select class="badge-field" {{ disabled() }} name="group">
-            <option value="Not Yet Implemented">Not Yet Implemented</option>
-          </select>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="group">Group<p class="small-copy">Related badges can be grouped.<i class="fa fa-question-circle"></i></p></label>
+          <div class="form-dropdown">
+            <span class="arrow-down"></span>
+            <select {{ disabled() }} name="group">
+              <option value="Not Yet Implemented">Not Yet Implemented</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="timeValue">Time:</label>
-          <br><input class="short-badge-field" type="number" min="0" name="timeValue" value="{{ badge.timeValue }}"/>
-          <select{{ disabled() }} name="timeUnits">
-            <option {% if badge.timeUnits == 'minutes' %} selected {% endif %} value="minutes">Minutes</option>
-            <option {% if badge.timeUnits == 'hours' %} selected {% endif %}value="hours">Hours</option>
-            <option {% if badge.timeUnits == 'days' %} selected {% endif %}value="days">Days</ysoption>
-            <option {% if badge.timeUnits == 'weeks' %} selected {% endif %}value="weeks">Weeks</option>
-          </select>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="timeValue">Time<p class="small-copy">Approximate time to complete.<i class="fa fa-question-circle"></i></p></label>
+          <input class="short-badge-field badge-field" type="number" min="0" name="timeValue" value="{{ badge.timeValue }}"/>
+          <div class="form-dropdown short-dropdown">
+            <span class="arrow-down"></span>
+            <select {{ disabled() }} name="timeUnits">
+              <option {% if badge.timeUnits == 'minutes' %} selected {% endif %} value="minutes">Minutes</option>
+              <option {% if badge.timeUnits == 'hours' %} selected {% endif %}value="hours">Hours</option>
+              <option {% if badge.timeUnits == 'days' %} selected {% endif %}value="days">Days</ysoption>
+              <option {% if badge.timeUnits == 'weeks' %} selected {% endif %}value="weeks">Weeks</option>
+            </select>
+          </div>
+          <div class="cb"></div>
         </div>
 
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="license">License:</label>
-          <select class="badge-field" {{ disabled() }} name="license">
-            <option value="Not Yet Implemented">Not Yet Implemented</option>
-          </select>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="license">License<p class="small-copy">Choose a creative commons license<i class="fa fa-question-circle"></i></p></label>
+          <div class="form-dropdown">
+            <span class="arrow-down"></span>
+            <select {{ disabled() }} name="license">
+              <option value="Not Yet Implemented">Not Yet Implemented</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="issuers">Issuers:</label>
-          <select class="badge-field" {{ disabled() }} name="issuers">
-            <option value="Not Yet Implemented">Not Yet Implemented</option>
-          </select>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="issuers">Issuers<p class="small-copy">Who can issue this badge?<i class="fa fa-question-circle"></i></p></label>
+          <div class="form-dropdown">
+            <span class="arrow-down"></span>
+            <select {{ disabled() }} name="issuers">
+              <option value="Not Yet Implemented">Not Yet Implemented</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="limit">Limit:</label>
-          <br><input class="radio-badge-field" type="radio" name="limit" value="open" {% if not (badge.limit > 0) %} checked {% endif %}{{ disabled() }}>Open</input>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="limit">Limit<p class="small-copy">How many people can earn this badge?<i class="fa fa-question-circle"></i></p></label>
+          <input class="radio-badge-field" type="radio" name="limit" value="open" {% if not (badge.limit > 0) %} checked {% endif %}{{ disabled() }}>Open</input>
           <input class="radio-badge-field" type="radio" name="limit" value="limit" {% if badge.limit > 0 %} checked {% endif %}{{ disabled() }}>Limit To:</input>
           <input class="short-badge-field" type="number" name="limitNumber" min="0" value="{{ badge.limit }}" {{ disabled() }}></input>
         </div>
 
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="unique">Unique:</label>
-          <br><input class="radio-badge-field" type="radio" name="unique" value="open" {% if not badge.unique %} checked {% endif %}{{ disabled() }}>Open</input>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="unique">Unique<p class="small-copy">Can one person earn this badge multiple times?<i class="fa fa-question-circle"></i></p></label>
+          <input class="radio-badge-field" type="radio" name="unique" value="open" {% if not badge.unique %} checked {% endif %}{{ disabled() }}>Open</input>
           <input class="radio-badge-field" type="radio" name="unique" value="unique" {% if badge.unique %} checked {% endif %}{{ disabled() }}>Limit one-per-person</input>
         </div>
 
-        <div class="form-field-wrapper">
-          <label class="badge-label" for="multiClaimCode">Multi-use Claim Code:</label>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="multiClaimCode">Multi-use Claim Code<p class="small-copy">Allow earner to self-issue? Provide a claim code.<i class="fa fa-question-circle"></i></p></label>
           <input class="badge-field" type="text" {{ disabled() }} name="multiClaimCode" value="{{ badge.multiClaimCode }}"></input>
         </div>
 
