@@ -105,6 +105,7 @@ $gray50: #c3c8d0;
 body {
   font-family: "Open Sans", sans-serif;
   @include gradient;
+  color: $brown;
 }
 
 h1 { font-size: 24px; }
@@ -142,6 +143,27 @@ input[type="submit"] {
   border-top: none;
   border-left: none;
   border-right: none;
+}
+
+input[type="checkbox"] {
+  display:none;
+}
+
+input[type="checkbox"] + span:before {
+  font-family: 'FontAwesome';
+  padding-right: 3px;
+}
+
+input[type="checkbox"] + span:before {
+  content: "\f096"; /* check-empty */
+}
+
+input[type="checkbox"]:checked + span:before {
+  content: "\f046"; /* check */
+}
+
+.block {
+  display: block;
 }
 
 .hexagon {
