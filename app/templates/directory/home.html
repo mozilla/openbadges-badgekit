@@ -11,9 +11,9 @@
       <nav class="nav-header right">
         <ul class="navigation-dropdown sort-dropdown">
           <span class="sort-by">Sort badges by:</span>
+          <span class="arrow-down sort-arrow"></span>
           <li class="menu-item">
-            <span class="arrow-down sort-arrow"></span>
-            <ul class="menu-hover sort-menu-hover about-hover">
+            <ul class="menu-hover sort-menu-hover">
               <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
               <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
               <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a>
@@ -55,16 +55,15 @@
           {% if category == 'published' %}
           <a href="" class="gray-btn action-btn">Action<span class="arrow-down"></span></a>
           <ul class="action-dropdown">
-            <li><a href="">SHARE</a></li>
+            <a href=""><li>SHARE</li></a><hr>
+            <a href=""><li>REVIEW APPLICATIONS</li></a>
+            <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
             <hr>
-            <li><a href="">REVIEW APPLICATIONS</a></li>
-            <li><a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}">ISSUE BY EMAIL</a></li>
+            <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
+            <a href=""><li>VIEW CLAIM CODES</li></a>
             <hr>
-            <li><a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}">ISSUE BY CLAIM CODE</a></li>
-            <li><a href="">VIEW CLAIM CODES</a></li>
-            <hr>
-            <li><a href="">COPY AS NEW</a></li>
-            <li><a href="">ARCHIVE</a></li>
+            <a href=""><li>COPY AS NEW</li></a>
+            <a href=""><li>ARCHIVE</li></a>
           </ul>
           {% endif %}
         </section>
