@@ -26,27 +26,25 @@
 }
 
 .action-dropdown {
-    display: none;
-    position: absolute;
-    background: #fff;
-    margin: 0;
-    border:solid 1px #eeeeee;
-    z-index:5;
-    padding:0;
-    width: 150px;
+  display: none;
+  position: absolute;
+  background: $white;
+  margin: 0;
+  border-top: 4px solid $light-green;
+  z-index:5;
+  padding:0;
+  width: 150px;
+  @include transition;
+  @include dropdown-boxshadow;
+  hr { margin: 0; }
 }
 .action-dropdown li {
-    display: block;
-    margin:0;
+  display: block;
+  margin:0;
 }
-.action-dropdown li a {
-    color: #333;
-    height:18px;
-    font-size:13px;
-    text-decoration: none;
-    color: black;
-    margin: 0 5px 0 5px;
-}
-.action-dropdown li a:hover {
-    background:#f9f9f9;
+.action-dropdown li {
+  font-size:13px;
+  padding: 5px 20px;
+  color: $dark-gray;
+  &:hover { color: $light-blue; }
 }
