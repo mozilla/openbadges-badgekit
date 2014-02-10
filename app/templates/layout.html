@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ static('/css/global.css') }}">
     <link rel="stylesheet" href="{{ static('/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ static('/css/home.css') }}">
+    <link rel="shortcut icon" href="{{ static('/images/badgekit-favicon.ico') }}">
   {%- endblock %}
 </head>
 <body>
@@ -19,8 +20,8 @@
             <a href="{{ url('directory') }}">BadgeKit</a>
           </h1>
           <nav class="nav-header">
-            <span class="arrow-down"></span>
             <ul class="navigation-dropdown">
+              <span class="arrow-down"></span>
               <li class="menu-item">
                 <i class="fa fa-briefcase "></i>Badges
                 <ul class="menu-hover">
@@ -33,8 +34,8 @@
             </ul>
 
           {% if loggedInUser %}
-            <span class="arrow-down"></span>
             <ul class="navigation-dropdown">
+              <span class="arrow-down"></span>
               <li class="menu-item">
                 Applications
                 <ul class="menu-hover hover-applications">
@@ -50,8 +51,8 @@
               </li>
             </ul>
 
-            <span class="arrow-down logout-arrow"></span>
             <ul class="navigation-dropdown">
+              <span class="arrow-down"></span>
               <li class="menu-item">
                 {{ loggedInUser }}
                 <ul class="menu-hover logout-hover">
@@ -84,7 +85,7 @@
             <!-- arrow up for link selected start -->
             <span class="highlight-arrow"></span>
             <!-- arrow up for link selected end -->
-            
+
             <a href="#" class="menu-item js-login">
               <i class="fa fa-sign-in"></i>Log In
             </a>
