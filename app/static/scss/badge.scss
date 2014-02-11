@@ -99,15 +99,11 @@
     position: absolute;
     left: 20px;
     top: 7px;
-    color: green;
+    color: $dark-green;
     &.hidden {
       display: none;
     }
   }
-}
-
-.badge-image {
-  height: 250px;
 }
 
 .badge-details {
@@ -142,6 +138,7 @@
   .badge-field {
     width: $three-wide;
   }
+  .tags-field { width: 40.5%; }
   .short-description { height: 80px; }
   .with-button-field { width: 40.6%; }
   .fa-plus { margin-left: 5px; }
