@@ -19,20 +19,20 @@
 .nav-header {
   .arrow-down {
     border-top-color: $dark-gray;
-    position: relative;
-    top: 17px;
-    left: 150px;;
+    position: absolute;
+    top: 25px;
+    right: 10px;;
   }
+  .sort-arrow { right: 25px; }
   .about-arrow { left: 90px; }
-  .logout-arrow { left: 190px; }
   .navigation-dropdown,
   .sort-dropdown {
+    position: relative;
     text-align: left;
     display: inline;
     margin: 0;
     padding: 15px 4px 17px 0;
     list-style: none;
-    .sort-arrow { left: 0; }
     .sort-by { color: $brown; }
     li {
       color: $dark-gray;
@@ -65,10 +65,15 @@
           &:hover { color: $light-blue; }
         }
       }
-      .sort-menu-hover { left: -140px; }
+      .sort-menu-hover {
+        left: -140px;
+        top: 16px;
+      }
       .hover-applications,
       .logout-hover,
       .about-hover { top: 33px; }
+      .sort-menu-hover { top: 16px; }
+      .logout-hover { width: 250px; }
     }
   }
   ul li:hover {

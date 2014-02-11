@@ -1,34 +1,44 @@
 @import "base";
+@import "badge";
 
 .settings-tabs {
-  width: $two-wide;
+  width: 20%;
   .tab-container { margin-right: 30px; }
   .tab {
     border: 1px solid $white;
     padding: 10px;
-    background: $gray30;
+    background: $dark-beige;
     color: $black;
     cursor: pointer;
+    &:hover { color: $light-blue; }
   }
-  .tab.selected {
-    background: $dark-gray;
+  .selected {
+    background-color: $white;
+    color: $light-blue;
   }
 }
 
-.settings-profile,
+.settings-form {
+  @extend .badge-form;
+  width: 76%;
+  margin: 15px auto;
+  .badge-label {
+    font-weight: bold;
+    width: 25%;
+    margin-right: 6%;
+  }
+  .badge-field {
+    width: $four-wide;
+  }
+  .submit-btn { margin-left: 0; }
+}
+
 .settings-notifications,
 .settings-privacy,
 .settings-permissions {
-  width: $four-wide;
-  padding: 0 25px 30px 25px;
-  .badge-field {
+  .badge-label {
     width: $six-wide;
-  }
-  .checkbox-input {
-    margin-left: 10px;
-  }
-  .checkbox {
-    display: inline;
+    margin-bottom: 5px;
   }
   .permissions-title { font-weight: bold; }
   .permission-email {
@@ -39,10 +49,4 @@
 
 .hidden {
   display: none;
-}
-
-.settings-form {
-  .badge-field {
-    margin-bottom: 20px;
-  }
 }
