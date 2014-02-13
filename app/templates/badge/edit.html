@@ -61,7 +61,7 @@
       <a class="gray-btn light-btn">Save As Draft</a>
 
       <div class="arrow-right left ingoing"></div>
-      <a class="gray-btn light-btn review-publish-btn">Review & Publish</a>
+      <a class="gray-btn light-btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Review & Publish</a>
       <div class="arrow-right left outgoing"></div>
     </nav>
 

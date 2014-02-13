@@ -100,7 +100,8 @@ module.exports = function getBadgeModel (key) {
        'timeUnits',
        'limit',
        'multiClaimCode',
-       'unique'],
+       'unique', 
+       'published'],
     relationships: {
       criteria: {
         type: 'hasMany',

@@ -38,11 +38,19 @@
   @include dropdown-boxshadow;
   hr { margin: 0; }
 }
-.action-dropdown li {
+.action-dropdown li,
+.action-dropdown input {
   display: block;
   margin:0;
 }
-.action-dropdown li {
+
+.action-dropdown input {
+  border: none;
+  background: $white;
+}
+
+.action-dropdown li,
+.action-dropdown input {
   font-size:13px;
   padding: 5px 20px;
   color: $dark-gray;

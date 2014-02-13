@@ -84,23 +84,32 @@ exports.home = function home (req, res, next) {
 
   switch (category) {
     case 'published':
-      openbadger.getAllBadges(function (err, data) {
+      openbadger.getBadges(function (err, data) {
         if (err)
           return res.send(500, err);
-        
-        var badges = data.map(openbadger.convertBadgeFormat);
+
+        var badges = data.map(openbadger.toBadgekitBadge);
+
         handleResults(err, badges);
       });
       break;
     case 'archived':
-      // openbadger does not yet have a concept of archived badges
-      handleResults(null, []);
+      openbadger.getAllBadges(function (err, data) {
+        if (err)
+          return res.send(500, err);
+        
+        var badges = data.filter(function(badge) {
+          return (badge.archived === true);
+        }).map(openbadger.toBadgekitBadge);
+
+        handleResults(err, badges);
+      });
       break;
     case 'template':
       Badge.get({ status: 'template' }, handleResults);
       break;
     default:
-      Badge.get({ status: 'draft' }, handleResults);
+      Badge.get({ status: 'draft', published: false }, handleResults);
       break;
   }
 };
