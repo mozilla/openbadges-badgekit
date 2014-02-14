@@ -63,7 +63,10 @@
   .review-publish-btn {
     padding-left: 23px;
   }
-  .light-share { margin-left: -10px; }
+  .btn {
+    margin-top: 0px;
+  }
+  .light-share { margin-left: 10px; }
   .ingoing,
   .outgoing {
     border-top: 14px solid transparent;
@@ -97,8 +100,8 @@
   }
   .fa-spin {
     position: absolute;
-    left: 20px;
-    top: 7px;
+    left: 14px;
+    top: 12px;
     color: $dark-green;
     &.hidden {
       display: none;
