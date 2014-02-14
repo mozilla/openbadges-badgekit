@@ -16,7 +16,7 @@ function getBadgeById(badgeId, callback) {
         if (err)
           return callback(err);
 
-        data = openbadger.convertBadgeFormat(data);
+        data = openbadger.toBadgekitBadge(data);
 
         callback(err, { badge: data });
       });
@@ -48,7 +48,7 @@ exports.edit = function edit (req, res, next) {
   });
 };
 
-exports.save = function save (req, res, next) {
+function saveBadge(req, callback) {
   const timeValue = parseInt(req.body.timeValue, 10);
   const limitNumber = parseInt(req.body.limitNumber, 10);
   const numCriteria = parseInt(req.body.numCriteria, 10);
@@ -71,11 +71,11 @@ exports.save = function save (req, res, next) {
 
   Badge.put(query, function (err, result) {
     if (err)
-      return res.send(500, err);
+      return callback(err);
 
     Badge.getOne({ id: result.row.id }, function(err, row) {
       if (err)
-        return res.send(500, err);
+        return callback(err);
 
       const criteria = req.body.criteria.slice(0,numCriteria).map(function(criterion) {
         return {
@@ -87,11 +87,75 @@ exports.save = function save (req, res, next) {
       });
 
       row.setCriteria(criteria, function(err) {
-        if (err)
-            return res.send(500, err);
-
-        return middleware.redirect('badge', { badgeId: query.id }, 302)(req, res, next);
+        return callback(err, row);
       });
+    });
+  });
+};
+
+exports.save = function save (req, res, next) {
+  saveBadge(req, function(err) {
+    if (err)
+      return res.send(500, err);
+
+    return res.send(200);
+  });
+};
+
+exports.archive = function archive (req, res, next) {
+  const badgeId = req.params.badgeId;
+  openbadger.getBadge({ slug: badgeId }, function(err, badge) {
+    if (err)
+      return res.send(500, err);
+
+    badge.archived = true;
+
+    openbadger.updateBadge(badge, function(err) {
+      if (err) 
+        return res.send(500, err);
+
+      return res.send(200);
+    });
+  });
+};
+
+exports.publish = function publish (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  saveBadge(req, function(err, row) {
+    if (err)
+      return res.send(500, err);
+
+    var badge = openbadger.toOpenbadgerBadge(row);
+    openbadger.createBadge(badge, function(err) {
+      if (err) 
+        return res.send(500, err);
+
+      delete row.criteria;
+      row.published = true;
+      Badge.put(row, function(err, result) {
+        if (err)
+          return res.send(500, err);
+
+        return res.send(200, { location: res.locals.url('directory') + '?category=published' });
+      });
+    });
+  });
+};
+
+exports.copy = function copy (req, res, next) {
+  const badgeId = req.params.badgeId;
+  openbadger.getBadge({ slug: badgeId }, function(err, badge) {
+    if (err)
+      return res.send(500, err);
+
+    badge = openbadger.toBadgekitBadge(badge);
+    delete badge.id;
+    Badge.put(badge, function (err, result) {
+      if (err)
+        return res.send(500, err);
+
+      return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
     });
   });
 };
@@ -107,7 +171,7 @@ exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
     if (err)
       return res.send(500, err);
 
-    data = openbadger.convertBadgeFormat(data);
+    data = openbadger.toBadgekitBadge(data);
     res.render('badge/issue-by-email.html', { badge: data });
   });
 };
@@ -138,7 +202,7 @@ exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next
     if (err)
       return res.send(500, err);
 
-    data = openbadger.convertBadgeFormat(data);
+    data = openbadger.toBadgekitBadge(data);
     res.render('badge/issue-by-claim-code.html', { badge: data });
   });
 };

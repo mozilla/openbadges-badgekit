@@ -63,21 +63,34 @@ $(document).ready(function() {
   });
 
   var saveButton = $('.js-save-btn');
-  var saveSpinner = $('.js-save-spinner');
-  var form = $('.js-badge-form');
-  var allData = $('.js-badge-form, .js-name-field');
+  if (!saveButton.attr('disabled')) {
+    var saveSpinner = $('.js-save-spinner');
+    var form = $('.js-badge-form');
+    var allData = $('.js-badge-form, .js-name-field');
 
-  var saveButtonText = saveButton.val();
-  // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
-  saveButton.width(saveButton.width());
+    var saveButtonText = saveButton.val();
+    // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
+    saveButton.width(saveButton.width());
 
-  var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
-  saveButton.click(function() {
-    saveBadge();
-    return false;
-  });
+    var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
+    saveButton.click(function() {
+      saveBadge();
+      return false;
+    });
 
-  $('.js-save-and-exit-btn').click(saveBadge);
+    $('.js-save-and-exit-btn').click(saveBadge);
+  }
+
+  var publishButton = $('.js-publish-btn');
+  if (!publishButton.attr('disabled')) {
+    var publishUrl = publishButton.data('url');
+    publishButton.click(function() {
+      $.post(publishUrl, allData.serialize(), function(data) {
+        window.location.href = data.location;
+      });
+      return false;
+    });
+  }
 
   $(document).click(function() {
     hamburgerDropdown.hide();

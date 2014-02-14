@@ -46,6 +46,9 @@ app.get('/directory/useTemplate', 'directory.useTemplate', [persona.ensureLogged
 app.get('/badge/:badgeId', 'badge', [persona.ensureLoggedIn()], views.badge.home);
 app.get('/badge/:badgeId/edit', 'badge.edit', [persona.ensureLoggedIn()], views.badge.edit);
 app.post('/badge/:badgeId/edit', 'badge.save', [persona.ensureLoggedIn()], views.badge.save);
+app.post('/badge/:badgeId/archive', 'badge.archive', [persona.ensureLoggedIn()], views.badge.archive);
+app.post('/badge/:badgeId/publish', 'badge.publish', [persona.ensureLoggedIn()], views.badge.publish);
+app.post('/badge/:badgeId/copy', 'badge.copy', [persona.ensureLoggedIn()], views.badge.copy);
 
 app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLoggedIn()], views.badge.renderIssueByEmail);
 app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLoggedIn()], views.badge.issueByEmail);
