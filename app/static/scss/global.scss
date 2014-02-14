@@ -5,7 +5,7 @@
 .footer-container {
   width: $six-wide;
   margin: 30px 0 0 0;
-  padding: 30px 120px 15px 119px;
+  padding: 30px 12% 15px 12%;
 }
 
 .footer-container {
@@ -24,7 +24,6 @@
     right: 10px;;
   }
   .sort-arrow { right: 25px; }
-  .about-arrow { left: 90px; }
   .navigation-dropdown,
   .sort-dropdown {
     position: relative;
@@ -200,23 +199,27 @@
   width: 50%;
 }
 
-.badge-thumb-container {
-  height: 85%;
-  float: left;
-  margin: 0 20px 20px 0;
-  background-color: $white;
+.badge-new,
+.badge-template {
+  /*height: 85%;
+  float: left;*/
+
   .badgethumb {
     @include drop-shadow;
     height: 100%;
+    margin: 0 20px 20px 0;
+  background-color: $white;
   }
   .fa-plus-circle {
-    width: 100%;
-    padding: 25px;
+    float: left;
+    padding: 25px 39px;
     text-align: center;
     color: $gray;
-    font-size: 100px;
+    font-size: 98px;
     border: 1px solid $white;
     @include drop-shadow;
+    margin: 0 20px 20px 0;
+    background-color: $white;
   }
 }
 
@@ -225,11 +228,11 @@
   position: relative;
   width: $three-wide;
   height: 185px;
-  float: left;
+  padding: 2%;
   .fa-cloud-upload,
   .fa-pencil {
     color: $brown;
-    a { margin-left: 5px; }
+    margin-right: 5px;
   }
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
@@ -342,81 +345,6 @@
 }
 
 .small-copy {
-  color: $gray;
+  color: $brown;
   margin-top: 0;
 }
-
-
-/* ===[ Responsive Styles ] ========================*/
-  /* Smaller ----------- */
-@media screen and (max-width : 650px) {
-  .header-container {
-    border: none;
-    margin-top: 20px;
-    h1 { padding: 0; }
-    .header-tab {
-      display: none;
-      padding:
-    }
-    .badgekit-logo {
-      width: $six-wide;
-      margin: 20px 0;
-      text-align: center;
-    }
-  }
-  .account-sign-in {
-    float: none;
-    margin-right: 0;
-    text-align: center;
-  }
-  .header-container {
-    .menu {
-      padding: 15px 0;
-    }
-    .menu-item {
-      width: $four-wide;
-      display: block;
-      border: 1px solid black;
-      padding: 5px;
-      margin: 10px auto;
-      &:last-child {
-        border-right: 1px solid black;
-      }
-    }
-  }
-  .home-search {
-    float: none;
-    margin-top: 0;
-    margin: 0 auto;
-    input {
-      width: $six-wide;
-    }
-  }
-  .footer-container {
-    .footnote-container {
-      width: $six-wide;
-      clear: both;
-      padding: 20px 0;
-      margin: 0;
-    }
-    .footer-menu {
-      margin: 0;
-    }
-    .other-lang {
-      float: left;
-    }
-  }
-}
-
-/* Medium ----------- */
-@media screen and (max-width: 750px) {
-  .badge-template,
-  .badge-new {
-    width: $six-wide;
-  }
-}
-
-/* Larger ----------- */
-@media screen and (max-width: 950px) {
-}
-

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ static('/css/global.css') }}">
     <link rel="stylesheet" href="{{ static('/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ static('/css/home.css') }}">
+    <link rel="stylesheet" href="{{ static('/css/responsive.css') }}">
+
     <link rel="shortcut icon" href="{{ static('/images/badgekit-favicon.ico') }}">
   {%- endblock %}
 </head>
@@ -16,6 +18,30 @@
     {% block headerWrapper -%}
       <header id="header" class="header-container">
         {% block header -%}
+          <!-- header for smaller screens -->
+          <section class="header-small-screen">
+            <i class="fa fa-bars js-small-screen-dropdown"></i>
+            <a href="#" class="menu-item js-login right">
+              <i class="fa fa-gear"></i>
+            </a>
+          </section>
+          <nav class="menu-small-screen js-small-screen-menu">
+            <ul>
+              <p class="menu-title"><i class="fa fa-briefcase"></i>Badges</p>
+              <a href="{{ url('directory') }}?category=template"><li class="first-item">Templates</li></a>
+              <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
+              <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
+              <a href="{{ url('directory') }}?category=archived"><li class="last-item">Archived</li></a>
+            </ul>
+
+            <ul>
+              <p class="menu-title second-menu-title"><i class="fa fa-folder-open"></i>Applications</p>
+              <a href=""><li class="first-item">Pending</li></a>
+              <a href=""><li class="last-item">Awarded</li></a>
+            </ul>
+          </nav>
+          <nav class="settings-small-screen"></nav>
+
           <h1 class="badgekit-logo left">
             <a href="{{ url('directory') }}">BadgeKit</a>
           </h1>
@@ -65,8 +91,8 @@
             <span class="highlight-arrow logged-in-highlight-arrow"></span>
             <!-- arrow up for link selected end -->
           {% else %}
-            <span class="arrow-down about-arrow"></span>
             <ul class="navigation-dropdown">
+              <span class="arrow-down about-arrow"></span>
               <li class="menu-item">
                 About
                 <ul class="menu-hover about-hover">

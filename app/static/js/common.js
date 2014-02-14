@@ -1,6 +1,14 @@
 $(document).ready(function() {
   nunjucks.configure('/static/templates', { autoescape: true });
 
+  var mobileButton = $('.js-small-screen-dropdown');
+  var mobileDropdown = $('.js-small-screen-menu');
+
+  mobileButton.on("click", function(e) {
+    mobileDropdown.toggle();
+    e.preventDefault();
+  });
+
   var userDropdown = $('.js-user-dropdown');
 
   userDropdown.change(function() {
@@ -19,20 +27,4 @@ $(document).ready(function() {
     }
   });
 
-  var badgeThumbContainer = $('.badge-thumb-container');
-
-  function resizeBadgeThumbContainer() {
-    var container = $(this);
-    container.width(container.height());
-
-    var plusCircle = $('.fa-plus-circle', container);
-    var fontHeight = parseInt(plusCircle.css('font-size'),10);
-    var newPadding = (container.height() - fontHeight)/2;
-
-    plusCircle.css('padding-top', newPadding);
-    plusCircle.css('padding-bottom', newPadding);
-  }
-
-  badgeThumbContainer.resize(resizeBadgeThumbContainer);
-  badgeThumbContainer.each(resizeBadgeThumbContainer);
 });
