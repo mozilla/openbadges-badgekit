@@ -42,22 +42,22 @@
           <a href="{{ url('badge.edit', { badgeId: badge.id }) }}"><i class="fa fa-pencil"></i>Edit</a>
           <a href="{{ url('badge', { badgeId: badge.id }) }}" class="btn view-btn">View</a>
           {% if category == 'template' %}
-          <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
-        {% endif %}
-        {% if category == 'published' %}
-          <a href="" class="btn action-btn">Action<span class="arrow-down"></span></a>
-          <ul class="action-dropdown">
-            <a href=""><li>SHARE</li></a><hr>
-            <a href=""><li>REVIEW APPLICATIONS</li></a>
-            <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
-            <hr>
-            <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
-            <a href=""><li>VIEW CLAIM CODES</li></a>
-            <hr>
-            <a href=""><li>COPY AS NEW</li></a>
-            <a href=""><li>ARCHIVE</li></a>
-          </ul>
-        {% endif %}
+            <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
+          {% endif %}
+          {% if category == 'published' %}
+            <a href="" class="btn action-btn js-action-btn">Action<span class="arrow-down"></span></a>
+            <ul class="action-dropdown js-action-dropdown">
+              <a href=""><li>SHARE</li></a><hr>
+              <a href=""><li>REVIEW APPLICATIONS</li></a>
+              <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
+              <hr>
+              <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
+              <a href=""><li>VIEW CLAIM CODES</li></a>
+              <hr>
+              <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>COPY AS NEW</li></a>
+              <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>ARCHIVE</li></a>
+            </ul>
+          {% endif %}
         </section>
       {% endfor %}
     </div>
