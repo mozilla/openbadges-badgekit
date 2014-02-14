@@ -1,6 +1,6 @@
-/* ===[ Responsive Styles ] ========================*/
-  /* Smaller ----------- */
-@media screen and (max-width : 650px) {
+@import "base";
+
+@media screen and (max-width: 750px) {
   .header-container {
     padding: 0 20px;
     .badgekit-logo {
@@ -15,28 +15,35 @@
     }
   }
 
-  .home-what-is-badge,
-  .home-what-is-image {
-    float: none;
-    width: 100%;
-  }
-  .badge-new {
-    float: none;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-/* Medium ----------- */
-@media screen and (max-width: 750px) {
   .header-small-screen { display: block; }
-  .header-container { padding: 0;
+  .header-container { padding: 0; }
   .nav-header { display: none; }
+
+  .home-what-is-badge,
+  .home-what-is-image { width: 100%; }
+
+  .home-what-is-badge {
+    .what-is-header{ font-size: 33px; }
   }
+
+  .badge-new,
+  .badge-template { width: $six-wide; }
 }
 
-/* Larger ----------- */
-@media screen and (max-width: 975px) {
+@media screen and (max-width: 340px) {
+  .container.beige-container { width: 100%; }
 
+  .badge-new,
+  .badge-template {
+    height: auto;
+    padding-bottom: 20px;
+    text-align: center;
+    .fa-plus-circle {
+      float: none;
+      margin: 0;
+      font-size: 130px;
+    }
+    .badgethumb { width: 200px; }
+  }
 }
 

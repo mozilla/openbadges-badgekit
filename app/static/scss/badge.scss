@@ -164,3 +164,28 @@
     display: none;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .badge-form {
+    width: 100%;
+    padding: 20px;
+    .badge-label,
+    .badge-field { width: 100%; }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .badge-form {
+    .tags-field {
+      width: 31.5%;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .badge-form {
+    .tags-field {
+      width: 36.5%;
+    }
+  }
+}
