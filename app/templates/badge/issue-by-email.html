@@ -1,7 +1,7 @@
 {% extends "badge/layout.html" %}
 
 {% block content %}
-  <div class="container">  
+  <div class="container">
     <form class="badge-form" name="input" action="{{ url('badge.issueByEmail', { badgeId: badge.id }) }}" method="post">
       <h1>Issue Badge by Email Address</h1>
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
@@ -18,7 +18,7 @@
         <input class="badge-field" type="text" name="email" value=""/>
       </div>
 
-      <button class="gray-btn submit-btn" type="submit">Issue Badge</button>
+      <button class="btn submit-btn" type="submit">Issue Badge</button>
     </form>
   </div>
 {% endblock %}

@@ -1,20 +1,19 @@
 @import "base";
 
-.gray-btn {
+.btn {
   text: {
     transform: uppercase;
     decoration: none;
   }
   font-weight: bold;
-  margin-bottom:7px;
-  margin-left: 7px;
+  font-size: 12px;
+  letter-spacing: .1em;
+  margin: 7px 0;
   color: $white;
   height: 29px;
   line-height: 31px;
   padding: 0 15px;
-  font-size:12px;
   cursor: pointer;
-  letter-spacing: .1em;
   background-color: $light-beige;
   display: inline-block;
   &:hover {
@@ -28,6 +27,7 @@
 
 .add-btn {
   background-color: $light-blue;
+  margin: 0 10px;
   &:hover { color: $brown; }
 }
 
