@@ -43,7 +43,7 @@ exports.home = function home (req, res, next) {
 
 exports.edit = function edit (req, res, next) {
   const badgeId = req.params.badgeId;
-  const section = req.query.section || 'visual';
+  const section = req.query.section || 'description';
   const category = req.query.category || 'draft';
 
   async.parallel([
