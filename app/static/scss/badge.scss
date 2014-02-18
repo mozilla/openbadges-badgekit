@@ -113,6 +113,26 @@
   height: 250px;
 }
 
+.canvas-wrapper {
+  text-align: center;
+  margin-bottom:20px;
+}
+
+.badge-canvas {
+  width: 90px;
+  height: 90px;
+  display: inline;
+}
+
+.color-canvas {
+  display: none;
+}
+
+.studio-thumb {
+  width: 90px;
+  border: 1px solid;
+}
+
 .badge-details {
   width: $two-wide;
   .new-placeholder {
@@ -130,6 +150,10 @@
 
 .form-field-wrapper {
   margin-bottom: 20px;
+}
+
+.submit-button-wrapper {
+  text-align: center;
 }
 
 .badge-form {

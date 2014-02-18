@@ -56,9 +56,14 @@ app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLo
 app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', [persona.ensureLoggedIn()], views.badge.renderIssueByClaimCode);
 app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', [persona.ensureLoggedIn()], views.badge.issueByClaimCode);
 
-app.get('/images/badge/:badgeId.png', 'badge.image', views.badge.image);
+app.get('/images/badge/:badgeId', 'badge.image', views.badge.image);
 
 app.get('/settings', 'settings', [persona.ensureLoggedIn()], views.settings.home);
+
+app.get('/studio/backgrounds', 'studio.backgrounds', [persona.ensureLoggedIn()], views.badge.getBackgrounds);
+app.get('/studio/texts', 'studio.texts', [persona.ensureLoggedIn()], views.badge.getTexts);
+app.get('/studio/icons', 'studio.icons', [persona.ensureLoggedIn()], views.badge.getIcons);
+app.get('/studio/colors', 'studio.colors', [persona.ensureLoggedIn()], views.badge.getColors);
 
 if (!module.parent) {
   const port = config('PORT', 3000);

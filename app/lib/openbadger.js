@@ -11,6 +11,7 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.name = badge.name;
   newBadge.earnerDescription = badge.description;
   newBadge.consumerDescription = badge.description;
+  newBadge.image = badge.imageUrl;
 
   return newBadge;
 };
@@ -20,8 +21,8 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
   newBadge.name = badge.name;
   newBadge.slug = badge.name.trim().toLowerCase().replace(/\s+/g, '-');
   newBadge.strapline = badge.description || ' ';
-  // fix this when badge images exist
-  newBadge.imageUrl = config('PERSONA_AUDIENCE') + '/images/badge/' + badge.id + '.png';
+  // openbadger-issue-client doesn't yet support uploading an image file, so for now we're keeping the images in the badgekit db
+  newBadge.imageUrl = config('PERSONA_AUDIENCE') + '/images/badge/' + badge.id;
   newBadge.description = badge.earnerDescription || newBadge.strapline;
 
   return newBadge;

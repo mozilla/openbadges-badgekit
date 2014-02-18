@@ -2,6 +2,8 @@ var getDb = require('../lib/db').getDb;
 var async = require('async');
 
 module.exports = function getBadgeModel (key) {
+  var Image = require('./image')(key);
+
   function setCriteria(criteria, callback) {
     var criteriaIds = [];
     const badgeId = this.id;
@@ -101,12 +103,19 @@ module.exports = function getBadgeModel (key) {
        'limit',
        'multiClaimCode',
        'unique', 
-       'published'],
+       'published',
+       'imageId'],
     relationships: {
       criteria: {
         type: 'hasMany',
         local: 'id',
         foreign: { table: 'criteria', key: 'badgeId' }
+      },
+      image: {
+        type: 'hasOne',
+        local: 'imageId',
+        foreign: { table: 'image', key: 'id' },
+        optional: true
       }
     },
     methods: {

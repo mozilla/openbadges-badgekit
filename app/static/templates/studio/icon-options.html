@@ -1,0 +1,5 @@
+<label class="badge-label left" for="icon">Icon</p></label>
+{% for icon in icons %}
+  <input class="radio-badge-field js-icon-radio" type="radio" name="icon" value="{{ icon.id }}"/>
+  <img class="studio-thumb" src="{{ icon.image }}"/>
+{% endfor %}

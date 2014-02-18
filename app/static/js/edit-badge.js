@@ -2,14 +2,13 @@ const AUTOSAVE_INTERVAL_MS = 10000;
 const SAVING_TEXT = 'Saving';
 
 $(document).ready(function() {
-
   function saveBadge() {
     clearTimeout(timeoutID);
     saveButton.attr('disabled', true);
     saveButton.val(SAVING_TEXT);
     saveSpinner.removeClass('hidden');
 
-    $.post(form.attr('action'), allData.serialize(), function(data) {
+    $.post(form.attr('action'), form.serialize(), function(data) {
       saveButton.removeAttr('disabled');
       saveButton.val(saveButtonText);
       saveSpinner.addClass('hidden');
@@ -66,7 +65,6 @@ $(document).ready(function() {
   if (!saveButton.attr('disabled')) {
     var saveSpinner = $('.js-save-spinner');
     var form = $('.js-badge-form');
-    var allData = $('.js-badge-form, .js-name-field');
 
     var saveButtonText = saveButton.val();
     // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
@@ -85,13 +83,23 @@ $(document).ready(function() {
   if (!publishButton.attr('disabled')) {
     var publishUrl = publishButton.data('url');
     publishButton.click(function() {
-      $.post(publishUrl, allData.serialize(), function(data) {
+      $.post(publishUrl, form.serialize(), function(data) {
         window.location.href = data.location;
       });
       return false;
     });
   }
 
+  var uploadImage = $('.js-upload-image');
+  uploadImage.change(function() {
+    form.submit();
+  });
+
+  var nameField = $('.js-name-field');
+  var hiddenNameField = $('.js-hidden-name-field');
+  nameField.change(function() {
+    hiddenNameField.val(nameField.val());
+  });
   $(document).click(function() {
     hamburgerDropdown.hide();
   });
