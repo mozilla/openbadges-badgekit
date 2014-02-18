@@ -21,6 +21,8 @@ function getDb (prefix) {
   if (!(prefix in dbs)) {
     dbs[prefix] = streamsql.connect(getDbConfig(prefix));
 
+    var db = dbs[prefix];
+    
     function handleDisconnect() {
       db.connection = mysql.createConnection(getDbConfig(prefix));
       db.connection.connect(function(err) {
