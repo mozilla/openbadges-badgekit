@@ -38,6 +38,7 @@
       </section>
       {% endif %}
 
+<<<<<<< HEAD
       <!-- begin THIS GOES IN THE APPLICATION HOME ROUTE -->
       <section class="application-pending-info">
         <span class="pending-info-heading">Find an APPLICANT, then remix it!</span><span class="templates-info-text"> Templates are guides to help you create unique badges. A few designs are featured below. They are editable, all the way from the metadata information to the featured image. Browse the options below to start working within one of the existing styles. You can modify the template you choose to align it with your vision. Or you can make a template from scratch by clicking the "Add a new template" button below.</span>
@@ -124,6 +125,13 @@
         <ul class="navigation-dropdown right">
           <li class="menu-item sort-menu">
             Sort badges <i class="fa fa-caret-down"></i>
+=======
+      <nav class="nav-header right">
+        <ul class="navigation-dropdown sort-dropdown">
+          <span class="sort-by">Sort badges by:</span>
+          <span class="arrow-down sort-arrow"></span>
+          <li class="menu-item">
+>>>>>>> Hooking up /application route
             <ul class="menu-hover sort-menu-hover">
               <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
               <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
