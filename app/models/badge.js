@@ -104,7 +104,13 @@ module.exports = function getBadgeModel (key) {
        'multiClaimCode',
        'unique', 
        'published',
-       'imageId'],
+       'imageId',
+       'studioShape',
+       'studioBackground',
+       'studioTextType',
+       'studioTextContents',
+       'studioIcon',
+       'studioColor'],
     relationships: {
       criteria: {
         type: 'hasMany',

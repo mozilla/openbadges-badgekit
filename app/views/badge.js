@@ -160,6 +160,13 @@ function saveBadge(req, callback) {
     multiClaimCode: req.body.multiClaimCode,
   };
 
+  if ('shape' in req.body) query.studioShape = req.body.shape;
+  if ('background' in req.body) query.studioBackground = req.body.background;
+  if ('textType' in req.body) query.studioTextType = req.body.textType;
+  if ('textContents' in req.body) query.studioTextContents = req.body.textContents;
+  if ('icon' in req.body) query.studioIcon = req.body.icon;
+  if ('color' in req.body) query.studioColor = req.body.color;
+
   Badge.put(query, function (err, result) {
     if (err)
       return callback(err);

@@ -20,6 +20,12 @@ $(document).ready(function() {
   var shapeImg, backgroundImg, textImg, textValue, iconImg, colorImg;
   var shapeRadio = $('.js-shape-radio');
 
+  var savedBackground = backgroundDiv.data('saved-background');
+  var savedTextType = textDiv.data('saved-text-type');
+  var savedTextContents = textDiv.data('saved-text-contents');
+  var savedIcon = iconDiv.data('saved-icon');
+  var savedColor = colorDiv.data('saved-color');
+
   var submitBtn = $('.js-save-image');
 
   function renderBadge() {
@@ -93,11 +99,14 @@ $(document).ready(function() {
     shapeId = $(this).val();
     var query = { shapeId: shapeId };
     $.get(backgroundUrl, query, function(data) {
+      data.savedBackground = savedBackground;
       var backgroundOptions = nunjucks.render('studio/background-options.html', data);
       backgroundDiv.html(backgroundOptions);
       setupBackgroundChange();
     });
   });
+
+  shapeRadio.filter(':checked').change();
 
   function setupBackgroundChange() {
     var backgroundRadio = $('.js-background-radio');
@@ -110,14 +119,18 @@ $(document).ready(function() {
       submitBtn.addClass('hidden');
       renderBadge();
 
-      backgroundId = $(this).val();
+      savedBackground = backgroundId = $(this).val();
       var query = { shapeId: shapeId, backgroundId: backgroundId };
       $.get(textUrl, query, function(data) {
+        data.savedTextType = savedTextType;
+        data.savedTextContents = savedTextContents;
         var textOptions = nunjucks.render('studio/text-options.html', data);
         textDiv.html(textOptions);
         setupTextChange();
       });
     });
+
+    backgroundRadio.filter(':checked').change();
   }
 
   function setupTextChange() {
@@ -131,16 +144,22 @@ $(document).ready(function() {
       submitBtn.addClass('hidden');
       renderBadge();
 
-      textId = $(this).val();
+      savedTextType = textId = $(this).val();
       var query = { shapeId: shapeId, backgroundId: backgroundId, textId: textId };
       $.get(iconUrl, query, function(data) {
+        data.savedIcon = savedIcon;
         var iconOptions = nunjucks.render('studio/icon-options.html', data);
         iconDiv.html(iconOptions);
         setupIconChange();
       });
     });
 
-    $('.js-text-contents').change(renderBadge);
+    $('.js-text-contents').change(function() {
+      savedTextContents = $(this).val();
+      renderBadge();
+    });
+
+    textRadio.filter(':checked').change();
   }
 
   function setupIconChange() {
@@ -154,14 +173,17 @@ $(document).ready(function() {
       submitBtn.addClass('hidden');
       renderBadge();
 
-      iconId = $(this).val();
+      savedIcon = iconId = $(this).val();
       var query = { shapeId: shapeId, backgroundId: backgroundId, textId: textId, iconId: iconId };
       $.get(colorUrl, query, function(data) {
+        data.savedColor = savedColor;
         var colorOptions = nunjucks.render('studio/color-options.html', data);
         colorDiv.html(colorOptions);
         setupColorChange();
       });
     });
+
+    iconRadio.filter(':checked').change();
   }
 
   function setupColorChange() {
@@ -172,8 +194,10 @@ $(document).ready(function() {
       submitBtn.removeClass('hidden');
       renderBadge();
 
-      colorId = $(this).val();
+      savedColor = colorId = $(this).val();
     });
+
+    colorRadio.filter(':checked').change();
   }
 
   var form = $('.js-badge-form');

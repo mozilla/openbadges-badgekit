@@ -1,7 +1,7 @@
 <label class="badge-label left" for="textType">Text Background</p></label>
 {% for text in texts %}
-  <input class="radio-badge-field js-text-radio" type="radio" name="textType" value="{{ text.id }}"/>
+  <input class="radio-badge-field js-text-radio" type="radio" name="textType" value="{{ text.id }}" {% if savedTextType == text.id %}checked{% endif %}/>
   <img class="studio-thumb" src="{{ text.image }}"/>
 {% endfor %}
 <label class="badge-label left" for="textContents">Text</p></label>
-<input class="badge-field js-text-contents" type="text" name="textContents" value="" placeholder="Enter Text Here"/>
+<input class="badge-field js-text-contents" type="text" name="textContents" value="{{ savedTextContents }}" placeholder="Enter Text Here"/>

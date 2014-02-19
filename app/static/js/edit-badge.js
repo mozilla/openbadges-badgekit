@@ -25,7 +25,6 @@ $(document).ready(function() {
     var arrowSize = -hamburgerDropdownArrow.position().top;
     var hamburgerDropdownOffset = { top: hamburgerButton.offset().top + hamburgerButton.height() + arrowSize,
                                     left: hamburgerButton.offset().left - hamburgerDropdownArrow.position().left + (hamburgerButton.width())/2 - arrowSize};
-    console.log(hamburgerDropdownArrow.width());
     hamburgerDropdown.offset(hamburgerDropdownOffset);
     return false;
   });

@@ -14,6 +14,12 @@ exports.up = function(db, callback) {
     db.runSql.bind(db, 
       "ALTER TABLE `badge` "
       + "ADD `imageId` BIGINT,"
+      + "ADD `studioShape` VARCHAR(255),"
+      + "ADD `studioBackground` VARCHAR(255),"
+      + "ADD `studioTextType` VARCHAR(255),"
+      + "ADD `studioTextContents` VARCHAR(255),"
+      + "ADD `studioIcon` VARCHAR(255),"
+      + "ADD `studioColor` VARCHAR(255),"
       + "ADD CONSTRAINT `image_fk` FOREIGN KEY (imageId) REFERENCES image(id)"
     )], callback);
 };
@@ -23,7 +29,13 @@ exports.down = function(db, callback) {
     db.runSql.bind(db, 
       "ALTER TABLE `badge` "
       + "DROP FOREIGN KEY `image_fk`,"
-      + "DROP COLUMN `imageId`"
+      + "DROP COLUMN `imageId`,"
+      + "DROP COLUMN `studioShape`,"
+      + "DROP COLUMN `studioBackground`,"
+      + "DROP COLUMN `studioTextType`,"
+      + "DROP COLUMN `studioTextContents`,"
+      + "DROP COLUMN `studioIcon`,"
+      + "DROP COLUMN `studioColor`"
     ),
     db.runSql.bind(db,        
       "DROP TABLE IF EXISTS `image`"

@@ -127,24 +127,24 @@
         <div class="form-field-wrapper clearfix js-visual-shape">
           <label class="badge-label left" for="shape">Shape</p></label>
           {% for shape in shapes %}
-            <input class="radio-badge-field js-shape-radio" type="radio" name="shape" value="{{ shape.id }}"/>
+            <input class="radio-badge-field js-shape-radio" type="radio" name="shape" value="{{ shape.id }}" {% if badge.studioShape == shape.id %}checked{% endif %}/>
             <img class="studio-thumb" src="{{ shape.image }}"/>
           {% endfor %}
         </div>
 
-        <div class="form-field-wrapper clearfix js-visual-background" data-url="{{ url('studio.backgrounds') }}">
+        <div class="form-field-wrapper clearfix js-visual-background" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
         
         </div>
 
-        <div class="form-field-wrapper clearfix js-visual-text" data-url="{{ url('studio.texts') }}">
+        <div class="form-field-wrapper clearfix js-visual-text" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
         
         </div>
 
-        <div class="form-field-wrapper clearfix js-visual-icon" data-url="{{ url('studio.icons') }}">
+        <div class="form-field-wrapper clearfix js-visual-icon" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
         
         </div>
 
-        <div class="form-field-wrapper clearfix js-visual-color" data-url="{{ url('studio.colors') }}">
+        <div class="form-field-wrapper clearfix js-visual-color" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
         
         </div>
 
