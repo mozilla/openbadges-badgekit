@@ -1,20 +1,29 @@
 @import "base";
 @import "buttons";
 
-.header-container,
+.header-container {
+  @extend .container;
+  padding: 20px 0 0 0;
+}
+
 .footer-container {
   width: $six-wide;
   margin: 30px 0 0 0;
   padding: 30px 12% 15px 12%;
-}
-
-.footer-container {
   background-color: $white;
   .footnote-container,
   .footer-menu {
     margin: 0 4%;
   }
 }
+
+.badgekit-logo {
+  width: 20%;
+  height: auto;
+  margin-left: -20px;
+}
+
+.homepage-nav { margin-top: 2.5%; }
 
 .nav-header {
   .arrow-down {
@@ -93,15 +102,15 @@
   left: 260px;
   width: 0px;
   height: 0px;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 9px solid $white;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 15px solid $white;
 }
 
 .logged-in-highlight-arrow {
-  top: 117px;
-  left: 260px;
-  border-bottom: 9px solid $dark-beige;
+  top: -34px;
+  left: 215px;
+  border-bottom: 15px solid $dark-beige;
 }
 
 .account-sign-in {

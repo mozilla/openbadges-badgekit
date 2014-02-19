@@ -205,6 +205,7 @@ input[type="checkbox"]:checked + span:before {
 .beige-container {
   background-color: $light-beige;
   border: 20px solid $dark-beige;
+  position: relative;
 }
 
 .checkbox {
