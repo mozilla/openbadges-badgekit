@@ -7,8 +7,8 @@ exports.up = function(db, callback) {
     db.runSql.bind(db,        
       "CREATE TABLE IF NOT EXISTS `image` ("
       + "id               BIGINT AUTO_INCREMENT PRIMARY KEY,"
-      + "mimetype         VARCHAR(255),"
-      + "data             LONGBLOB"
+      + "mimetype         VARCHAR(255) NOT NULL,"
+      + "data             LONGBLOB NOT NULL"
       + ") ENGINE=InnoDB"
     ),
     db.runSql.bind(db, 

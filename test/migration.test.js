@@ -104,4 +104,46 @@ describe('Migrations', function () {
     ];
   });
 
+  describeMigration('publish', function (id, prevId) {
+    return [
+      $.up({destination: id}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(4, "four migrations recorded");
+        results[3].name.should.equal(id);
+      }),
+      $.sql("SELECT published FROM badge", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.down({count: 1}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(3, "migration rolled back");
+      }),
+      $.sqlError("SELECT published FROM badge", "ER_BAD_FIELD_ERROR")
+    ];
+  });
+
+  describeMigration('image-table', function (id, prevId) {
+    return [
+      $.up({destination: id}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(5, "five migrations recorded");
+        results[4].name.should.equal(id);
+      }),
+      $.sql("SELECT imageId FROM badge", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.sql("SELECT * FROM image", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.down({count: 1}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(4, "migration rolled back");
+      }),
+      $.sqlError("SELECT imageId FROM badge", "ER_BAD_FIELD_ERROR"),
+      $.sqlError("SELECT * FROM image", "ER_NO_SUCH_TABLE")
+    ];
+  });
 });
