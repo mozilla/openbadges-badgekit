@@ -432,6 +432,14 @@
     text-align: right;
     color: $gray;
   }
+  .fa-check-circle,
+  .fa-times-circle,
+  .fa-circle-o {
+    font-size: 25px;
+    padding: 0 20px;
+  }
+  .fa-check-circle { color: $medium-green; }
+  .fa-times-circle { color: orange; }
 }
 
 .status-bar {
@@ -454,14 +462,6 @@
   width: $four-wide;
   background-color: $light-gray;
   padding: 10px;
-  .fa-check-circle,
-  .fa-times-circle,
-  .fa-circle-o {
-    font-size: 25px;
-    padding: 0 20px;
-  }
-  .fa-check-circle { color: $medium-green; }
-  .fa-times-circle { color: orange; }
 }
 
 .approval-section {
@@ -496,3 +496,47 @@
   }
 }
 
+.application-tabs {
+  position: relative;
+  min-height: 500px; /* This part sucks...need to figure out another solution*/
+  margin: 25px 0;
+  .tab {
+    margin: 0 10px;
+    .tab-label {
+      background: $light-beige;
+      padding: 10px 10px 6px 10px;
+      border: 1px solid $dark-beige;
+      margin-left: -1px;
+      position: relative;
+      left: 1px;
+      cursor: pointer;
+    }
+    .tab-input {
+      display: none;
+      &:checked ~ .tab-label {
+        background-color: $gray;
+        color: $white;
+        z-index: 2;
+      }
+      &:checked ~ .tab-label ~ .tab-content {
+        z-index: 1;
+      }
+    }
+    .tab-content {
+      position: absolute;
+      top: 28px;
+      left: 0;
+      background-color: $white;
+      right: 0;
+      bottom: 0;
+      padding: 20px;
+      border-top: 1px solid $gray;
+      .title {
+        margin-bottom: 0;
+        font-weight: bold;
+      }
+      .title,
+      .small-copy { width: $four-wide; }
+    }
+  }
+}
