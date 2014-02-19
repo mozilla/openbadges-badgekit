@@ -399,6 +399,71 @@
 }
 
 /*APPLICATION STYLES*/
+.application-container { padding: 20px; }
+
+.badger-info {
+  width: $three-wide;
+  .badgethumb {
+    width: 25px;
+    height: auto;
+    margin: 0 20px 50px 0;
+  }
+  .badger-email {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: $gray;
+    font-weight: normal;
+    font-size: 30px;
+  }
+  .badge-name {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .application-status,
+  .application-submission-date {
+    margin: 0;
+    font-size: 13px;
+  }
+}
+
+.application-review-status {
+  width: $three-wide;
+  .warning-text {
+    text-align: right;
+    color: $gray;
+  }
+}
+
+.status-bar {
+  background-color: $gray;
+  width: $four-wide;
+  padding: 10px;
+  margin-top: 50px;
+  .status-info {
+    line-height: 1.3em;
+    margin: 0;
+    color: $white;
+    span {
+      font-size: 17px;
+      font-weight: bold;
+    }
+  }
+}
+
+.status-visual {
+  width: $four-wide;
+  background-color: $light-gray;
+  padding: 10px;
+  .fa-check-circle,
+  .fa-times-circle,
+  .fa-circle-o {
+    font-size: 25px;
+    padding: 0 20px;
+  }
+  .fa-check-circle { color: $medium-green; }
+  .fa-times-circle { color: orange; }
+}
+
 .approval-section {
   padding: 20px 0;
   .badgethumb {
@@ -430,3 +495,4 @@
     .email-cell { color: $light-blue; }
   }
 }
+
