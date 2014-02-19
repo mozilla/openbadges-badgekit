@@ -16,7 +16,7 @@
 <body>
   {% block body -%}
     {% block headerWrapper -%}
-      <header id="header" class="header-container">
+      <header id="header" class="header-container clearfix">
         {% block header -%}
           <!-- header for smaller screens -->
           <section class="header-small-screen">
@@ -42,10 +42,8 @@
           </nav>
           <nav class="settings-small-screen"></nav>
 
-          <h1 class="badgekit-logo left">
-            <a href="{{ url('directory') }}">BadgeKit</a>
-          </h1>
-          <nav class="nav-header">
+          <img src="../static/images/badgekit-logo.png" class="badgekit-logo left">
+          <nav class="nav-header homepage-nav">
             <ul class="navigation-dropdown">
               <span class="arrow-down"></span>
               <li class="menu-item">
@@ -87,9 +85,6 @@
                 </ul>
               </li>
             </ul>
-            <!-- arrow up for link selected start -->
-            <span class="highlight-arrow logged-in-highlight-arrow"></span>
-            <!-- arrow up for link selected end -->
           {% else %}
             <ul class="navigation-dropdown">
               <span class="arrow-down about-arrow"></span>

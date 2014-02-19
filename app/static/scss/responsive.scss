@@ -6,7 +6,6 @@
     .badgekit-logo {
       float: none;
       margin: 0 auto;
-      width: 106px;
     }
     .arrow-down { display: none; }
     .navigation-dropdown {
@@ -14,6 +13,8 @@
       padding: 0;
     }
   }
+
+  .highlight-arrow { display: none; }
 
   .header-small-screen { display: block; }
   .header-container { padding: 0; }
