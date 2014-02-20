@@ -60,7 +60,7 @@ module.exports = function getBadgeModel (key) {
     });
     
     delete badge.criteria;
-
+    badge.created = new Date();
     Badge.put(badge, function (err, result) {
       if (err)
         return callback(err);
@@ -85,7 +85,6 @@ module.exports = function getBadgeModel (key) {
        'badgeId',
        'required', 
        'note',
-       'created',
        'lastUpdated']
   });
 

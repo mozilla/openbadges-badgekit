@@ -138,7 +138,7 @@ exports.home = function home (req, res, next) {
 exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
 
-  Badge.put({ name: 'New Badge', status: category }, function (err, result) {
+  Badge.put({ name: 'New Badge', status: category, created: new Date() }, function (err, result) {
     if (err)
       return res.send(500, err);
     

@@ -9,7 +9,7 @@ module.exports = function getImageModel (key) {
       ['id',
        'mimetype',
        'data',
-       'created',
+       'url',
        'lastUpdated']
   });
 

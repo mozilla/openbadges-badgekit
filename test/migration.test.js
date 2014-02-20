@@ -158,11 +158,11 @@ describe('Migrations', function () {
         results.should.be.ok;
         results.length.should.equal(0);
       }),
-      $.sql("SELECT created,lastUpdated FROM image", function (results) {
+      $.sql("SELECT lastUpdated FROM image", function (results) {
         results.should.be.ok;
         results.length.should.equal(0);
       }),
-      $.sql("SELECT created,lastUpdated FROM criteria", function (results) {
+      $.sql("SELECT lastUpdated FROM criteria", function (results) {
         results.should.be.ok;
         results.length.should.equal(0);
       }),
@@ -172,9 +172,7 @@ describe('Migrations', function () {
       }),
       $.sqlError("SELECT created FROM badge", "ER_BAD_FIELD_ERROR"),
       $.sqlError("SELECT lastUpdated FROM badge", "ER_BAD_FIELD_ERROR"),
-      $.sqlError("SELECT created FROM image", "ER_BAD_FIELD_ERROR"),
       $.sqlError("SELECT lastUpdated FROM image", "ER_BAD_FIELD_ERROR"),
-      $.sqlError("SELECT created FROM criteria", "ER_BAD_FIELD_ERROR"),
       $.sqlError("SELECT lastUpdated FROM criteria", "ER_BAD_FIELD_ERROR")
     ];
   });
