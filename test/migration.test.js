@@ -146,4 +146,36 @@ describe('Migrations', function () {
       $.sqlError("SELECT * FROM image", "ER_NO_SUCH_TABLE")
     ];
   });
+
+  describeMigration('timestamps', function (id, prevId) {
+    return [
+      $.up({destination: id}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(6, "six migrations recorded");
+        results[5].name.should.equal(id);
+      }),
+      $.sql("SELECT created,lastUpdated FROM badge", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.sql("SELECT created,lastUpdated FROM image", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.sql("SELECT created,lastUpdated FROM criteria", function (results) {
+        results.should.be.ok;
+        results.length.should.equal(0);
+      }),
+      $.down({count: 1}),
+      $.sql("SELECT * FROM migrations", function (results) {
+        results.length.should.equal(5, "migration rolled back");
+      }),
+      $.sqlError("SELECT created FROM badge", "ER_BAD_FIELD_ERROR"),
+      $.sqlError("SELECT lastUpdated FROM badge", "ER_BAD_FIELD_ERROR"),
+      $.sqlError("SELECT created FROM image", "ER_BAD_FIELD_ERROR"),
+      $.sqlError("SELECT lastUpdated FROM image", "ER_BAD_FIELD_ERROR"),
+      $.sqlError("SELECT created FROM criteria", "ER_BAD_FIELD_ERROR"),
+      $.sqlError("SELECT lastUpdated FROM criteria", "ER_BAD_FIELD_ERROR")
+    ];
+  });
 });

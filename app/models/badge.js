@@ -84,7 +84,9 @@ module.exports = function getBadgeModel (key) {
        'description',
        'badgeId',
        'required', 
-       'note']
+       'note',
+       'created',
+       'lastUpdated']
   });
 
   var Badge = db.table('badge', {
@@ -110,7 +112,9 @@ module.exports = function getBadgeModel (key) {
        'studioTextType',
        'studioTextContents',
        'studioIcon',
-       'studioColor'],
+       'studioColor',
+       'created',
+       'lastUpdated'],
     relationships: {
       criteria: {
         type: 'hasMany',
