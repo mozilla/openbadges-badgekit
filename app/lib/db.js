@@ -3,6 +3,8 @@ const fs = require('fs');
 const streamsql = require('streamsql');
 const config = require('./config');
 
+var dbs = {};
+
 function getDbConfig (prefix) {
   prefix += '_';
   return {
@@ -15,7 +17,11 @@ function getDbConfig (prefix) {
 }
 
 function getDb (prefix) {
-  return streamsql.connect(getDbConfig(prefix));
+  if (!(prefix in dbs)) {
+    dbs[prefix] = streamsql.connect(getDbConfig(prefix));
+  }
+
+  return dbs[prefix];
 }
 
 module.exports.getDb = getDb;
