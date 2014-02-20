@@ -133,19 +133,24 @@
   border: 1px solid;
 }
 
+.badge-preview-info {
+  padding: 20px;
+}
+
 .badge-details {
   width: $two-wide;
   .new-placeholder {
     float: none;
     margin: 0 0 20px 0;
   }
-  .use-btn {
-    margin-left: 0;
-  }
+  p { margin: 0; }
 }
 
 .badge-info {
   width: $four-wide;
+  background-color: $white;
+  padding: 30px;
+  margin-top: 20px;
 }
 
 .form-field-wrapper {

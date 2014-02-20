@@ -1,15 +1,23 @@
 {% extends "badge/layout.html" %}
 
 {% block content %}
-  <div class="container">
+  <div class="container beige-container clearfix">
+    <span class="highlight-arrow logged-in-highlight-arrow"></span>
     <div class="badge-details left">
-      <div><img class="badge-image" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"></div>
-      {% if badge.status == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a> {% endif %}
-      <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="btn edit-btn ">Edit</a>
-      <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
-      <p>Created: 1/5/2015</p>
-      <p>License: Share alike</p>
+      <img class="badge-image" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}">
+      <div class="badge-preview-info">
+        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}" class="block">
+          <i class="fa fa-pencil"></i>Edit
+        </a>
+        {% if badge.status == 'template' %}
+          <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
+        {% endif %}
+
+        <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
+        <p>Created: 1/5/2015</p>
+        <p>License: Share alike</p>
       </div>
+    </div>
       <div class="badge-info left">
       <h1>{{ badge.name }} </h1>
       <p class="bold">Program:</p>
