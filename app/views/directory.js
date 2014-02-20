@@ -48,8 +48,8 @@ exports.home = function home (req, res, next) {
       case 'dateactive':
         if (category === 'template' || category === 'draft') {
           badges.sort(function(a,b) {
-            var aTime = a.lastUpdated.getTime();
-            var bTime = b.lastUpdated.getTime();
+            var aTime = typeof a.lastUpdated === 'string' ? 0 : a.lastUpdated.getTime();
+            var bTime = typeof b.lastUpdated === 'string' ? 0 : b.lastUpdated.getTime();
             if (aTime < bTime)
               return 1;
             else if (aTime > bTime)
@@ -62,8 +62,8 @@ exports.home = function home (req, res, next) {
       default:
         if (category === 'template' || category === 'draft') {
           badges.sort(function(a,b) {
-            var aTime = a.created.getTime();
-            var bTime = b.created.getTime();
+            var aTime = typeof a.created === 'string' ? 0 : a.created.getTime();
+            var bTime = typeof b.created === 'string' ? 0 : b.created.getTime();
             if (aTime < bTime)
               return 1;
             else if (aTime > bTime)
