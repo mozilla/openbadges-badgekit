@@ -1,0 +1,50 @@
+@import "base";
+
+@media screen and (max-width: 750px) {
+  .header-container {
+    padding: 0 20px;
+    .badgekit-logo {
+      float: none;
+      margin: 0 auto;
+    }
+    .arrow-down { display: none; }
+    .navigation-dropdown {
+      display: block;
+      padding: 0;
+    }
+  }
+
+  .highlight-arrow { display: none; }
+
+  .header-small-screen { display: block; }
+  .header-container { padding: 0; }
+  .nav-header { display: none; }
+
+  .home-what-is-badge,
+  .home-what-is-image { width: 100%; }
+
+  .home-what-is-badge {
+    .what-is-header{ font-size: 33px; }
+  }
+
+  .badge-new,
+  .badge-template { width: $six-wide; }
+}
+
+@media screen and (max-width: 340px) {
+  .container.beige-container { width: 100%; }
+
+  .badge-new,
+  .badge-template {
+    height: auto;
+    padding-bottom: 20px;
+    text-align: center;
+    .fa-plus-circle {
+      float: none;
+      margin: 0;
+      font-size: 130px;
+    }
+    .badgethumb { width: 200px; }
+  }
+}
+

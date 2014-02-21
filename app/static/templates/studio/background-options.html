@@ -1,0 +1,5 @@
+<label class="badge-label left" for="background">Background</p></label>
+{% for background in backgrounds %}
+  <input class="radio-badge-field js-background-radio" type="radio" name="background" value="{{ background.id }}" {% if savedBackground == background.id %}checked{% endif %}/>
+  <img class="studio-thumb" src="{{ background.image }}"/>
+{% endfor %}

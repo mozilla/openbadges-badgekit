@@ -3,4 +3,10 @@
 {% block head -%}
   {{ super() }}
   <link rel="stylesheet" href="{{ static('/css/directory.css') }}">
+  <link rel="stylesheet" href="{{ static('/css/badge.css') }}">
+{%- endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/directory.js') }}"></script>
 {%- endblock %}

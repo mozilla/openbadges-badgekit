@@ -1,0 +1,52 @@
+@import "base";
+@import "badge";
+
+.settings-tabs {
+  width: 20%;
+  .tab-container { margin-right: 30px; }
+  .tab {
+    border: 1px solid $white;
+    padding: 10px;
+    background: $dark-beige;
+    color: $black;
+    cursor: pointer;
+    &:hover { color: $light-blue; }
+  }
+  .selected {
+    background-color: $white;
+    color: $light-blue;
+  }
+}
+
+.settings-form {
+  @extend .badge-form;
+  width: 76%;
+  margin: 15px auto;
+  .badge-label {
+    font-weight: bold;
+    width: 25%;
+    margin-right: 6%;
+  }
+  .badge-field {
+    width: $four-wide;
+  }
+  .submit-btn { margin-left: 0; }
+}
+
+.settings-notifications,
+.settings-privacy,
+.settings-permissions {
+  .badge-label {
+    width: $six-wide;
+    margin-bottom: 5px;
+  }
+  .permissions-title { font-weight: bold; }
+  .permission-email {
+    border-bottom: 1px solid $gray;
+    padding-bottom: 10px;
+  }
+}
+
+.hidden {
+  display: none;
+}

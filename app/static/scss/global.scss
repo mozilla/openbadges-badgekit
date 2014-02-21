@@ -1,0 +1,359 @@
+@import "base";
+@import "buttons";
+
+.header-container {
+  @extend .container;
+  padding: 20px 0 0 0;
+}
+
+.footer-container {
+  width: $six-wide;
+  margin: 30px 0 0 0;
+  padding: 30px 12% 15px 12%;
+  background-color: $white;
+  .footnote-container,
+  .footer-menu {
+    margin: 0 4%;
+  }
+}
+
+.badgekit-logo {
+  width: 20%;
+  height: auto;
+  margin-left: -20px;
+}
+
+.homepage-nav { margin-top: 2.5%; }
+
+.nav-header {
+  .arrow-down {
+    border-top-color: $dark-gray;
+    position: absolute;
+    top: 25px;
+    right: 10px;;
+  }
+  .sort-arrow { right: 25px; }
+  .navigation-dropdown,
+  .sort-dropdown {
+    position: relative;
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 15px 4px 17px 0;
+    list-style: none;
+    .sort-by { color: $brown; }
+    li {
+      color: $dark-gray;
+      display: inline-block;
+      position: relative;
+      padding: 5px 20px;
+      cursor: pointer;
+      @include transition;
+      &::hover {
+        background: #555;
+        color: #fff;
+      }
+      .menu-hover {
+        padding: 0;
+        position: absolute;
+        top: 48px;
+        left: 0;
+        width: 173px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        @include transition;
+        li {
+          background-color: $white;
+          display: block;
+          color: $dark-gray;
+          &:hover { color: $light-blue; }
+        }
+      }
+      .sort-menu-hover {
+        left: -140px;
+        top: 16px;
+      }
+      .hover-applications,
+      .logout-hover,
+      .about-hover { top: 33px; }
+      .sort-menu-hover { top: 16px; }
+      .logout-hover { width: 250px; }
+    }
+  }
+  ul li:hover {
+    .menu-hover {
+      @include dropdown-boxshadow;
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      border-top: 4px solid $light-green;
+    }
+  }
+}
+
+.highlight-arrow {
+  position: absolute;
+  top: 117px;
+  left: 260px;
+  width: 0px;
+  height: 0px;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 15px solid $white;
+}
+
+.logged-in-highlight-arrow {
+  top: -34px;
+  left: 215px;
+  border-bottom: 15px solid $dark-beige;
+}
+
+.account-sign-in {
+  float: right;
+  margin-right: 200px;
+  span { margin: 0 10px; }
+}
+
+.js-login {
+  cursor: pointer;
+}
+
+.header-container {
+  .menu-item {
+    font-size: 18px;
+    padding: 0 25px;
+    color: $dark-gray;
+    &:hover { color: $light-blue; }
+    .arrow-down {
+      border-top-color: $dark-gray;
+      position: relative;
+      top: 17px;
+      left: 5px;
+    }
+    .fa-briefcase {
+      font-size: 40px;
+      margin-right: 10px;
+      color: $dark-blue;
+    }
+    .fa-sign-in {
+      color: $dark-gray;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+  }
+}
+
+.home-search {
+  float: right;
+  margin-top: -20px;
+}
+
+.open-badges-logo {
+  display: block;
+  width: 350px;
+  height: 80px;
+  background: url("../images/newoblogo.png") no-repeat;
+  text-indent: -100%;
+  overflow: hidden;
+  margin-left: -14px;
+  margin-right: 20px;
+}
+
+.footnote-container {
+  float: left;
+  width: 300px;
+  margin: 0 40px;
+}
+
+.header-tab {
+  float: right;
+  display: block;
+  background: white;
+  border: 1px solid black;
+  height: 44px;
+  padding: 0 15px;
+  position: relative;
+  /*text-indent: -2000px;*/
+  overflow: hidden;
+  margin-top: -45px;
+}
+
+.centered-header {
+  text-align: center;
+}
+
+.badges-container {
+  width: $six-wide;
+  margin: 0 auto;
+}
+
+.templates-info { width: $four-wide; }
+
+.templates-info-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: $light-blue;
+  .templates-info-text {
+    color: $brown;
+    font-size: 12px;
+  }
+}
+
+.badge-status-info {
+  width: 50%;
+}
+
+.badge-new,
+.badge-template {
+  /*height: 85%;
+  float: left;*/
+
+  .badgethumb {
+    @include drop-shadow;
+    height: 100%;
+    margin: 0 20px 20px 0;
+  background-color: $white;
+  }
+  .fa-plus-circle {
+    float: left;
+    padding: 25px 39px;
+    text-align: center;
+    color: $gray;
+    font-size: 98px;
+    border: 1px solid $white;
+    @include drop-shadow;
+    margin: 0 20px 20px 0;
+    background-color: $white;
+  }
+}
+
+.badge-template,
+.badge-new {
+  position: relative;
+  width: $three-wide;
+  height: 185px;
+  padding: 2%;
+  .fa-cloud-upload,
+  .fa-pencil {
+    color: $brown;
+    margin-right: 5px;
+  }
+  .fa-cloud-upload { font-size: 20px; }
+  .upload-edit {
+    padding: 5px 0 20px 0;
+  }
+  .small-copy {
+    margin-top: -15px;
+  }
+}
+
+.form-dropdown {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #dbdee3;
+  width: $three-wide;
+  height: 28px;
+  position: relative;
+  top: 5px;
+  &:hover {
+    -webkit-box-shadow: 0 0 2px;
+    -moz-box-shadow: 0 0 2px;
+    box-shadow: 0 0 2px;
+  }
+  .arrow-down {
+    position: absolute;
+    right: 5px;
+    top: 12px;
+  }
+  select {
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 105%;
+    padding: 6px 7px;
+    border: 0;
+    font-size: 12px;
+    background: transparent;
+  }
+}
+
+.short-dropdown {
+  width: $one-wide;
+  display: inline-block;
+  top: 8px;
+}
+
+.newly-created-badge {
+  border: 10px solid;
+}
+
+.new-placeholder {
+  margin: 15px 30px 15px 15px;
+  float: left;
+  background: $gray30;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  span {
+    font-size: 100px;
+    color: white;
+    padding: 48px;
+  }
+}
+
+.status {
+  color: green;
+}
+
+.arrow-up {
+  width: 0px;
+  height: 0px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid $black;
+}
+
+.arrow-down {
+  width: 0px;
+  height: 0px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid $black;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid $black;
+}
+
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right:6px solid $black;
+}
+
+.text-line {
+  border-top: 1px solid $black;
+  display: inline-block;
+  width: 82.5%;
+  margin-left: 20px;
+}
+
+.bold {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.small-copy {
+  color: $brown;
+  margin-top: 0;
+}

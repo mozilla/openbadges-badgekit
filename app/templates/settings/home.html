@@ -1,0 +1,195 @@
+{% extends "settings/layout.html" %}
+{% block content %}
+  <div class="container beige-container clearfix">
+    <section class="settings-tabs left">
+      <ul class="tab-container">
+        <li class="tab js-tab selected" data-section="profile">Profile</li>
+        <li class="tab js-tab" data-section="notifications">Notifications</li>
+        <li class="tab js-tab" data-section="privacy">Privacy</li>
+        <li class="tab js-tab" data-section="permissions">Permissions</li>
+      </ul>
+    </section>
+
+    <form class="settings-form settings settings-profile js-settings js-settings-profile left" name="input" action="" method="post">
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="name">Name</label>
+        <input class="badge-field" type="text" name="name" value="">
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="email">Email Address</label>
+        <input class="badge-field" type="text" name="email" value="">
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="sms">SMS</label>
+        <input class="badge-field" type="text" name="sms" value="">
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="language">Language</label>
+        <input class="badge-field" type="text" name="language" value="">
+      </div>
+
+      <a class="btn submit-btn" type="submit">Save</a>
+    </form>
+
+    <form class="settings-form settings settings-notifications js-settings js-settings-notifications left hidden" name="input" action="" method="post">
+      <div class="form-field-wrapper">
+        <p class="badge-label">How would you like to get account notifications?</p>
+
+        <label for="email" class="block">
+          <input type="checkbox" name="email" id="email" value="By Email">
+          <span>By Email</span>
+        </label>
+
+        <label for="push" class="block">
+          <input type="checkbox" name="push-notifications" id="push" value="Push Notifications">
+          <span>Push Notifications</span>
+        </label>
+
+        <label for="sms" class="block">
+          <input type="checkbox" name="sms" id="sms" value="SMS">
+          <span>SMS</span>
+        </label>
+      </div>
+
+      <div class="form-field-wrapper">
+        <p class="badge-label">Would your emials synthesize into daily digests?</p>
+        <label for="yes" class="block">
+          <input type="checkbox" name="yes" id="yes" value="Yes">
+          <span>Yes</span>
+        </label>
+
+        <label for="no" class="block">
+          <input type="checkbox" name="no" id="no" value="No">
+          <span>No</span>
+        </label>
+      </div>
+
+      <a class="btn submit-btn" type="submit">Save</a>
+
+    </form>
+
+    <form class="settings-form settings settings-privacy js-settings js-settings-privacy left hidden" name="input" action="" method="post">
+      <div class="form-field-wrapper">
+        <p class="badge-label">Who can contact me?</p>
+        <label for="anyone" class="block">
+          <input type="checkbox" name="anyone" id="anyone" value="Anyone">
+          <span>Anyone</span>
+        </label>
+
+        <label for="willy-wonka" class="block">
+          <input type="checkbox" name="no" id="willy-wonka" value="Willy Wonka">
+          <span>Willy Wonka</span>
+        </label>
+
+        <label for="the-lilipop-guild" class="block">
+          <input type="checkbox" name="no" id="the-lilipop-guild" value="The Lilipop Guild">
+          <span>The Lilipop Guild</span>
+        </label>
+      </div>
+
+      <div class="form-field-wrapper">
+        <p class="badge-label">Who can look me up?</p>
+        <label for="anyone" class="block">
+          <input type="checkbox" name="anyone" id="anyone" value="Anyone">
+          <span>Anyone</span>
+        </label>
+
+        <label for="willy-wonka" class="block">
+          <input type="checkbox" name="no" id="willy-wonka" value="Willy Wonka">
+          <span>Willy Wonka</span>
+        </label>
+
+        <label for="the-lilipop-guild" class="block">
+          <input type="checkbox" name="no" id="the-lilipop-guild" value="The Lilipop Guild">
+          <span>The Lilipop Guild</span>
+        </label>
+      </div>
+
+      <div class="form-field-wrapper">
+        <p class="badge-label">Who can access and use my data?</p>
+        <label for="anyone" class="block">
+          <input type="checkbox" name="anyone" id="anyone" value="Anyone">
+          <span>Anyone</span>
+        </label>
+
+        <label for="willy-wonka" class="block">
+          <input type="checkbox" name="no" id="willy-wonka" value="Willy Wonka">
+          <span>Willy Wonka</span>
+        </label>
+
+        <label for="the-lilipop-guild" class="block">
+          <input type="checkbox" name="no" id="the-lilipop-guild" value="The Lilipop Guild">
+          <span>The Lilipop Guild</span>
+        </label>
+      </div>
+
+      <a class="btn submit-btn" type="submit">Save</a>
+    </form>
+
+
+    <form class="settings-form settings settings-permissions js-settings js-settings-permissions left hidden " name="input" action="" method="post">
+      <p class="permissions-title">Who has access to shared programs:</p>
+      <p class="permission-email">email@email.com</p>
+      <p class="permission-email">secondemail@email.com</p>
+      <div class="form-field-wrapper">
+        <p class="badge-label">Invite people to join your shared programs:</p>
+        <input class="badge-field" type="text" name="Email" value="">
+        <label for="a" class="block">
+          <input type="checkbox" name="no" id="a" value="">
+          <span>Can edit badge content</span>
+        </label>
+
+        <label for="b" class="block">
+          <input type="checkbox" name="no" id="b" value="">
+          <span>Can read badge content</span>
+        </label>
+
+        <label for="c" class="block">
+          <input type="checkbox" name="no" id="c" value="">
+          <span>Can publish badge content</span>
+        </label>
+
+        <label for="d" class="block">
+          <input type="checkbox" name="no" id="d" value="">
+          <span>Can access badges</span>
+        </label>
+
+        <label for="e" class="block">
+          <input type="checkbox" name="no" id="e" value="">
+          <span>Can define badge requirements</span>
+        </label>
+
+        <label for="f" class="block">
+          <input type="checkbox" name="no" id="f" value="">
+          <span>Can define and modify rubrics</span>
+        </label>
+
+        <label for="g" class="block">
+          <input type="checkbox" name="no" id="g" value="">
+          <span>Can define badge thresholds</span>
+        </label>
+
+        <label for="h" class="block">
+          <input type="checkbox" name="no" id="h" value="">
+          <span>Can define pre-canned messages for badge earner feedback</span>
+        </label>
+
+        <label for="i" class="block">
+          <input type="checkbox" name="no" id="i" value="">
+          <span>Can define acceptable media for badge evidence</span>
+        </label>
+
+        <label for="j" class="block">
+          <input type="checkbox" name="no" id="j" value="">
+          <span>Can issue a badge to a qualifie applicant</span>
+        </label>
+      </div>
+
+      <a class="btn submit-btn" type="submit">Grant Access & Save</a>
+      <a class="btn cancel-btn" type="submit">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

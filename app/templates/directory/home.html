@@ -1,24 +1,77 @@
 {% extends "directory/layout.html" %}
 {% block content %}
-  <h1 class="directoryheader">Badge Directory</h1>
-  <p class="addbadge"><a href="{{ url('directory.addBadge') }}">Add Badge</a></p>
-  {% for badge in badges %}
-    <a class="badgeinfo" href="{{ url('badge', { badgeId: badge.id }) }}">
-      <img class="badgethumb" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
-      <p>{{ badge.name }}</p>
-      <p>{% if badge.status %} {{ badge.status | capitalize }} {% else %} Active {% endif %}</p>
-    </a>
-  {% endfor %}
+  <div class="container beige-container clearfix">
+    <span class="highlight-arrow logged-in-highlight-arrow"></span>
+    <div class="badges-container clearfix">
+      {% if category == 'template' %}
+      <section class="templates-info">
+        <span class="templates-info-heading">Find a template, then remix it!</span><span class="templates-info-text"> Templates are guides to help you create unique badges. A few designs are featured below. They are editable, all the way from the metadata information to the featured image. Browse the options below to start working within one of the existing styles. You can modify the template you choose to align it with your vision. Or you can make a template from scratch by clicking the "Add a new template" button below.</span>
+      </section>
+      {% endif %}
 
-  {% if pages > 1 %}
-    <div class="pagenav">
-      {% if page > 1 %}
-        <a href="?page={{ page - 1 }}">Previous Page</a>
+      <nav class="nav-header right">
+        <ul class="navigation-dropdown sort-dropdown">
+          <span class="sort-by">Sort badges by:</span>
+          <span class="arrow-down sort-arrow"></span>
+          <li class="menu-item">
+            <ul class="menu-hover sort-menu-hover">
+              <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=dateactive"><li>Date Active</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=datecreated"><li>Date Created</li></a>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="cb"></div>
+      {% if category == 'template' or category == 'draft' %}
+        <section class="badge-new left">
+          <i class="fa fa-plus-circle"></i>
+          <h2>Add a New {{ category | capitalize }}</h2>
+          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="block"><i class="fa fa-cloud-upload"></i>Upload a badge</a>
+
+          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="btn blank-btn">Blank</a>
+        </section>
       {% endif %}
-      {% if page < pages %}
-        <a href="?page={{ page + 1 }}">Next Page</a>
-      {% endif %}
+
+      {% for badge in badges %}
+        <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
+          <img class="badgethumb left" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+          <h2>{{ badge.name }}</h2>
+          <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
+          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}"><i class="fa fa-pencil"></i>Edit</a>
+          <a href="{{ url('badge', { badgeId: badge.id }) }}?category={{ category }}" class="btn view-btn">View</a>
+          {% if category == 'template' %}
+            <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
+          {% endif %}
+          {% if category == 'published' %}
+            <a href="" class="btn action-btn js-action-btn">Action<span class="arrow-down"></span></a>
+            <ul class="action-dropdown js-action-dropdown">
+              <a href=""><li>SHARE</li></a><hr>
+              <a href=""><li>REVIEW APPLICATIONS</li></a>
+              <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
+              <hr>
+              <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
+              <a href=""><li>VIEW CLAIM CODES</li></a>
+              <hr>
+              <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>COPY AS NEW</li></a>
+              <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>ARCHIVE</li></a>
+            </ul>
+          {% endif %}
+        </section>
+      {% endfor %}
     </div>
-  {% endif %}
 
+    {% if pages > 1 %}
+      <div class="pagenav cb">
+        {% if page > 1 %}
+          <a href="?category={{ category }}&page={{ page - 1 }}&sort={{ sort }}">Previous Page</a>
+        {% endif %}
+        {% if page < pages %}
+          <a href="?category={{ category }}&page={{ page + 1 }}&sort={{ sort }}">Next Page</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

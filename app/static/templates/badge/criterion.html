@@ -1,0 +1,27 @@
+{% macro generateCriterion(index, criterion={id: '', description: '', required: '', note: ''}, disabled=false) %}
+  <div class="js-criterion">
+    <h2>Criterion {{ index+1 }}</h2>
+
+    <input type="hidden" name="criteria[{{ index }}][id]" value="{{ criterion.id }}"></input>
+    
+    <div class="form-field-wrapper">
+      <label class="badge-label" for="criteria[{{ index }}][description]">Description:</label>
+      <textarea class="badge-field" type="text" {{ disabled }} name="criteria[{{ index }}][description]">{{ criterion.description }}</textarea>
+      <input class="radio-badge-field" type="checkbox" {{ disabled }} name="criteria[{{ index }}][required]" {% if criterion.required %} checked {% endif %}>Required</input>
+    </div>
+
+    <div class="form-field-wrapper">
+      <label class="badge-label" for="criteria[{{ index }}][evidence]">Evidence Accepted:</label>
+      <select class="badge-field" {{ disabled }} name="criteria[{{ index }}][evidence]">
+        <option value="Not Yet Implemented">Not Yet Implemented</option>
+      </select>
+    </div>
+
+    <div class="form-field-wrapper">
+      <label class="badge-label" for="criteria[{{ index }}][note]">Note for Mentor and Reviewer:</label>
+      <textarea class="badge-field" type="text" {{ disabled }} name="criteria[{{ index }}][note]">{{ criterion.note }}</textarea>
+    </div>
+  </div>
+{% endmacro %}
+
+{{ generateCriterion(index) }}

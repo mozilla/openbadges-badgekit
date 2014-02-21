@@ -2,6 +2,7 @@ var clientSessions = require('client-sessions');
 var config = require('../lib/config');
 var formatUrl = require('url').format;
 var parseUrl = require('url').parse;
+var sass = require('node-sass');
 
 exports.csrf = require('./csrf');
 
@@ -31,10 +32,11 @@ exports.redirect = function (target, params, status) {
   }
 
   return function (req, res, next) {
+    var url;
     try {
-      var url = res.locals.url(target, params);
+      url = res.locals.url(target, params);
     } catch (e) {
-      var url = target;
+      url = target;
     }
 
     if (params._qsa && req.query) {
@@ -50,5 +52,15 @@ exports.redirect = function (target, params, status) {
     }
 
     return res.redirect(status || 302, url);
-  }
+  };
+};
+
+exports.sass = function (root, prefix) {
+  return sass.middleware({
+    root: root,
+    src: 'scss',
+    dest: 'css',
+    prefix: prefix,
+    debug: config('debug', false)
+  });
 };

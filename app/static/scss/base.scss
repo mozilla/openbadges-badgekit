@@ -1,0 +1,246 @@
+/* ===[ Fonts ]============================================================== */
+
+@font-face {
+  font-family: "Open Sans Light";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/OpenSans-Light-webfont.woff") format("woff"),
+       url("../fonts/OpenSans-Light-webfont.ttf") format("truetype"),
+       url("../fonts/OpenSans-Light-webfont.svg#OpenSansLight") format("svg");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/OpenSans-Regular-webfont.woff") format("woff"),
+       url("../fonts/OpenSans-Regular-webfont.ttf") format("truetype"),
+       url("../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular") format("svg");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: bold;
+  src: url("../fonts/OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/OpenSans-Semibold-webfont.woff") format("woff"),
+       url("../fonts/OpenSans-Semibold-webfont.ttf") format("truetype"),
+       url("../fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold") format("svg");
+}
+
+/* ===[ Base styles ]======================================================== */
+.container {
+  width: 90%; /*width: 1200px;*/
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+$one-wide: 13.6%;
+$two-wide: 30.9%;
+$three-wide: 50%;
+$four-wide: 65.5%;
+$five-wide: 82.7%;
+$six-wide: 100%;
+
+/*** STANDARD COLORS ***/
+$black: #000;
+$white: #fff;
+$red: #FF0000;
+
+/*** BRAND COLORS  ***/
+$light-blue: #63c6f4;
+$medium-blue: #3184bd;
+$dark-blue: #109eda;
+$tiffany-blue: #00c1cb;
+$medium-green: #4bb96b;
+$light-green: #6ac1a3;
+$dark-green: #349776;
+$light-beige: #f8f9f5;
+$dark-beige: #cbcbc6;
+$brown: #5d5b57;
+$gray: #aeb0b1;
+$dark-gray: #828487;
+$light-gray: #ebf0e8;
+$gray5: #f9f9fa;
+$gray10: #f3f4f5;
+$gray30: #dbdee3;
+$gray50: #c3c8d0;
+
+
+@mixin drop-shadow {
+  // use this to add a consistent shadow to modules with dropshadow
+  -webkit-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+@mixin dropdown-boxshadow {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+@mixin transition {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+@mixin gradient {
+  background: #d7d4c9; /* Old browsers */
+  background: -moz-linear-gradient(top,  #d7d4c9 0%, #fbfbfb 50%, #fdfdfd 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d7d4c9), color-stop(50%,#fbfbfb), color-stop(100%,#fdfdfd)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7d4c9', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  @include gradient;
+  color: $brown;
+}
+
+h1 { font-size: 24px; }
+
+h2 { font-size: 20px; }
+
+p { font-size: 15px; }
+
+li {
+  list-style: none;
+}
+
+a {
+  color: $light-blue;
+  text-decoration: none;
+}
+
+textarea {
+  height: 150px;
+}
+
+textarea,
+input {
+  border: 1px solid rgb(204, 204, 204);
+  display: block;
+  padding: 2px 4px;
+  &:hover:enabled {
+    -webkit-box-shadow: 0 0 2px;
+    -moz-box-shadow: 0 0 2px;
+    box-shadow: 0 0 2px;
+  }
+}
+
+input[type="submit"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+input[type="checkbox"] {
+  display:none;
+}
+
+input[type="checkbox"] + span:before {
+  font-family: 'FontAwesome';
+  padding-right: 3px;
+}
+
+input[type="checkbox"] + span:before {
+  content: "\f096"; /* check-empty */
+}
+
+input[type="checkbox"]:checked + span:before {
+  content: "\f046"; /* check */
+}
+
+.block {
+  display: block;
+}
+
+.hexagon {
+  width: 50px;
+  height: 27.5px;
+  background: $gray;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 12.5px solid $gray;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 12.5px solid $gray;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.white-container {
+  background-color: $white;
+}
+
+.beige-container {
+  background-color: $light-beige;
+  border: 20px solid $dark-beige;
+  position: relative;
+}
+
+.checkbox {
+  display: inline;
+}
+
+.column {margin-bottom:20px;}
+
+.left { float: left; }
+.right { float: right; }
+.middle { margin-left:3.7%; float:left; }
+
+/* apply a natural box layout model to all elements */
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+
+.clearfix { display: block; }
+
+.cb { clear: both }

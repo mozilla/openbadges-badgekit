@@ -1,0 +1,218 @@
+@import "base";
+
+.nav-categories {
+  background-color: $brown;
+  padding: 20px 20px 15px 50px;
+  margin-left: 0;
+  margin-bottom: 20px;
+  position: relative;
+  .hexagon {
+    margin-right: 20px;
+    .fa-align-justify {
+      position: absolute;
+      top: 5px;
+      left: 14px;
+      font-size: 22px;
+      color: $white;
+      &:hover { color: $tiffany-blue; }
+    }
+  }
+  .categories-dropdown {
+    display: none;
+    @include dropdown-boxshadow;
+    display: none;
+    z-index: 1;
+    top: 60px;
+    left: 43px;
+    padding: 20px;
+    background-color: $white;
+    position:absolute;
+    &:hover { cursor: pointer; }
+    i {
+      display: block;
+      text-align: center;
+    }
+    .categories-item {
+      padding: 10px;
+      color: $brown;
+      a {
+        color: $brown;
+        &:hover { color: $light-blue; }
+      }
+    }
+    .arrow-up {
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 12px solid $white;
+      position: absolute;
+      top: -12px;
+    }
+  }
+  .nav-inputs {
+    position: relative;
+    i {
+      position: absolute;
+      background-color: $light-gray;
+      color: $dark-green;
+      top: 3px;
+      left: 155px;
+      padding: 3px;
+      cursor: pointer;
+    }
+  }
+  .review-publish-btn {
+    padding-left: 23px;
+  }
+  .btn {
+    margin-top: 0px;
+  }
+  .light-share { margin-left: 10px; }
+  .ingoing,
+  .outgoing {
+    border-top: 14px solid transparent;
+    border-bottom: 15px solid transparent;
+    position: relative;
+  }
+  .ingoing {
+    border-left: 15px solid $brown;
+    left: 299px; }
+  .outgoing {
+    border-left: 15px solid $light-beige;
+    left: 451px; }
+}
+
+.save-box {
+  position: relative;
+  margin-top: -5px;
+  margin-left: 15px;
+  .submit-btn {
+    padding: 0 5px;
+    font-size: 6px;
+    line-height: 57px;
+    background-color: $brown;
+    width: 40px;
+    height: 40px;
+    border: 2px solid $dark-green;
+    border-radius: 5px;
+    &:hover {
+      color: $white;
+    }
+  }
+  .fa-spin {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    color: $dark-green;
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.badge-image {
+  height: 250px;
+}
+
+.canvas-wrapper {
+  text-align: center;
+  margin-bottom:20px;
+}
+
+.badge-canvas {
+  width: 90px;
+  height: 90px;
+  display: inline;
+}
+
+.color-canvas {
+  display: none;
+}
+
+.studio-thumb {
+  width: 90px;
+  border: 1px solid;
+}
+
+.badge-details {
+  width: $two-wide;
+  .new-placeholder {
+    float: none;
+    margin: 0 0 20px 0;
+  }
+  .use-btn {
+    margin-left: 0;
+  }
+}
+
+.badge-info {
+  width: $four-wide;
+}
+
+.form-field-wrapper {
+  margin-bottom: 20px;
+}
+
+.submit-button-wrapper {
+  text-align: center;
+}
+
+.badge-form {
+  width: $five-wide;
+  margin: 30px auto;
+  background-color: $white;
+  padding: 30px;
+  .badge-label {
+    font-weight: bold;
+    width: $two-wide;
+    margin-right: 6%;
+  }
+  .badge-field {
+    width: $three-wide;
+  }
+  .tags-field { width: 40.5%; }
+  .short-description { height: 80px; }
+  .with-button-field { width: 40.6%; }
+  .fa-plus { margin-left: 5px; }
+  .short-badge-field {
+    margin-top: 10px;
+    margin-right: 2px;
+    display: inline;
+    width: $one-wide;
+  }
+  .radio-badge-field {
+    margin-top: 10px;
+    margin-right: 5px;
+    display: inline;
+  }
+  .submit-btn {
+    margin-left: 0;
+  }
+  .hidden {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .badge-form {
+    width: 100%;
+    padding: 20px;
+    .badge-label,
+    .badge-field { width: 100%; }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .badge-form {
+    .tags-field {
+      width: 31.5%;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .badge-form {
+    .tags-field {
+      width: 36.5%;
+    }
+  }
+}

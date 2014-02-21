@@ -1,27 +1,36 @@
 {% extends "badge/layout.html" %}
 
-{% macro disabled() %}
-  {{ 'disabled' if badge.status != "draft" }}
-{% endmacro %}
-
 {% block content %}
-  <h1>Edit Badge</h1>
-  <div class="badgedetails">
-    <form class="badgeform" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post">
-      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
-      <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
-      <dl>
-        <dt>Name:</dt>
-        <dd><input type="text" name="name" {{ disabled() }} value="{{ badge.name }}"/></dd>
-        <img class="badgeimage" src="{{ badge.image if badge.image else url('badge.image', { badgeId: badge.id }) }}"/>
-        <dt>Description:</dt>
-        <dd><textarea class="descriptionfield" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea></dd>
-        <dt>Criteria:</dt>
-        <dd><textarea type="text" {{ disabled() }} name="criteria">{{ badge.criteria }}</textarea></dd>
-        <dt>Status:</dt>
-        <dd>{{ badge.status | capitalize if badge.status else 'Active' }}</dd>
-      </dl>
-      <input class="submitbutton" type="submit" {{ disabled() }} value="Save Changes">
-    </form>
+  <div class="container">
+    <div class="badge-details left">
+      <div><img class="badge-image" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"></div>
+      {% if badge.status == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a> {% endif %}
+      <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="btn edit-btn ">Edit</a>
+      <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
+      <p>Created: 1/5/2015</p>
+      <p>License: Share alike</p>
+      </div>
+      <div class="badge-info left">
+      <h1>{{ badge.name }} </h1>
+      <p class="bold">Program:</p>
+      <p class="small-copy">{{ badge.program.name }}</p>
+
+      <p class="bold">Short Description:</p>
+      <p class="small-copy">{{ badge.description }}</p>
+
+      <p class="bold">Description for Earners:</p>
+      <p class="small-copy">{{ badge.earnerDescription }}</p>
+
+      <p class="bold">Technical Description:</p>
+      <p class="small-copy">{{ badge.consumerDescription }}</p>
+
+      <p class="bold">Tags:</p>
+      <p class="small-copy">{{ badge.tags }}</p>
+
+      {% for criteria in badge.criteria %}
+      <p class="bold">Criteria {{ loop.index }}:</p>
+      <p class="small-copy">{{ criteria.description }}</p>
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
