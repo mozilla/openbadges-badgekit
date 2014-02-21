@@ -45,7 +45,7 @@ module.exports = function getBadgeModel (key) {
   }
 
   function createCopy(overrides, callback) {
-    var badge = this;
+    var badge = JSON.parse(JSON.stringify(this));
 
     for (var property in overrides) {
       badge[property] = overrides[property];
@@ -61,19 +61,40 @@ module.exports = function getBadgeModel (key) {
     
     delete badge.criteria;
     badge.created = new Date();
-    Badge.put(badge, function (err, result) {
-      if (err)
-        return callback(err);
+    delete badge.lastUpdated;
+    if (badge.image && (badge.image.id !== null)) {
+      var newImage = { mimetype: badge.image.mimetype,
+                       data: badge.image.data ? new Buffer(badge.image.data) : null,
+                       url: badge.image.url };
+      Image.put(newImage, function (err, result) {
+        if (err)
+          return callback(err);
+        putBadge(result.insertId);
+      });
+    }
+    else {
+      putBadge();
+    }
 
-      Badge.getOne({ id: result.insertId }, function(err, row) {
+    function putBadge(newImageId) {
+      if (newImageId !== null)
+        badge.imageId = newImageId;
+
+      delete badge.image;
+      Badge.put(badge, function (err, result) {
         if (err)
           return callback(err);
 
-        row.setCriteria(criteria, function(err) {
-          callback(err, row);
+        Badge.getOne({ id: result.insertId }, function(err, row) {
+          if (err)
+            return callback(err);
+
+          row.setCriteria(criteria, function(err) {
+            callback(err, row);
+          });
         });
       });
-    });
+    }
   }
 
   var db = getDb(key);
@@ -84,8 +105,7 @@ module.exports = function getBadgeModel (key) {
        'description',
        'badgeId',
        'required', 
-       'note',
-       'lastUpdated']
+       'note']
   });
 
   var Badge = db.table('badge', {

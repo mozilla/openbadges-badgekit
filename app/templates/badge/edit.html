@@ -44,7 +44,7 @@
           <a {{ createSectionAnchorAttributes('criteria') }}><i class="fa fa-check"></i>Criteria</a>
         </section>
         <section class="right categories-item">
-          <a href="{{ url('directory') }}?sort=dateactive" class="js-save-and-exit-btn"><i class="fa fa-sign-out"></i>Save & Exit</a>
+          <a href="{{ url('directory') }}?category={{ category }}&sort=dateactive" class="js-save-and-exit-btn"><i class="fa fa-sign-out"></i>Save & Exit</a>
         </section>
         <div class="cb"></div>
       </div>
@@ -75,7 +75,7 @@
       <input type="hidden" name="badgeId" value="{{ badge.id }}"/>
       <input type="hidden" class="js-hidden-name-field"name="name" value="{{ badge.name }}"/>
 
-      <!-- <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/> -->
+      <!-- <img class="badge-image right" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/> -->
 
       <div {{ createSectionDivAttributes('description') }}>
         <div class="form-field-wrapper">

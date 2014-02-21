@@ -7,7 +7,7 @@
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
 
-      <img class="badge-image right" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
+      <img class="badge-image right" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/>
 
       <div class="form-field-wrapper">
         <p><span class="badge-label" for="name">Name:</span> {{ badge.name }}

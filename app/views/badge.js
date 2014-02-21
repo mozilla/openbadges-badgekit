@@ -309,7 +309,7 @@ exports.copy = function copy (req, res, next) {
       badge = openbadger.toBadgekitBadge(badge);
       delete badge.id;
       badge.created = new Date();
-      delete badge.image;
+      delete badge.imageUrl;
       badge.imageId = imageResult.insertId;
 
       Badge.put(badge, function (err, result) {
