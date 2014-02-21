@@ -10,10 +10,9 @@
       {% endif %}
 
       <nav class="nav-header right">
-        <ul class="navigation-dropdown sort-dropdown">
-          <span class="sort-by">Sort badges by:</span>
-          <span class="arrow-down sort-arrow"></span>
-          <li class="menu-item">
+        <ul class="navigation-dropdown">
+          <li class="menu-item sort-menu">
+            Sort badges <i class="fa fa-caret-down"></i>
             <ul class="menu-hover sort-menu-hover">
               <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
               <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
@@ -40,7 +39,7 @@
           <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/>
           <h2>{{ badge.name }}</h2>
           <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
-          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}"><i class="fa fa-pencil"></i>Edit</a>
+          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block"><i class="fa fa-pencil"></i>Edit</a>
           <a href="{{ url('badge', { badgeId: badge.id }) }}?category={{ category }}" class="btn view-btn">View</a>
           {% if category == 'template' %}
             <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
