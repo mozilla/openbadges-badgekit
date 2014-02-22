@@ -181,7 +181,8 @@
   text-align: center;
 }
 
-.badge-form {
+.badge-form,
+.comment-form {
   width: $five-wide;
   margin: 0 auto 30px auto;
   background-color: $white;
@@ -269,6 +270,8 @@
       box-shadow: 0 0 0;
     }
   }
+.comment-form {
+  margin: 0;
 }
 
 @media screen and (max-width: 600px) {
