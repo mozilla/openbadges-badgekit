@@ -16,19 +16,6 @@ $(document).ready(function() {
     });
   }
 
-  var hamburgerButton = $('.js-hamburger-btn');
-  var hamburgerDropdown = $('.js-hamburger-dropdown');
-  var hamburgerDropdownArrow = $('.js-hamburger-dropdown-arrow');
-
-  hamburgerButton.click(function() {
-    hamburgerDropdown.toggle();
-    var arrowSize = -hamburgerDropdownArrow.position().top;
-    var hamburgerDropdownOffset = { top: hamburgerButton.offset().top + hamburgerButton.height() + arrowSize,
-                                    left: hamburgerButton.offset().left - hamburgerDropdownArrow.position().left + (hamburgerButton.width())/2 - arrowSize};
-    hamburgerDropdown.offset(hamburgerDropdownOffset);
-    return false;
-  });
-
   var numCriteriaSelect = $('.js-num-criteria');
 
   numCriteriaSelect.change(function() {
@@ -40,7 +27,7 @@ $(document).ready(function() {
         criterionDivs.eq(i).addClass('hidden');
       } else {
         criterionDivs.eq(i).removeClass('hidden');
-      }        
+      }
     }
 
     for (i = numCriteria-1; i >= criterionDivs.length; i--) {
@@ -56,7 +43,6 @@ $(document).ready(function() {
     formPages.addClass('hidden');
     var section = $(this).data('section');
     $('.js-section-' + section).removeClass('hidden');
-    hamburgerDropdown.hide();
     return false;
   });
 
@@ -65,9 +51,9 @@ $(document).ready(function() {
     var saveSpinner = $('.js-save-spinner');
     var form = $('.js-badge-form');
 
-    var saveButtonText = saveButton.val();
+    // var saveButtonText = saveButton.val();
     // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
-    saveButton.width(saveButton.width());
+    // saveButton.width(saveButton.width());
 
     var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
     saveButton.click(function() {
@@ -98,9 +84,6 @@ $(document).ready(function() {
   var hiddenNameField = $('.js-hidden-name-field');
   nameField.change(function() {
     hiddenNameField.val(nameField.val());
-  });
-  $(document).click(function() {
-    hamburgerDropdown.hide();
   });
 });
 
