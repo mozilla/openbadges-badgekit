@@ -152,7 +152,6 @@
         {% for criterion in badge.criteria %}
           {{ criterionTemplate.generateCriterion(loop.index0, criterion, disabled()) }}
         {% endfor %}
-        <p class="form-heading"><i class="fa fa-shield"></i><span class="form-heading-span">Milestone</span></p>
         <div class="form-field-wrapper">
           <label class="badge-label left" for="rubricUrl">Rubric URL<p class="small-copy">Link to external materials.<i class="fa fa-question-circle"></i></p></label>
           <input class="badge-field" type="text" name="rubricUrl" {{ disabled() }} value="{{ badge.rubricUrl }}"/>
