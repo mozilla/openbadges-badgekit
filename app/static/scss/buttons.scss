@@ -64,9 +64,11 @@
   background-color: pink;
 }
 
-.blank-btn {
+.blank-btn,
+.review-publish-btn {
   background-color: $light-blue;
   border-bottom: 5px solid $dark-blue;
+  color: $white;
 }
 
 .submit-btn {
@@ -78,6 +80,7 @@
   background-color: $gray;
   border-bottom: 5px solid $dark-gray;
 }
+
 
 .use-btn,
 .view-btn,

@@ -1,108 +1,69 @@
 @import "base";
 
-.nav-categories {
-  background-color: $brown;
-  padding: 20px 20px 15px 50px;
-  margin-left: 0;
-  margin-bottom: 20px;
+.visual-studio-tabs {
+  width: $five-wide;
+  margin: 30px auto 0 auto;
+  padding: 10px 10px 5px 0;
+  .studio-tab {
+    background-color: $dark-beige;
+    display: inline;
+    padding: 5px 15px;
+    margin: 20px 10px 20px 0;
+    a { color: $brown; }
+  }
+  .selected { background-color: $white; }
+}
+
+.nav-inputs {
+  width: $five-wide;
+  margin: 30px auto 0 auto;
   position: relative;
-  .hexagon {
-    margin-right: 20px;
-    .fa-align-justify {
-      position: absolute;
-      top: 5px;
-      left: 14px;
-      font-size: 22px;
-      color: $white;
-      &:hover { color: $tiffany-blue; }
-    }
+  .badge-field {
+    width: $two-wide;
+    font-size: 20px;
+    margin-right: 10px;
   }
-  .categories-dropdown {
-    display: none;
-    @include dropdown-boxshadow;
-    display: none;
-    z-index: 1;
-    top: 60px;
-    left: 43px;
-    padding: 20px;
-    background-color: $white;
-    position:absolute;
-    &:hover { cursor: pointer; }
-    i {
-      display: block;
-      text-align: center;
-    }
-    .categories-item {
-      padding: 10px;
-      color: $brown;
-      a {
-        color: $brown;
-        &:hover { color: $light-blue; }
-      }
-    }
-    .arrow-up {
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 12px solid $white;
-      position: absolute;
-      top: -12px;
-    }
+  .fa-pencil {
+    position: absolute;
+    color: $gray;
+    top: 6px;
+    left: 255px;
+    padding: 3px;
+    cursor: pointer;
   }
-  .nav-inputs {
-    position: relative;
-    i {
-      position: absolute;
-      background-color: $light-gray;
-      color: $dark-green;
-      top: 3px;
-      left: 155px;
-      padding: 3px;
-      cursor: pointer;
-    }
+}
+.review-publish-btn {
+  padding-left: 23px;
+}
+
+.fa-rocket,
+.fa-sign-out {
+    margin-left: 10px;
+    font-size: 15px;
   }
-  .review-publish-btn {
-    padding-left: 23px;
-  }
-  .btn {
-    margin-top: 0px;
-  }
-  .light-share { margin-left: 10px; }
-  .ingoing,
-  .outgoing {
-    border-top: 14px solid transparent;
-    border-bottom: 15px solid transparent;
-    position: relative;
-  }
-  .ingoing {
-    border-left: 15px solid $brown;
-    left: 299px; }
-  .outgoing {
-    border-left: 15px solid $light-beige;
-    left: 451px; }
+
+.publish-save {
+  text-align: right;
 }
 
 .save-box {
   position: relative;
   margin-top: -5px;
   margin-left: 15px;
-  .submit-btn {
-    padding: 0 5px;
-    font-size: 6px;
-    line-height: 57px;
-    background-color: $brown;
-    width: 40px;
-    height: 40px;
-    border: 2px solid $dark-green;
-    border-radius: 5px;
+  .save {
+    background-color: $light-beige;
+    border: none;
+    padding-top: 5px;
     &:hover {
-      color: $white;
+      border: none;
+      cursor: default;
+      -webkit-appearance: none;
     }
   }
   .fa-spin {
     position: absolute;
-    left: 14px;
-    top: 12px;
-    color: $dark-green;
+    left: 345px;
+    top: 10px;
     &.hidden {
       display: none;
     }
@@ -113,9 +74,50 @@
   height: 250px;
 }
 
+.preview-make-your-badge,
+.make-your-badge {
+  width: $three-wide;
+  padding: 50px 0 0 0;
+}
+
+.make-your-badge {
+  .badge-label { padding-bottom: 20px; }
+}
+
+.icon-label,
+.color-label { padding-bottom: 20px; }
+.studio-thumb {
+  width: 90px;
+  border: 1px solid $light-gray;
+  margin-right: 50px;
+}
+
+.undo-redo {
+  padding-top: 20px;
+  .fa-undo,
+  .fa-repeat {
+    font-size: 15px;
+    margin-right: 5px;
+  }
+}
 .canvas-wrapper {
-  text-align: center;
-  margin-bottom:20px;
+  padding: 10px 30px 0 30px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  margin: 20px 45px;
+  canvas { margin-left: 5px; }
+}
+
+.download-btn {
+  margin-right: 30px;
+  .fa-download {
+    margin-right: 5px;
+    font-size: 15px;
+  }
+}
+
+.visual-shape {
+  width: $three-wide;
 }
 
 .badge-canvas {
@@ -126,11 +128,6 @@
 
 .color-canvas {
   display: none;
-}
-
-.studio-thumb {
-  width: 90px;
-  border: 1px solid;
 }
 
 .badge-preview-info {
@@ -163,9 +160,20 @@
 
 .badge-form {
   width: $five-wide;
-  margin: 30px auto;
+  margin: 0 auto 30px auto;
   background-color: $white;
-  padding: 30px;
+  padding: 10px 30px 30px 30px;
+  .form-heading {
+    font-size: 18px;
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    .form-heading-span {
+      color: $light-blue;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+  }
   .badge-label {
     font-weight: bold;
     width: $two-wide;
@@ -174,7 +182,7 @@
   .badge-field {
     width: $three-wide;
   }
-  .tags-field { width: 40.5%; }
+  .tags-field { width: 37.7%; }
   .short-description { height: 80px; }
   .with-button-field { width: 40.6%; }
   .fa-plus { margin-left: 5px; }
@@ -185,7 +193,6 @@
     width: $one-wide;
   }
   .radio-badge-field {
-    margin-top: 10px;
     margin-right: 5px;
     display: inline;
   }
@@ -194,6 +201,43 @@
   }
   .hidden {
     display: none;
+  }
+}
+
+.design-container { border-right: 1px solid $light-gray; }
+.design-upload-container {
+  width: $three-wide;
+  text-align: center;
+  height: 125px;
+  .fa-cloud-upload,
+  .fa-magic {
+    font-size: 30px;
+    color: $light-blue;
+    margin-bottom: 30px;
+  }
+  .design-upload-heading {
+    display: inline;
+    color: $gray;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .design-upload-subhead {
+    margin: 0;
+    color: $light-blue;
+    display: block;
+    margin-top: -30px;
+    font-size: 15px;
+  }
+  .upload-image {
+    margin: 0 auto;
+    border: none;
+    margin-top: 15px;
+    &:hover {
+      border: none;
+      -webkit-box-shadow: 0 0 0;
+      -moz-box-shadow: 0 0 0;
+      box-shadow: 0 0 0;
+    }
   }
 }
 
