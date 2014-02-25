@@ -40,6 +40,8 @@ $(document).ready(function() {
   var formPages = $('.js-form-page');
 
   categoryAnchors.click(function() {
+    categoryAnchors.parent().removeClass('selected');
+    $(this).parent().addClass('selected');
     formPages.addClass('hidden');
     var section = $(this).data('section');
     $('.js-section-' + section).removeClass('hidden');
@@ -51,9 +53,7 @@ $(document).ready(function() {
     var saveSpinner = $('.js-save-spinner');
     var form = $('.js-badge-form');
 
-    // var saveButtonText = saveButton.val();
-    // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
-    // saveButton.width(saveButton.width());
+    var saveButtonText = saveButton.val();
 
     var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
     saveButton.click(function() {
