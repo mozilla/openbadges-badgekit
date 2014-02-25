@@ -74,9 +74,50 @@
   height: 250px;
 }
 
+.preview-make-your-badge,
+.make-your-badge {
+  width: $three-wide;
+  padding: 50px 0 0 0;
+}
+
+.make-your-badge {
+  .badge-label { padding-bottom: 20px; }
+}
+
+.icon-label,
+.color-label { padding-bottom: 20px; }
+.studio-thumb {
+  width: 90px;
+  border: 1px solid $light-gray;
+  margin-right: 50px;
+}
+
+.undo-redo {
+  padding-top: 20px;
+  .fa-undo,
+  .fa-repeat {
+    font-size: 15px;
+    margin-right: 5px;
+  }
+}
 .canvas-wrapper {
-  text-align: center;
-  margin-bottom:20px;
+  padding: 10px 30px 0 30px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  margin: 20px 45px;
+  canvas { margin-left: 5px; }
+}
+
+.download-btn {
+  margin-right: 30px;
+  .fa-download {
+    margin-right: 5px;
+    font-size: 15px;
+  }
+}
+
+.visual-shape {
+  width: $three-wide;
 }
 
 .badge-canvas {
@@ -87,11 +128,6 @@
 
 .color-canvas {
   display: none;
-}
-
-.studio-thumb {
-  width: 90px;
-  border: 1px solid;
 }
 
 .badge-preview-info {
@@ -157,7 +193,6 @@
     width: $one-wide;
   }
   .radio-badge-field {
-    margin-top: 10px;
     margin-right: 5px;
     display: inline;
   }
@@ -166,6 +201,43 @@
   }
   .hidden {
     display: none;
+  }
+}
+
+.design-container { border-right: 1px solid $light-gray; }
+.design-upload-container {
+  width: $three-wide;
+  text-align: center;
+  height: 125px;
+  .fa-cloud-upload,
+  .fa-magic {
+    font-size: 30px;
+    color: $light-blue;
+    margin-bottom: 30px;
+  }
+  .design-upload-heading {
+    display: inline;
+    color: $gray;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .design-upload-subhead {
+    margin: 0;
+    color: $light-blue;
+    display: block;
+    margin-top: -30px;
+    font-size: 15px;
+  }
+  .upload-image {
+    margin: 0 auto;
+    border: none;
+    margin-top: 15px;
+    &:hover {
+      border: none;
+      -webkit-box-shadow: 0 0 0;
+      -moz-box-shadow: 0 0 0;
+      box-shadow: 0 0 0;
+    }
   }
 }
 

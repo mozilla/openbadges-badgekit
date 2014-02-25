@@ -1,5 +1,7 @@
-<label class="badge-label left" for="color">Color</p></label>
-{% for color in colors %}
-  <input class="radio-badge-field js-color-radio" type="radio" name="color" value="{{ color.id }}" {% if savedColor == color.id %}checked{% endif %}/>
-  <img class="studio-thumb" src="{{ color.image }}"/>
-{% endfor %}
+<div class="form-field-wrapper">
+  <label class="badge-label block color-label" for="color">Color</label>
+  {% for color in colors %}
+    <input class="radio-badge-field js-color-radio" type="radio" name="color" value="{{ color.id }}" {% if savedColor == color.id %}checked{% endif %}/>
+    <img class="studio-thumb" src="{{ color.image }}"/>
+  {% endfor %}
+</div>
