@@ -4,7 +4,7 @@
   <div class="container beige-container clearfix">
     <span class="highlight-arrow logged-in-highlight-arrow"></span>
     <div class="badge-details left">
-      <img class="badge-image" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}">
+      <img class="badge-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
         <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block">
           <i class="fa fa-pencil"></i>Edit

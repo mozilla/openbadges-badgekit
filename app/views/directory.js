@@ -46,10 +46,31 @@ exports.home = function home (req, res, next) {
         // to be implemented
         break;
       case 'dateactive':
-        // to be implemented
+        if (category === 'template' || category === 'draft') {
+          badges.sort(function(a,b) {
+            var aTime = typeof a.lastUpdated === 'string' ? 0 : a.lastUpdated.getTime();
+            var bTime = typeof b.lastUpdated === 'string' ? 0 : b.lastUpdated.getTime();
+            if (aTime < bTime)
+              return 1;
+            else if (aTime > bTime)
+              return -1;
+            return (b.id - a.id); 
+          });
+        }
         break;
       case 'datecreated':
-        // to be implemented
+      default:
+        if (category === 'template' || category === 'draft') {
+          badges.sort(function(a,b) {
+            var aTime = typeof a.created === 'string' ? 0 : a.created.getTime();
+            var bTime = typeof b.created === 'string' ? 0 : b.created.getTime();
+            if (aTime < bTime)
+              return 1;
+            else if (aTime > bTime)
+              return -1;
+            return (b.id - a.id);
+          });
+        }
         break;
     }
 
@@ -117,7 +138,7 @@ exports.home = function home (req, res, next) {
 exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
 
-  Badge.put({ name: 'New Badge', status: category }, function (err, result) {
+  Badge.put({ name: 'New Badge', status: category, created: new Date() }, function (err, result) {
     if (err)
       return res.send(500, err);
     
@@ -126,10 +147,9 @@ exports.addBadge = function addBadge (req, res, next) {
     Badge.getOne({ id: result.insertId }, function(err, row) {
       if (err)
         return res.send(500, err);
-      // we don't have the ability to add/delete criteria yet, so for now, just add three to each new badge
-      row.setCriteria([{ }, { }, { }], function(err) {
-        const directoryUrl = res.locals.url('directory') + '?category=' + category;
-        return middleware.redirect(directoryUrl, 302)(req, res, next);
+
+      row.setCriteria([{ }], function(err) {
+        return middleware.redirect('badge.edit', { badgeId: result.insertId }, 302)(req, res, next);
       });
     });
   });
