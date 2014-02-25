@@ -2,7 +2,7 @@
 {% block content %}
   <div class="container beige-container clearfix">
     <span class="highlight-arrow logged-in-highlight-arrow"></span>
-    <div class="badges-container clearfix">
+    <div class="badges-container clearfix js-masonry-container">
       {% if notification == 'published' %}
         <p class="notification">Your badge has been published.</p>
       {% elif notification == 'created' %}
@@ -34,7 +34,7 @@
       </nav>
       <div class="cb"></div>
       {% if category == 'template' or category == 'draft' %}
-        <section class="badge-new left">
+        <section class="item badge-new left">
           <i class="fa fa-plus-circle"></i>
           {% if category == 'template' %}
             <h2>Create a Template</h2>
@@ -46,7 +46,7 @@
       {% endif %}
 
       {% for badge in badges %}
-        <section class="badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
+        <section class="item badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
           <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/>
           <h2>{{ badge.name }}</h2>
           <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
