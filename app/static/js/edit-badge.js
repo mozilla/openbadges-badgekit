@@ -2,7 +2,7 @@ const AUTOSAVE_INTERVAL_MS = 10000;
 const SAVING_TEXT = 'Saving';
 
 $(document).ready(function() {
-  function saveBadge() {
+  function saveBadge(doRedirect) {
     clearTimeout(timeoutID);
     saveButton.attr('disabled', true);
     saveButton.val(SAVING_TEXT);
@@ -13,6 +13,9 @@ $(document).ready(function() {
       saveButton.val(saveButtonText);
       saveSpinner.addClass('hidden');
       timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
+      if (doRedirect) {
+        window.location.href = data.location;
+      }
     });
   }
 
@@ -57,11 +60,14 @@ $(document).ready(function() {
 
     var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
     saveButton.click(function() {
-      saveBadge();
+      saveBadge(false);
       return false;
     });
 
-    $('.js-save-and-exit-btn').click(saveBadge);
+    $('.js-save-and-exit-btn').click(function() {
+      saveBadge(true);
+      return false;
+    });
   }
 
   var publishButton = $('.js-publish-btn');
