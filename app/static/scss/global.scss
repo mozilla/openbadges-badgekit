@@ -160,11 +160,6 @@
   }
 }
 
-.home-search {
-  float: right;
-  margin-top: -20px;
-}
-
 .open-badges-logo {
   display: block;
   width: 350px;
@@ -222,24 +217,18 @@
 
 .badge-new,
 .badge-template {
-  /*height: 85%;
-  float: left;*/
-
   .badgethumb {
     @include drop-shadow;
-    height: 100%;
-    margin: 0 20px 20px 0;
-  background-color: $white;
+    width: 200px;
+    background-color: $white;
   }
   .fa-plus-circle {
-    float: left;
     padding: 25px 39px;
     text-align: center;
     color: $gray;
-    font-size: 98px;
+    font-size: 145px;
     border: 1px solid $white;
     @include drop-shadow;
-    margin: 0 20px 20px 0;
     background-color: $white;
   }
 }
@@ -253,9 +242,10 @@
 .badge-template,
 .badge-new {
   position: relative;
-  width: $three-wide;
+  width: $two-wide;
   height: 185px;
   padding: 2%;
+  height: auto;
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
