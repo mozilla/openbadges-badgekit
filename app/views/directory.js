@@ -171,10 +171,10 @@ exports.useTemplate = function useTemplate (req, res, next) {
       if (err)
         return res.send(500, err);
       
-      req.session.notification = 'created';
       req.session.lastCreatedId = newRow.id;
-      const directoryUrl = res.locals.url('directory') + '?category=draft';
-      return middleware.redirect(directoryUrl, 302)(req, res, next);
+      req.session.notification = 'created';
+
+      return middleware.redirect('badge.edit', { badgeId: newRow.id }, 302)(req, res, next);
     });
   });
 };
