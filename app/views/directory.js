@@ -104,7 +104,7 @@ exports.home = function home (req, res, next) {
   }
 
   const pageNum = parseInt(req.query.page, 10) || 1;
-  const category = req.query.category || 'draft';
+  const category = req.query.category || 'template';
   const sort = req.query.sort;
 
   switch (category) {
@@ -171,6 +171,8 @@ exports.useTemplate = function useTemplate (req, res, next) {
       if (err)
         return res.send(500, err);
       
+      req.session.notification = 'created';
+      req.session.lastCreatedId = newRow.id;
       const directoryUrl = res.locals.url('directory') + '?category=draft';
       return middleware.redirect(directoryUrl, 302)(req, res, next);
     });
