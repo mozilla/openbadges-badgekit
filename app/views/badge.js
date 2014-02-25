@@ -177,18 +177,22 @@ function saveBadge(req, callback) {
 
       async.parallel([
         function(innerCallback) {
-          const criteria = req.body.criteria.slice(0,numCriteria).map(function(criterion) {
-            return {
-              id: criterion.id || null,
-              description: criterion.description,
-              required: criterion.required == 'on' ? 1 : 0,
-              note: criterion.note
-            };
-          });
+          if (criteria in req.body) {
+            const criteria = req.body.criteria.slice(0,numCriteria).map(function(criterion) {
+              return {
+                id: criterion.id || null,
+                description: criterion.description,
+                required: criterion.required == 'on' ? 1 : 0,
+                note: criterion.note
+              };
+            });
 
-          badgeRow.setCriteria(criteria, function(err) {
-            return innerCallback(err);
-          });
+            badgeRow.setCriteria(criteria, function(err) {
+              return innerCallback(err);
+            });
+          }
+
+          return innerCallback();
         },
         function(innerCallback) {
           if (req.files) {
@@ -208,7 +212,8 @@ function saveBadge(req, callback) {
               const imageQuery = {
                 id: badgeRow.imageId,
                 mimetype: type,
-                data: data
+                data: data,
+                url: null
               };
 
               Image.put(imageQuery, function(err, imageResult) {
@@ -243,7 +248,11 @@ exports.save = function save (req, res, next) {
     if (err)
       return res.send(500, err);
 
-    return middleware.redirect('badge.edit', { badgeId: req.body.badgeId }, 302)(req, res, next);
+    if (!('notification' in req.session)) {
+      req.session.notification = 'saved';
+    }
+
+    return res.send(200, { location: res.locals.url('directory') + '?category=' + row.status });
   });
 };
 
@@ -258,6 +267,8 @@ exports.archive = function archive (req, res, next) {
     openbadger.updateBadge(badge, function(err) {
       if (err) 
         return res.send(500, err);
+
+      req.session.notification = 'archived';
 
       return res.send(200);
     });
@@ -284,6 +295,9 @@ exports.publish = function publish (req, res, next) {
           if (err)
             return res.send(500, err);
 
+          req.session.lastCreatedId = badge.slug;
+          req.session.notification = 'published';
+
           return res.send(200, { location: res.locals.url('directory') + '?category=published' });
         });
       });
@@ -297,13 +311,22 @@ exports.copy = function copy (req, res, next) {
     if (err)
       return res.send(500, err);
 
-    badge = openbadger.toBadgekitBadge(badge);
-    delete badge.id;
-    Badge.put(badge, function (err, result) {
+    Image.put({ url: badge.imageUrl }, function(err, imageResult) {
       if (err)
-        return res.send(500, err);
+        return res.send(500,err);
 
-      return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
+      badge = openbadger.toBadgekitBadge(badge);
+      delete badge.id;
+      badge.created = new Date();
+      delete badge.imageUrl;
+      badge.imageId = imageResult.insertId;
+
+      Badge.put(badge, function (err, result) {
+        if (err)
+          return res.send(500, err);
+
+        return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
+      });
     });
   });
 };
@@ -317,8 +340,15 @@ exports.image = function image (req, res, next) {
 
     if (row) {
       if (row.image.id !== null) {
-        res.type(row.image.mimetype);
-        return res.send(row.image.data);
+        if (row.image.url === null) {
+          res.type(row.image.mimetype);
+          return res.send(row.image.data);
+        }
+        else {
+          var location = row.image.url.toString('ascii');
+          res.header('Location', location);
+          return res.send(301, {location: location});
+        }
       }
       else {
         res.sendfile(path.join(__dirname, '../static/images/default-badge.png'));

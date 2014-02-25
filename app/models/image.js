@@ -8,7 +8,8 @@ module.exports = function getImageModel (key) {
     fields: 
       ['id',
        'mimetype',
-       'data']
+       'data',
+       'url']
   });
 
   return Image;

@@ -10,14 +10,14 @@
   letter-spacing: .1em;
   margin: 7px 0;
   color: $white;
-  height: 29px;
+  height: 32px;
   line-height: 31px;
-  padding: 0 15px;
+  padding: 0 25px;
   cursor: pointer;
   background-color: $light-beige;
   display: inline-block;
   &:hover {
-    color: $light-blue;
+    color: $brown;
   }
 }
 
@@ -28,7 +28,6 @@
 .add-btn {
   background-color: $light-blue;
   margin: 0 10px;
-  &:hover { color: $brown; }
 }
 
 .edit-btn {
@@ -65,9 +64,11 @@
   background-color: pink;
 }
 
-.blank-btn {
+.blank-btn,
+.review-publish-btn {
   background-color: $light-blue;
   border-bottom: 5px solid $dark-blue;
+  color: $white;
 }
 
 .submit-btn {
@@ -79,6 +80,7 @@
   background-color: $gray;
   border-bottom: 5px solid $dark-gray;
 }
+
 
 .use-btn,
 .view-btn,

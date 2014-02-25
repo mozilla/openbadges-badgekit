@@ -47,12 +47,13 @@
             <ul class="navigation-dropdown">
               <span class="arrow-down"></span>
               <li class="menu-item">
-                <i class="fa fa-briefcase "></i>Badges
+                Badges
                 <ul class="menu-hover">
                   <a href="{{ url('directory') }}?category=template"><li>Templates</li></a>
                   <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
                   <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
                   <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
+                  <a href=""><li class="last-item">Create New</li></a>
                 </ul>
               </li>
             </ul>
@@ -63,7 +64,7 @@
               <li class="menu-item">
                 Applications
                 <ul class="menu-hover hover-applications">
-                  <a href=""><li>Pending</li></a>
+                  <a href=""><li>Pending <span class="pending-count">27</span></li></a>
                   <a href=""><li>Awarded</li></a>
                 </ul>
               </li>

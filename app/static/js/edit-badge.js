@@ -2,7 +2,7 @@ const AUTOSAVE_INTERVAL_MS = 10000;
 const SAVING_TEXT = 'Saving';
 
 $(document).ready(function() {
-  function saveBadge() {
+  function saveBadge(doRedirect) {
     clearTimeout(timeoutID);
     saveButton.attr('disabled', true);
     saveButton.val(SAVING_TEXT);
@@ -13,21 +13,11 @@ $(document).ready(function() {
       saveButton.val(saveButtonText);
       saveSpinner.addClass('hidden');
       timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
+      if (doRedirect) {
+        window.location.href = data.location;
+      }
     });
   }
-
-  var hamburgerButton = $('.js-hamburger-btn');
-  var hamburgerDropdown = $('.js-hamburger-dropdown');
-  var hamburgerDropdownArrow = $('.js-hamburger-dropdown-arrow');
-
-  hamburgerButton.click(function() {
-    hamburgerDropdown.toggle();
-    var arrowSize = -hamburgerDropdownArrow.position().top;
-    var hamburgerDropdownOffset = { top: hamburgerButton.offset().top + hamburgerButton.height() + arrowSize,
-                                    left: hamburgerButton.offset().left - hamburgerDropdownArrow.position().left + (hamburgerButton.width())/2 - arrowSize};
-    hamburgerDropdown.offset(hamburgerDropdownOffset);
-    return false;
-  });
 
   var numCriteriaSelect = $('.js-num-criteria');
 
@@ -40,7 +30,7 @@ $(document).ready(function() {
         criterionDivs.eq(i).addClass('hidden');
       } else {
         criterionDivs.eq(i).removeClass('hidden');
-      }        
+      }
     }
 
     for (i = numCriteria-1; i >= criterionDivs.length; i--) {
@@ -53,10 +43,11 @@ $(document).ready(function() {
   var formPages = $('.js-form-page');
 
   categoryAnchors.click(function() {
+    categoryAnchors.parent().removeClass('selected');
+    $(this).parent().addClass('selected');
     formPages.addClass('hidden');
     var section = $(this).data('section');
     $('.js-section-' + section).removeClass('hidden');
-    hamburgerDropdown.hide();
     return false;
   });
 
@@ -66,16 +57,17 @@ $(document).ready(function() {
     var form = $('.js-badge-form');
 
     var saveButtonText = saveButton.val();
-    // a possibly totally weird way to maintain the submit button's size after being initially auto-sized.
-    saveButton.width(saveButton.width());
 
     var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
     saveButton.click(function() {
-      saveBadge();
+      saveBadge(false);
       return false;
     });
 
-    $('.js-save-and-exit-btn').click(saveBadge);
+    $('.js-save-and-exit-btn').click(function() {
+      saveBadge(true);
+      return false;
+    });
   }
 
   var publishButton = $('.js-publish-btn');
@@ -98,9 +90,6 @@ $(document).ready(function() {
   var hiddenNameField = $('.js-hidden-name-field');
   nameField.change(function() {
     hiddenNameField.val(nameField.val());
-  });
-  $(document).click(function() {
-    hamburgerDropdown.hide();
   });
 });
 

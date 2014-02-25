@@ -23,7 +23,7 @@
   margin-left: -20px;
 }
 
-.homepage-nav { margin-top: 2.5%; }
+.homepage-nav { margin-top: 3.5%; }
 
 .nav-header {
   .arrow-down {
@@ -33,8 +33,7 @@
     right: 10px;;
   }
   .sort-arrow { right: 25px; }
-  .navigation-dropdown,
-  .sort-dropdown {
+  .navigation-dropdown {
     position: relative;
     text-align: left;
     display: inline;
@@ -56,7 +55,7 @@
       .menu-hover {
         padding: 0;
         position: absolute;
-        top: 48px;
+        top: 33px;
         left: 0;
         width: 173px;
         -webkit-box-shadow: none;
@@ -74,14 +73,18 @@
         }
       }
       .sort-menu-hover {
-        left: -140px;
-        top: 16px;
+        top: 30px;
+        left: -16px;
       }
       .hover-applications,
       .logout-hover,
       .about-hover { top: 33px; }
-      .sort-menu-hover { top: 16px; }
       .logout-hover { width: 250px; }
+    }
+    .sort-menu {
+      color: $white;
+      background-color: $gray;
+      border-bottom: 5px solid $dark-gray;
     }
   }
   ul li:hover {
@@ -94,6 +97,15 @@
       border-top: 4px solid $light-green;
     }
   }
+}
+
+.pending-count {
+  margin-left: 40px;
+  border-radius: 145px;
+  padding: 5px;
+  font-size: 10px;
+  color: white;
+  background-color: #e56723;
 }
 
 .highlight-arrow {
@@ -232,17 +244,18 @@
   }
 }
 
+.fa-cloud-upload,
+.fa-pencil {
+  color: $brown;
+  margin-right: 5px;
+}
+
 .badge-template,
 .badge-new {
   position: relative;
   width: $three-wide;
   height: 185px;
   padding: 2%;
-  .fa-cloud-upload,
-  .fa-pencil {
-    color: $brown;
-    margin-right: 5px;
-  }
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
@@ -356,4 +369,8 @@
 .small-copy {
   color: $brown;
   margin-top: 0;
+}
+
+.notification {
+  text-align: center;
 }

@@ -11,7 +11,7 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.name = badge.name;
   newBadge.earnerDescription = badge.description;
   newBadge.consumerDescription = badge.description;
-  newBadge.image = badge.imageUrl;
+  newBadge.imageUrl = badge.imageUrl;
 
   return newBadge;
 };
