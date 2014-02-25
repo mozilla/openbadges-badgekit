@@ -177,7 +177,7 @@ function saveBadge(req, callback) {
 
       async.parallel([
         function(innerCallback) {
-          if (criteria in req.body) {
+          if ('criteria' in req.body) {
             const criteria = req.body.criteria.slice(0,numCriteria).map(function(criterion) {
               return {
                 id: criterion.id || null,
@@ -191,8 +191,9 @@ function saveBadge(req, callback) {
               return innerCallback(err);
             });
           }
-
-          return innerCallback();
+          else {
+            return innerCallback(null);
+          }
         },
         function(innerCallback) {
           if (req.files) {

@@ -36,10 +36,12 @@
       {% if category == 'template' or category == 'draft' %}
         <section class="badge-new left">
           <i class="fa fa-plus-circle"></i>
-          <h2>Add a New {{ category | capitalize }}</h2>
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="block"><i class="fa fa-cloud-upload"></i>Upload a badge</a>
-
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="btn blank-btn">Blank</a>
+          {% if category == 'template' %}
+            <h2>Create a Template</h2>
+          {% else %}
+            <h2>Create a New Draft</h2>
+          {% endif %}
+          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="btn blank-btn">Start</a>
         </section>
       {% endif %}
 
