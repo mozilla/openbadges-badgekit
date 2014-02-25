@@ -16,6 +16,9 @@ exports.home = function home (req, res, next) {
     const lastCreatedId = req.session.lastCreatedId;
     delete req.session.lastCreatedId;
 
+    const notification = req.session.notification;
+    delete req.session.notification;
+
     var newBadge = null;
 
     if (lastCreatedId) {
@@ -95,7 +98,8 @@ exports.home = function home (req, res, next) {
       pages: pages,
       category: category,
       sort: sort,
-      lastCreatedId: lastCreatedId
+      lastCreatedId: lastCreatedId,
+      notification: notification
     });
   }
 
@@ -141,14 +145,15 @@ exports.addBadge = function addBadge (req, res, next) {
   Badge.put({ name: 'New Badge', status: category, created: new Date() }, function (err, result) {
     if (err)
       return res.send(500, err);
-    
-    req.session.lastCreatedId = result.insertId;
 
     Badge.getOne({ id: result.insertId }, function(err, row) {
       if (err)
         return res.send(500, err);
 
       row.setCriteria([{ }], function(err) {
+        req.session.lastCreatedId = result.insertId;
+        req.session.notification = 'created';
+
         return middleware.redirect('badge.edit', { badgeId: result.insertId }, 302)(req, res, next);
       });
     });

@@ -248,7 +248,11 @@ exports.save = function save (req, res, next) {
     if (err)
       return res.send(500, err);
 
-    return middleware.redirect('badge.edit', { badgeId: req.body.badgeId }, 302)(req, res, next);
+    if (!('notification' in req.session)) {
+      req.session.notification = 'saved';
+    }
+
+    return res.send(200, { location: res.locals.url('directory') + '?category=' + row.status });
   });
 };
 
@@ -263,6 +267,8 @@ exports.archive = function archive (req, res, next) {
     openbadger.updateBadge(badge, function(err) {
       if (err) 
         return res.send(500, err);
+
+      req.session.notification = 'archived';
 
       return res.send(200);
     });
@@ -288,6 +294,9 @@ exports.publish = function publish (req, res, next) {
         Badge.update({ id: badgeId, published: true }, function(err, result) {
           if (err)
             return res.send(500, err);
+
+          req.session.lastCreatedId = badge.slug;
+          req.session.notification = 'published';
 
           return res.send(200, { location: res.locals.url('directory') + '?category=published' });
         });
