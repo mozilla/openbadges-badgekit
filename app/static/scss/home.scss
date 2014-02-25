@@ -46,28 +46,57 @@
   }
 }
 
-.home-what-is-badge,
-.home-what-is-image {
-  width: $three-wide;
-  padding: 6% 4.5%;
-}
-
-.home-what-is-badge {
+.splash-image {
+  width: $six-wide;
   color: $white;
-  background-color: $medium-blue;
-  .small-copy { color: white; }
-  .what-is-header {
-    font-size: 50px;
-    margin: 0 0 2% 0;
-    line-height: 1.25em;
+  background: url("../images/badgekit-splash.png") no-repeat;
+  height: 449px;
+  padding: 20px;
+  margin-top: -20px;
+  .badges-made-simple {
+    width: $three-wide;
+    margin: 135px 50px;
+    .small-copy {
+      color: white;
+      line-height: 1.5em;
+    }
+    .what-is-header {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+    .what-is-header,
+    .small-copy {
+      width: $five-wide;
+    }
   }
 }
 
-.home-what-is-image {
-  background-color: $medium-green;
-  height: 377px;
+.placeholder-new-template {
+  width: $four-wide;
+  margin: 0 auto;
 }
 
 .home-get-started {
   padding: 2% 0;
+  text-align: center;
+  position: relative;
+  h1 { font-size: 30px; }
+  .or-seperator {
+    position: absolute;
+    background: $white;
+    border: 1px solid $light-blue;
+    border-radius: 100px;
+    font-size: 20px;
+    color: $light-blue;
+    padding: 22px 25px;
+    left: 543px;
+    top: 225px;
+  }
+  .badge-new,
+  .badge-template {
+    width: $three-wide;
+  }
+  .badge-new {
+    border-right: 1px solid $light-blue;
+  }
 }
