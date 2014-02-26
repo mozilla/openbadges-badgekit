@@ -74,6 +74,9 @@
 .placeholder-new-template {
   width: $four-wide;
   margin: 0 auto;
+  div {
+    margin: 0 auto;
+  }
 }
 
 .home-get-started {

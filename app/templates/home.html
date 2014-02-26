@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-  <section class="splash-image">
-    <div class="badges-made-simple">
-      <h1 class="what-is-header">Badges made simple.</h1>
-      <p class="small-copy">Welcome! BadgeKit helps you build, assess and issue badges. The new platform easily connects with your website and services so you can bring Open Badges to your community.</p>
-    </div>
-  </section>
-  <div class="container clearfix">
+  <div class="container white-container clearfix">
+    <section class="home-what-is-badge left">
+      <h1 class="what-is-header">Badge Issuing made simple.</h1>
+      <p class="small-copy">Welcome! BadgeKit helps you build, assess and issue badges. The new platform easily connects with your website and services so you can bring Open Badges to your community. Learn <a href="">more</a> and get <a href="">started</a>.</p>
+    </section>
+    <section class="home-what-is-image left"></section>
+
     <div class="home-get-started clearfix cb">
       <h1>Get started making badges</h1>
       <div class="placeholder-new-template">
@@ -19,7 +19,7 @@
           or
         </section>
         <section class="badge-template left">
-          <img class="badgethumb" src="{{ static('images/default-badge.png') }}"/>
+          <div class="badgethumb" style="background-image: url('{{ static('images/default-badge.png') }}')"></div>
           <h2>Cat in Space</h2>
           <p class="small-copy">Status: Template</p>
           <a class="btn view-btn js-login">View</a>
