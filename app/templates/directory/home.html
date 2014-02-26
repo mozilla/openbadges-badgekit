@@ -46,32 +46,33 @@
           </section>
         {% endif %}
 
-      {% for badge in badges %}
-        <section class="item badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
-          <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
-          <h2>{{ badge.name }}</h2>
-          <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
-          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block"><i class="fa fa-pencil"></i>Edit</a>
-          <a href="{{ url('badge', { badgeId: badge.id }) }}?category={{ category }}" class="btn view-btn">View</a>
-          {% if category == 'template' %}
-            <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
-          {% endif %}
-          {% if category == 'published' %}
-            <a href="" class="btn action-btn js-action-btn">Action<span class="arrow-down"></span></a>
-            <ul class="action-dropdown js-action-dropdown">
-              <a href=""><li>SHARE</li></a><hr>
-              <a href=""><li>REVIEW APPLICATIONS</li></a>
-              <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
-              <hr>
-              <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
-              <a href=""><li>VIEW CLAIM CODES</li></a>
-              <hr>
-              <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>COPY AS NEW</li></a>
-              <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>ARCHIVE</li></a>
-            </ul>
-          {% endif %}
-        </section>
-      {% endfor %}
+        {% for badge in badges %}
+          <section class="item badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
+            <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
+            <h2>{{ badge.name }}</h2>
+            <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
+            <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block"><i class="fa fa-pencil"></i>Edit</a>
+            <a href="{{ url('badge', { badgeId: badge.id }) }}?category={{ category }}" class="btn view-btn">View</a>
+            {% if category == 'template' %}
+              <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
+            {% endif %}
+            {% if category == 'published' %}
+              <a href="" class="btn action-btn js-action-btn">Action<span class="arrow-down"></span></a>
+              <ul class="action-dropdown js-action-dropdown">
+                <a href=""><li>SHARE</li></a><hr>
+                <a href=""><li>REVIEW APPLICATIONS</li></a>
+                <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
+                <hr>
+                <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
+                <a href=""><li>VIEW CLAIM CODES</li></a>
+                <hr>
+                <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>COPY AS NEW</li></a>
+                <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>ARCHIVE</li></a>
+              </ul>
+            {% endif %}
+          </section>
+        {% endfor %}
+      </section>
     </div>
 
     {% if pages > 1 %}
