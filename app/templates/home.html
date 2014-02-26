@@ -1,27 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="container white-container clearfix">
-    <section class="home-what-is-badge left">
-      <h1 class="what-is-header">Badge Issuing made simple.</h1>
-      <p class="small-copy">Welcome! BadgeKit helps you build, assess and issue badges. The new platform easily connects with your website and services so you can bring Open Badges to your community. Learn <a href="">more</a> and get <a href="">started</a>.</p>
-    </section>
-    <section class="home-what-is-image left"></section>
-
-    <div class="home-get-started cb">
-      <h1>Get started making badges:</h1>
-      <section class="badge-new left">
-        <i class="fa fa-plus-circle"></i>
-        <h2>Add a New Template</h2>
-        <a class="js-login block" ><i class="fa fa-cloud-upload"></i>Upload a badge</a>
-        <a class="btn blank-btn js-login">Blank</a>
-      </section>
-
-      <section class="badge-template left">
-        <img class="badgethumb left" src="{{ static('images/default-badge.png') }}"/>
-        <h2>Cat in Space</h2>
-        <p class="small-copy">Status: Template</p>
-        <a class="btn view-btn js-login">View</a>
-      </section>
+  <section class="splash-image">
+    <div class="badges-made-simple">
+      <h1 class="what-is-header">Badges made simple.</h1>
+      <p class="small-copy">Welcome! BadgeKit helps you build, assess and issue badges. The new platform easily connects with your website and services so you can bring Open Badges to your community.</p>
+    </div>
+  </section>
+  <div class="container clearfix">
+    <div class="home-get-started clearfix cb">
+      <h1>Get started making badges</h1>
+      <div class="placeholder-new-template">
+        <section class="badge-new left">
+          <i class="fa fa-plus-circle"></i>
+          <h2>Create a New Badge</h2>
+          <a class="btn blank-btn js-login">Start</a>
+        </section>
+        <section class="or-seperator left">
+          or
+        </section>
+        <section class="badge-template left">
+          <img class="badgethumb" src="{{ static('images/default-badge.png') }}"/>
+          <h2>Cat in Space</h2>
+          <p class="small-copy">Status: Template</p>
+          <a class="btn view-btn js-login">View</a>
+        </section>
+      </div>
     </div>
   </div>
 {% endblock %}
