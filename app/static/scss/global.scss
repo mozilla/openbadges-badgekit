@@ -160,6 +160,7 @@
     padding: 0 25px;
     color: $dark-gray;
     &:hover { color: $light-blue; }
+    & a { color: $dark-gray; }
     .arrow-down {
       border-top-color: $dark-gray;
       position: relative;

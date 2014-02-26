@@ -5,3 +5,4 @@ exports.home = function home (req, res, next) {
 exports.directory = require('./directory');
 exports.badge = require('./badge');
 exports.settings = require('./settings');
+exports.help = require('./help');

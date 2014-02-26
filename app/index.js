@@ -65,6 +65,8 @@ app.get('/studio/texts', 'studio.texts', [persona.ensureLoggedIn()], views.badge
 app.get('/studio/icons', 'studio.icons', [persona.ensureLoggedIn()], views.badge.getIcons);
 app.get('/studio/colors', 'studio.colors', [persona.ensureLoggedIn()], views.badge.getColors);
 
+app.get('/help', 'help', views.help.home);
+
 if (!module.parent) {
   const port = config('PORT', 3000);
 
