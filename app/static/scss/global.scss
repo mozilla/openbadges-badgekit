@@ -244,7 +244,18 @@
   .badgethumb {
     @include drop-shadow;
     width: 200px;
+    height: 200px;
     background-color: $white;
+    background-size: 150%;
+    background-position: 50%;
+    -webkit-transition: .25s;
+    -moz-transition: .25s;
+    -o-transition: .25s;
+    -ms-transition: .25s;
+    transition: .25s;
+    &:hover {
+      background-size: 100%;
+    }
   }
   .fa-plus-circle {
     padding: 25px 39px;

@@ -48,7 +48,7 @@
 
         {% for badge in badges %}
           <section class="item badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
-            <img class="badgethumb" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/>
+            <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
             <h2>{{ badge.name }}</h2>
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
             <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block"><i class="fa fa-pencil"></i>Edit</a>
