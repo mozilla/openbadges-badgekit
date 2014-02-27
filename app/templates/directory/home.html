@@ -1,7 +1,6 @@
 {% extends "directory/layout.html" %}
 {% block content %}
   <div class="container clearfix">
-    <div class="badges-container clearfix">
       {% if notification == 'published' %}
         <p class="notification">Your badge has been published.</p>
       {% elif notification == 'created' %}
@@ -12,14 +11,35 @@
         <p class="notification">Your badge has been saved.</p>
       {% endif %}
       {% if category == 'template' %}
-      <section class="templates-info">
-        <h1 class="templates-info-heading">Find a template, then remix it!</h1>
-        <p class="templates-info-text">Use templates to create great new badges quickly. Create and edit your own templates and tailor draft badges to your programs and vision.</p>
+      <section class="info">
+        <h1 class="info-heading">Templates</h1>
+        <p class="info-text">Use templates to create great new badges quickly. Create and edit your own templates and tailor draft badges to your programs and vision.</p>
       </section>
       {% endif %}
 
-      <nav class="nav-header sort-nav-header">
-        <ul class="navigation-dropdown">
+      {% if category == 'draft' %}
+      <section class="info">
+        <h1 class="info-heading">Drafts</h1>
+        <p class="info-text">Work on draft badges. Define badge criteria and visuals, then publish when you're ready.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'published' %}
+      <section class="info">
+        <h1 class="info-heading">Published</h1>
+        <p class="info-text">Manage and issue your published badges.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'archived' %}
+      <section class="info">
+        <h1 class="info-heading">Archived</h1>
+        <p class="info-text">Manage inactive badges no longer being issued.</p>
+      </section>
+      {% endif %}
+
+      <nav class="nav-header">
+        <ul class="navigation-dropdown right">
           <li class="menu-item sort-menu">
             Sort badges <i class="fa fa-caret-down"></i>
             <ul class="menu-hover sort-menu-hover">
@@ -33,7 +53,7 @@
         </ul>
       </nav>
 
-      <section class="directory-container js-masonry-container">
+      <section class="directory-container js-masonry-container cb">
         {% if category == 'template' or category == 'draft' %}
           <section class="item badge-new left">
             <div class="new-badge-placeholder"></div>
@@ -47,7 +67,7 @@
         {% endif %}
 
         {% for badge in badges %}
-          <section class="item badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
+          <section class="item badge-template left">
             <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
             <h2>{{ badge.name }}</h2>
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
@@ -73,7 +93,6 @@
           </section>
         {% endfor %}
       </section>
-    </div>
 
     {% if pages > 1 %}
       <div class="pagenav cb">

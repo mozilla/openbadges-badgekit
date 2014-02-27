@@ -40,7 +40,6 @@
 
 .homepage-nav { margin-top: 3.5%; }
 
-.sort-nav-header { margin: 20px; }
 .nav-header {
   .arrow-down {
     border-top-color: $dark-gray;
@@ -211,24 +210,17 @@
   text-align: center;
 }
 
-.badges-container {
-  width: $six-wide;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.templates-info {
+.info {
   width: $five-wide;
   text-align: center;
   margin: 0 auto;
-  padding-bottom: 20px;
-  .templates-info-heading {
+  .info-heading {
     font-weight: bold;
     color: $light-blue;
     font-size: 30px;
     margin-bottom: 0;
   }
-  .templates-info-text {
+  .info-text {
     color: $brown;
     font-size: 18px;
     line-height: 1.5em;
@@ -258,8 +250,8 @@
     &:hover { color: $hover-blue; }
   }
   .badgethumb {
-    width: 100%;
-    height: auto;
+    width: 295px;
+    height: 295px;
     background-color: $white;
     background-size: 150%;
     background-position: 50%;
@@ -282,7 +274,6 @@
   .view-btn,
   .use-btn,
   .action-btn { width: 49.3%; }
-  .long-view-btn { width: $six-wide; }
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
@@ -331,10 +322,6 @@
   width: $one-wide;
   display: inline-block;
   top: 8px;
-}
-
-.newly-created-badge {
-  border: 10px solid;
 }
 
 .new-placeholder {
