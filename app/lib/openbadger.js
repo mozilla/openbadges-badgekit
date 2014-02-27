@@ -17,6 +17,8 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.limit = badge.limit;
   newBadge.unique = badge.unique;
   newBadge.imageUrl = badge.imageUrl;
+  newBadge.issuerUrl = badge.issuerUrl;
+  newBadge.criteria = badge.criteria;
 
   return newBadge;
 };
@@ -31,10 +33,16 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
   newBadge.earnerDescription = badge.earnerDescription;
   newBadge.consumerDescription = badge.consumerDescription;
   newBadge.rubricUrl = badge.rubricUrl;
+  newBadge.issuerUrl = badge.issuerUrl;
   newBadge.timeValue = badge.timeValue;
   newBadge.timeUnits = badge.timeUnits;
   newBadge.limit = badge.limit;
   newBadge.unique = badge.unique;
+  newBadge.criteria = badge.criteria;
+  newBadge.criteria.forEach(function(criterion) {
+    delete criterion.badgeId;
+    delete criterion.id;
+  });
   
   return newBadge;
 };

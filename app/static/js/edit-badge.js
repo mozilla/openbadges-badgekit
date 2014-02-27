@@ -106,10 +106,21 @@ $(document).ready(function() {
     var val = $('[name=' + inputName + ']').val();
     if (test(val) == false) {
       notification.append('<p>' + error + '</p>');
-      return 0;
+      return false;
     }
 
-    return 1;
+    return true;
+  }
+
+  function validateCriteria() {
+    var result = true;
+    $('.js-criterion:not(.hidden) .js-criteria-description').each(function(index, element) {
+      if (!(element.value.length >= 1)) {
+        notification.append('<p>Criteria ' + (index+1) + ' Description must not be empty</p>');
+        result = false;
+      } 
+    });
+    return result;
   }
 
   function validateInput() {
@@ -126,11 +137,8 @@ $(document).ready(function() {
     valid = validateField('consumerDescription', 'Consumer Description must not be empty', 
               function(val) { return (val.length >= 1) })
             && valid;
-    $('.js-criteria-description').each(function(index, element) {
-      if (!(element.val().length >= 1)) {
-
-      } 
-    });
+    valid = validateCriteria() && valid;
+    return valid;
   }
 });
 
