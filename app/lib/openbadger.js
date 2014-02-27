@@ -9,16 +9,9 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.id = badge.slug;
   newBadge.description = badge.strapline;
   newBadge.name = badge.name;
-  newBadge.earnerDescription = badge.earnerDescription;
-  newBadge.consumerDescription = badge.consumerDescription;
-  newBadge.rubricUrl = badge.rubricUrl;
-  newBadge.timeValue = badge.timeValue;
-  newBadge.timeUnits = badge.timeUnits;
-  newBadge.limit = badge.limit;
-  newBadge.unique = badge.unique;
+  newBadge.earnerDescription = badge.description;
+  newBadge.consumerDescription = badge.description;
   newBadge.imageUrl = badge.imageUrl;
-  newBadge.issuerUrl = badge.issuerUrl;
-  newBadge.criteria = badge.criteria;
 
   return newBadge;
 };
@@ -30,19 +23,7 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
   newBadge.strapline = badge.description || ' ';
   // openbadger-issue-client doesn't yet support uploading an image file, so for now we're keeping the images in the badgekit db
   newBadge.imageUrl = config('PERSONA_AUDIENCE') + '/images/badge/' + badge.id;
-  newBadge.earnerDescription = badge.earnerDescription;
-  newBadge.consumerDescription = badge.consumerDescription;
-  newBadge.rubricUrl = badge.rubricUrl;
-  newBadge.issuerUrl = badge.issuerUrl;
-  newBadge.timeValue = badge.timeValue;
-  newBadge.timeUnits = badge.timeUnits;
-  newBadge.limit = badge.limit;
-  newBadge.unique = badge.unique;
-  newBadge.criteria = badge.criteria;
-  newBadge.criteria.forEach(function(criterion) {
-    delete criterion.badgeId;
-    delete criterion.id;
-  });
-  
+  newBadge.description = badge.earnerDescription || newBadge.strapline;
+
   return newBadge;
 };
