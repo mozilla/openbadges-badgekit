@@ -15,9 +15,10 @@
 .wide-cell { width: 40%; }
 .table-row { display: table-row; }
 
-.header-container {
-  @extend .container;
-  padding: 20px 0 0 0;
+.header-container,
+.footer-container {
+  padding: 20px 125px 0 125px;
+  background-color: $light-gray;
 }
 
 .header-row {
@@ -29,11 +30,6 @@
   width: $six-wide;
   margin: 30px 0 0 0;
   padding: 30px 9% 15px 9%;
-  background-color: $white;
-  .footnote-container,
-  .footer-menu {
-    margin: 0 4%;
-  }
 }
 
 .badgekit-logo {
@@ -44,6 +40,7 @@
 
 .homepage-nav { margin-top: 3.5%; }
 
+.sort-nav-header { margin: 20px; }
 .nav-header {
   .arrow-down {
     border-top-color: $dark-gray;
@@ -216,18 +213,26 @@
 
 .badges-container {
   width: $six-wide;
+  max-width: 960px;
   margin: 0 auto;
 }
 
-.templates-info { width: $four-wide; }
-
-.templates-info-heading {
-  font-size: 20px;
-  font-weight: bold;
-  color: $light-blue;
+.templates-info {
+  width: $five-wide;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  .templates-info-heading {
+    font-weight: bold;
+    color: $light-blue;
+    font-size: 30px;
+    margin-bottom: 0;
+  }
   .templates-info-text {
     color: $brown;
-    font-size: 12px;
+    font-size: 18px;
+    line-height: 1.5em;
+    margin-top: 10px;
   }
 }
 
@@ -241,10 +246,16 @@
 
 .badge-new,
 .badge-template {
+  margin-bottom: 30px;
+  border: 1px solid $light-gray;
+  position: relative;
+  width: $two-wide;
+  height: 185px;
+  height: auto;
+  h2, p, .block { padding: 0 10px; }
   .badgethumb {
-    @include drop-shadow;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: auto;
     background-color: $white;
     background-size: 150%;
     background-position: 50%;
@@ -257,30 +268,15 @@
       background-size: 100%;
     }
   }
-  .fa-plus-circle {
-    padding: 25px 39px;
+  .new-badge-placeholder {
+    width: 100%;
+    height: 295px;
+    background-color: $light-green;
+    color: $white;
     text-align: center;
-    color: $gray;
-    font-size: 145px;
-    border: 1px solid $white;
-    @include drop-shadow;
-    background-color: $white;
   }
-}
-
-.fa-cloud-upload,
-.fa-pencil {
-  color: $brown;
-  margin-right: 5px;
-}
-
-.badge-template,
-.badge-new {
-  position: relative;
-  width: $two-wide;
-  height: 185px;
-  padding: 2%;
-  height: auto;
+  .view-btn,
+  .use-btn { width: 49.3%; }
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
@@ -288,6 +284,12 @@
   .small-copy {
     margin-top: -15px;
   }
+}
+
+.fa-cloud-upload,
+.fa-pencil {
+  color: $brown;
+  margin-right: 5px;
 }
 
 .form-dropdown {
