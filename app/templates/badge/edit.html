@@ -20,6 +20,7 @@
 
 {% block content %}
   <div class="container beige-container clearfix">
+    <p class="notification js-notification"></p>
     <div class="nav-inputs">
       <input class="badge-field js-name-field left" type="text" name="name" {{ disabled() }} value="{{ badge.name }}">
       <i class="fa fa-pencil"></i>
@@ -44,7 +45,7 @@
     <form class="badge-form clearfix js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post" enctype="multipart/form-data">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"/>
-      <input type="hidden" class="js-hidden-name-field"name="name" value="{{ badge.name }}"/>
+      <input type="hidden" class="js-hidden-name-field" name="name" value="{{ badge.name }}"/>
 
       <!-- <img class="badge-image right" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/> -->
 
