@@ -236,13 +236,14 @@
   position: relative;
 }
 
+.item.badge-new { height: 450px; }
+
 .badge-new,
 .badge-template {
   margin-bottom: 30px;
   border: 1px solid $light-gray;
   position: relative;
   width: $two-wide;
-  height: 185px;
   height: auto;
   h2, p { padding: 0 10px; }
   .edit-link {
