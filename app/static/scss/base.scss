@@ -32,8 +32,8 @@
 
 /* ===[ Base styles ]======================================================== */
 .container {
-  width: 90%; /*width: 1200px;*/
-  max-width: 1200px;
+  width: 90%; /*width: 960px;*/
+  max-width: 960px;
   margin: auto;
 }
 
@@ -110,6 +110,7 @@ li {
 a {
   color: $light-blue;
   text-decoration: none;
+  &:hover { color: $hover-blue; }
 }
 
 textarea {
