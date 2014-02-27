@@ -17,6 +17,7 @@
   display: inline-block;
   text-align: center;
   &:hover {
+    background-color: $hover-gray;
     color: $white;
   }
 }
@@ -41,8 +42,6 @@
 }
 
 .action-btn {
-  line-height: 30px;
-  background-color: black;
   .arrow-down {
     border-top: 6px solid $white;
     margin-left: 10px;
@@ -55,6 +54,7 @@
 .review-publish-btn {
   background-color: $light-blue;
   display: block;
+  &:hover { background-color: $hover-blue; }
 }
 
 .import-btn,

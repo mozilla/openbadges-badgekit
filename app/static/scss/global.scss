@@ -252,7 +252,11 @@
   width: $two-wide;
   height: 185px;
   height: auto;
-  h2, p, .block { padding: 0 10px; }
+  h2, p { padding: 0 10px; }
+  .edit-link {
+    padding: 10px;
+    &:hover { color: $hover-blue; }
+  }
   .badgethumb {
     width: 100%;
     height: auto;
@@ -276,7 +280,9 @@
     text-align: center;
   }
   .view-btn,
-  .use-btn { width: 49.3%; }
+  .use-btn,
+  .action-btn { width: 49.3%; }
+  .long-view-btn { width: $six-wide; }
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
