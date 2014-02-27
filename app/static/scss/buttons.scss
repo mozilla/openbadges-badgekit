@@ -8,16 +8,16 @@
   font-weight: bold;
   font-size: 12px;
   letter-spacing: .1em;
-  margin: 7px 0;
   color: $white;
   height: 32px;
   line-height: 31px;
   padding: 0 25px;
   cursor: pointer;
-  background-color: $light-beige;
+  background-color: $dark-gray;
   display: inline-block;
+  text-align: center;
   &:hover {
-    color: $brown;
+    color: $white;
   }
 }
 
@@ -51,40 +51,12 @@
   }
 }
 
-.view-btn {
-  background-color: $light-green;
-  border-bottom: 5px solid $dark-green;
-}
-
-.edit-btn {
-  background-color: red;
-}
-
-.import-btn {
-  background-color: pink;
-}
-
 .blank-btn,
 .review-publish-btn {
   background-color: $light-blue;
-  border-bottom: 5px solid $dark-blue;
-  color: $white;
+  display: block;
 }
 
-.submit-btn {
-  background-color: $light-green;
-  border-bottom: 5px solid $dark-green;
-}
-
-.use-btn {
-  background-color: $gray;
-  border-bottom: 5px solid $dark-gray;
-}
-
-
-.use-btn,
-.view-btn,
-.blank-btn,
 .import-btn,
 .action-btn,
 .submit-btn,
