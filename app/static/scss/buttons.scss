@@ -22,15 +22,6 @@
   }
 }
 
-.light-btn {
-  color: $brown;
-}
-
-.add-btn {
-  background-color: $light-blue;
-  margin: 0 10px;
-}
-
 .edit-btn {
   display: inline-block;
   width: 80px;
@@ -51,11 +42,16 @@
 }
 
 .blank-btn,
-.review-publish-btn {
+.review-publish-btn,
+.add-btn {
   background-color: $light-blue;
-  display: block;
   &:hover { background-color: $hover-blue; }
 }
+.add-btn {
+  margin: 0 10px;
+  height: 30px;
+}
+.blank-btn { display: block; }
 
 .import-btn,
 .action-btn,
