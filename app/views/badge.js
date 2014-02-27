@@ -264,7 +264,7 @@ exports.archive = function archive (req, res, next) {
       return res.send(500, err);
 
     badge.archived = true;
-
+    
     openbadger.updateBadge(badge, function(err) {
       if (err) 
         return res.send(500, err);
