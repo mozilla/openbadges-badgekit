@@ -28,7 +28,9 @@
         <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
       </div>
       <div class="publish-save">
-        <a class="btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Publish<i class="fa fa-rocket"></i></a>
+        {% if category != 'template' %}
+          <a class="btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Publish<i class="fa fa-rocket"></i></a>
+        {% endif %}
         <a href="{{ url('directory') }}" class="btn use-btn js-save-and-exit-btn">Exit<i class="fa fa-sign-out"></i></a>
       </div>
     </div>
