@@ -1,9 +1,13 @@
 var config = require('./config');
 
 exports = module.exports = require('badgekit-issue-client')(
-  config('OPENBADGER_URL')
+  config('OPENBADGER_URL'),
+  config('OPENBADGER_SECRET')
 );
 
+module.exports.getContext = function getContext() {
+  return config('OPENBADGER_CONTEXT');
+}
 module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   var newBadge = {};
   newBadge.id = badge.slug;

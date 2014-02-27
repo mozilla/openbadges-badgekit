@@ -109,7 +109,8 @@ exports.home = function home (req, res, next) {
 
   switch (category) {
     case 'published':
-      openbadger.getBadges(function (err, data) {
+      openbadger.getBadges(openbadger.getContext(), function (err, data) {
+        console.log(err);
         if (err)
           return res.send(500, err);
 
@@ -119,7 +120,7 @@ exports.home = function home (req, res, next) {
       });
       break;
     case 'archived':
-      openbadger.getAllBadges(function (err, data) {
+      openbadger.getAllBadges(openbadger.getContext(), function (err, data) {
         if (err)
           return res.send(500, err);
         
