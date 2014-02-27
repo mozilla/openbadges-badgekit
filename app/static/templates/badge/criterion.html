@@ -6,7 +6,7 @@
     
     <div class="form-field-wrapper">
       <label class="badge-label" for="criteria[{{ index }}][description]">Description:</label>
-      <textarea class="badge-field" type="text" {{ disabled }} name="criteria[{{ index }}][description]">{{ criterion.description }}</textarea>
+      <textarea class="badge-field js-criteria-description" type="text" {{ disabled }} name="criteria[{{ index }}][description]">{{ criterion.description }}</textarea>
       <input class="radio-badge-field" type="checkbox" {{ disabled }} name="criteria[{{ index }}][required]" {% if criterion.required %} checked {% endif %}>Required</input>
     </div>
 

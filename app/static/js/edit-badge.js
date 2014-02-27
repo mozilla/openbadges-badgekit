@@ -2,6 +2,13 @@ const AUTOSAVE_INTERVAL_MS = 10000;
 const SAVING_TEXT = 'Saving';
 
 $(document).ready(function() {
+
+  var notification = $('.js-notification');
+
+  $(document).ajaxError(function(event, jqXHR, ajaxSetting, thrownError) {
+    notification.text(thrownError);
+  });
+
   function saveBadge(doRedirect) {
     clearTimeout(timeoutID);
     saveButton.attr('disabled', true);
@@ -70,17 +77,6 @@ $(document).ready(function() {
     });
   }
 
-  var publishButton = $('.js-publish-btn');
-  if (!publishButton.attr('disabled')) {
-    var publishUrl = publishButton.data('url');
-    publishButton.click(function() {
-      $.post(publishUrl, form.serialize(), function(data) {
-        window.location.href = data.location;
-      });
-      return false;
-    });
-  }
-
   var uploadImage = $('.js-upload-image');
   uploadImage.change(function() {
     form.submit();
@@ -91,5 +87,50 @@ $(document).ready(function() {
   nameField.change(function() {
     hiddenNameField.val(nameField.val());
   });
+
+  var publishButton = $('.js-publish-btn');
+  if (!publishButton.attr('disabled')) {
+    var publishUrl = publishButton.data('url');
+    publishButton.click(function() {
+      notification.empty();
+      if (validateInput()) {
+        $.post(publishUrl, form.serialize(), function(data, status) {
+          window.location.href = data.location;
+        });
+      }
+      return false;
+    });
+  }
+
+  function validateField(inputName, error, test) {
+    var val = $('[name=' + inputName + ']').val();
+    if (test(val) == false) {
+      notification.append('<p>' + error + '</p>');
+      return 0;
+    }
+
+    return 1;
+  }
+
+  function validateInput() {
+    var valid = true;
+    valid = validateField('name', 'Name must be between 1 and 255 characters', 
+              function(val) { return (val.length >= 1 && val.length <= 255) })
+            && valid;
+    valid = validateField('description', 'Short Description must be between 1 and 140 characters', 
+              function(val) { return (val.length >= 1 && val.length <= 140) })
+            && valid;
+    valid = validateField('earnerDescription', 'Earner Description must not be empty', 
+              function(val) { return (val.length >= 1) })
+            && valid;
+    valid = validateField('consumerDescription', 'Consumer Description must not be empty', 
+              function(val) { return (val.length >= 1) })
+            && valid;
+    $('.js-criteria-description').each(function(index, element) {
+      if (!(element.val().length >= 1)) {
+
+      } 
+    });
+  }
 });
 
