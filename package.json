@@ -26,7 +26,7 @@
     "express-persona-observer": "git+https://github.com/christensenep/express-persona-observer.git#multiple-buttons",
     "async": "~0.2.9",
     "mysql": "~2.0.0-rc1",
-    "badgekit-issue-client": "git+https://github.com/mozilla/badgekit-issue-client.git#86232e"
+    "badgekit-issue-client": "git+https://github.com/mozilla/badgekit-issue-client.git#12160c"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
