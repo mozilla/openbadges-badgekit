@@ -6,7 +6,12 @@ $(document).ready(function() {
   var notification = $('.js-notification');
 
   $(document).ajaxError(function(event, jqXHR, ajaxSetting, thrownError) {
-    notification.text(thrownError);
+    if (jqXHR && jqXHR.responseText) {
+      notification.text(jqXHR.responseText)
+    }
+    else {
+      notification.text(thrownError);
+    }
   });
 
   function saveBadge(doRedirect) {

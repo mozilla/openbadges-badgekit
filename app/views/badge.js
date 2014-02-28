@@ -288,8 +288,12 @@ exports.publish = function publish (req, res, next) {
 
       var badge = openbadger.toOpenbadgerBadge(row);
       openbadger.createBadge(openbadger.makeContext({ badge: badge }), function(err) {
-        if (err)
+        if (err) {
+          if ((/^ResourceConflictError/).test(err.toString())) {
+            return res.send(409, 'A badge with that name already exists');
+          }
           return res.send(500, err);
+        }
 
         Badge.update({ id: badgeId, published: true }, function(err, result) {
           if (err)
