@@ -1,8 +1,6 @@
 {% extends "directory/layout.html" %}
 {% block content %}
-  <div class="container beige-container clearfix">
-    <span class="highlight-arrow logged-in-highlight-arrow"></span>
-    <div class="badges-container clearfix js-masonry-container">
+  <div class="container clearfix">
       {% if notification == 'published' %}
         <p class="notification">Your badge has been published.</p>
       {% elif notification == 'created' %}
@@ -13,45 +11,67 @@
         <p class="notification">Your badge has been saved.</p>
       {% endif %}
       {% if category == 'template' %}
-      <section class="templates-info">
-        <span class="templates-info-heading">Find a template, then remix it!</span><span class="templates-info-text"> Templates are guides to help you create unique badges. A few designs are featured below. They are editable, all the way from the metadata information to the featured image. Browse the options below to start working within one of the existing styles. You can modify the template you choose to align it with your vision. Or you can make a template from scratch by clicking the "Add a new template" button below.</span>
+      <section class="info">
+        <h1 class="info-heading">Templates</h1>
+        <p class="info-text">Use templates to create great new badges quickly. Create and edit your own templates and tailor draft badges to your programs and vision.</p>
       </section>
       {% endif %}
 
-      <section class="directory-container">
-        <nav class="nav-header right">
-          <ul class="navigation-dropdown">
-            <li class="menu-item sort-menu">
-              Sort badges <i class="fa fa-caret-down"></i>
-              <ul class="menu-hover sort-menu-hover">
-                <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
-                <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
-                <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a>
-                <a href="{{ url('directory') }}?category={{ category }}&sort=dateactive"><li>Date Active</li></a>
-                <a href="{{ url('directory') }}?category={{ category }}&sort=datecreated"><li>Date Created</li></a>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-        <div class="cb"></div>
+      {% if category == 'draft' %}
+      <section class="info">
+        <h1 class="info-heading">Drafts</h1>
+        <p class="info-text">Work on draft badges. Define badge criteria and visuals, then publish when you're ready.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'published' %}
+      <section class="info">
+        <h1 class="info-heading">Published</h1>
+        <p class="info-text">Manage and issue your published badges.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'archived' %}
+      <section class="info">
+        <h1 class="info-heading">Archived</h1>
+        <p class="info-text">Manage inactive badges no longer being issued.</p>
+      </section>
+      {% endif %}
+
+      <nav class="nav-header">
+        <ul class="navigation-dropdown right">
+          <li class="menu-item sort-menu">
+            Sort badges <i class="fa fa-caret-down"></i>
+            <ul class="menu-hover sort-menu-hover">
+              <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=dateactive"><li>Date Active</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=datecreated"><li>Date Created</li></a>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="directory-container js-masonry-container cb">
         {% if category == 'template' or category == 'draft' %}
           <section class="item badge-new left">
-            <i class="fa fa-plus-circle"></i>
+            <div class="new-badge-placeholder"></div>
             {% if category == 'template' %}
               <h2>Create a Template</h2>
             {% else %}
               <h2>Create a New Draft</h2>
             {% endif %}
-            <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="btn blank-btn">Start</a>
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="btn blank-btn blank-btn-homepage">Start</a>
           </section>
         {% endif %}
 
         {% for badge in badges %}
-          <section class="item badge-template left {% if badge.id == lastCreatedId %}newly-created-badge{% endif %}">
+          <section class="item badge-template left">
             <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
             <h2>{{ badge.name }}</h2>
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
-            <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block"><i class="fa fa-pencil"></i>Edit</a>
+            <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="edit-link block"><i class="fa fa-pencil"></i>Edit</a>
             <a href="{{ url('badge', { badgeId: badge.id }) }}?category={{ category }}" class="btn view-btn">View</a>
             {% if category == 'template' %}
               <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
@@ -73,7 +93,6 @@
           </section>
         {% endfor %}
       </section>
-    </div>
 
     {% if pages > 1 %}
       <div class="pagenav cb">

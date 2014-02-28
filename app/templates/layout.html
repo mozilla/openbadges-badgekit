@@ -62,9 +62,9 @@
             <ul class="navigation-dropdown">
               <span class="arrow-down"></span>
               <li class="menu-item">
-                Applications
+                Applications (27)
                 <ul class="menu-hover hover-applications">
-                  <a href=""><li>Pending <span class="pending-count">27</span></li></a>
+                  <a href=""><li>Pending</li></a>
                   <a href=""><li>Awarded</li></a>
                 </ul>
               </li>
@@ -99,9 +99,7 @@
             </ul>
 
             <ul class="navigation-dropdown">
-              <li class="menu-item">
-                Help
-              </li>
+              <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
             </ul>
 
             <a href="#" class="menu-item js-login">
@@ -122,7 +120,7 @@
     {%- endblock %}
 
     {% block footerWrapper -%}
-      <footer id="footer" class="footer-container left">
+      <footer id="footer" class="footer-container">
         {% block footer -%}
           <a href="http://openbadges.org" class="open-badges-logo left">Mozilla Open Badges</a>
 

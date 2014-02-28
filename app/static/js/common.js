@@ -2,7 +2,8 @@ $(document).ready(function() {
   nunjucks.configure('/static/templates', { autoescape: true });
   var masonryContainer = document.querySelector('.js-masonry-container');
   var masonry = new Masonry(masonryContainer, {
-    itemSelector: '.item'
+    itemSelector: '.item',
+    gutter: 30
   });
 
   var mobileButton = $('.js-small-screen-dropdown');

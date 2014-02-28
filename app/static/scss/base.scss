@@ -32,10 +32,9 @@
 
 /* ===[ Base styles ]======================================================== */
 .container {
-  width: 90%; /*width: 1200px;*/
-  max-width: 1200px;
+  width: 90%; /*width: 960px;*/
+  max-width: 960px;
   margin: auto;
-  padding: 20px;
 }
 
 $one-wide: 13.6%;
@@ -55,15 +54,17 @@ $light-blue: #63c6f4;
 $medium-blue: #3184bd;
 $dark-blue: #109eda;
 $tiffany-blue: #00c1cb;
+$hover-blue: #0592d8;
 $medium-green: #4bb96b;
-$light-green: #6ac1a3;
+$light-green: #5bc0a4; /*mozilla green*/
 $dark-green: #349776;
 $light-beige: #f8f9f5;
 $dark-beige: #cbcbc6;
 $brown: #5d5b57;
 $gray: #aeb0b1;
-$dark-gray: #828487;
-$light-gray: #ebf0e8;
+$dark-gray: #4D4E53; /*mozilla charcoal*/
+$light-gray: #e6e6e6;
+$hover-gray: #282828;
 $gray5: #f9f9fa;
 $gray10: #f3f4f5;
 $gray30: #dbdee3;
@@ -91,24 +92,12 @@ $gray50: #c3c8d0;
   transition: all 0.2s;
 }
 
-@mixin gradient {
-  background: #d7d4c9; /* Old browsers */
-  background: -moz-linear-gradient(top,  #d7d4c9 0%, #fbfbfb 50%, #fdfdfd 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d7d4c9), color-stop(50%,#fbfbfb), color-stop(100%,#fdfdfd)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #d7d4c9 0%,#fbfbfb 50%,#fdfdfd 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7d4c9', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
-}
-
 body {
   font-family: "Open Sans", sans-serif;
-  @include gradient;
   color: $brown;
 }
 
-h1 { font-size: 24px; }
+h1 { font-size: 30px; }
 
 h2 { font-size: 20px; }
 
@@ -121,6 +110,7 @@ li {
 a {
   color: $light-blue;
   text-decoration: none;
+  &:hover { color: $hover-blue; }
 }
 
 textarea {
@@ -164,38 +154,6 @@ input[type="checkbox"]:checked + span:before {
 
 .block {
   display: block;
-}
-
-.hexagon {
-  width: 50px;
-  height: 27.5px;
-  background: $gray;
-  position: relative;
-  &:before {
-    content: "";
-    position: absolute;
-    top: -12px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-bottom: 12.5px solid $gray;
-  }
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: -12px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-top: 12.5px solid $gray;
-  }
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .white-container {

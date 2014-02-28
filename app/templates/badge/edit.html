@@ -29,7 +29,9 @@
         <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
       </div>
       <div class="publish-save">
-        <a class="btn light-btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Publish<i class="fa fa-rocket"></i></a>
+        {% if category != 'template' %}
+          <a class="btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Publish<i class="fa fa-rocket"></i></a>
+        {% endif %}
         <a href="{{ url('directory') }}" class="btn use-btn js-save-and-exit-btn">Exit<i class="fa fa-sign-out"></i></a>
       </div>
     </div>
@@ -51,7 +53,7 @@
 
       <div {{ createSectionDivAttributes('description') }}>
 
-        <p class="form-heading"><i class="fa fa-list-ul"></i><span class="form-heading-span">Description</span> fields are required by the Open Badges Specification.</p>
+        <p class="form-heading"><i class="fa fa-list-ul"></i><span class="form-heading-span">Description</span> Describe the badge to potential earners and mentors.</p>
 
         <div class="form-field-wrapper">
           <label class="badge-label left" for="issuerUrl">Issuer</label>
@@ -64,12 +66,12 @@
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label left" for="tags">Tags</label>
-          <input class="badge-field tags-field left" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}"/>
-          <a class="btn add-btn">Add<i class="fa fa-plus"></i></a>
+          <label class="badge-label left" for="tags">Tags<p class="small-copy">Comma seperated keywords, that help make your badge easier to find.<i class="fa fa-question-circle"></i></p></label>
+          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}"/>
+          <!-- <a class="btn add-btn">Add<i class="fa fa-plus"></i></a> -->
         </div>
 
-        <div class="form-field-wrapper">
+        <div class="form-field-wrapper cb">
           <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">A few wise words to guide the badge maker.<i class="fa fa-question-circle"></i></p></label>
 
           <textarea class="badge-field" {{ disabled() }} type="text" name="earnerDescription">{{ badge.earnerDescription }}</textarea>
@@ -82,7 +84,7 @@
       </div>
 
       <div {{ createSectionDivAttributes('visual') }}>
-        <p class="form-heading"><i class="fa fa-eye"></i><span class="form-heading-span">Visual</span> express the nature & value of a badge.</p>
+        <p class="form-heading"><i class="fa fa-eye"></i><span class="form-heading-span">Visual</span> Use visuals to express the nature and value of a badge.</p>
 
         <div class="left design-upload-container design-container">
           <i class="fa fa-magic"></i>
@@ -140,14 +142,14 @@
       </div>
 
       <div {{ createSectionDivAttributes('milestone') }}>
-        <p class="form-heading"><i class="fa fa-shield"></i><span class="form-heading-span">Milestone</span></p>
+        <p class="form-heading"><i class="fa fa-shield"></i><span class="form-heading-span">Milestone</span> Recognize earners who have been awarded a set of badges.</p>
         <h1>Badge Milestones</h1>
 
         <p>Not yet implemented
       </div>
 
       <div {{ createSectionDivAttributes('criteria') }}>
-        <p class="form-heading"><i class="fa fa-check"></i><span class="form-heading-span">Criteria</span></p>
+        <p class="form-heading"><i class="fa fa-check"></i><span class="form-heading-span">Criteria</span> Define requirements to guide earners and mentors.</p>
         <div class="form-field-wrapper">
           <label class="badge-label left" for="numCriteria">How Many?</label>
           <div class="form-dropdown short-dropdown">
@@ -170,7 +172,7 @@
       </div>
 
       <div {{ createSectionDivAttributes('options') }}>
-        <p class="form-heading"><i class="fa fa-wrench"></i><span class="form-heading-span">Options</span></p>
+        <p class="form-heading"><i class="fa fa-wrench"></i><span class="form-heading-span">Options</span> Choose badge properties and constraints.</p>
         <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="group">Group<p class="small-copy">Related badges can be grouped.<i class="fa fa-question-circle"></i></p></label>
           <div class="form-dropdown">

@@ -72,33 +72,38 @@
 }
 
 .placeholder-new-template {
-  width: $four-wide;
+  width: 90%;
   margin: 0 auto;
-  div {
-    margin: 0 auto;
-  }
 }
 
 .home-get-started {
   text-align: center;
   position: relative;
   h1 { font-size: 30px; }
-  .or-seperator {
-    position: absolute;
-    background: $white;
-    border: 1px solid $light-blue;
-    border-radius: 100px;
-    font-size: 20px;
-    color: $light-blue;
-    padding: 22px 25px;
-    left: 543px;
-    top: 225px;
-  }
   .badge-new,
   .badge-template {
-    width: $three-wide;
+    width: 37%;
+    margin: 0 30px;
   }
-  .badge-new {
-    border-right: 1px solid $light-blue;
+  .badge-new { height: 410px; }
+  .badge-template {
+    .view-btn { width: $six-wide; }
+  }
+  .or-seperator {
+    position: relative;
+    border-left: 1px solid $light-blue;
+    height: 300px;
+    margin: 65px 40px;
+    .or {
+      background: $white;
+      border: 1px solid $light-blue;
+      border-radius: 100px;
+      font-size: 20px;
+      color: $light-blue;
+      padding: 22px 25px;
+      position: absolute;
+      right: -35px;
+      top: 110px;
+    }
   }
 }
