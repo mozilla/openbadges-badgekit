@@ -1,6 +1,5 @@
 $(document).ready(function() {
   nunjucks.configure('/static/templates', { autoescape: true });
-
   var masonryContainer = document.querySelector('.js-masonry-container');
   var masonry = new Masonry(masonryContainer, {
     itemSelector: '.item',
