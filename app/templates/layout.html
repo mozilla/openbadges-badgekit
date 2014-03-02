@@ -53,7 +53,7 @@
                   <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
                   <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
                   <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
-                  <a href=""><li class="last-item">Create New</li></a>
+                  <a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>
                 </ul>
               </li>
             </ul>
@@ -62,9 +62,9 @@
             <ul class="navigation-dropdown">
               <span class="arrow-down"></span>
               <li class="menu-item">
-                Applications
+                Applications (27)
                 <ul class="menu-hover hover-applications">
-                  <a href=""><li>Pending <span class="pending-count">27</span></li></a>
+                  <a href=""><li>Pending</li></a>
                   <a href=""><li>Awarded</li></a>
                 </ul>
               </li>
@@ -72,7 +72,7 @@
 
             <ul class="navigation-dropdown">
               <li class="menu-item">
-                Help
+                <a href="{{ url('help') }}">Help</a>
               </li>
             </ul>
 
@@ -99,14 +99,8 @@
             </ul>
 
             <ul class="navigation-dropdown">
-              <li class="menu-item">
-                Help
-              </li>
+              <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
             </ul>
-
-            <!-- arrow up for link selected start -->
-            <span class="highlight-arrow"></span>
-            <!-- arrow up for link selected end -->
 
             <a href="#" class="menu-item js-login">
               <i class="fa fa-sign-in"></i>Log In
@@ -126,43 +120,68 @@
     {%- endblock %}
 
     {% block footerWrapper -%}
-      <footer id="footer" class="footer-container left">
+      <footer id="footer" class="footer-container">
         {% block footer -%}
           <a href="http://openbadges.org" class="open-badges-logo left">Mozilla Open Badges</a>
-          <section class="footnote-container">
-            <p class="footnote">Portions of this content are &copy; 1998-2013 by individual <a href="">mozilla.org</a> contributors. Content available under a <a href="">Creative Commons license.</a></p>
-            <p class="footnote"><a href="">Contribute to this page</a></p>
+
+          <section class="table">
+            <header class="table-row header-row">
+              <div class="table-cell">About</div>
+              <div class="table-cell">Resources</div>
+              <div class="table-cell wide-cell">Connect with Us</div>
+              <div class="table-cell">Legal</div>
+            </header>
+
+            <div class="table-row">
+              <div class="table-cell"><a href="">Mission</a></div>
+              <div class="table-cell"><a href="">BadgeKit</a></div>
+              <div class="table-cell wide-cell"><a href="">Twitter</a></div>
+              <div class="table-cell"><a href="">Privacy Policy</a></div>
+            </div>
+
+            <div class="table-row">
+              <div class="table-cell"><a href="">Jobs</a></div>
+              <div class="table-cell"><a href="">Community</a></div>
+              <div class="table-cell wide-cell"><a href="">Facebook</a></div>
+              <div class="table-cell"><a href="">Terms of Use</a></div>
+            </div>
+
+            <div class="table-row">
+              <div class="table-cell"><a href="">Press</a></div>
+              <div class="table-cell"><a href="">Wiki</a></div>
+              <div class="table-cell wide-cell"><a href="">Blog</a></div>
+              <div class="table-cell"><a href=""></a></div>
+            </div>
+
+            <div class="table-row">
+              <div class="table-cell"><a href="">FAQ</a></div>
+              <div class="table-cell"><a href="">GitHub</a></div>
+              <div class="table-cell wide-cell"><a href="">SlideShare</a></div>
+              <div class="table-cell"><a href=""></a></div>
+            </div>
+
+            <div class="table-row">
+              <div class="table-cell"><a href="">Join Mozilla</a></div>
+              <div class="table-cell"><a href=""></a></div>
+              <div class="table-cell wide-cell"><a href="">Community Google Group</a></div>
+              <div class="table-cell"><a href=""></a></div>
+            </div>
+
+            <div class="table-row">
+              <div class="table-cell"><a href=""></a></div>
+              <div class="table-cell"><a href=""></a></div>
+              <div class="table-cell wide-cell"><a href="">Developer Google Group</a></div>
+              <div class="table-cell"><a href=""></a></div>
+            </div>
+
+            <div class="table-row">
+              <div class="table-cell"><a href=""></a></div>
+              <div class="table-cell"><a href=""></a></div>
+              <div class="table-cell wide-cell"><a href="">IRC</a></div>
+              <div class="table-cell"><a href=""></a></div>
+            </div>
           </section>
 
-          <ul class="footer-menu menu left">
-            <li class="menu-item">
-              <a href="#">Contact Us</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Partner With Us</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Donate</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Legal Notices</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Report Trademark Abuse</a>
-            </li>
-          </ul>
-
-          <section class="other-lang right">
-            <h3>Other languages:</h3>
-            <select id="job_engagement" name="job[engagement]">
-              <option value="English" selected="selected">English</option>
-              <option value="Something">Something</option>
-              <option value="Other">Other</option>
-            </select>
-          </section>
         {%- endblock %}
       </footer>
     {%- endblock %}
@@ -171,6 +190,7 @@
     <script src="https://login.persona.org/include.js"></script>
     <script src="{{ static('/js/jquery.min.js') }}"></script>
     <script src="{{ static('/js/nunjucks.min.js') }}"></script>
+    <script src="{{ static('/js/masonry.pkgd.min.js') }}"></script>
     <script src="{{ static('/js/common.js') }}"></script>
     <script src="{{loginScriptUrl}}"></script>
   {%- endblock %}

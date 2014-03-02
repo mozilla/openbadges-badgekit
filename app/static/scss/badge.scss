@@ -27,7 +27,7 @@
     position: absolute;
     color: $gray;
     top: 6px;
-    left: 255px;
+    left: 210px;
     padding: 3px;
     cursor: pointer;
   }
@@ -62,7 +62,7 @@
   }
   .fa-spin {
     position: absolute;
-    left: 345px;
+    left: 300px;
     top: 10px;
     &.hidden {
       display: none;
@@ -182,7 +182,6 @@
   .badge-field {
     width: $three-wide;
   }
-  .tags-field { width: 37.7%; }
   .short-description { height: 80px; }
   .with-button-field { width: 40.6%; }
   .fa-plus { margin-left: 5px; }

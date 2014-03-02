@@ -1,0 +1,21 @@
+@import "base";
+.help-page {
+  text-align: center;
+  padding-bottom: 30px;
+  .sub-heading { font-size: 25px; }
+  .help-section {
+    margin: 0 auto;
+    width: $four-wide;
+    padding: 20px 0 0 0;
+    .help-question {
+      font-weight: bold;
+      margin: 20px 0 10px 0;
+    }
+    .help-answer { line-height: 1.8em; }
+    .help-links {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+}
+
