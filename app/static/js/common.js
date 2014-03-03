@@ -32,4 +32,9 @@ $(document).ready(function() {
     }
   });
 
+  var badgeThumbs = $('.js-badgethumb');
+    badgeThumbs.each(function() {
+      var imageUrl = $(this).data('image');
+      $(this).css('background-image', imageUrl);
+  });
 });

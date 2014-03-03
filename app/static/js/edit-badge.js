@@ -67,6 +67,7 @@ $(document).ready(function() {
   if (!saveButton.attr('disabled')) {
     var saveSpinner = $('.js-save-spinner');
     var form = $('.js-badge-form');
+    form.ajaxForm();
 
     var saveButtonText = saveButton.val();
 
@@ -80,12 +81,13 @@ $(document).ready(function() {
       saveBadge(true);
       return false;
     });
+
+    var uploadImage = $('.js-upload-image');
+    uploadImage.change(function() {
+      form.ajaxSubmit();
+    });
   }
 
-  var uploadImage = $('.js-upload-image');
-  uploadImage.change(function() {
-    form.submit();
-  });
 
   var nameField = $('.js-name-field');
   var hiddenNameField = $('.js-hidden-name-field');
