@@ -68,7 +68,7 @@
 
         {% for badge in badges %}
           <section class="item badge-template left">
-            <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
+            <div class="badgethumb js-badgethumb" data-image="url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
             <h2>{{ badge.name }}</h2>
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
             <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="edit-link block"><i class="fa fa-pencil"></i>Edit</a>

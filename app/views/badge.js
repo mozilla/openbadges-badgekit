@@ -16,7 +16,7 @@ function getBadgeById(badgeId, category, callback) {
    });
   }
   else {
-    openbadger.getBadge({ slug: badgeId }, function(err, data) {
+    openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, data) {
       if (err)
         return callback(err);
 
@@ -259,13 +259,12 @@ exports.save = function save (req, res, next) {
 
 exports.archive = function archive (req, res, next) {
   const badgeId = req.params.badgeId;
-  openbadger.getBadge({ slug: badgeId }, function(err, badge) {
+  openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, badge) {
     if (err)
       return res.send(500, err);
 
     badge.archived = true;
-
-    openbadger.updateBadge(badge, function(err) {
+    openbadger.updateBadge(openbadger.makeContext({ badge: badge }), function(err) {
       if (err) 
         return res.send(500, err);
 
@@ -288,9 +287,13 @@ exports.publish = function publish (req, res, next) {
         return res.send(500, err);
 
       var badge = openbadger.toOpenbadgerBadge(row);
-      openbadger.createBadge(badge, function(err) {
-        if (err)
+      openbadger.createBadge(openbadger.makeContext({ badge: badge }), function(err) {
+        if (err) {
+          if ((/^ResourceConflictError/).test(err.toString())) {
+            return res.send(409, 'A badge with that name already exists');
+          }
           return res.send(500, err);
+        }
 
         Badge.update({ id: badgeId, published: true }, function(err, result) {
           if (err)
@@ -308,7 +311,7 @@ exports.publish = function publish (req, res, next) {
 
 exports.copy = function copy (req, res, next) {
   const badgeId = req.params.badgeId;
-  openbadger.getBadge({ slug: badgeId }, function(err, badge) {
+  openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, badge) {
     if (err)
       return res.send(500, err);
 
@@ -318,15 +321,31 @@ exports.copy = function copy (req, res, next) {
 
       badge = openbadger.toBadgekitBadge(badge);
       delete badge.id;
+      delete badge.lastUpdated;
       badge.created = new Date();
       delete badge.imageUrl;
       badge.imageId = imageResult.insertId;
+      var criteria = badge.criteria;
+      delete badge.criteria;
 
-      Badge.put(badge, function (err, result) {
-        if (err)
+      Badge.put(badge, function (err, badgeResult) {
+        if (err) {
           return res.send(500, err);
+        }
 
-        return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
+        Badge.getOne({ id: badgeResult.insertId }, function(err, badgeRow) {
+          if (err) {
+            return res.send(500, err);
+          }
+
+          badgeRow.setCriteria(criteria, function(err) {
+            if (err) {
+              return res.send(500, err);
+            }
+
+            return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
+          });
+        });
       });
     });
   });
@@ -364,7 +383,7 @@ exports.image = function image (req, res, next) {
 exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge({ slug: badgeId }, function(err, data) {
+  openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, data) {
     if (err)
       return res.send(500, err);
 
@@ -382,20 +401,20 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
   };
 
   // This API endpoint isn't yet implemented, and likely "query" will have to be changed when it is
-  openbadger.grantBadgeAward(req.body.badgeId, query, function(err, data) {
+  //openbadger.grantBadgeAward(openbadger.makeContext(), req.body.badgeId, query, function(err, data) {
     //suppressing errors for now, as this will always result in an error at the moment
     //if (err)
     //  return res.send(500, err);
 
-    return middleware.redirect('directory', 302)(req, res, next);
-  });
-
+      return middleware.redirect('directory', 302)(req, res, next);
+  //});
+  
 };
 
 exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge({ slug: badgeId }, function(err, data) {
+  openbadger.getBadge(openbadger.makeContext({badge: { slug: badgeId }}), function(err, data) {
     if (err)
       return res.send(500, err);
 

@@ -254,8 +254,9 @@
     width: 100%;
     height: 295px;
     background-color: $white;
-    background-size: 150%;
+    background-size: 165%;
     background-position: 50%;
+    background-repeat: no-repeat;
     -webkit-transition: .25s;
     -moz-transition: .25s;
     -o-transition: .25s;
@@ -274,7 +275,7 @@
   }
   .view-btn,
   .use-btn,
-  .action-btn { width: 49.3%; }
+  .action-btn { width: 49.0%; }
   .fa-cloud-upload { font-size: 20px; }
   .upload-edit {
     padding: 5px 0 20px 0;
