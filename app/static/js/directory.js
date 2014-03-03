@@ -34,6 +34,9 @@ $(document).ready(function() {
     return false;
   });
 
+  var notification = $('.notification');
+  notification.find('p').delay('10000').fadeOut('slow'); 
+
   $(document).click(function() {
     $('.js-action-dropdown').hide();
   });
