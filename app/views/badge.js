@@ -41,6 +41,17 @@ exports.home = function home (req, res, next) {
   });
 };
 
+exports.criteria = function criteria (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  getBadgeById(badgeId, 'published', function(err, data) {
+    if (err)
+      return res.send(404, 'Not Found');
+
+    res.render('badge/criteria.html', data);
+  });
+};
+
 exports.edit = function edit (req, res, next) {
   const badgeId = req.params.badgeId;
   const section = req.query.section || 'description';
