@@ -25,8 +25,8 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.imageUrl = badge.imageUrl;
   newBadge.issuerUrl = badge.issuerUrl;
   newBadge.criteria = badge.criteria;
-  newBadge.created = badge.created;
-  newBadge.lastUpdated = badge.created; // not a typo.  badgekit-api doesn't yet have a notion of last updated.
+  newBadge.created = new Date(badge.created);
+  newBadge.lastUpdated = new Date(badge.created); // not a typo.  badgekit-api doesn't yet have a notion of last updated.
 
   return newBadge;
 };

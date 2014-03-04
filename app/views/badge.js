@@ -36,6 +36,9 @@ exports.home = function home (req, res, next) {
       return res.send(500, err);
 
     data.category = category;
+    data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' + 
+                                  data.badge.created.getDate() + ', ' + 
+                                  data.badge.created.getFullYear();
 
     res.render('badge/home.html', data);
   });
