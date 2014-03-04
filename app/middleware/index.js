@@ -87,3 +87,20 @@ exports.verifyPermission = function verifyPermission (accessList, deniedPage) {
   };
 };
 
+const monthNamesByLanguage = {
+  en: {
+    fullNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    shortNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  }
+}
+
+exports.getMonthName = function getMonthName (monthNum, getShort, lang) {
+  lang = (lang && (lang in monthNamesByLanguage)) ? lang : 'en';
+
+  if (!getShort) {
+    return monthNamesByLanguage[lang].fullNames[monthNum];
+  }
+  else {
+    return monthNamesByLanguage[lang].shortNames[monthNum];
+  }
+}
