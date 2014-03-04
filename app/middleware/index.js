@@ -66,6 +66,10 @@ exports.sass = function (root, prefix) {
 };
 
 exports.verifyPermission = function verifyPermission (accessList, deniedPage) {
+  if (typeof accessList === 'string' || accessList instanceof String) {
+    accessList = JSON.parse(accessList);
+  }
+
   return function (req, res, next) {
     accessList = accessList || [];
 
