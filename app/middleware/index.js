@@ -65,15 +65,21 @@ exports.sass = function (root, prefix) {
   });
 };
 
-exports.verifyPermission = function verifyPermission (req, res, next) {
-  var accessList = config('ACCESS_LIST', []);
+exports.verifyPermission = function verifyPermission (accessList, deniedPage) {
+  return function (req, res, next) {
+    accessList = accessList || [];
 
-  if (req.fromLoggedInUser()) {
-    if (accessList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) }))
-      return next();
-    else
-      return res.render('sorry.html');
-  }
-  return next();
+    if (req.fromLoggedInUser()) {
+      if (accessList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) }))
+        return next();
+      else {
+        if (!deniedPage)
+          return res.send(403, 'Access Denied');
+        else
+          return res.render(deniedPage);
+      }
+    }
+    return next();
+  };
 };
 
