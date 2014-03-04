@@ -35,6 +35,9 @@ exports.home = function home (req, res, next) {
     if (err)
       return res.send(500, err);
 
+    if (!data.badge)
+      return res.send(404, "Not Found");
+    
     data.category = category;
     data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' + 
                                   data.badge.created.getDate() + ', ' + 
