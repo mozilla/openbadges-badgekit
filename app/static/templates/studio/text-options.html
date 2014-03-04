@@ -1,12 +1,12 @@
-<div class="form-field-wrapper">
-  <label class="badge-label block" for="textType">Text Background</label>
+<label class="badge-label studio-label block" for="textType">Text Background</label>
+<div class="studio-input-image-container clearfix">
   {% for text in texts %}
-    <input class="radio-badge-field js-text-radio" type="radio" name="textType" value="{{ text.id }}" {% if savedTextType == text.id %}checked{% endif %}/>
-    <img class="studio-thumb" src="{{ text.image }}"/>
+    <div class="studio-input-image left">
+      <img class="studio-thumb block" src="{{ text.image }}"/>
+      <input class="radio-badge-field block js-text-radio" type="radio" name="textType" value="{{ text.id }}" {% if savedTextType == text.id %}checked{% endif %}/>
+    </div>
   {% endfor %}
 </div>
 
-<div class="form-field-wrapper">
-  <label class="badge-label block" for="textContents">Text</label>
-  <input class="badge-field js-text-contents" type="text" name="textContents" value="{{ savedTextContents }}" placeholder="Enter Text Here"/>
-</div>
+<label class="badge-label studio-label block" for="textContents">Text</label>
+<input class="badge-field studio-field js-text-contents" type="text" name="textContents" value="{{ savedTextContents }}" placeholder="Start typing..."/>
