@@ -38,7 +38,7 @@ persona.express(app, { audience: config('PERSONA_AUDIENCE'),
                        redirects: { notLoggedIn: '/', notLoggedOut: '/directory' },
                        selectors: { login: '.js-login', logout: '.js-logout' } });
 
-var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', '[]'), 'sorry.html')];
+var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', []), 'sorry.html')];
 
 app.get('/', 'home', [persona.ensureLoggedOut()], views.home);
 app.get('/directory', 'directory', secureRouteHandlers, views.directory.home);
