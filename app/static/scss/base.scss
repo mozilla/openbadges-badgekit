@@ -97,11 +97,24 @@ body {
   color: $brown;
 }
 
-h1 { font-size: 30px; }
+h1 {
+  font-size: 38px;
+  font-family: "Open Sans Light";
+}
 
 h2 { font-size: 20px; }
 
-p { font-size: 15px; }
+h5 {
+  font-family: "Open Sans", Arial;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+p {
+  font-family: "Open Sans Light";
+  font-size: 16px;
+}
 
 li {
   list-style: none;
