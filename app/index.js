@@ -1,3 +1,8 @@
+// New Relic Server monitoring support
+if ( process.env.NEW_RELIC_ENABLED ) {
+  require( "newrelic" );
+}
+
 const config = require('./lib/config');
 const nunjucks = require('nunjucks');
 const express = require('express');
