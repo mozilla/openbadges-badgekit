@@ -71,7 +71,7 @@ $(document).ready(function() {
       criterionDivs.last().after(newCriterionDiv);
     }
     
-    $('.js-criterion').not(criterionDivs).click(toggleNote);
+    $('.js-criterion').not(criterionDivs).find('.js-add-note').click(toggleNote);
   });
 
   var categoryAnchors = $('.js-category-anchor');

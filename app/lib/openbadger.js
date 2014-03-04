@@ -42,6 +42,7 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
   newBadge.consumerDescription = badge.consumerDescription;
   newBadge.rubricUrl = badge.rubricUrl;
   newBadge.issuerUrl = badge.issuerUrl;
+  newBadge.criteriaUrl = config('PERSONA_AUDIENCE') + '/badge/' + newBadge.slug + '/criteria';
   newBadge.timeValue = badge.timeValue;
   newBadge.timeUnits = badge.timeUnits;
   newBadge.limit = badge.limit;
