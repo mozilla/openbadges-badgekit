@@ -14,6 +14,20 @@ $(document).ready(function() {
     }
   });
 
+  var tooltipButton = $('.js-tooltip');
+  var tooltipDropdown = $('.js-tooltip-container');
+
+  tooltipButton.click(function(e) {
+    var thisTooltipDropdown = $(this).closest('label').find('.js-tooltip-container');
+    tooltipDropdown.not(thisTooltipDropdown).hide();
+    thisTooltipDropdown.toggle();
+    return false;
+  });
+
+  $('body').click(function(e) {
+    tooltipDropdown.hide();
+  });
+
   function saveBadge(doRedirect) {
     clearTimeout(timeoutID);
     saveButton.attr('disabled', true);
@@ -30,6 +44,13 @@ $(document).ready(function() {
       }
     });
   }
+
+  function toggleNote() {
+    $(this).closest('.js-criterion').find('.js-note-field-block').toggle();
+    return false;
+  }
+
+  $('.js-add-note').click(toggleNote);
 
   var numCriteriaSelect = $('.js-num-criteria');
 
@@ -49,6 +70,8 @@ $(document).ready(function() {
       var newCriterionDiv = nunjucks.render('badge/criterion.html', { index: i });
       criterionDivs.last().after(newCriterionDiv);
     }
+    
+    $('.js-criterion').not(criterionDivs).click(toggleNote);
   });
 
   var categoryAnchors = $('.js-category-anchor');

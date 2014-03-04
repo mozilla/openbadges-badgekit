@@ -47,7 +47,7 @@
     <form class="badge-form clearfix js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post" enctype="multipart/form-data">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
       <input type="hidden" name="badgeId" value="{{ badge.id }}"/>
-      <input type="hidden" class="js-hidden-name-field"name="name" value="{{ badge.name }}"/>
+      <input type="hidden" class="js-hidden-name-field" name="name" value="{{ badge.name }}"/>
 
       <!-- <img class="badge-image right" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/> -->
 
@@ -167,7 +167,7 @@
           {{ criterionTemplate.generateCriterion(loop.index0, criterion, disabled()) }}
         {% endfor %}
         <div class="form-field-wrapper">
-          <label class="badge-label left" for="rubricUrl">Rubric URL<p class="small-copy">Link to external materials.<i class="fa fa-question-circle"></i></p>
+          <label class="badge-label left" for="rubricUrl">Rubric URL<p class="small-copy">Link to external materials.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">Guide your mentors with PDFs and other documents.</p></div>
           </label>
           <input class="badge-field" type="text" name="rubricUrl" {{ disabled() }} value="{{ badge.rubricUrl }}" placeholder="http://site.org/123/rubric.pdf"/>
@@ -189,7 +189,7 @@
         </div>
 
         <div class="form-field-wrapper clearfix">
-          <label class="badge-label left" for="timeValue">Time<p class="small-copy">Approximate time for earners to complete.<i class="fa fa-question-circle"></i></p>
+          <label class="badge-label left" for="timeValue">Time<p class="small-copy">Approximate time for earners to complete.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">An estimate of total time for activities.</p></div>
           </label>
           <input class="short-badge-field badge-field" type="number" min="0" name="timeValue" value="{{ badge.timeValue }}"/>
@@ -206,7 +206,7 @@
         </div>
 
         <div class="form-field-wrapper clearfix">
-          <label class="badge-label left" for="license">License<p class="small-copy">Choose a creative commons license<i class="fa fa-question-circle"></i></p>
+          <label class="badge-label left" for="license">License<p class="small-copy">Choose a creative commons license<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">Can others remix and issue your badge?</p></div>
           </label>
           <div class="form-dropdown">
@@ -231,7 +231,7 @@
         </div>
 
         <div class="form-field-wrapper clearfix">
-          <label class="badge-label left" for="multiClaimCode">Multi-use Claim Code<p class="small-copy">Allow earner to self-issue? Provide a claim code.<i class="fa fa-question-circle"></i></p>
+          <label class="badge-label left" for="multiClaimCode">Multi-use Claim Code<p class="small-copy">Allow earner to self-issue? Provide a claim code.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy"><a href="{{ url('help') }}">Learn more</a> about claim code.</p></div>
           </label>
           <input class="badge-field" type="text" {{ disabled() }} name="multiClaimCode" value="{{ badge.multiClaimCode }}"></input>
@@ -247,4 +247,5 @@
   {{ super() }}
   <script src="{{ static('/js/edit-badge.js') }}"></script>
   <script src="{{ static('/js/badge-studio.js') }}"></script>
+  <script src="{{ static('/js/jquery.form.min.js') }}"></script>
 {%- endblock %}

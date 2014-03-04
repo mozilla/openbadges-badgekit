@@ -64,3 +64,16 @@ exports.sass = function (root, prefix) {
     debug: config('debug', false)
   });
 };
+
+exports.verifyPermission = function verifyPermission (req, res, next) {
+  var accessList = config('ACCESS_LIST', []);
+
+  if (req.fromLoggedInUser()) {
+    if (accessList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) }))
+      return next();
+    else
+      return res.render('sorry.html');
+  }
+  return next();
+};
+
