@@ -1,4 +1,10 @@
 $(document).ready(function() {
+  var masonryContainer = document.querySelector('.js-masonry-container');
+  var masonry = new Masonry(masonryContainer, {
+    itemSelector: '.item',
+    gutter: 30
+  });
+
   var actionButtons = $('.js-action-btn');
   actionButtons.click(function(e) {
     var target = $(e.target);

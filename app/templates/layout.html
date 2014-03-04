@@ -120,68 +120,53 @@
     {%- endblock %}
 
     {% block footerWrapper -%}
-      <footer id="footer" class="footer-container">
+      <footer id="footer" class="footer-container clearfix">
         {% block footer -%}
-          <a href="http://openbadges.org" class="open-badges-logo left">Mozilla Open Badges</a>
-
-          <section class="table">
-            <header class="table-row header-row">
-              <div class="table-cell">About</div>
-              <div class="table-cell">Resources</div>
-              <div class="table-cell wide-cell">Connect with Us</div>
-              <div class="table-cell">Legal</div>
-            </header>
-
-            <div class="table-row">
-              <div class="table-cell"><a href="">Mission</a></div>
-              <div class="table-cell"><a href="">BadgeKit</a></div>
-              <div class="table-cell wide-cell"><a href="">Twitter</a></div>
-              <div class="table-cell"><a href="">Privacy Policy</a></div>
-            </div>
-
-            <div class="table-row">
-              <div class="table-cell"><a href="">Jobs</a></div>
-              <div class="table-cell"><a href="">Community</a></div>
-              <div class="table-cell wide-cell"><a href="">Facebook</a></div>
-              <div class="table-cell"><a href="">Terms of Use</a></div>
-            </div>
-
-            <div class="table-row">
-              <div class="table-cell"><a href="">Press</a></div>
-              <div class="table-cell"><a href="">Wiki</a></div>
-              <div class="table-cell wide-cell"><a href="">Blog</a></div>
-              <div class="table-cell"><a href=""></a></div>
-            </div>
-
-            <div class="table-row">
-              <div class="table-cell"><a href="">FAQ</a></div>
-              <div class="table-cell"><a href="">GitHub</a></div>
-              <div class="table-cell wide-cell"><a href="">SlideShare</a></div>
-              <div class="table-cell"><a href=""></a></div>
-            </div>
-
-            <div class="table-row">
-              <div class="table-cell"><a href="">Join Mozilla</a></div>
-              <div class="table-cell"><a href=""></a></div>
-              <div class="table-cell wide-cell"><a href="">Community Google Group</a></div>
-              <div class="table-cell"><a href=""></a></div>
-            </div>
-
-            <div class="table-row">
-              <div class="table-cell"><a href=""></a></div>
-              <div class="table-cell"><a href=""></a></div>
-              <div class="table-cell wide-cell"><a href="">Developer Google Group</a></div>
-              <div class="table-cell"><a href=""></a></div>
-            </div>
-
-            <div class="table-row">
-              <div class="table-cell"><a href=""></a></div>
-              <div class="table-cell"><a href=""></a></div>
-              <div class="table-cell wide-cell"><a href="">IRC</a></div>
-              <div class="table-cell"><a href=""></a></div>
-            </div>
-          </section>
-
+          <div class="footer-logo-container left">
+            <a href="http://openbadges.org" id="open-badges-logo" target="_blank">
+              <img src="{{ static('images/OpenBadges and Macarthur.png') }}" class="open-mcarther-logo">
+            </a>
+          </div>
+          <div class="footer-links right">
+            <section class="left footer-columns">
+              <h5>About</h5>
+              <ul>
+                <li><a href="http://www.mozilla.org/en-US/mission/">Mission</a></li>
+                <li><a href="http://openbadges.org/jobs/">Jobs</a></li>
+                <li><a href="http://openbadges.org/press/">Press</a></li>
+                <li><a href="http://openbadges.org/legal_faq/ ">FAQ</a></li>
+                <li><a href="https://sendto.mozilla.org/page/contribute/EOYFR2013-newdefault">Join Mozilla</a></li>
+              </ul>
+            </section>
+            <section class="left footer-columns">
+              <h5>Resources</h5>
+              <ul>
+                <li><a href="http://badgekit.openbadges.org/">BadgeKit</a></li>
+                <li><a href="http://community.openbadges.org/">Community</a></li>
+                <li><a href="https://wiki.mozilla.org/Badges">Wiki</a></li>
+                <li><a href="https://github.com/mozilla/openbadges-badgekit">GitHub</a></li>
+              </ul>
+            </section>
+            <section class="left footer-columns">
+              <h5>Connect with Us</h5>
+              <ul>
+                <li><a href="https://twitter.com/openbadges">Twitter</a></li>
+                <li><a href="https://www.facebook.com/MozillaOpenBadges">Facebook</a></li>
+                <li><a href="http://openbadges.tumblr.com/">Blog</a></li>
+                <li><a href="http://www.slideshare.net/OpenBadges">SlideShare</a></li>
+                <li><a href="http://bit.ly/OpenBadgesGroup">Community Google Group</a></li>
+                <li><a href="http://bit.ly/OBIDev">Developer Google Group</a></li>
+                <li><a href="">IRC</a></li>
+              </ul>
+            </section>
+            <section class="left footer-columns">
+              <h5>Legal</h5>
+              <ul>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Terms of Use</a></li>
+              </ul>
+            </section>
+          </div>
         {%- endblock %}
       </footer>
     {%- endblock %}

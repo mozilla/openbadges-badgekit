@@ -46,6 +46,45 @@
   }
 }
 
+.form-col-1,
+.form-col-2 {
+  width: 43%;
+  margin-right: 5%;
+}
+
+.form-container { padding: 50px 0; }
+.sign-up-form {
+  width: $six-wide;
+  padding-top: 5px;
+  .form-fields { width: $five-wide; }
+  .form-row {
+    width: $six-wide;
+    span {
+      margin-right: calc( 5% + 2px);
+      margin-bottom: 5px;
+      line-height: 14px;
+      padding: 11px 0 11px 5px;
+    }
+    input {
+      height: 32px;
+      padding-left: 5px;
+      border: 1px solid $light-gray;
+      border-radius: 2px;
+    }
+  }
+  button {
+    background-color: $dark-gray;
+    border: none;
+    color: $white;
+    font-size: 12px;
+    border-radius: 2px;
+    &:hover { background-color: $hover-gray; }
+  }
+}
+
+.thanks-for-signup { display: none; }
+
+
 .splash-image {
   width: $six-wide;
   color: $white;
@@ -53,21 +92,18 @@
   background-size: cover;
   height: 449px;
   padding: 20px;
-  .badges-made-simple {
-    width: $three-wide;
-    margin: 135px 100px;
-    .small-copy {
-      color: white;
-      line-height: 1.5em;
-    }
-    .what-is-header {
-      font-size: 40px;
-      margin-bottom: 15px;
-    }
-    .what-is-header,
-    .small-copy {
-      width: $five-wide;
-    }
+  .what-is-header,
+  .small-copy {
+    width: $two-wide;
+  }
+  .small-copy {
+    color: white;
+    line-height: 170%;
+    margin-bottom: 100px;
+  }
+  .what-is-header {
+    font-size: 40px;
+    margin-top: 100px;
   }
 }
 
