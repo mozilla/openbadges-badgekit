@@ -397,3 +397,160 @@
   padding: .5em;
   font-weight: bold;
 }
+
+/*APPLICATION STYLES*/
+.application-container { padding: 20px; }
+
+.badger-info {
+  width: $three-wide;
+  .badgethumb {
+    width: 25px;
+    height: auto;
+    margin: 0 20px 50px 0;
+  }
+  .badger-email {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: $gray;
+    font-weight: normal;
+    font-size: 30px;
+  }
+  .badge-name {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .application-status,
+  .application-submission-date {
+    margin: 0;
+    font-size: 13px;
+  }
+}
+
+.application-review-status {
+  width: $three-wide;
+  .warning-text {
+    text-align: right;
+    color: $gray;
+  }
+}
+
+.fa-check-circle,
+.fa-times-circle,
+.fa-circle-o {
+  font-size: 25px;
+  padding: 0 20px;
+}
+.fa-check-circle { color: $medium-green; }
+.fa-times-circle { color: orange; }
+
+.status-bar {
+  background-color: $gray;
+  width: $four-wide;
+  padding: 10px;
+  margin-top: 50px;
+  .status-info {
+    line-height: 1.3em;
+    margin: 0;
+    color: $white;
+    span {
+      font-size: 17px;
+      font-weight: bold;
+    }
+  }
+}
+
+.status-visual {
+  width: $four-wide;
+  background-color: $light-gray;
+  padding: 10px;
+}
+
+.approval-section {
+  padding: 20px 0;
+  .badgethumb {
+    width: 50px;
+    height: auto;
+    margin: 0 20px 20px 0;
+  }
+  .pending-badge-title { margin-bottom: 0; }
+  .badge-approval-status {
+    margin-top: 0;
+    margin-right: 20px;
+  }
+  .pending-list-table {
+    display: table;
+    width: $five-wide;
+    line-height: 2.5em;
+    &:hover {
+      cursor: pointer;
+      background-color: $lightest-blue;
+    }
+    .pending-cell {
+      display: table-cell;
+      width: 20%;
+      border-bottom: 1px solid $gray;
+    }
+    .pending-button {
+      background-color: $gray;
+    }
+    .email-cell { color: $light-blue; }
+  }
+}
+
+.application-tabs {
+  position: relative;
+  min-height: 800px; /* This part sucks...need to figure out another solution*/
+  margin: 25px 0;
+  .tab {
+    margin: 0 10px;
+    .tab-label {
+      background: $light-beige;
+      padding: 10px 10px 6px 10px;
+      border: 1px solid $dark-beige;
+      margin-left: -1px;
+      position: relative;
+      left: 1px;
+      cursor: pointer;
+    }
+    .tab-input {
+      display: none;
+      &:checked ~ .tab-label {
+        background-color: $gray;
+        color: $white;
+        z-index: 2;
+      }
+      &:checked ~ .tab-label ~ .tab-content {
+        z-index: 1;
+      }
+    }
+    .tab-content {
+      position: absolute;
+      top: 28px;
+      left: 0;
+      background-color: $white;
+      right: 0;
+      bottom: 0;
+      padding: 20px;
+      border-top: 1px solid $gray;
+      .title {
+        margin-bottom: 0;
+        font-weight: bold;
+      }
+      .title,
+      .small-copy { width: $four-wide; }
+      .criterion-left,
+      .criterion-right {
+        width: $three-wide;
+        .title,
+        .small-copy { width: $six-wide; }
+        .fa-check-circle,
+        .fa-times-circle { padding: 0 10px; }
+      }
+    }
+  }
+  .badge-requirement {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: red;
+  }
+}

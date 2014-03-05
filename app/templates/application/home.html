@@ -1,0 +1,230 @@
+{% extends "application/layout.html" %}
+{% block content %}
+  <div class="container beige-container clearfix">
+    <div class="badges-container clearfix">
+      <section class="application-pending-info">
+        <span class="pending-info-heading">Find an APPLICANT, then remix it!</span><span class="templates-info-text"> Templates are guides to help you create unique badges. A few designs are featured below. They are editable, all the way from the metadata information to the featured image. Browse the options below to start working within one of the existing styles. You can modify the template you choose to align it with your vision. Or you can make a template from scratch by clicking the "Add a new template" button below.</span>
+      </section>
+
+      <section class="approval-section">
+        <section class="badges-for-approval clearfix">
+          <img class="badgethumb left" src="http://www.lns.cornell.edu/Resources/DesignServices/rsrc/LEPP/Resources/DesignServices/CommonLogos/Cornell_Seal_Black.png">
+          <h2 class="pending-badge-title">A Shield of Approval</h2>
+          <p class="badge-approval-status left">Queue <a href="" class="number-of-badges">27</a></p>
+          <p class="badge-approval-status left">Applied <a href="" class="number-of-badges">85</a></p>
+          <p class="badge-approval-status left">Awarded <a href="" class="number-of-badges">10</a></p>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-1@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-2@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-3@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-4@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+      </section>
+
+      <section class="approval-section">
+        <section class="badges-for-approval clearfix">
+          <img class="badgethumb left" src="http://www.lns.cornell.edu/Resources/DesignServices/rsrc/LEPP/Resources/DesignServices/CommonLogos/Cornell_Seal_Black.png">
+          <h2 class="pending-badge-title">B Shield of Approval</h2>
+          <p class="badge-approval-status left">Queue <a href="" class="number-of-badges">27</a></p>
+          <p class="badge-approval-status left">Applied <a href="" class="number-of-badges">85</a></p>
+          <p class="badge-approval-status left">Awarded <a href="" class="number-of-badges">10</a></p>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-1@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell pending-"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-2@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-3@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+
+        <section class="pending-list-table">
+          <div class="pending-cell email-cell">email-4@email.com</div>
+          <div class="pending-cell">February 14th, 2014</div>
+          <div class="pending-cell">Saved</div>
+          <div class="pending-cell"><a href="" class="btn pending-btn">Sensitive</a></div>
+        </section>
+      </section>
+    </div>
+
+
+    <!-- SINGLE APPLICANT SECTION -->
+    <section class="application-container white-container clearfix">
+      <div class="badger-info left">
+        <h1 class="badger-email">email-1@email.com</h1>
+        <img class="badgethumb left" src="http://www.lns.cornell.edu/Resources/DesignServices/rsrc/LEPP/Resources/DesignServices/CommonLogos/Cornell_Seal_Black.png"><span class="badge-name">ABC Badge</span>
+        <p class="application-status">Status: Application Pending</p>
+        <p class="application-submission-date">Submitted: 12/1/2013</p>
+      </div>
+
+      <div class="application-review-status right">
+        <p class="small-copy warning-text">Review will close after 20 minutes of idle time.</p>
+        <a href="" class="btn cancel-btn right">Cancel & Exit</a>
+        <section class="status-bar right cb">
+          <p class="status-info">Applicant should meet all required items and <span>2</span> out of <span>3</span> optional criteria.</p>
+        </section>
+        <section class="status-visual right cb">
+          <!-- if requirement met --><i class="fa fa-check-circle"></i>
+          <!-- if requirement not met --><i class="fa fa-times-circle"></i>
+          <!-- if requirement not completed --><i class="fa fa-circle-o"></i>
+          <!-- if requirement not completed --><i class="fa fa-circle-o"></i>
+        </section>
+      </div>
+
+      <div class="application-tabs cb">
+        <div class="tab left">
+          <input type="radio" class="tab-input" class="tab-input" id="description" name="tab-group-1" checked>
+          <label class="tab-label" for="description">Description</label>
+
+          <div class="tab-content">
+            <p class="title">Short Description</p>
+            <p class="small-copy">Boiler plate language. Most of our badges use some variation of this to describe x, y, and z.</p>
+
+            <p class="title">Description for Earners</p>
+            <p class="small-copy">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my.</p>
+
+            <p class="title">Description for Consumers</p>
+            <p class="small-copy">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my.</p>
+
+            <p class="title">Tags</p>
+            <p class="small-copy">common tags, in our work, tomato, tomahto</p>
+          </div>
+        </div>
+
+        <div class="tab left">
+          <input type="radio" class="tab-input" id="evidence" name="tab-group-1">
+          <label class="tab-label" for="evidence">Evidence</label>
+
+          <div class="tab-content">
+            <p class="title first-title">Evidence #1 - Intro</p>
+            <p class="small-copy left">Some stuff written by somebody. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</p>
+
+            <a href="" class="btn cancel-btn right">Comment</a>
+
+            <p class="title">Evidence #2 - Link</p>
+            <p class="small-copy left">http://www.coolsite.co/mystuff/mypost</p>
+            <a href="" class="btn cancel-btn right">Comment</a>
+            <p class="small-copy">Hi. This is my link to a post on my blog.</p>
+
+            <p class="title">Evidence #3 - Picture</p>
+            <p class="small-copy left">This picture is a mashup potato. Hope you like it!</p>
+
+            <a href="" class="btn cancel-btn right">Comment</a>
+
+            <img src="" class="badger-uploaded-work">
+
+          </div>
+        </div>
+
+        <div class="tab left">
+          <input type="radio" class="tab-input" id="criteria" name="tab-group-1">
+          <label class="tab-label" for="criteria">Criteria</label>
+
+          <div class="tab-content">
+            <p class="title">Rubric</p>
+            <p class="small-copy">http://www.edsite.org/docs/rubric070.pdf</p>
+            <hr>
+            <section class="criterion-left left">
+              <p class="title">Criterion #1
+                <span class="badge-requirement">Required</span>
+                <i class="fa fa-check-circle"></i>
+              </p>
+              <p class="small-copy">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. </p>
+              <p class="small-copy">Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+            <!-- <section class="criterion-right left">
+              <p class="title">Review</p>
+              <input type="radio" name="meets" value="meets criterion">Meets Criterion<br>
+              <input type="radio" name="does-not" value="does not meet criterion">Does Not Meet Criterion
+            </section> -->
+            <hr class="cb">
+            <section class="criterion-left left">
+              <p class="title">Criterion #2<i class="fa fa-times-circle"></i></p>
+              <p class="small-copy">Description: A wonderful serinity...</p>
+              <p class="small-copy">Note: Remember to consider...</p>
+            </section>
+            <section class="criterion-right left">
+              <p class="title">Review</p>
+              <p class="small-copy">How well does this meet the criterion?</p>
+
+            </section>
+          </div>
+        </div>
+
+        <div class="tab left">
+          <input type="radio" class="tab-input" id="finish" name="tab-group-1">
+          <label class="tab-label" for="finish">Finish</label>
+
+          <div class="tab-content">
+            <form class="comment-form clearfix" name="input" action="" method="post" enctype="multipart/form-data">
+              <div class="form-field-wrapper">
+                <label class="badge-label left" for="issuerUrl">Issuer</label>
+                <textarea class="badge-field" type="text" name=""></textarea>
+              </div>
+
+              <div class="form-field-wrapper">
+                <label class="badge-label left" for="issuerUrl">Issuer</label>
+                <textarea class="badge-field" type="text" name=""></textarea>
+              </div>
+
+              <div class="form-field-wrapper">
+                <label class="badge-label left" for="issuerUrl">Issuer</label>
+                <textarea class="badge-field" type="text" name=""></textarea>
+              </div>
+
+              <div class="form-field-wrapper">
+                <label class="badge-label left" for="issuerUrl">Issuer</label>
+                <textarea class="badge-field" type="text" name=""></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="cb"></div>
+    </section>
+    <!-- SINGLE APPLICANT SECTION -->
+
+  </div>
+{% endblock %}
