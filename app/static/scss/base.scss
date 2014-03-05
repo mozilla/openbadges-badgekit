@@ -100,6 +100,7 @@ body {
 h1 {
   font-size: 38px;
   font-family: "Open Sans Light";
+  line-height: 1.1em;
 }
 
 h2 { font-size: 20px; }
@@ -118,7 +119,6 @@ p {
 
 li {
   list-style: none;
-  font-size: 15px;
 }
 
 a {
@@ -127,9 +127,9 @@ a {
   &:hover { color: $hover-blue; }
 }
 
-textarea {
-  height: 150px;
-}
+label { font-family: "Open Sans Light"; }
+
+textarea { height: 150px; }
 
 textarea,
 input {
@@ -164,6 +164,26 @@ input[type="checkbox"] + span:before {
 
 input[type="checkbox"]:checked + span:before {
   content: "\f046"; /* check */
+}
+
+/* Let's get this scrollbar started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: $light-gray;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: $dark-gray;
 }
 
 .block {

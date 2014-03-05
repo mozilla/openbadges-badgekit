@@ -9,6 +9,14 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
+  var formButton = $('.js-email-expandable');
+  var formDropdown = $('.js-expandable-section');
+
+  formButton.on("click", function(e) {
+    e.preventDefault();
+    formDropdown.toggle();
+  });
+
   var userDropdown = $('.js-user-dropdown');
 
   userDropdown.change(function() {

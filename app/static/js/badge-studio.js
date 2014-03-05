@@ -33,7 +33,7 @@ $(document).ready(function() {
     canvasContext.clearRect(0, 0, canvas.attr('width'), canvas.attr('height'));
     canvasContext.drawImage(shapeImg, 0, 0, canvas.attr('width'), canvas.attr('height'));
     canvasContext.globalCompositeOperation = 'source-atop';
-    
+
     if (backgroundImg) {
       canvasContext.drawImage(backgroundImg, 0, 0, canvas.attr('width'), canvas.attr('height'));
     }
@@ -90,8 +90,8 @@ $(document).ready(function() {
 
   shapeRadio.change(function() {
     backgroundDiv.add(textDiv).add(iconDiv).add(colorDiv).empty();
-    
-    shapeImg = $(this).next('img')[0];
+
+    shapeImg = $(this).prev('img')[0];
     backgroundImg = textImg = iconImg = colorImg = null;
     submitBtn.addClass('hidden');
     renderBadge();
@@ -114,7 +114,7 @@ $(document).ready(function() {
     backgroundRadio.change(function() {
       textDiv.add(iconDiv).add(colorDiv).empty();
 
-      backgroundImg = $(this).next('img')[0];
+      backgroundImg = $(this).prev('img')[0];
       textImg = iconImg = colorImg = null;
       submitBtn.addClass('hidden');
       renderBadge();
@@ -139,7 +139,7 @@ $(document).ready(function() {
     textRadio.change(function() {
       iconDiv.add(colorDiv).empty();
 
-      textImg = $(this).next('img')[0];
+      textImg = $(this).prev('img')[0];
       iconImg = colorImg = null;
       submitBtn.addClass('hidden');
       renderBadge();
@@ -168,7 +168,7 @@ $(document).ready(function() {
     iconRadio.change(function() {
       colorDiv.empty();
 
-      iconImg = $(this).next('img')[0];
+      iconImg = $(this).prev('img')[0];
       colorImg = null;
       submitBtn.addClass('hidden');
       renderBadge();
@@ -190,7 +190,7 @@ $(document).ready(function() {
     var colorRadio = $('.js-color-radio');
 
     colorRadio.change(function() {
-      colorImg = $(this).next('img')[0];
+      colorImg = $(this).prev('img')[0];
       submitBtn.removeClass('hidden');
       renderBadge();
 

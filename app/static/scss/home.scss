@@ -49,7 +49,7 @@
 .form-col-1,
 .form-col-2 {
   width: 43%;
-  margin-right: 5%;
+  margin-right: 7%;
 }
 
 .form-container { padding: 50px 0; }
@@ -59,11 +59,11 @@
   .form-fields { width: $five-wide; }
   .form-row {
     width: $six-wide;
+    margin-bottom: 5px;
+    line-height: 14px;
     span {
-      margin-right: calc( 5% + 2px);
-      margin-bottom: 5px;
-      line-height: 14px;
-      padding: 11px 0 11px 5px;
+      font-family: "Open Sans";
+      font-weight: bold;
     }
     input {
       height: 32px;
@@ -72,6 +72,7 @@
       border-radius: 2px;
     }
   }
+  .expandable-section { display: none; }
   button {
     background-color: $dark-gray;
     border: none;
@@ -85,25 +86,14 @@
 .thanks-for-signup { display: none; }
 
 
-.splash-image {
-  width: $six-wide;
-  color: $white;
-  background: url("../images/badgekit-splash.png") no-repeat;
-  background-size: cover;
-  height: 449px;
-  padding: 20px;
-  .what-is-header,
-  .small-copy {
-    width: $two-wide;
-  }
-  .small-copy {
-    color: white;
-    line-height: 170%;
-    margin-bottom: 100px;
-  }
-  .what-is-header {
-    font-size: 40px;
-    margin-top: 100px;
+.first {
+  background: url(../images/badgeKit-splash.png) #029DD9 center bottom no-repeat;
+  min-height: 450px;
+  margin-bottom: 100px;
+  .text {
+    width: 40%;
+    margin: 100px 0;
+    color: $white;
   }
 }
 
@@ -125,21 +115,22 @@
   .badge-template {
     .view-btn { width: $six-wide; }
   }
-  .or-seperator {
-    position: relative;
-    border-left: 1px solid $light-blue;
-    height: 300px;
-    margin: 65px 40px;
-    .or {
-      background: $white;
-      border: 1px solid $light-blue;
-      border-radius: 100px;
-      font-size: 20px;
-      color: $light-blue;
-      padding: 22px 25px;
-      position: absolute;
-      right: -35px;
-      top: 110px;
-    }
+}
+
+.or-seperator {
+  position: relative;
+  border-left: 1px solid $light-blue;
+  height: 300px;
+  margin: 65px 40px;
+  .or {
+    background: $white;
+    border: 1px solid $light-blue;
+    border-radius: 100px;
+    font-size: 20px;
+    color: $light-blue;
+    padding: 22px 25px;
+    position: absolute;
+    right: -35px;
+    top: 110px;
   }
 }

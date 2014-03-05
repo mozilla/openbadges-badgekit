@@ -1,7 +1,9 @@
-<div class="form-field-wrapper">
-  <label class="badge-label block" for="background">Background</label>
+<label class="badge-label studio-label block" for="background">Background</label>
+<div class="studio-input-image-container clearfix">
   {% for background in backgrounds %}
-    <input class="radio-badge-field js-background-radio" type="radio" name="background" value="{{ background.id }}" {% if savedBackground == background.id %}checked{% endif %}/>
-    <img class="studio-thumb" src="{{ background.image }}"/>
+    <div class="studio-input-image left">
+      <img class="studio-thumb block" src="{{ background.image }}"/>
+      <input class="radio-badge-field block js-background-radio" type="radio" name="background" value="{{ background.id }}" {% if savedBackground == background.id %}checked{% endif %}/>
+    </div>
   {% endfor %}
 </div>

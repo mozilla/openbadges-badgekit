@@ -14,9 +14,13 @@
     .footer-columns {
       margin-right: 10%;
       ul {
+        font-family: "Open Sans";
         font-size: 12px;
         padding-left: 0;
-        a { color: $dark-gray; }
+        a {
+          color: $dark-gray;
+          &:hover { color: $light-blue; }
+        }
       }
     }
   }
