@@ -1,6 +1,11 @@
 @import "base";
 @import "buttons";
 
+.bold {
+  font-family: "Open Sans";
+  font-weight: bold;
+  font-style: italic;
+}
 .header-container,
 .footer-container {
   padding: 20px 17% 0 17%;
