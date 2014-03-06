@@ -15,21 +15,26 @@
       <div class="form-fields left">
         <div class="form-row left">
           <span class="form-cell left form-col-1">Sign up for access to Private Beta</span>
-          <input class="form-cell left form-col-2 js-email-expandable" type="email" name="email" placeholder="Enter your email" required="">
+          <input class="form-cell left form-col-2 invalid-field js-email-expandable" type="email" name="email" placeholder="Enter your email" required="">
         </div>
         <div class="expandable-section js-expandable-section" class="hidden">
           <div class="form-row left">
-            <input class="form-cell left form-col-1" type="text" name="" placeholder="Organization name" required="">
-            <input class="form-cell left form-col-2" type="text" name="" placeholder="Contact name" required="">
+            <input class="form-cell left form-col-1 invalid-field" type="text" name="" placeholder="Organization name" required="">
+            <input class="form-cell left form-col-2 invalid-field" type="text" name="" placeholder="Contact name" required="">
           </div>
           <div class="form-row left">
-            <input class="form-cell left form-col-1" type="text" name="" placeholder="Organization size" required="">
-            <input class="form-cell left form-col-2" type="text" name="" placeholder="Contact position" required="">
+            <input class="form-cell left form-col-1 invalid-field" type="text" name="" placeholder="Organization size" required="">
+            <input class="form-cell left form-col-2 invalid-field" type="text" name="" placeholder="Contact position" required="">
           </div>
         </div>
       </div>
       <div class="button-container left">
         <button class="form-cell btn" type="submit">Sign Up</button>
+        <div class="privacy">
+          <input class="privacy-check left" type="checkbox" name="agree" required="">
+          <label class="privacy-text invalid-field" name="agree">I’m okay with Mozilla handling my info as explained in <a href="http://www.mozilla.org/en-US/privacy/policies/websites/" target="_blank">this Privacy Policy</a>
+          </label>
+        </div>
       </div>
     </form>
     <div class="thanks-for-signup cb">

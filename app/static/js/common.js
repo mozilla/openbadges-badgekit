@@ -14,7 +14,8 @@ $(document).ready(function() {
 
   formButton.on("click", function(e) {
     e.preventDefault();
-    formDropdown.toggle();
+    $('.privacy').show();
+    formDropdown.show();
   });
 
   var userDropdown = $('.js-user-dropdown');
