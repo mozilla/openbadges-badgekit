@@ -3,6 +3,7 @@
 <head>
   <title>{% block title %}BadgeKit{% endblock %}</title>
   {% block head -%}
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="{{ static('/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ static('/css/base.css') }}">
     <link rel="stylesheet" href="{{ static('/css/global.css') }}">
@@ -19,13 +20,13 @@
       <header id="header" class="header-container clearfix">
         {% block header -%}
           <!-- header for smaller screens -->
-          <section class="header-small-screen">
+          <!-- <section class="header-small-screen">
             <i class="fa fa-bars js-small-screen-dropdown"></i>
             <a href="#" class="menu-item js-login right">
               <i class="fa fa-gear"></i>
             </a>
-          </section>
-          <nav class="menu-small-screen js-small-screen-menu">
+          </section> -->
+          <!-- <nav class="menu-small-screen js-small-screen-menu">
             <ul>
               <p class="menu-title"><i class="fa fa-briefcase"></i>Badges</p>
               <a href="{{ url('directory') }}?category=template"><li class="first-item">Templates</li></a>
@@ -40,7 +41,7 @@
               <a href=""><li class="last-item">Awarded</li></a>
             </ul>
           </nav>
-          <nav class="settings-small-screen"></nav>
+          <nav class="settings-small-screen"></nav> -->
 
           <img src="{{ static('images/badgekit-logo.png') }}" class="badgekit-logo left">
           <nav class="nav-header homepage-nav">
