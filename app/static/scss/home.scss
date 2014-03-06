@@ -79,17 +79,15 @@
   .expandable-section { display: none; }
   .button-container { width: 20%; }
   button {
-    background-color: $light-gray;
     border: none;
+    background-color: $hover-gray;
     color: $white;
     font-size: 12px;
     border-radius: 2px;
-    color: $dark-gray;
     font-family: "Open Sans";
     font-weight: bold;
-    &:hover {
+    &:disabled {
       background-color: $light-gray;
-      color: $dark-gray;
     }
   }
   .privacy {
@@ -113,7 +111,18 @@
   }
 }
 
-.thanks-for-signup { display: none; }
+.thanks-for-signup { 
+  display: none; 
+  text-align: center;
+  p {
+    margin-top: 5px;
+  }
+  h2 {
+    font-size: 32px;
+    color: $light-blue;
+    margin-bottom: 0;
+  }
+}
 
 
 .first {
