@@ -9,15 +9,6 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  var formButton = $('.js-email-expandable');
-  var formDropdown = $('.js-expandable-section');
-
-  formButton.on("click", function(e) {
-    e.preventDefault();
-    $('.privacy').show();
-    formDropdown.show();
-  });
-
   var userDropdown = $('.js-user-dropdown');
 
   userDropdown.change(function() {
