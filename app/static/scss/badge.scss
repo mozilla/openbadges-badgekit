@@ -135,7 +135,10 @@
   .small-copy { margin-bottom: 0; }
 }
 
-.fa-question-circle { cursor: pointer; }
+.fa-question-circle {
+  cursor: pointer;
+  &:hover { color: $light-blue; }
+}
 
 .studio-thumb {
   width: 90px;
@@ -209,13 +212,9 @@
   margin-top: 20px;
 }
 
-.form-field-wrapper {
-  margin-bottom: 20px;
-}
+.form-field-wrapper { margin-bottom: 20px; }
 
-.submit-button-wrapper {
-  text-align: center;
-}
+.submit-button-wrapper { text-align: center; }
 
 .badge-form {
   width: $six-wide;
@@ -260,15 +259,12 @@
     margin-right: 5px;
     display: inline;
   }
-  .submit-btn {
-    margin-left: 0;
-  }
-  .hidden {
-    display: none;
-  }
+  .submit-btn { margin-left: 0; }
+  .hidden { display: none; }
 }
 
 .criteria {
+  margin-bottom: 40px;
   .add-btn { margin: 20px 0; }
 }
 

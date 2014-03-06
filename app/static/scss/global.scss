@@ -268,10 +268,11 @@
   }
   .new-badge-placeholder {
     width: 100%;
-    height: 295px;
     background-color: $light-green;
     color: $white;
     text-align: center;
+    font-family: "Open Sans Light";
+    font-size: 225px;
   }
   .view-btn,
   .use-btn,
@@ -396,7 +397,7 @@
 
 .notification p {
   text-align: center;
-  background: rgba(221,170,51,1);
+  background-color: $light-green;
   color: white;
   padding: .5em;
   font-weight: bold;
