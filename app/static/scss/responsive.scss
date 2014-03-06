@@ -1,5 +1,11 @@
 @import "base";
 
+@media screen and (max-width: 1200px) {
+  .header-container,
+  .footer-container {
+    padding: 20px 0% 0 5%;
+  }
+}
 @media screen and (max-width: 750px) {
   .header-container {
     padding: 0 20px;
@@ -44,7 +50,6 @@
       margin: 0;
       font-size: 130px;
     }
-    .badgethumb { width: 200px; }
   }
 }
 
