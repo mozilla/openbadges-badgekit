@@ -7,10 +7,10 @@ $(document).ready(function() {
 
   $(document).ajaxError(function(event, jqXHR, ajaxSetting, thrownError) {
     if (jqXHR && jqXHR.responseText) {
-      notification.text(jqXHR.responseText)
+      notification.html('<p>' + jqXHR.responseText + '</p>');
     }
     else {
-      notification.text(thrownError);
+      notification.html('<p>' + thrownError + '</p>');
     }
   });
 
