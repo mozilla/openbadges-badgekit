@@ -79,12 +79,18 @@
   .expandable-section { display: none; }
   .button-container { width: 20%; }
   button {
-    background-color: $dark-gray;
+    background-color: $light-gray;
     border: none;
     color: $white;
     font-size: 12px;
     border-radius: 2px;
-    &:hover { background-color: $hover-gray; }
+    color: $dark-gray;
+    font-family: "Open Sans";
+    font-weight: bold;
+    &:hover {
+      background-color: $light-gray;
+      color: $dark-gray;
+    }
   }
   .privacy {
     display: none;
