@@ -1,29 +1,26 @@
 {% extends "layout.html" %}
+{% block head %}
+  <link rel="stylesheet" id="tabzilla-css" href="//www.mozilla.org/tabzilla/media/css/tabzilla.css">
+  {{ super() }}
+{% endblock %}
+
+{% block header %}
+  <a href="http://www.mozilla.org" id="tabzilla">Mozilla</a>
+  {{ super() }}
+{% endblock %}
+
 {% block content %}
  <div class="container">
     <section class="info">
-      <h1 class="info-heading">Sorry...</h1>
-      <p class="info-text">Looking for ways to get help using Mozilla BadgeKit? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat.</p>
+      <h1 class="info-heading">Sign Up Now</h1>
+      <p class="info-text">You will need to sign up and be approved in order to gain access to BadgeKit. Today, BadgeKit is designed for organizations that have access to technology resources and are looking to implement a full badge system that integrates with their existing sites. We are exploring ways to create a light weight version of BadgeKit that could be accessibe to a wider audience. More on that to come. In the mean time, please sign up and get started on building out your badge system, and help us improve the experience!</p>
     </section>
-    <section class="container form-container clearfix">
-      <form class="sign-up-form">
-        <div class="form-fields left">
-          <div class="form-row left">
-            <span class="form-cell left form-col-1">Sign up now!</span>
-            <input class="form-cell left form-col-2" type="email" name="email" placeholder="Enter your email" required="">
-          </div>
-        </div>
-        <div class="button-container left">
-          <button class="form-cell btn" type="submit">Sign Up</button>
-        </div>
-      </form>
-      <div class="thanks-for-signup cb">
-        <h2>Thanks for signing up!</h2>
-        <p>We will contact you soon.  In the meantime learn<br> more about <a href="http://openbadges.org/">Mozilla Open Badges</a></p>
-      </div>
-    </section>
+    {% include "signup.html" %}
   </div>
 {% endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/home.js') }}"></script>
+  <script src="//www.mozilla.org/tabzilla/media/js/tabzilla.js" type="text/javascript"></script>
+{%- endblock %}
