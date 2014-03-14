@@ -1,7 +1,7 @@
 {% extends "badge/layout.html" %}
 
 {% block content %}
-  <div class="container beige-container clearfix">
+  <div class="container clearfix">
     <div class="badge-details left">
       <img class="badge-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
@@ -13,7 +13,7 @@
         {% endif %}
 
         <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
-        <p>Created: 1/5/2015</p>
+        <p>Created: {{ createdFormatted }}</p>
         <p>License: Share alike</p>
       </div>
     </div>

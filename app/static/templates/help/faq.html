@@ -1,0 +1,8 @@
+{% for faq in faqs %}
+	<article class="help-faq">
+		<a class="help-question" name="faq-{{ faq.id }}" >{{ faq.question }}</a>
+		<section class="help-answer">
+			{{ faq.answer }}
+		</section>
+	</article>
+{% endfor %}	

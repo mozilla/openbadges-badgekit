@@ -6,7 +6,26 @@ $(document).ready(function() {
   var notification = $('.js-notification');
 
   $(document).ajaxError(function(event, jqXHR, ajaxSetting, thrownError) {
-    notification.text(thrownError);
+    if (jqXHR && jqXHR.responseText) {
+      notification.html('<p>' + jqXHR.responseText + '</p>');
+    }
+    else {
+      notification.html('<p>' + thrownError + '</p>');
+    }
+  });
+
+  var tooltipButton = $('.js-tooltip');
+  var tooltipDropdown = $('.js-tooltip-container');
+
+  tooltipButton.click(function(e) {
+    var thisTooltipDropdown = $(this).closest('label').find('.js-tooltip-container');
+    tooltipDropdown.not(thisTooltipDropdown).hide();
+    thisTooltipDropdown.toggle();
+    return false;
+  });
+
+  $('body').click(function(e) {
+    tooltipDropdown.hide();
   });
 
   function saveBadge(doRedirect) {
@@ -26,6 +45,13 @@ $(document).ready(function() {
     });
   }
 
+  function toggleNote() {
+    $(this).closest('.js-criterion').find('.js-note-field-block').toggle();
+    return false;
+  }
+
+  $('.js-add-note').click(toggleNote);
+
   var numCriteriaSelect = $('.js-num-criteria');
 
   numCriteriaSelect.change(function() {
@@ -44,6 +70,8 @@ $(document).ready(function() {
       var newCriterionDiv = nunjucks.render('badge/criterion.html', { index: i });
       criterionDivs.last().after(newCriterionDiv);
     }
+    
+    $('.js-criterion').not(criterionDivs).find('.js-add-note').click(toggleNote);
   });
 
   var categoryAnchors = $('.js-category-anchor');
@@ -62,6 +90,7 @@ $(document).ready(function() {
   if (!saveButton.attr('disabled')) {
     var saveSpinner = $('.js-save-spinner');
     var form = $('.js-badge-form');
+    form.ajaxForm();
 
     var saveButtonText = saveButton.val();
 
@@ -75,12 +104,13 @@ $(document).ready(function() {
       saveBadge(true);
       return false;
     });
+
+    var uploadImage = $('.js-upload-image');
+    uploadImage.change(function() {
+      form.ajaxSubmit();
+    });
   }
 
-  var uploadImage = $('.js-upload-image');
-  uploadImage.change(function() {
-    form.submit();
-  });
 
   var nameField = $('.js-name-field');
   var hiddenNameField = $('.js-hidden-name-field');

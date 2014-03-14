@@ -2,20 +2,62 @@
 .help-page {
   text-align: center;
   padding-bottom: 30px;
+
   .sub-heading { font-size: 25px; }
   .help-section {
     margin: 0 auto;
     width: $four-wide;
     padding: 20px 0 0 0;
+    text-align:left;
+
+    .help-faq {
+      border-top:1px solid $light-gray;
+      padding:.25em 0 1em;
+    }
+
     .help-question {
+      display:block;
       font-weight: bold;
       margin: 20px 0 10px 0;
     }
-    .help-answer { line-height: 1.8em; }
+
+    .help-question:hover {
+      cursor:pointer;
+      text-decoration: underline;
+    }
+
+    .help-answer { 
+      line-height: 1.8em; 
+      margin-bottom:1em;
+      }
+
     .help-links {
       display: block;
       padding: 5px 0;
     }
-  }
-}
 
+  }
+
+li { margin-bottom:.5em; }
+ol li,
+ul ol li {list-style-type: decimal;}
+ul li {list-style-type: disc;}
+ul ul li {list-style-type: circle;}
+ul ul ul li {list-style-type: square;}
+ol ol li {list-style-type: lower-alpha;}
+ol ol ol li {list-style-type: lower-roman;}
+
+  .faq-template { display:none; }
+
+  .btn-xl { 
+  float:left;
+  width: 30%;
+  margin:0 1.5% 2em;
+  padding:1em 0;
+  background:$light-blue;
+  text-align:center;
+  color:white;
+  }
+  .btn-xl:hover { background:$dark-blue; }
+
+}

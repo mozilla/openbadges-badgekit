@@ -49,31 +49,27 @@ exports.home = function home (req, res, next) {
         // to be implemented
         break;
       case 'dateactive':
-        if (category === 'template' || category === 'draft') {
-          badges.sort(function(a,b) {
-            var aTime = typeof a.lastUpdated === 'string' ? 0 : a.lastUpdated.getTime();
-            var bTime = typeof b.lastUpdated === 'string' ? 0 : b.lastUpdated.getTime();
-            if (aTime < bTime)
-              return 1;
-            else if (aTime > bTime)
-              return -1;
-            return (b.id - a.id); 
-          });
-        }
+        badges.sort(function(a,b) {
+          var aTime = typeof a.lastUpdated === 'string' ? new Date(a.lastUpdated).getTime() : a.lastUpdated.getTime();
+          var bTime = typeof b.lastUpdated === 'string' ? new Date(b.lastUpdated).getTime() : b.lastUpdated.getTime();
+          if (aTime < bTime)
+            return 1;
+          else if (aTime > bTime)
+            return -1;
+          return (b.id - a.id); 
+        });
         break;
       case 'datecreated':
       default:
-        if (category === 'template' || category === 'draft') {
-          badges.sort(function(a,b) {
-            var aTime = typeof a.created === 'string' ? 0 : a.created.getTime();
-            var bTime = typeof b.created === 'string' ? 0 : b.created.getTime();
-            if (aTime < bTime)
-              return 1;
-            else if (aTime > bTime)
-              return -1;
-            return (b.id - a.id);
-          });
-        }
+        badges.sort(function(a,b) {
+          var aTime = typeof a.created === 'string' ? new Date(a.lastUpdated).getTime() : a.created.getTime();
+          var bTime = typeof b.created === 'string' ? new Date(b.lastUpdated).getTime() : b.created.getTime();
+          if (aTime < bTime)
+            return 1;
+          else if (aTime > bTime)
+            return -1;
+          return (b.id - a.id);
+        });
         break;
     }
 
@@ -109,7 +105,7 @@ exports.home = function home (req, res, next) {
 
   switch (category) {
     case 'published':
-      openbadger.getBadges(function (err, data) {
+      openbadger.getBadges(openbadger.makeContext(), function (err, data) {
         if (err)
           return res.send(500, err);
 
@@ -119,7 +115,7 @@ exports.home = function home (req, res, next) {
       });
       break;
     case 'archived':
-      openbadger.getAllBadges(function (err, data) {
+      openbadger.getAllBadges(openbadger.makeContext(), function (err, data) {
         if (err)
           return res.send(500, err);
         

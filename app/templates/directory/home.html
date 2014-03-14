@@ -2,13 +2,13 @@
 {% block content %}
   <div class="container clearfix">
       {% if notification == 'published' %}
-        <p class="notification">Your badge has been published.</p>
+        <div class="notification"><p>Your badge has been published.</p></div>
       {% elif notification == 'created' %}
-        <p class="notification">Your badge has been created.</p>
+        <div class="notification"><p>Your badge has been created.</p></div>
       {% elif notification == 'archived' %}
-        <p class="notification">Your badge has been archived.</p>
+        <div class="notification"><p>Your badge has been archived.</p></div>
       {% elif notification == 'saved' %}
-        <p class="notification">Your badge has been saved.</p>
+        <div class="notification"><p>Your badge has been saved.</p></div>
       {% endif %}
       {% if category == 'template' %}
       <section class="info">
@@ -56,7 +56,9 @@
       <section class="directory-container js-masonry-container cb">
         {% if category == 'template' or category == 'draft' %}
           <section class="item badge-new left">
-            <div class="new-badge-placeholder"></div>
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}">
+              <div class="new-badge-placeholder">+</div>
+            </a>
             {% if category == 'template' %}
               <h2>Create a Template</h2>
             {% else %}
@@ -68,7 +70,7 @@
 
         {% for badge in badges %}
           <section class="item badge-template left">
-            <div class="badgethumb" style="background-image: url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
+            <div class="badgethumb js-badgethumb" data-image="url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
             <h2>{{ badge.name }}</h2>
             <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
             <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="edit-link block"><i class="fa fa-pencil"></i>Edit</a>

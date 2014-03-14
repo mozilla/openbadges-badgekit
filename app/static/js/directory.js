@@ -1,4 +1,10 @@
 $(document).ready(function() {
+  var masonryContainer = document.querySelector('.js-masonry-container');
+  var masonry = new Masonry(masonryContainer, {
+    itemSelector: '.item',
+    gutter: 30
+  });
+
   var actionButtons = $('.js-action-btn');
   actionButtons.click(function(e) {
     var target = $(e.target);
@@ -33,6 +39,9 @@ $(document).ready(function() {
     });
     return false;
   });
+
+  var notification = $('.notification');
+  notification.find('p').delay('10000').fadeOut('slow'); 
 
   $(document).click(function() {
     $('.js-action-dropdown').hide();

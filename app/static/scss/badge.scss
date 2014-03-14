@@ -1,21 +1,23 @@
 @import "base";
 
 .visual-studio-tabs {
-  width: $five-wide;
   margin: 30px auto 0 auto;
   padding: 10px 10px 5px 0;
   .studio-tab {
-    background-color: $dark-beige;
+    background-color: $light-gray;
     display: inline;
     padding: 5px 15px;
     margin: 20px 10px 20px 0;
-    a { color: $brown; }
+    border: 1px solid $light-gray;
+    a { color: $dark-gray; }
   }
-  .selected { background-color: $white; }
+  .selected {
+    background-color: $white;
+    border-bottom: 1px solid $white;
+  }
 }
 
 .nav-inputs {
-  width: $five-wide;
   margin: 30px auto 0 auto;
   position: relative;
   .badge-field {
@@ -51,7 +53,7 @@
   margin-top: -5px;
   margin-left: 15px;
   .save {
-    background-color: $light-beige;
+    background-color: $white;
     border: none;
     padding-top: 5px;
     &:hover {
@@ -78,19 +80,79 @@
 .make-your-badge {
   width: $three-wide;
   padding: 50px 0 0 0;
+  .form-field-wrapper {
+    text-align: center;
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 40px;
+    margin-right: 30px;
+  }
+  .badge-label.studio-label {
+    margin: 0 auto;
+    padding-bottom: 15px;
+  }
+  .badge-field.studio-field {
+    margin: 0 auto;
+    background-color: $light-gray;
+    border: $white;
+    padding: 5px;
+  }
+  .studio-input-image-container {
+    width: 83%;
+    margin: 0 auto;
+    .studio-input-image {
+      width: 90px;
+      margin: 0 35px;
+    }
+    .studio-input-icon-image {
+      width: 30px;
+      margin: 0 25px;
+    }
+  }
+}
+
+.preview-make-your-badge {
+  text-align: center;
+  .submit-btn.studio-submit {
+    margin: 20px;
+    margin-left: 35px;
+  }
 }
 
 .make-your-badge {
-  .badge-label { padding-bottom: 20px; }
+  max-height: 500px;
+  overflow: auto;
 }
 
-.icon-label,
-.color-label { padding-bottom: 20px; }
+.tooltip-container {
+  display: none;
+  z-index: 1;
+  background-color: $light-gray;
+  padding: 10px;
+  margin-top: -10px;
+  position: absolute;
+  width: 200px;
+  @include drop-shadow;
+  .small-copy { margin-bottom: 0; }
+}
+
+.fa-question-circle {
+  cursor: pointer;
+  &:hover { color: $light-blue; }
+}
+
 .studio-thumb {
   width: 90px;
   border: 1px solid $light-gray;
   margin-right: 50px;
 }
+
+.studio-thumb.studio-icons {
+  width: 30px;
+  border: none;
+  margin-right: 0;
+}
+
+.studio-thumb.color-pie { border: none; }
 
 .undo-redo {
   padding-top: 20px;
@@ -104,7 +166,7 @@
   padding: 10px 30px 0 30px;
   border: 1px solid $gray;
   border-radius: 5px;
-  margin: 20px 45px;
+  margin: 5px 135px;
   canvas { margin-left: 5px; }
 }
 
@@ -150,19 +212,21 @@
   margin-top: 20px;
 }
 
-.form-field-wrapper {
-  margin-bottom: 20px;
-}
+.form-field-wrapper { margin-bottom: 20px; }
 
-.submit-button-wrapper {
-  text-align: center;
-}
+.submit-button-wrapper { text-align: center; }
 
 .badge-form {
-  width: $five-wide;
+  width: $six-wide;
   margin: 0 auto 30px auto;
   background-color: $white;
   padding: 10px 30px 30px 30px;
+  border: 1px solid $light-gray;
+  .or-seperator {
+    height: 200px;
+    margin: 20px 40px 50px 40px;
+    .or { top: 65px; }
+  }
   .form-heading {
     font-size: 18px;
     border-bottom: 1px solid $light-gray;
@@ -171,7 +235,6 @@
     .form-heading-span {
       color: $light-blue;
       font-weight: bold;
-      margin-left: 10px;
     }
   }
   .badge-label {
@@ -179,6 +242,7 @@
     width: $two-wide;
     margin-right: 6%;
   }
+  .short-textarea { height: 90px; }
   .badge-field {
     width: $three-wide;
   }
@@ -195,19 +259,22 @@
     margin-right: 5px;
     display: inline;
   }
-  .submit-btn {
-    margin-left: 0;
-  }
-  .hidden {
-    display: none;
-  }
+  .submit-btn { margin-left: 0; }
+  .hidden { display: none; }
 }
 
-.design-container { border-right: 1px solid $light-gray; }
+.criteria {
+  margin-bottom: 40px;
+  .add-btn { margin: 20px 0; }
+}
+
+.note-field-block { display: none; }
+
 .design-upload-container {
-  width: $three-wide;
+  width: 45%;
   text-align: center;
-  height: 125px;
+  height: 100px;
+  margin: 50px 0;
   .fa-cloud-upload,
   .fa-magic {
     font-size: 30px;

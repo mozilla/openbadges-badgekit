@@ -1,3 +1,8 @@
+// New Relic Server monitoring support
+if ( process.env.NEW_RELIC_ENABLED ) {
+  require( "newrelic" );
+}
+
 const config = require('./lib/config');
 const nunjucks = require('nunjucks');
 const express = require('express');
@@ -38,32 +43,35 @@ persona.express(app, { audience: config('PERSONA_AUDIENCE'),
                        redirects: { notLoggedIn: '/', notLoggedOut: '/directory' },
                        selectors: { login: '.js-login', logout: '.js-logout' } });
 
+var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', []), 'sorry.html')];
+
 app.get('/', 'home', [persona.ensureLoggedOut()], views.home);
-app.get('/directory', 'directory', [persona.ensureLoggedIn()], views.directory.home);
-app.get('/directory/addBadge', 'directory.addBadge', [persona.ensureLoggedIn()], views.directory.addBadge);
-app.get('/directory/useTemplate', 'directory.useTemplate', [persona.ensureLoggedIn()], views.directory.useTemplate);
+app.get('/directory', 'directory', secureRouteHandlers, views.directory.home);
+app.get('/directory/addBadge', 'directory.addBadge', secureRouteHandlers, views.directory.addBadge);
+app.get('/directory/useTemplate', 'directory.useTemplate', secureRouteHandlers, views.directory.useTemplate);
 
-app.get('/badge/:badgeId', 'badge', [persona.ensureLoggedIn()], views.badge.home);
-app.get('/badge/:badgeId/edit', 'badge.edit', [persona.ensureLoggedIn()], views.badge.edit);
-app.post('/badge/:badgeId/edit', 'badge.save', [persona.ensureLoggedIn()], views.badge.save);
-app.post('/badge/:badgeId/archive', 'badge.archive', [persona.ensureLoggedIn()], views.badge.archive);
-app.post('/badge/:badgeId/publish', 'badge.publish', [persona.ensureLoggedIn()], views.badge.publish);
-app.post('/badge/:badgeId/copy', 'badge.copy', [persona.ensureLoggedIn()], views.badge.copy);
+app.get('/badge/:badgeId', 'badge', secureRouteHandlers, views.badge.home);
+app.get('/badge/:badgeId/edit', 'badge.edit', secureRouteHandlers, views.badge.edit);
+app.get('/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
+app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.save);
+app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);
+app.post('/badge/:badgeId/publish', 'badge.publish', secureRouteHandlers, views.badge.publish);
+app.post('/badge/:badgeId/copy', 'badge.copy', secureRouteHandlers, views.badge.copy);
 
-app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLoggedIn()], views.badge.renderIssueByEmail);
-app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', [persona.ensureLoggedIn()], views.badge.issueByEmail);
+app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', secureRouteHandlers, views.badge.renderIssueByEmail);
+app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', secureRouteHandlers, views.badge.issueByEmail);
 
-app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', [persona.ensureLoggedIn()], views.badge.renderIssueByClaimCode);
-app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', [persona.ensureLoggedIn()], views.badge.issueByClaimCode);
+app.get('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', secureRouteHandlers, views.badge.renderIssueByClaimCode);
+app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', secureRouteHandlers, views.badge.issueByClaimCode);
 
 app.get('/images/badge/:badgeId', 'badge.image', views.badge.image);
 
-app.get('/settings', 'settings', [persona.ensureLoggedIn()], views.settings.home);
+app.get('/settings', 'settings', secureRouteHandlers, views.settings.home);
 
-app.get('/studio/backgrounds', 'studio.backgrounds', [persona.ensureLoggedIn()], views.badge.getBackgrounds);
-app.get('/studio/texts', 'studio.texts', [persona.ensureLoggedIn()], views.badge.getTexts);
-app.get('/studio/icons', 'studio.icons', [persona.ensureLoggedIn()], views.badge.getIcons);
-app.get('/studio/colors', 'studio.colors', [persona.ensureLoggedIn()], views.badge.getColors);
+app.get('/studio/backgrounds', 'studio.backgrounds', secureRouteHandlers, views.badge.getBackgrounds);
+app.get('/studio/texts', 'studio.texts', secureRouteHandlers, views.badge.getTexts);
+app.get('/studio/icons', 'studio.icons', secureRouteHandlers, views.badge.getIcons);
+app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getColors);
 
 app.get('/help', 'help', views.help.home);
 
