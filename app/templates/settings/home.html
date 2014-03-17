@@ -1,14 +1,12 @@
 {% extends "settings/layout.html" %}
 {% block content %}
   <div class="container clearfix">
-    <section class="settings-tabs left">
-      <ul class="tab-container">
-        <li class="tab js-tab selected" data-section="profile">Profile</li>
-        <li class="tab js-tab" data-section="notifications">Notifications</li>
-        <li class="tab js-tab" data-section="privacy">Privacy</li>
-        <li class="tab js-tab" data-section="permissions">Permissions</li>
-      </ul>
-    </section>
+    <ul class="tabs">
+      <li class="tab js-tab selected" data-section="profile">Profile</li>
+      <li class="tab js-tab" data-section="notifications">Notifications</li>
+      <li class="tab js-tab" data-section="privacy">Privacy</li>
+      <li class="tab js-tab" data-section="permissions">Admin</li>
+    </ul>
 
     <form class="settings-form settings settings-profile js-settings js-settings-profile left" name="input" action="" method="post">
       <div class="form-field-wrapper">
@@ -129,67 +127,189 @@
       <a class="btn submit-btn" type="submit">Save</a>
     </form>
 
+    <section class="settings-form js-settings js-settings-permissions left hidden clearfix">
+      <ul class="crumbs">
+        <li class="crumb"><a href="#1">Admin</a></li>
+        <li class="crumb"><a href="#2" class="active-crumb"> > Mozilla</a></li>
+        <li class="crumb"><a href="#2" class="active-crumb"> > Mozilla Webmaker</a></li>
+      </ul>
 
-    <form class="settings-form settings settings-permissions js-settings js-settings-permissions left hidden " name="input" action="" method="post">
-      <p class="permissions-title">Who has access to shared programs:</p>
-      <p class="permission-email">email@email.com</p>
-      <p class="permission-email">secondemail@email.com</p>
-      <div class="form-field-wrapper">
-        <p class="badge-label">Invite people to join your shared programs:</p>
-        <input class="badge-field" type="text" name="Email" value="">
-        <label for="a" class="block">
-          <input type="checkbox" name="no" id="a" value="">
-          <span>Can edit badge content</span>
-        </label>
-
-        <label for="b" class="block">
-          <input type="checkbox" name="no" id="b" value="">
-          <span>Can read badge content</span>
-        </label>
-
-        <label for="c" class="block">
-          <input type="checkbox" name="no" id="c" value="">
-          <span>Can publish badge content</span>
-        </label>
-
-        <label for="d" class="block">
-          <input type="checkbox" name="no" id="d" value="">
-          <span>Can access badges</span>
-        </label>
-
-        <label for="e" class="block">
-          <input type="checkbox" name="no" id="e" value="">
-          <span>Can define badge requirements</span>
-        </label>
-
-        <label for="f" class="block">
-          <input type="checkbox" name="no" id="f" value="">
-          <span>Can define and modify rubrics</span>
-        </label>
-
-        <label for="g" class="block">
-          <input type="checkbox" name="no" id="g" value="">
-          <span>Can define badge thresholds</span>
-        </label>
-
-        <label for="h" class="block">
-          <input type="checkbox" name="no" id="h" value="">
-          <span>Can define pre-canned messages for badge earner feedback</span>
-        </label>
-
-        <label for="i" class="block">
-          <input type="checkbox" name="no" id="i" value="">
-          <span>Can define acceptable media for badge evidence</span>
-        </label>
-
-        <label for="j" class="block">
-          <input type="checkbox" name="no" id="j" value="">
-          <span>Can issue a badge to a qualified applicant</span>
-        </label>
+      <div class="column left">
+        <i class="fa fa-arrow-circle-o-right"></i>
+        <p class="admin-title">System</p>
+        <p class="system-name">Mozilla</p>
+        <ul class="admin-options">
+          <li><i class="fa fa-list-ul"></i><a href="">Issuer Profile</a></li>
+          <li><i class="fa fa-user"></i><a href="" class="access-disabled">System Users</a></li>
+        </ul>
       </div>
 
-      <a class="btn submit-btn" type="submit">Grant Access & Save</a>
-      <a class="btn cancel-btn" type="submit">Cancel</a>
-    </form>
+      <div class="column left">
+        <i class="fa fa-arrow-circle-o-right"></i>
+        <p class="admin-title">Issuer</p>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          <select name="">
+            <option value="">Mozilla Webmaker</option>
+          </select>
+        </div>
+        <ul class="admin-options">
+          <li><i class="fa fa-list-ul"></i><a href="">Issuer Profile</a></li>
+          <li><i class="fa fa-user"></i><a href="" class="access-disabled">Issuer Users</a></li>
+          <li><i class="fa fa-users"></i><a href="">Participants</a></li>
+        </ul>
+      </div>
+
+      <div class="column left">
+        <i class="fa fa-arrow-circle-o-right"></i>
+        <p class="admin-title">Program</p>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          <select name="">
+            <option value="">Web Literacy</option>
+          </select>
+        </div>
+        <ul class="admin-options">
+          <li><i class="fa fa-list-ul"></i><a href="">Program Profile</a></li>
+          <li><i class="fa fa-user"></i><a href="">Program Users</a></li>
+        </ul>
+      </div>
+
+      <div class="cb"></div>
+      <!-- WHEN YOU CLICK ON ISSUER PROFILE -->
+      <div class="column left">
+        <p class="admin-title">Issuer</p>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          <select name="">
+            <option value="">Mozilla Webmaker</option>
+          </select>
+        </div>
+        <ul class="admin-options">
+          <li class="admin-options-selected"><i class="fa fa-list-ul"></i><a href="">Issuer Profile</a></li>
+          <li><i class="fa fa-user"></i><a href="" class="access-disabled">Issuer Users</a></li>
+          <li><i class="fa fa-users"></i><a href="">Participants</a></li>
+        </ul>
+      </div>
+
+      <div class="left column-wide">
+        <p class="admin-title">Issuer Profile</p>
+        <form class="" name="input" action="" method="post">
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="name">Name</label>
+            <input class="badge-field" type="text" name="name" placeholder="Mozilla Webmaker"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="url">URL</label>
+            <input class="badge-field" type="text" name="url" placeholder="http://..."></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="public email">Public Email</label>
+            <input class="badge-field" type="text" name="public email"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="coutnry">Coutnry</label>
+            <div class="form-dropdown">
+              <span class="arrow-down"></span>
+              <select name="country">
+                <option value="">Country</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="address">Street Addresss</label>
+            <input class="badge-field" type="text" name="address"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="city">City or Town</label>
+            <input class="badge-field" type="text" name="city"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="state">State</label>
+            <div class="form-dropdown">
+              <span class="arrow-down"></span>
+              <select name="state">
+                <option value="">State</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="zipcode">Zipcode</label>
+            <input class="badge-field" type="text" name="zipcode"></input>
+          </div>
+
+          <a href="" class="btn">Save</a>
+          <a href="" class="btn">Cancel</a>
+        </form>
+      </div>
+
+      <div class="cb"></div>
+      <!-- WHEN YOU CLICK ON PROGRAM PROFILE -->
+      <div class="column left">
+        <p class="admin-title">Program</p>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          <select name="">
+            <option value="">Web Literacy</option>
+          </select>
+        </div>
+        <ul class="admin-options">
+          <li class="admin-options-selected"><i class="fa fa-list-ul"></i><a href="">Program Profile</a></li>
+          <li><i class="fa fa-user"></i><a href="">Program Users</a></li>
+        </ul>
+      </div>
+
+      <div class="left column-wide">
+        <p class="admin-title">Program Profile</p>
+        <form class="" name="input" action="" method="post">
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="name">Name</label>
+            <input class="badge-field" type="text" name="name" placeholder="Mozilla Webmaker"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="url">URL</label>
+            <input class="badge-field" type="text" name="url" placeholder="http://..."></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="public email">Public Email</label>
+            <input class="badge-field" type="text" name="public email"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="coutnry">Coutnry</label>
+            <div class="form-dropdown">
+              <span class="arrow-down"></span>
+              <select name="country">
+                <option value="">Country</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="address">Street Addresss</label>
+            <input class="badge-field" type="text" name="address"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="city">City or Town</label>
+            <input class="badge-field" type="text" name="city"></input>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="state">State</label>
+            <div class="form-dropdown">
+              <span class="arrow-down"></span>
+              <select name="state">
+                <option value="">State</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field-wrapper clearfix">
+            <label class="badge-label left" for="zipcode">Zipcode</label>
+            <input class="badge-field" type="text" name="zipcode"></input>
+          </div>
+
+          <a href="" class="btn">Save</a>
+          <a href="" class="btn">Cancel</a>
+        </form>
+      </div>
+    </section>
+
   </div>
 {% endblock %}
