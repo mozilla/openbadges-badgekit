@@ -35,12 +35,12 @@
       </div>
     </div>
 
-    <ul class="visual-studio-tabs">
-      <li class="studio-tab selected"><a {{ createSectionAnchorAttributes('description') }}>Description</a></li>
-      <li class="studio-tab"><a {{ createSectionAnchorAttributes('options') }}>Options</a></li>
-      <li class="studio-tab"><a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a></li>
-      <li class="studio-tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li>
-      <li class="studio-tab"><a {{ createSectionAnchorAttributes('visual') }}>Visual</a></li>
+    <ul class="tabs">
+      <li class="tab selected"><a {{ createSectionAnchorAttributes('description') }}>Description</a></li>
+      <li class="tab"><a {{ createSectionAnchorAttributes('options') }}>Options</a></li>
+      <li class="tab"><a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a></li>
+      <li class="tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li>
+      <li class="tab"><a {{ createSectionAnchorAttributes('visual') }}>Visual</a></li>
     </ul>
 
     <form class="badge-form clearfix js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post" enctype="multipart/form-data">
