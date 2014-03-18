@@ -54,7 +54,7 @@
       </nav>
 
       <section class="directory-container js-masonry-container cb">
-        {% if category == 'template' or category == 'draft' %}
+        {% if (category == 'template' or category == 'draft') and canCreateDraft %}
           <section class="item badge-new left">
             <a href="{{ url('directory.addBadge') }}?category={{ category }}">
               <div class="new-badge-placeholder">+</div>
