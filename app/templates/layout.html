@@ -90,14 +90,7 @@
             </ul>
           {% else %}
             <ul class="navigation-dropdown">
-              <span class="arrow-down about-arrow"></span>
-              <li class="menu-item">
-                About
-                <ul class="menu-hover about-hover">
-                  <a href=""><li>BadgeKit</li></a>
-                  <a href=""><li>Open Badges</li></a>
-                </ul>
-              </li>
+              <a href="{{ url('about') }}"><li class="menu-item">About</li></a>
             </ul>
 
             <ul class="navigation-dropdown">
