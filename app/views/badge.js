@@ -37,10 +37,10 @@ exports.home = function home (req, res, next) {
 
     if (!data.badge)
       return res.send(404, "Not Found");
-    
+
     data.category = category;
-    data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' + 
-                                  data.badge.created.getDate() + ', ' + 
+    data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' +
+                                  data.badge.created.getDate() + ', ' +
                                   data.badge.created.getFullYear();
 
     res.render('badge/home.html', data);
@@ -120,7 +120,7 @@ exports.getTexts = function getTexts(req, res, next) {
       res.send(500, err);
 
     var texts = files.map(function(file) {
-      return { id: file, 
+      return { id: file,
                image: res.locals.static(path.join(studioPath, 'texts', file)) };
     });
 
@@ -134,7 +134,7 @@ exports.getIcons = function getIcons(req, res, next) {
       res.send(500, err);
 
     var icons = files.map(function(file) {
-      return { id: file, 
+      return { id: file,
                image: res.locals.static(path.join(studioPath, 'icons', file)) };
     });
 
@@ -161,10 +161,10 @@ function saveBadge(req, callback) {
   const limitNumber = parseInt(req.body.limitNumber, 10);
   const numCriteria = parseInt(req.body.numCriteria, 10);
 
-  const query = { 
-    id: req.body.badgeId, 
+  const query = {
+    id: req.body.badgeId,
     name: req.body.name,
-    description: req.body.description, 
+    description: req.body.description,
     tags: req.body.tags,
     issuerUrl: req.body.issuerUrl,
     earnerDescription: req.body.earnerDescription,
@@ -282,7 +282,7 @@ exports.archive = function archive (req, res, next) {
 
     badge.archived = true;
     openbadger.updateBadge(openbadger.makeContext({ badge: badge }), function(err) {
-      if (err) 
+      if (err)
         return res.send(500, err);
 
       req.session.notification = 'archived';
@@ -388,7 +388,7 @@ exports.image = function image (req, res, next) {
         }
       }
       else {
-        res.sendfile(path.join(__dirname, '../static/images/default-badge.png'));
+        res.sendfile(path.join(__dirname, '../static/images/badge-template-1.png'));
       }
     }
     else {
@@ -410,7 +410,7 @@ exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
 };
 
 exports.issueByEmail = function issueByEmail (req, res, next) {
-  const query = { 
+  const query = {
     learner: {
       email: req.body.email
     },
@@ -425,7 +425,7 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
 
       return middleware.redirect('directory', 302)(req, res, next);
   //});
-  
+
 };
 
 exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
