@@ -3,6 +3,7 @@ const Badge = require('../models/badge')("DATABASE");
 const middleware = require('../middleware');
 const url = require('url');
 
+
 const PAGE_SIZE = 12;
 
 exports.home = function home (req, res, next) {
@@ -105,7 +106,7 @@ exports.home = function home (req, res, next) {
 
   switch (category) {
     case 'published':
-      openbadger.getBadges(openbadger.makeContext(), function (err, data) {
+      openbadger.getBadges(res.locals.makeContext(), function (err, data) {
         if (err)
           return res.send(500, err);
 
@@ -115,7 +116,7 @@ exports.home = function home (req, res, next) {
       });
       break;
     case 'archived':
-      openbadger.getAllBadges(openbadger.makeContext(), function (err, data) {
+      openbadger.getAllBadges(res.locals.makeContext(), function (err, data) {
         if (err)
           return res.send(500, err);
         
@@ -127,18 +128,22 @@ exports.home = function home (req, res, next) {
       });
       break;
     case 'template':
-      Badge.get({ status: 'template' }, handleResults);
+      Badge.get(res.locals.makeContext({ status: 'template' }), handleResults);
       break;
     default:
-      Badge.get({ status: 'draft', published: false }, handleResults);
+      Badge.get(res.locals.makeContext({ status: 'draft', published: false }), handleResults);
       break;
   }
 };
 
 exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
+  var query = res.locals.makeContext({ name: 'New Badge', status: category, created: new Date() });
 
-  Badge.put({ name: 'New Badge', status: category, created: new Date() }, function (err, result) {
+  if (!res.locals.hasPermission(query, 'draft'))
+    return res.send(403, 'You do not have permission to create a badge');
+
+  Badge.put(query, function (err, result) {
     if (err)
       return res.send(500, err);
 
@@ -162,6 +167,9 @@ exports.useTemplate = function useTemplate (req, res, next) {
   Badge.getOne({id: templateId, status: 'template'}, { relationships: true }, function(err, row) {
     if (err)
       return res.send(500, err);
+
+    if (!res.locals.hasPermission(res.locals.makeContext(), 'draft'))
+      return res.send(403, 'You do not have permission to create a badge');
 
     row.createCopy({status: 'draft'}, function(err, newRow) {
       if (err)

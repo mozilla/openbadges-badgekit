@@ -3,7 +3,7 @@
 {% import "badge/criterion.html" as criterionTemplate %}
 
 {% macro createSectionAnchorAttributes(s) %}
-  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ category }}" data-section="{{ s }}" class="js-category-anchor"
+  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ badge.status }}" data-section="{{ s }}" class="js-category-anchor"
 {% endmacro %}
 
 {% macro createSectionDivAttributes(s) %}
@@ -28,7 +28,7 @@
         <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
       </div>
       <div class="publish-save">
-        {% if category != 'template' %}
+        {% if badge.status != 'template' and canPublish %}
           <a class="btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Publish<i class="fa fa-rocket"></i></a>
         {% endif %}
         <a href="{{ url('directory') }}" class="btn use-btn js-save-and-exit-btn">Exit<i class="fa fa-sign-out"></i></a>

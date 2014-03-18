@@ -54,7 +54,7 @@
                   <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
                   <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
                   <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
-                  <a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>
+                  {% if canCreateDraft %}<a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>{% endif %}
                 </ul>
               </li>
             </ul>
