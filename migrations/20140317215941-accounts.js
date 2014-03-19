@@ -13,7 +13,7 @@ exports.up = function(db, callback) {
     db.runSql.bind(db,        
       "CREATE TABLE IF NOT EXISTS `account` ("
       + "`id`               BIGINT AUTO_INCREMENT PRIMARY KEY,"
-      + "`email`            VARCHAR(255) NOT NULL,"
+      + "`email`            VARCHAR(255) NOT NULL UNIQUE,"
       + "INDEX `email_idx`(`email`)"
       + ") ENGINE=InnoDB;"
     ),
