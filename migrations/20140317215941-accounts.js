@@ -6,7 +6,7 @@ exports.up = function(db, callback) {
   async.series([
     db.runSql.bind(db, 
       "ALTER TABLE `badge` "
-      + "ADD `system` VARCHAR(255) NOT NULL,"
+      + "ADD `system` VARCHAR(255) NOT NULL DEFAULT 'badgekit',"
       + "ADD `issuer` VARCHAR(255) NULL,"
       + "ADD `program` VARCHAR(255) NULL"
     ),
