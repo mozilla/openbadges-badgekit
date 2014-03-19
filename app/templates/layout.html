@@ -3,6 +3,7 @@
 <head>
   <title>{% block title %}BadgeKit{% endblock %}</title>
   {% block head -%}
+    {{ newrelic.getBrowserTimingHeader() | safe }}
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="{{ static('/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ static('/css/base.css') }}">

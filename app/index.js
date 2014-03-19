@@ -1,6 +1,13 @@
-// New Relic Server monitoring support
-if ( process.env.NEW_RELIC_ENABLED ) {
-  require( "newrelic" );
+var newrelic;
+if (process.env.NEW_RELIC_ENABLED) {
+  newrelic = require('newrelic');
+}
+else {
+  newrelic = {
+    getBrowserTimingHeader: function () {
+      return "<!-- New Relic RUM disabled -->";
+    }
+  };
 }
 
 const config = require('./lib/config');
@@ -18,6 +25,8 @@ var env = new nunjucks.Environment(new nunjucks.FileSystemLoader([path.join(__di
                                    { autoescape: true, watch: true });
 
 env.express(app);
+
+app.locals.newrelic = newrelic;
 
 require('express-monkey-patch')(app);
 
