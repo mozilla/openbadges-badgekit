@@ -50,7 +50,8 @@
     border-top-color: $dark-gray;
     position: absolute;
     top: 25px;
-    right: 10px;;
+    right: 10px;
+    &:hover { border-top-color: $white;}
   }
   .sort-arrow { right: 25px; }
   .navigation-dropdown {
@@ -78,18 +79,15 @@
         top: 33px;
         left: 0;
         width: 173px;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
         display: none;
         opacity: 0;
         visibility: hidden;
         @include transition;
         li {
-          background-color: $white;
+          background-color: $dark-gray;
           display: block;
-          color: $dark-gray;
-          &:hover { color: $light-blue; }
+          color: $white;
+          &:hover { background-color: $hover-gray; }
         }
       }
       .sort-menu-hover {
@@ -99,7 +97,8 @@
       .hover-applications,
       .logout-hover,
       .about-hover { top: 33px; }
-      .logout-hover { width: 250px; }
+      .logout-hover,
+      .hover-applications { width: 250px; }
     }
     .sort-menu {
       color: $white;
@@ -114,7 +113,6 @@
       opacity: 1;
       visibility: visible;
       z-index: 1;
-      border-top: 4px solid $light-green;
     }
   }
 }
@@ -160,13 +158,20 @@
     font-size: 18px;
     padding: 0 25px;
     color: $dark-gray;
-    &:hover { color: $light-blue; }
-    & a { color: $dark-gray; }
+    &:hover {
+      background-color: $dark-gray;
+      color: $white;
+    }
+    a {
+      color: $dark-gray;
+      &:hover { color: $white;}
+    }
     .arrow-down {
       border-top-color: $dark-gray;
       position: relative;
       top: 17px;
       left: 5px;
+      &:hover { border-top-color: $white; }
     }
     .fa-briefcase {
       font-size: 40px;

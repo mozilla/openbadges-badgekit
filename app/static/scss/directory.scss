@@ -24,14 +24,12 @@
 .action-dropdown {
   display: none;
   position: absolute;
-  background: $white;
+  background: $dark-gray;
   margin: 0;
-  border-top: 4px solid $light-green;
   z-index:5;
   padding:0;
   width: 150px;
   @include transition;
-  @include dropdown-boxshadow;
   hr { margin: 0; }
 }
 .action-dropdown li,
@@ -47,8 +45,8 @@
 
 .action-dropdown li,
 .action-dropdown input {
+  color: $white;
   font-size:13px;
   padding: 5px 20px;
-  color: $dark-gray;
-  &:hover { color: $light-blue; }
+  &:hover { background-color: $hover-gray; }
 }
