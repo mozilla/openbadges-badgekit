@@ -16,8 +16,10 @@
   column-gap: 35px;
   line-height: 1.7em;
   padding-top: 20px;
+  padding-bottom: 10px;
   p { margin: 0; }
 }
+
 .link-two-column {
   padding-left: 0;
   -webkit-column-gap: 0px;
@@ -33,15 +35,27 @@
     margin-top: 0;
     text-align: center;
   }
+  a {
+    color: $white;
+    &:hover { color: $hover-gray; }
+  }
 }
 
 .more-about-open-badges {
+  padding: 40px;
+  text-align: center;
+}
+
+.open-badges-button {
   background-color: #f16344;
   width: 100px;
   border-radius: 5px;
   padding: 20px;
   color: white;
-  &:hover { color: $hover-gray;}
+  &:hover {
+    background-color: #eb7823;
+    color: $white;
+  }
 }
 
 .access-to-badges {
