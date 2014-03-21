@@ -237,6 +237,10 @@
 }
 
 .header-container {
+  .menu-item.login-hover:hover {
+    background-color: transparent;
+    color: $hover-gray;
+  }
   .menu-item {
     font-size: 18px;
     padding: 0 25px;
