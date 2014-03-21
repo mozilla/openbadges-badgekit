@@ -133,7 +133,10 @@ module.exports = function getBadgeModel (key) {
        'studioIcon',
        'studioColor',
        'created',
-       'lastUpdated'],
+       'lastUpdated',
+       'system',
+       'issuer',
+       'program'],
     relationships: {
       criteria: {
         type: 'hasMany',

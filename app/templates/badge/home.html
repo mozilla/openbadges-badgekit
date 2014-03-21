@@ -5,7 +5,7 @@
     <div class="badge-details left">
       <img class="badge-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
-        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="block">
+        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ badge.status }}" class="block">
           <i class="fa fa-pencil"></i>Edit
         </a>
         {% if badge.status == 'template' %}

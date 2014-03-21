@@ -3,6 +3,9 @@ var config = require('../lib/config');
 var formatUrl = require('url').format;
 var parseUrl = require('url').parse;
 var sass = require('node-sass');
+var xtend = require('xtend');
+
+var Account = require('../models/account')("DATABASE");
 
 exports.csrf = require('./csrf');
 
@@ -65,25 +68,66 @@ exports.sass = function (root, prefix) {
   });
 };
 
-exports.verifyPermission = function verifyPermission (accessList, deniedPage) {
-  if (typeof accessList === 'string' || accessList instanceof String) {
-    accessList = JSON.parse(accessList);
+exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage) {
+  if (typeof siteAdminList === 'string' || siteAdminList instanceof String) {
+    siteAdminList = JSON.parse(siteAdminList);
   }
 
+  siteAdminList = siteAdminList || [];
+
   return function (req, res, next) {
-    accessList = accessList || [];
+    function makeContext(context) {
+      context = context || {};
+
+      return function (data) {
+        return xtend(context, data);
+      }  
+    }
+
+    function sendDenied() {
+      if (!deniedPage)
+        return res.send(403, 'Access Denied');
+      else
+        res.status(403);
+        return res.render(deniedPage);
+    }
 
     if (req.fromLoggedInUser()) {
-      if (accessList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) }))
+      if (siteAdminList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) })) {
+        res.locals.isSiteAdmin = true;
+        res.locals.hasPermission = function() { return true; }
+        res.locals.makeContext = makeContext({ system: config('OPENBADGER_SYSTEM') });
+        res.locals.canCreateDraft = true;
         return next();
+      }
       else {
-        if (!deniedPage)
-          return res.send(403, 'Access Denied');
-        else
-          return res.render(deniedPage);
+        return Account.getOne({ email: req.session.email }, { relationships: true }, function(err, row) {
+          if (err)
+            return res.send(500, err);
+          if (!row || !row.accountPermissions.length)
+            return sendDenied();
+
+          res.locals.hasPermission = row.hasPermission.bind(row);
+          // This isn't a good solution, as it is basically assuming one permission per account,
+          // particularly at the issuer level and above.  While this currently matches the design, I doubt we can count
+          // on this being true for long.
+          var context = {};
+          if (row.accountPermissions[0].system)
+            context.system = row.accountPermissions[0].system;
+          if (row.accountPermissions[0].issuer)
+            context.issuer = row.accountPermissions[0].issuer;
+          if (row.accountPermissions[0].program)
+            context.program = row.accountPermissions[0].program;
+
+          res.locals.makeContext = makeContext(context);
+          res.locals.canCreateDraft = row.hasPermission(context, 'draft');
+          return next();
+        });
+
+        return sendDenied();
       }
     }
-    return next();
+    return sendDenied();
   };
 };
 
