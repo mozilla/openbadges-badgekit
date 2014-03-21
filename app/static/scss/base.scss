@@ -127,6 +127,8 @@ a {
   &:hover { color: $hover-blue; }
 }
 
+hr { border-color: $light-gray; }
+
 label { font-family: "Open Sans Light"; }
 
 textarea { height: 150px; }
