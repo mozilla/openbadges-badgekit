@@ -17,7 +17,7 @@
   line-height: 1.7em;
   padding-top: 20px;
   padding-bottom: 10px;
-  p { margin: 0; }
+  p:first-child { margin: 0; }
 }
 
 .link-two-column {
@@ -37,8 +37,13 @@
   }
   a {
     color: $white;
-    &:hover { color: $hover-gray; }
+    &:hover { color: $hover-blue; }
   }
+  ul { list-style: bullet; }
+}
+
+.about-page {
+  li { list-style-type: disc; }
 }
 
 .more-about-open-badges {
@@ -46,17 +51,21 @@
   text-align: center;
 }
 
-.open-badges-button {
-  background-color: #f16344;
-  width: 100px;
-  border-radius: 5px;
-  padding: 20px;
-  color: white;
-  &:hover {
-    background-color: #eb7823;
+.about-open-badges {
+  margin-bottom: -30px;
+  .open-badges-button {
+    background-color: #f16344;
+    width: 100px;
+    border-radius: 5px;
+    padding: 20px;
     color: $white;
+    &:hover {
+      background-color: #eb7823;
+      color: $white;
+    }
   }
 }
+
 
 .access-to-badges {
   padding: 40px 0;
