@@ -88,6 +88,7 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
       if (!deniedPage)
         return res.send(403, 'Access Denied');
       else
+        res.status(403);
         return res.render(deniedPage);
     }
 

@@ -3,7 +3,6 @@ const Badge = require('../models/badge')("DATABASE");
 const middleware = require('../middleware');
 const url = require('url');
 
-
 const PAGE_SIZE = 12;
 
 exports.home = function home (req, res, next) {
