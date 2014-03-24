@@ -90,21 +90,14 @@
             </ul>
           {% else %}
             <ul class="navigation-dropdown">
-              <span class="arrow-down about-arrow"></span>
-              <li class="menu-item">
-                About
-                <ul class="menu-hover about-hover">
-                  <a href=""><li>BadgeKit</li></a>
-                  <a href=""><li>Open Badges</li></a>
-                </ul>
-              </li>
+              <a href="{{ url('about') }}"><li class="menu-item">About</li></a>
             </ul>
 
             <ul class="navigation-dropdown">
               <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
             </ul>
 
-            <a href="#" class="menu-item js-login">
+            <a href="#" class="menu-item js-login login-hover">
               <i class="fa fa-sign-in"></i>Log In
             </a>
 
@@ -122,7 +115,7 @@
     {%- endblock %}
 
     {% block footerWrapper -%}
-      <footer id="footer" class="footer-container clearfix">
+      <footer id="footer" class="footer-container clearfix cb">
         {% block footer -%}
           <div class="footer-logo-container left">
             <a href="http://openbadges.org" id="open-badges-logo" target="_blank">

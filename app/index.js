@@ -84,6 +84,8 @@ app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getC
 
 app.get('/help', 'help', views.help.home);
 
+app.get('/about', 'about', views.about.home);
+
 if (!module.parent) {
   const port = config('PORT', 3000);
 
