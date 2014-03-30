@@ -202,9 +202,9 @@ input[type="checkbox"]:checked + span:before {
   position: relative;
 }
 
-.checkbox {
-  display: inline;
-}
+.checkbox { display: inline; }
+
+.inline { display: inline; }
 
 .column {margin-bottom:20px;}
 
