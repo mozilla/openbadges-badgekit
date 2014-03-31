@@ -79,6 +79,9 @@ app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', secureRou
 app.get('/images/badge/:badgeId', 'badge.image', views.badge.image);
 
 app.get('/settings', 'settings', secureRouteHandlers, views.settings.home);
+app.get('/settings/systems', 'settings.systems', secureRouteHandlers, views.settings.systems);
+app.get('/settings/issuers', 'settings.issuers', secureRouteHandlers, views.settings.issuers);
+app.get('/settings/programs', 'settings.programs', secureRouteHandlers, views.settings.programs);
 
 app.get('/studio/backgrounds', 'studio.backgrounds', secureRouteHandlers, views.badge.getBackgrounds);
 app.get('/studio/texts', 'studio.texts', secureRouteHandlers, views.badge.getTexts);

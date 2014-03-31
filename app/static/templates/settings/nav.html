@@ -1,0 +1,18 @@
+<div class="column left js-system-column">
+  <i class="fa fa-arrow-circle-o-right"></i>
+  <p class="admin-title">System</p>
+  <div class="form-dropdown">
+    <span class="arrow-down"></span>
+    <select name="" class="js-system-select">
+      <option value="">Select System</option>
+      {% for system in systems %}
+        <option value="{{ system.slug }}" data-admin="{{ system.canAdmin }}">{{ system.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <ul class="admin-options js-system-admin-options hidden">
+    <li><i class="fa fa-user"></i><a href="" class="access-disabled js-system-users-link">System Users</a></li>
+  </ul>
+</div>
+
+

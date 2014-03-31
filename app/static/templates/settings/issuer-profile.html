@@ -1,0 +1,63 @@
+<div class="column left">
+  <p class="admin-title">Issuer</p>
+  <div class="form-dropdown">
+    <span class="arrow-down"></span>
+    <select name="" disabled="true">
+      <option value="{{ issuer.slug }}">{{ issuer.name }}</option>
+    </select>
+  </div>
+  <ul class="admin-options">
+    <li class="admin-options-selected"><i class="fa fa-list-ul"></i>Issuer Profile</li>
+  </ul>
+</div>
+
+<div class="left column-wide">
+  <p class="admin-title">Issuer Profile</p>
+  <form class="" name="input" action="" method="post">
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="name">Name</label>
+      <input class="badge-field" type="text" name="name" value="{{issuer.name}}"></input>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="url">URL</label>
+      <input class="badge-field" type="text" name="url" value="{{issuer.url}}"></input>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="public email">Public Email</label>
+      <input class="badge-field" type="text" name="public email" value="{{issuer.email}}"></input>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="country">Country</label>
+      <div class="form-dropdown">
+        <span class="arrow-down"></span>
+        <select name="country">
+          <option value="">Country</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="address">Street Address</label>
+      <input class="badge-field" type="text" name="address"></input>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="city">City or Town</label>
+      <input class="badge-field" type="text" name="city"></input>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="state">State</label>
+      <div class="form-dropdown">
+        <span class="arrow-down"></span>
+        <select name="state">
+          <option value="">State</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field-wrapper clearfix">
+      <label class="badge-label left" for="zipcode">Zipcode</label>
+      <input class="badge-field" type="text" name="zipcode"></input>
+    </div>
+
+    <a href="" class="btn js-issuer-save-btn">Save</a>
+    <a href="" class="btn js-issuer-cancel-btn">Cancel</a>
+  </form>
+</div>

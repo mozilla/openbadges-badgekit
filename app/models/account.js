@@ -41,33 +41,51 @@ module.exports = function getAccountModel (key) {
 
 
   function hasPermission(context, action) {
-    var bestMatch = null;
-
-    if (this.accountPermissions) {
-      this.accountPermissions.forEach(function(permission) {
-        if ((!permission.system || (context.system === permission.system)) ||
-            (!permission.issuer || (context.issuer === permission.issuer)) ||
-            (!permission.program || (context.program === permission.program))) {
-          if ((!bestMatch) ||
-              (permission.program) ||
-              (permission.issuer && !bestMatch.issuer) ||
-              (permission.system && !bestMatch.system)) {
-            bestMatch = permission;
+    if (action == 'view') {
+      if (this.accountPermissions) {
+        var canView = false;
+        this.accountPermissions.forEach(function(permission) {
+          if ((context.system === permission.system) &&
+              (!context.issuer || !permission.issuer || (context.issuer === permission.issuer)) &&
+              (!context.program || !permission.program || (context.program === permission.program))) {
+            canView = true;
           }
-        }
-      });
+        });
+        return canView;
+      }
     }
+    else {
+      var bestMatch = null;
 
-    if (bestMatch) {
-      switch (action) {
-        case 'draft':
-          return bestMatch.canDraft;
-        case 'publish':
-          return bestMatch.canPublish;
-        case 'review':
-          return bestMatch.canReview;
-        default:
-          return false;
+      if (this.accountPermissions) {
+        this.accountPermissions.forEach(function(permission) {
+          if ((!permission.system || (context.system === permission.system)) &&
+              (!permission.issuer || (context.issuer === permission.issuer)) &&
+              (!permission.program || (context.program === permission.program))) {
+            if ((!bestMatch) ||
+                (permission.program) ||
+                (permission.issuer && !bestMatch.issuer) ||
+                (permission.system && !bestMatch.system)) {
+              console.log(permission);
+              bestMatch = permission;
+            }
+          }
+        });
+      }
+
+      if (bestMatch) {
+        switch (action) {
+          case 'draft':
+            return bestMatch.canDraft;
+          case 'publish':
+            return bestMatch.canPublish;
+          case 'review':
+            return bestMatch.canReview;
+          case 'admin':
+            return bestMatch.canPublish;
+          default:
+            return false;
+        }
       }
     }
 
