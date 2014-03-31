@@ -307,6 +307,10 @@
   }
 }
 
+.hidden {
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
   .badge-form {
     width: 100%;

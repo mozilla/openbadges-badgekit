@@ -2,6 +2,7 @@
 
 {% block content %}
   <div class="container clearfix">
+    <div class="notification js-delete-confirm-text hidden"><p>Click <a href="{{ url('badge.delete', { badgeId: badge.id }) }}" class="js-delete-confirm-btn" data-csrf="{{ csrfToken }}">here</a> to delete this badge.  This cannot be undone.</p></div>
     <div class="badge-details left">
       <img class="badge-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
@@ -12,7 +13,7 @@
           <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
         {% endif %}
         {% if badge.status == 'template' or badge.status == 'draft' %}
-          <a href="{{ url('badge.delete', { badgeId: badge.id }) }}" class="btn use-btn js-delete-btn" data-csrf="{{ csrfToken }}">Delete</a>
+          <a href="#" class="btn use-btn js-delete-btn">Delete</a>
         {% endif %}
         <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
         <p>Created: {{ createdFormatted }}</p>
