@@ -61,6 +61,7 @@ app.get('/directory/useTemplate', 'directory.useTemplate', secureRouteHandlers, 
 
 app.get('/badge/:badgeId', 'badge', secureRouteHandlers, views.badge.home);
 app.get('/badge/:badgeId/edit', 'badge.edit', secureRouteHandlers, views.badge.edit);
+app.post('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
 app.get('/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.save);
 app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);

@@ -46,6 +46,22 @@ exports.home = function home (req, res, next) {
   });
 };
 
+exports.del = function del (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  Badge.getOne({ id: badgeId }, function(err, row) {
+    if (err)
+      return res.send(500, err);
+
+    row.del(function(err) {
+      if (err)
+        return res.send(500, err);
+
+      return res.send(200, { location: res.locals.url('directory') + '?category=' + row.status });
+    });
+  });
+};
+
 exports.criteria = function criteria (req, res, next) {
   const badgeId = req.params.badgeId;
 
