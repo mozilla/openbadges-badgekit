@@ -1,0 +1,17 @@
+<div class="column left js-issuer-column">
+  <i class="fa fa-arrow-circle-o-right"></i>
+  <p class="admin-title">Issuer</p>
+  <div class="form-dropdown">
+    <span class="arrow-down"></span>
+    <select name="" class="js-issuer-select">
+      <option value="">Select Issuer</option>
+      {% for issuer in issuers %}
+        <option value="{{ issuer.slug }}" data-admin="{{ issuer.canAdmin }}">{{ issuer.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <ul class="admin-options js-issuer-admin-options hidden">
+    <li><i class="fa fa-list-ul"></i><a href="" class="js-issuer-profile-link">Issuer Profile</a></li>
+    <li><i class="fa fa-user"></i><a href="" class="access-disabled js-issuer-users-link">Issuer Users</a></li>
+  </ul>
+</div>
