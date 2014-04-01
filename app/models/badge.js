@@ -97,6 +97,19 @@ module.exports = function getBadgeModel (key) {
     }
   }
 
+  function deleteBadge(callback) {
+    const badgeId = this.id;
+    
+    Criteria.del({ badgeId: badgeId }, function (err) {
+      if (err) 
+        return callback(err);
+      
+      Badge.del({ id: badgeId }, function (err) {
+        return callback(err);
+      });
+    });
+  }
+
   var db = getDb(key);
 
   var Criteria = db.table('criteria', {
@@ -152,7 +165,8 @@ module.exports = function getBadgeModel (key) {
     },
     methods: {
       setCriteria: setCriteria,
-      createCopy: createCopy
+      createCopy: createCopy,
+      del: deleteBadge
     }
   });
 
