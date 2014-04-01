@@ -20,11 +20,11 @@
     </div>
 
     <ul class="visual-studio-tabs cb">
-      <li class="studio-tab selected"><a>View</a></li>
-      <li class="studio-tab"><a>Action</a></li>
+      <li class="studio-tab selected js-view-tab"><a>View</a></li>
+      <li class="studio-tab js-action-tab"><a>Action</a></li>
     </ul>
 
-    <div class="badge-info">
+    <div class="badge-info  js-badge-info">
       <p class="badge-title">Issuer<span class="badge-description">{{ badge.issuerUrl }}</span></p>
 
       <p class="badge-title">Program<span class="badge-description">{{ badge.program.name }}</span>
@@ -54,50 +54,25 @@
       {% endfor %}
     </div>
 
-    <div class="published-actions">
-      <div class="form-field-wrapper">
-        <p class="badge-title block" for="email">Issue by Email</p>
-        <textarea class="badge-field badge-field-textarea left" type="text" name="email" placeholder="Seperate emails with commas"></textarea>
-        <i class="fa fa-group"></i>
-      </div>
-      <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}" class="btn blue-btn"><i class="fa fa-envelope"></i>Issue by Email</a>
-
-      <p class="badge-title border-top">Claim Codes</p>
-      <div class="form-field-wrapper">
-        <label class="badge-title left" for="code">Multi Use</label>
-        <input class="badge-field inline" type="text" name="code" placeholder="something-memorable"></input>
-        <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Many earners can use this to claim a badge.</p></div>
-      </div>
-      <div class="form-field-wrapper">
-        <label class="badge-title left" for="code">Unique</label>
-        <input class="badge-field unique-field inline" type="text" name="code" placeholder="27"></input>
-        <a href="" class="btn blue-btn"></i>Create New</a>
-        <a href="" class="btn">View Available</a>
-        <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">One unique code per earner. Create, view, and print.</p></div>
-      </div>
-
+    {% if category == 'published' %}
+    <div class="published-actions js-badge-actions">
       <p class="badge-title border-top">Admin</p>
-      <div class="admin-btn-container">
-        <a href="" class="btn blue-btn"><i class="fa fa-share-square"></i>Share</a>
-        <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Embed this badge opportunity on your blog.</p></div>
-      </div>
       <div class="admin-btn-container">
         <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Copy the badge to create a new draft.</p></div>
       </div>
       <div class="admin-btn-container">
-        <a href="" class="btn blue-btn"><i class="fa fa-envelope"></i>Email Report</a>
-      </div>
         <a href="" class="btn js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-download"></i>Archive Badge</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Archived badges can no longer be earned or issued.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Archived badges can no longer be earned or issued.</p>
+      </div>
+      <div class="admin-btn-container">
+        <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}" class="btn blue-btn"><i class="fa fa-envelope"></i>Issue by Email</a>
+      </div>
     </div>
-
-    <div class="templates-actions">
+    {% elif category == 'template' %}
+    <div class="templates-actions js-badge-actions">
       <div class="admin-btn-container">
         <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
         <i class="fa fa-question-circle js-tooltip"></i>
@@ -108,50 +83,37 @@
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
       </div>
+      <div>
+        <a href="" class="btn js-delete-btn">Delete</a>
+        <i class="fa fa-question-circle js-tooltip"></i>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
+      </div>
+    </div>
+    {% elif category == 'archived' %}
+    <div class="archived-actions js-badge-actions">
       <div class="admin-btn-container">
-        <a href="" class="blue-btn btn"><i class="fa fa-cloud-upload"></i>Download</a>
+        <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Download a baked template for saving and sharing.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Copy the badge to create a new draft.</p></div>
       </div>
-        <a href="" class="btn">Delete</a>
+    </div>
+    {% elif category == 'draft' %}
+    <div class="draft-actions js-badge-actions">
+      <div class="admin-btn-container">
+        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Edit freely. This will not affect badges that previously used this template.</p></div>
       </div>
-
-      <div class="archived-actions">
-        <div class="admin-btn-container">
-          <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
-          <i class="fa fa-question-circle js-tooltip"></i>
-          <div class="tooltip-container js-tooltip-container"><p class="small-copy">Copy the badge to create a new draft.</p></div>
-        </div>
-        <div class="admin-btn-container">
-          <a href="" class="blue-btn btn"><i class="fa fa-envelope"></i>Email Report</a>
-        </div>
-        <a href="" class="btn js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-download"></i>Unarchive</a>
+      <div class="admin-btn-container">
+        <a class="btn blue-btn js-publish-btn blut-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}"><i class="fa fa-rocket"></i>Publish</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Reactivate so the badge can be earned and issued.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
       </div>
-
-      <div class="draft-actions">
-        <div class="admin-btn-container">
-          <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
-          <i class="fa fa-question-circle js-tooltip"></i>
-          <div class="tooltip-container js-tooltip-container"><p class="small-copy">Edit freely. This will not affect badges that previously used this template.</p></div>
-        </div>
-        <div class="admin-btn-container">
-          <a class="btn blue-btn js-publish-btn blut-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}"><i class="fa fa-rocket"></i>Publish</a>
-          <i class="fa fa-question-circle js-tooltip"></i>
-          <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
-        </div>
-        <div class="admin-btn-container">
-          <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
-          <i class="fa fa-question-circle js-tooltip"></i>
-          <div class="tooltip-container js-tooltip-container"><p class="small-copy">Copy the badge to create a new draft.</p></div>
-        </div>
-        <a href="" class="btn">Delete</a>
-        <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
-      </div>
+      <a href="" class="btn js-delete-btn">Delete</a>
+      <i class="fa fa-question-circle js-tooltip"></i>
+      <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
+    </div>
+    {% endif %}
     </div>
   </div>
 {% endblock %}

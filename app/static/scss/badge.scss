@@ -4,6 +4,7 @@
   margin: 30px auto 0 auto;
   padding: 10px 10px 5px 0;
   .studio-tab {
+    cursor: pointer;
     background-color: $light-gray;
     display: inline;
     padding: 5px 15px;
@@ -229,6 +230,7 @@
 .templates-actions,
 .archived-actions,
 .draft-actions {
+  display: none;
   .badge-title { width: $one-wide; }
   .badge-field { width: $two-wide; }
   .badge-field-textarea {
