@@ -56,7 +56,6 @@
 
     {% if category == 'published' %}
     <div class="published-actions js-badge-actions">
-      <p class="badge-title border-top">Admin</p>
       <div class="admin-btn-container">
         <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
         <i class="fa fa-question-circle js-tooltip"></i>

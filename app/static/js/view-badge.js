@@ -26,9 +26,9 @@ $(document).ready(function() {
   });
 
   $('.js-copy-btn, .js-archive-btn').click(function() {
-    var copyUrl = $(this).data('url');
-    var copyPostData = { _csrf: $(this).data('csrf') };
-    $.post(copyUrl, copyPostData, function(data) {
+    var url = $(this).data('url');
+    var postData = { _csrf: $(this).data('csrf') };
+    $.post(url, postData, function(data) {
       if (data.location) {
         window.location.href = data.location;
       }
