@@ -54,7 +54,7 @@
       {% endfor %}
     </div>
 
-    {% if category == 'published' %}
+    {% if badge.status == 'published' %}
     <div class="published-actions js-badge-actions">
       <div class="admin-btn-container">
         <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
@@ -70,10 +70,10 @@
         <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}" class="btn blue-btn"><i class="fa fa-envelope"></i>Issue by Email</a>
       </div>
     </div>
-    {% elif category == 'template' %}
+    {% elif badge.status == 'template' %}
     <div class="templates-actions js-badge-actions">
       <div class="admin-btn-container">
-        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
+        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ badge.status }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Edit freely. This will not affect badges that previously used this template.</p></div>
       </div>
@@ -88,7 +88,7 @@
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
       </div>
     </div>
-    {% elif category == 'archived' %}
+    {% elif badge.status == 'archived' %}
     <div class="archived-actions js-badge-actions">
       <div class="admin-btn-container">
         <a href="" class="btn blue-btn js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-clipboard"></i>Copy Badge</a>
@@ -96,10 +96,10 @@
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Copy the badge to create a new draft.</p></div>
       </div>
     </div>
-    {% elif category == 'draft' %}
+    {% elif badge.status == 'draft' %}
     <div class="draft-actions js-badge-actions">
       <div class="admin-btn-container">
-        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
+        <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ badge.status }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Edit freely. This will not affect badges that previously used this template.</p></div>
       </div>

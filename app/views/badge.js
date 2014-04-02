@@ -42,8 +42,6 @@ exports.home = function home (req, res, next) {
                                   data.badge.created.getDate() + ', ' +
                                   data.badge.created.getFullYear();
 
-    data.category = data.badge.status;
-
     res.render('badge/home.html', data);
   });
 };
