@@ -1,5 +1,8 @@
-const Account = require('../models/account')("DATABASE");
+const validator = require('validator');
 const openbadger = require('../lib/openbadger');
+
+const Account = require('../models/account')("DATABASE");
+const AccountPermission = require('../models/account-permission')("DATABASE");
 
 exports.home = function home (req, res, next) {
   getSystems(res.locals.hasPermission, function(err, data) {
@@ -9,7 +12,8 @@ exports.home = function home (req, res, next) {
     data.issuersUrl = res.locals.url('settings.issuers');
     data.programsUrl = res.locals.url('settings.programs');
     data.systemsUrl = res.locals.url('settings.systems');
-    
+    data.usersUrl = res.locals.url('settings.users');
+
     return res.render('settings/home.html', data);
   });
 };
@@ -47,7 +51,7 @@ exports.issuers = function issuers (req, res, next) {
   const systemSlug = req.query.systemSlug;
   const issuerSlug = req.query.issuerSlug;
 
-  if (typeof issuerSlug === 'undefined') {
+  if (typeof issuerSlug === 'undefined' || issuerSlug === null) {
     openbadger.getIssuers( { system: systemSlug }, function(err, issuerData) {
       if (err)
         return res.send(500, err);
@@ -84,7 +88,7 @@ exports.programs = function issuers (req, res, next) {
   const issuerSlug = req.query.issuerSlug;
   const programSlug = req.query.programSlug;
 
-  if (typeof programSlug === 'undefined') {
+  if (typeof programSlug === 'undefined' || programSlug === null) {
     openbadger.getPrograms( { system: systemSlug, issuer: issuerSlug }, function(err, programData) {
       if (err)
         return res.send(500, err);
@@ -114,4 +118,132 @@ exports.programs = function issuers (req, res, next) {
       return res.send(403, 'Access Denied');
     }
   }
+};
+
+exports.users = function users (req, res, next) {
+  const systemSlug = req.query.systemSlug;
+  const issuerSlug = req.query.issuerSlug;
+  const programSlug = req.query.programSlug;
+  const email = req.query.email;
+
+  var query = { system: systemSlug,
+                issuer: issuerSlug || null,
+                program: programSlug || null };
+
+  if (!res.locals.hasPermission(query, 'admin')) {
+    return res.send(403, 'Access Denied');
+  }
+
+  if (typeof email === 'undefined' || email === null) {
+    AccountPermission.get(query, { relationships: true }, function(err, data) {
+      if (err)
+        return res.send(500, err);
+
+      return res.send(200, { users: data });
+    });
+  }
+  else {
+    Account.getOne({ email: email }, function(err, accountRow) {
+      if (err)
+        return res.send(500, err);
+
+      if (!accountRow)
+        return res.send(404, 'User Not Found');
+
+      query.accountId = accountRow.id;
+
+      AccountPermission.getOne(query, function(err, permissionRow) {
+        if (err)
+          return res.send(500, err);
+
+        if (!permissionRow)
+          return res.send(404, 'User Not Found');
+
+        permissionRow.email = accountRow.email;
+
+        var canEdit = permissionRow.email !== req.session.email;
+
+        return res.send(200, { user: permissionRow, canEdit: canEdit });
+      });
+    });
+  }
+};
+
+exports.editUser = function editUser (req, res, next) {
+  const email = req.body.email;
+
+  if (!validator.isEmail(email))
+    return res.send(500, 'Invalid email address');
+
+  const context = { system: req.body.systemSlug,
+                    issuer: req.body.issuerSlug || null,
+                    program: req.body.programSlug || null };
+
+  const permissions = { canDraft: req.body.canDraft ? true : false,
+                        canPublish: req.body.canPublish ? true : false,
+                        canReview: req.body.canReview ? true : false };
+
+  if (!res.locals.hasPermission(context, 'admin') || email === req.session.email) {
+    return res.send(403, 'Access Denied');
+  }
+
+  function finish(row) {
+    row.setPermission(context, permissions, function(err, result) {
+      if (err)
+        return res.send(500, err);
+
+      result.row.email = email;
+
+      return res.send(200, { user: result.row, canEdit: true });
+    });
+  }
+
+  Account.getOne({ email: email }, function(err, accountRow) {
+    if (err)
+      return res.send(500, err);
+
+    if (!accountRow) {
+      Account.put({ email: email}, function(err, result) {
+        if (err)
+          return res.send(500, err);
+
+        Account.getOne({ id: result.insertId }, function(err, newRow) {
+          if (err)
+            return res.send(500, err);
+
+          return finish(newRow);
+        });
+      });
+    }
+    else {
+      return finish(accountRow);
+    }
+  });
+};
+
+exports.deleteUser = function deleteUser (req, res, next) {
+  const email = req.body.email;
+
+  const context = { system: req.body.systemSlug,
+                    issuer: req.body.issuerSlug || null,
+                    program: req.body.programSlug || null };
+
+  if (!res.locals.hasPermission(context, 'admin')) {
+    return res.send(403, 'Access Denied');
+  }
+
+  Account.getOne({ email: email }, function(err, accountRow) {
+    if (err)
+      return res.send(500, err);
+
+    if (!accountRow)
+      return res.send(404, 'User Not Found');
+
+    accountRow.setPermission(context, null, function(err) {
+      if (err)
+        return res.send(500, err);
+
+      return res.send(200);
+    });
+  });
 };

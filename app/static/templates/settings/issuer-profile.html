@@ -1,15 +1,4 @@
-<div class="column left">
-  <p class="admin-title">Issuer</p>
-  <div class="form-dropdown">
-    <span class="arrow-down"></span>
-    <select name="" disabled="true">
-      <option value="{{ issuer.slug }}">{{ issuer.name }}</option>
-    </select>
-  </div>
-  <ul class="admin-options">
-    <li class="admin-options-selected"><i class="fa fa-list-ul"></i>Issuer Profile</li>
-  </ul>
-</div>
+{% include "settings/issuer-left.html" %}
 
 <div class="left column-wide">
   <p class="admin-title">Issuer Profile</p>
@@ -57,7 +46,7 @@
       <input class="badge-field" type="text" name="zipcode"></input>
     </div>
 
-    <a href="" class="btn js-issuer-save-btn">Save</a>
+    <p>Profile editing coming soon</p>
     <a href="" class="btn js-issuer-cancel-btn">Cancel</a>
   </form>
 </div>

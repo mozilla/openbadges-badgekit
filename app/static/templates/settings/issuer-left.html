@@ -1,0 +1,14 @@
+<div class="column left">
+  <p class="admin-title">Issuer</p>
+  <div class="form-dropdown">
+    <span class="arrow-down"></span>
+    <select name="" disabled="true">
+      <option value="{{ issuer.slug }}">{{ issuer.name }}</option>
+    </select>
+  </div>
+  <ul class="admin-options">
+    <li {% if profileActive %} class="admin-options-selected" {% endif %}><i class="fa fa-list-ul"></i><a href="" class="js-issuer-profile-btn">Issuer Profile</a></li>
+    <li {% if usersActive %} class="admin-options-selected" {% endif %}><i class="fa fa-list-ul"></i><a href="" class="js-issuer-users-btn">Issuer Users</a></li>
+  </ul>
+  <a href="" class="btn js-back-btn">Back</a>
+</div>

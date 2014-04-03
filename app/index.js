@@ -61,7 +61,7 @@ app.get('/directory/useTemplate', 'directory.useTemplate', secureRouteHandlers, 
 
 app.get('/badge/:badgeId', 'badge', secureRouteHandlers, views.badge.home);
 app.get('/badge/:badgeId/edit', 'badge.edit', secureRouteHandlers, views.badge.edit);
-app.post('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
+app.del('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
 app.get('/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.save);
 app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);
@@ -80,6 +80,9 @@ app.get('/settings', 'settings', secureRouteHandlers, views.settings.home);
 app.get('/settings/systems', 'settings.systems', secureRouteHandlers, views.settings.systems);
 app.get('/settings/issuers', 'settings.issuers', secureRouteHandlers, views.settings.issuers);
 app.get('/settings/programs', 'settings.programs', secureRouteHandlers, views.settings.programs);
+app.get('/settings/users', 'settings.users', secureRouteHandlers, views.settings.users);
+app.post('/settings/users', 'settings.editUser', secureRouteHandlers, views.settings.editUser);
+app.del('/settings/users', 'settings.deleteUser', secureRouteHandlers, views.settings.deleteUser);
 
 app.get('/studio/backgrounds', 'studio.backgrounds', secureRouteHandlers, views.badge.getBackgrounds);
 app.get('/studio/texts', 'studio.texts', secureRouteHandlers, views.badge.getTexts);

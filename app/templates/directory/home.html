@@ -83,10 +83,9 @@
               <ul class="action-dropdown js-action-dropdown">
                 <a href=""><li>Review Applicants</li></a>
                 <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>Issue by Email</li></a>
-                <!-- <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a> -->
+                <!-- <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>Issue by Claim Code</li></a> -->
                 <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>Copy as new</li></a>
-                <!-- <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>ARCHIVE</li></a> -->
-                <a href="" class="js-archive-btn" data-url=""><li>More Actions &raquo;  </li></a>
+                <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>Archive</li></a>
               </ul>
             {% endif %}
           </section>
