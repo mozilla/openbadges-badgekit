@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <section class="info">
+    <h1 class="info-heading">{{ message }}</h1>
+    {{ renderError(error) }}
+  </section>
+</div>
+{% endblock %}
+
+{% macro renderError(err) %}
+  {% set errCode = err.code | default(500) %}
+
+  {% if errCode == 404 %}
+    <p>The page you're looking for could not be found.</p>
+  {% else %}
+    <p>Unfortunately, there was a problem :(</p>
+  {% endif %}
+
+  {% if debug %}
+    <pre class="stacktrace">{{ err.stack }}</pre>
+  {% endif %}
+{% endmacro %}
