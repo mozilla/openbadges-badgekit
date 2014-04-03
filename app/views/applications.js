@@ -27,8 +27,19 @@ function pending (req, res, next) {
     if (err)
       return next(err);
 
+    const badges = [];
+    var currentBadge = {};
+    applications.forEach(function (application) {
+      if (application.badge.id !== currentBadge.id) {
+        currentBadge = application.badge;
+        currentBadge.applications = [];
+        badges.push(currentBadge);
+      }
+      currentBadge.applications.push(application);
+    })
+
     res.render('applications/pending-list.html', {
-      applications: applications,
+      badges: badges,
     });
   });
 }
@@ -52,12 +63,26 @@ exports.forBadge = function forBadge (req, res, next) {
     badge: req.params.badgeId,
   });
 
+  function render (badge, applications) {
+    badge.applications = applications || [];
+
+    res.render('applications/for-badge.html', {
+      badge: badge
+    });
+  }
+
   openbadger.getApplications(context, function (err, applications) {
     if (err)
       return next(err);
 
-    res.render('applications/for-badge.html', {
-      applications: applications,
+    if (applications.length)
+      return render(applications[0].badge, applications);
+
+    openbadger.getBadge(context, function (err, badge) {
+      if (err)
+        return next(err);
+
+      render(badge);
     });
   });
 }
