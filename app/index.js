@@ -93,6 +93,10 @@ app.get('/studio/texts', 'studio.texts', secureRouteHandlers, views.badge.getTex
 app.get('/studio/icons', 'studio.icons', secureRouteHandlers, views.badge.getIcons);
 app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getColors);
 
+app.get('/applications', 'applications', secureRouteHandlers, views.applications.home);
+app.get('/applications/:badgeId', 'applications.forBadge', secureRouteHandlers, views.applications.forBadge);
+app.get('/applications/:badgeId/:applicationId', 'application', secureRouteHandlers, views.applications.application);
+
 app.get('/help', 'help', views.help.home);
 app.get('/about', 'about', views.about.home);
 
