@@ -1,27 +1,10 @@
 var getDb = require('../lib/db').getDb;
 var async = require('async');
 
+var AccountPermission = require('./account-permission')("DATABASE");
+
 module.exports = function getAccountModel (key) {
   var db = getDb(key);
-
-  var AccountPermission = db.table('accountPermission', {
-    fields:
-      ['id',
-       'accountId',
-       'system',
-       'issuer',
-       'program',
-       'canDraft',
-       'canPublish',
-       'canReview'],
-    relationships: {
-      account: {
-        type: 'hasOne',
-        local: 'accountId',
-        foreign: { table: 'account', key: 'id' }
-      }
-    }
-  });
 
   var Account = db.table('account', {
     fields: 
@@ -35,7 +18,8 @@ module.exports = function getAccountModel (key) {
       }
     },
     methods: {
-      hasPermission: hasPermission
+      hasPermission: hasPermission,
+      setPermission: setPermission
     }
   });
 
@@ -66,7 +50,6 @@ module.exports = function getAccountModel (key) {
                 (permission.program) ||
                 (permission.issuer && !bestMatch.issuer) ||
                 (permission.system && !bestMatch.system)) {
-              console.log(permission);
               bestMatch = permission;
             }
           }
@@ -90,6 +73,35 @@ module.exports = function getAccountModel (key) {
     }
 
     return false;
+  }
+
+  function setPermission(context, permissions, callback) {
+    var query = { accountId: this.id,
+                    system: context.system,
+                    issuer: context.issuer,
+                    program: context.program };
+
+    if (permissions) {
+      AccountPermission.getOne(query, function(err, row) {
+        if (err)
+          return callback(err);
+
+        if (row) {
+          query.id = row.id;
+        }
+
+        query.canDraft = permissions.canDraft || false;
+        query.canPublish = permissions.canPublish || false;
+        query.canReview = permissions.canReview || false;
+
+        return AccountPermission.put(query, callback);
+      });
+    }
+    else {
+      return AccountPermission.del(query, callback);
+      // note that even when the last permission is deleted, the account will remain.  I THINK this is the correct behavior, so as to
+      // not detach any potential references if we later add the same user again, but I figured I'd note this behavior here.
+    }
   }
 
   return Account;

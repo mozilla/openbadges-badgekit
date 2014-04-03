@@ -1,18 +1,11 @@
-<div class="column left">
-  <p class="admin-title">Issuer</p>
-  <div class="form-dropdown">
-    <span class="arrow-down"></span>
-    <select name="" disabled="true">
-      <option value="{{ issuer.slug }}">{{ issuer.name }}</option>
-    </select>
-  </div>
-  <ul class="admin-options">
-    <li class="admin-options-selected"><i class="fa fa-user"></i>Issuer Users</li>
-  </ul>
-</div>
+{% include "settings/issuer-left.html" %}
 
 <div class="left column-wide">
   <p class="admin-title">Issuer Users</p>
-  <p><a href="">christensenep@gmail.com</a>
-  <p><a href="">christensenep@gmail.com</a>
+  {% for user in users %}
+    <p><a href="" class="js-edit-issuer-user-btn">{{ user.account.email }}</a></p>
+  {% endfor %}
+
+  <input class="badge-field left js-email-input" type="text" name="name" value="" placeholder="Enter an email address"></input>
+  <a href="" class="btn add-btn js-add-issuer-user-btn">Add User</a>
 </div>

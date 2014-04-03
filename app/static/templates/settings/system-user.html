@@ -1,0 +1,31 @@
+{% include "settings/system-left.html" %}
+
+<div class="left column-wide">
+  <p class="admin-title">Editing System User {{ user.email }}</p>
+  <form class="js-user-form" name="input" action="" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+    <input type="hidden" name="email" value="{{ user.email }}"></input>    
+    <input type="hidden" name="systemSlug" value="{{ system.slug }}"></input>   
+
+    <label for="canDraft" class="block">
+      <input type="checkbox" name="canDraft" id="canDraft" {{ 'disabled' if not canEdit }} {% if user.canDraft %} checked {% endif %}>
+      <span>Can Draft</span>
+    </label>
+
+    <label for="canPublish" class="block">
+      <input type="checkbox" name="canPublish" id="canPublish" {{ 'disabled' if not canEdit }} {% if user.canPublish %} checked {% endif %}>
+      <span>Can Publish</span>
+    </label>
+
+    <label for="canReview" class="block">
+      <input type="checkbox" name="canReview" id="canReview" {{ 'disabled' if not canEdit }} {% if user.canReview %} checked {% endif %}>
+      <span>Can Review</span>
+    </label>
+
+    {% if canEdit %}
+      <a href="" class="btn js-save-system-user-btn">Save</a>
+      <a href="" class="btn js-delete-system-user-btn">Delete User</a>
+    {% endif %}
+
+  </form>
+</div>
