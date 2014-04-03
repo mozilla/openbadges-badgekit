@@ -5,16 +5,12 @@ exports = module.exports = require('badgekit-api-client')(
   config('OPENBADGER_SECRET')
 );
 
-module.exports.makeContext = function makeContext(context) {
-  context = context || {};
-  context.system = config('OPENBADGER_SYSTEM');
-  return context;
-}
 module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   var newBadge = {};
   newBadge.id = badge.slug;
   newBadge.description = badge.strapline;
   newBadge.name = badge.name;
+  newBadge.status = badge.archived ? 'archived' : 'published';
   newBadge.earnerDescription = badge.earnerDescription;
   newBadge.consumerDescription = badge.consumerDescription;
   newBadge.rubricUrl = badge.rubricUrl;

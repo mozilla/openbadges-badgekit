@@ -1,6 +1,13 @@
-// New Relic Server monitoring support
-if ( process.env.NEW_RELIC_ENABLED ) {
-  require( "newrelic" );
+var newrelic;
+if (process.env.NEW_RELIC_ENABLED) {
+  newrelic = require('newrelic');
+}
+else {
+  newrelic = {
+    getBrowserTimingHeader: function () {
+      return "<!-- New Relic RUM disabled -->";
+    }
+  };
 }
 
 const config = require('./lib/config');
@@ -19,6 +26,8 @@ var env = new nunjucks.Environment(new nunjucks.FileSystemLoader([path.join(__di
                                    { autoescape: true, watch: true });
 
 env.express(app);
+
+app.locals.newrelic = newrelic;
 
 require('express-monkey-patch')(app);
 
@@ -54,6 +63,7 @@ app.get('/directory/useTemplate', 'directory.useTemplate', secureRouteHandlers, 
 
 app.get('/badge/:badgeId', 'badge', secureRouteHandlers, views.badge.home);
 app.get('/badge/:badgeId/edit', 'badge.edit', secureRouteHandlers, views.badge.edit);
+app.post('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
 app.get('/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.save);
 app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);
@@ -76,6 +86,7 @@ app.get('/studio/icons', 'studio.icons', secureRouteHandlers, views.badge.getIco
 app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getColors);
 
 app.get('/help', 'help', views.help.home);
+app.get('/about', 'about', views.about.home);
 
 app.get('*', function (req, res, next) {
   var error = new Error('Page not found');

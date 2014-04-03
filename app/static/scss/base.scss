@@ -127,6 +127,8 @@ a {
   &:hover { color: $hover-blue; }
 }
 
+hr { border-color: $light-gray; }
+
 label { font-family: "Open Sans Light"; }
 
 textarea { height: 150px; }
@@ -208,9 +210,9 @@ pre.stacktrace {
   position: relative;
 }
 
-.checkbox {
-  display: inline;
-}
+.checkbox { display: inline; }
+
+.inline { display: inline; }
 
 .column {margin-bottom:20px;}
 

@@ -4,6 +4,7 @@
   margin: 30px auto 0 auto;
   padding: 10px 10px 5px 0;
   .studio-tab {
+    cursor: pointer;
     background-color: $light-gray;
     display: inline;
     padding: 5px 15px;
@@ -38,14 +39,15 @@
   padding-left: 23px;
 }
 
-.fa-rocket,
-.fa-sign-out {
-    margin-left: 10px;
-    font-size: 15px;
-  }
+
 
 .publish-save {
   text-align: right;
+  .fa-rocket,
+  .fa-sign-out {
+    margin-left: 10px;
+    font-size: 15px;
+  }
 }
 
 .save-box {
@@ -193,11 +195,11 @@
 }
 
 .badge-preview-info {
-  padding: 20px;
+  padding-top: 80px;
 }
 
 .badge-details {
-  width: $two-wide;
+  width: $six-wide;
   .new-placeholder {
     float: none;
     margin: 0 0 20px 0;
@@ -205,11 +207,57 @@
   p { margin: 0; }
 }
 
-.badge-info {
-  width: $four-wide;
+.badge-info,
+.published-actions,
+.templates-actions,
+.archived-actions,
+.draft-actions   {
+  border: 1px solid $light-gray;
+  width: $six-wide;
   background-color: $white;
   padding: 30px;
-  margin-top: 20px;
+  .badge-title {
+    font-weight: bold;
+    .badge-description {
+      margin-left: 10%;
+      font-weight: normal;
+    }
+  }
+  .badge-description { color: $gray; }
+}
+
+.published-actions,
+.templates-actions,
+.archived-actions,
+.draft-actions {
+  display: none;
+  .badge-title { width: $one-wide; }
+  .badge-field { width: $two-wide; }
+  .badge-field-textarea {
+    height: 60px;
+    width: $three-wide;
+  }
+  .unique-field {
+    width: 30px;
+    margin: 0 20px 0 0;
+  }
+  .fa-group {
+    color: $white;
+    background-color: $dark-gray;
+    padding: 5px;
+    margin: 20px;
+    cursor: pointer;
+    &:hover { background-color: $hover-gray; }
+  }
+  .fa-envelope,
+  .fa-clipboard,
+  .fa-download,
+  .fa-share-square,
+  .fa-cloud-upload,
+  .fa-pencil,
+  .fa-rocket { color: $white; margin-right: 5px; }
+  .border-top { width: $six-wide; }
+  .admin-btn-container { margin: 10px 0; }
 }
 
 .form-field-wrapper { margin-bottom: 20px; }
@@ -305,6 +353,10 @@
       box-shadow: 0 0 0;
     }
   }
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (max-width: 600px) {

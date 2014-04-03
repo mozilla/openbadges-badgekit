@@ -3,7 +3,7 @@
 {% import "badge/criterion.html" as criterionTemplate %}
 
 {% macro createSectionAnchorAttributes(s) %}
-  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ category }}" data-section="{{ s }}" class="js-category-anchor"
+  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ badge.status }}" data-section="{{ s }}" class="js-category-anchor"
 {% endmacro %}
 
 {% macro createSectionDivAttributes(s) %}
@@ -28,7 +28,7 @@
         <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
       </div>
       <div class="publish-save">
-        {% if category != 'template' %}
+        {% if badge.status != 'template' and canPublish %}
           <a class="btn review-publish-btn js-publish-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" {% if badge.status != 'draft' %}disabled{% endif %}>Publish<i class="fa fa-rocket"></i></a>
         {% endif %}
         <a href="{{ url('directory') }}" class="btn use-btn js-save-and-exit-btn">Exit<i class="fa fa-sign-out"></i></a>
@@ -65,13 +65,13 @@
         </div>
 
         <div class="form-field-wrapper">
-          <label class="badge-label left" for="tags">Tags<p class="small-copy">Comma seperated keywords</p></label>
+          <label class="badge-label left" for="tags">Tags<p class="small-copy">Comma separated keywords</p></label>
           <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}" placeholder="org name, subject, activity, keywords, etc"/>
           <!-- <a class="btn add-btn">Add<i class="fa fa-plus"></i></a> -->
         </div>
 
         <div class="form-field-wrapper cb">
-          <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">Describe why and how would someone apply for this badge.</p></label>
+          <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">Describe why and how someone would apply for this badge.</p></label>
 
           <textarea class="badge-field" {{ disabled() }} type="text" name="earnerDescription">{{ badge.earnerDescription }}</textarea>
         </div>
@@ -144,13 +144,13 @@
         <p class="form-heading"><span class="form-heading-span">Milestone</span> Recognize earners who have been awarded a set of badges.</p>
 
         <p>Feature Coming Soon...</p>
-        <p class="form-heading"><span class="form-heading-span">A badge can be setup as a milestone.</span> When an earner successfully acquires a particular set of badges, they can be automatically issued with a milestone badge. This allows yo uto acknowledge higher-level experiences and skills. Conversely, a milestone badge could also allow you to create smaller, more granular badges that culminate in this badge.</p>
+        <p class="form-heading"><span class="form-heading-span">A badge can be setup as a milestone.</span> When an earner successfully acquires a particular set of badges, they can be automatically issued with a milestone badge. This allows you to acknowledge higher-level experiences and skills. Conversely, a milestone badge could also allow you to create smaller, more granular badges that culminate in this badge.</p>
       </div>
 
       <div {{ createSectionDivAttributes('criteria') }}>
         <p class="form-heading"><span class="form-heading-span">Criteria</span> Define requirements to guide earners and mentors.</p>
         <div class="form-field-wrapper">
-          <label class="badge-label left" for="numCriteria">How many criterion?</label>
+          <label class="badge-label left" for="numCriteria">How many criteria?</label>
           <div class="form-dropdown short-dropdown">
             <span class="arrow-down"></span>
             <select name="numCriteria" class="js-num-criteria" {{ disabled() }}>

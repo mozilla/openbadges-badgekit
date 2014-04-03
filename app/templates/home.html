@@ -10,38 +10,9 @@
 {% endblock %}
 
 {% block content %}
-  <section class="container form-container clearfix">
-    <form class="sign-up-form js-sign-up-form" method="POST" action="https://agile-tundra-2248.herokuapp.com/">
-      <div class="form-fields left">
-        <div class="form-row left">
-          <span class="form-cell left form-col-1">Sign up for access to Private Beta</span>
-          <input class="form-cell left form-col-2 invalid-field js-email-expandable" type="email" name="EMAIL" placeholder="Enter your email" required="">
-        </div>
-        <div class="expandable-section js-expandable-section" class="hidden">
-          <div class="form-row left">
-            <input class="form-cell left form-col-1 invalid-field" type="text" name="ORGNAME" placeholder="Organization name" required="">
-            <input class="form-cell left form-col-2 invalid-field" type="text" name="CONTACTNAM" placeholder="Contact name" required="">
-          </div>
-          <div class="form-row left">
-            <input class="form-cell left form-col-1 invalid-field" type="text" name="ORGSIZE" placeholder="Organization size" required="">
-            <input class="form-cell left form-col-2 invalid-field" type="text" name="CONTACTPOS" placeholder="Contact position" required="">
-          </div>
-        </div>
-      </div>
-      <div class="button-container left">
-        <button class="form-cell btn" type="submit">Sign Up</button>
-        <div class="privacy js-privacy">
-          <input class="privacy-check js-privacy-check left" type="checkbox" required="">
-          <label class="privacy-text invalid-field" name="agree">I’m okay with Mozilla handling my info as explained in <a href="http://www.mozilla.org/en-US/privacy/policies/websites/" target="_blank">this Privacy Policy</a>
-          </label>
-        </div>
-      </div>
-    </form>
-    <div class="thanks-for-signup js-thanks-for-signup cb">
-      <h2>Thanks for signing up!</h2>
-      <p>We will contact you soon.  In the meantime learn<br> more about <a href="http://openbadges.org/">Mozilla Open Badges</a></p>
-    </div>
-  </section>
+  <div class="container clearfix">
+    {% include "signup.html" %}
+  </div>
 
   <section class="first">
     <div class="container">
@@ -67,8 +38,8 @@
           <span class="or">or</span>
         </section>
         <section class="badge-template left">
-          <div class="badgethumb js-badgethumb" data-image="url('{{ static('images/default-badge.png') }}')"></div>
-          <h2>Cat in Space</h2>
+          <div class="badgethumb js-badgethumb" data-image="url('{{ static('images/badge-template-1.png') }}')"></div>
+          <h2>Template</h2>
           <p class="small-copy">Status: Template</p>
           <a class="btn view-btn js-login">View</a>
         </section>

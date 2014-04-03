@@ -1,5 +1,4 @@
 var getDb = require('../lib/db').getDb;
-var async = require('async');
 
 module.exports = function getImageModel (key) {
   var db = getDb(key);

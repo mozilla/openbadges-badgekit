@@ -9,14 +9,14 @@ const middleware = require('../middleware');
 
 const studioPath = 'images/studio/';
 
-function getBadgeById(badgeId, category, callback) {
+function getBadgeById(badgeId, category, makeContext, callback) {
   if (category === 'draft' || category === 'template') {
     Badge.getOne({ id: badgeId }, { relationships: true }, function(err, row) {
      callback(err, { badge: row } );
    });
   }
   else {
-    openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, data) {
+    openbadger.getBadge(makeContext({ badge: { slug: badgeId }}), function(err, data) {
       if (err)
         return callback(err);
 
@@ -31,26 +31,41 @@ exports.home = function home (req, res, next) {
   const badgeId = req.params.badgeId;
   const category = req.query.category || 'draft';
 
-  getBadgeById(badgeId, category, function(err, data) {
+  getBadgeById(badgeId, category, res.locals.makeContext, function(err, data) {
     if (err)
       return res.send(500, err);
 
     if (!data.badge)
       return res.send(404, "Not Found");
-    
-    data.category = category;
-    data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' + 
-                                  data.badge.created.getDate() + ', ' + 
+
+    data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' +
+                                  data.badge.created.getDate() + ', ' +
                                   data.badge.created.getFullYear();
 
     res.render('badge/home.html', data);
   });
 };
 
+exports.del = function del (req, res, next) {
+  const badgeId = req.params.badgeId;
+
+  Badge.getOne({ id: badgeId }, function(err, row) {
+    if (err)
+      return res.send(500, err);
+
+    row.del(function(err) {
+      if (err)
+        return res.send(500, err);
+
+      return res.send(200, { location: res.locals.url('directory') + '?category=' + row.status });
+    });
+  });
+};
+
 exports.criteria = function criteria (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  getBadgeById(badgeId, 'published', function(err, data) {
+  getBadgeById(badgeId, 'published', res.locals.makeContext, function(err, data) {
     if (err)
       return res.send(404, 'Not Found');
 
@@ -65,12 +80,15 @@ exports.edit = function edit (req, res, next) {
 
   async.parallel([
     function(callback) {
-      getBadgeById(badgeId, category, function(err, data) {
+      getBadgeById(badgeId, category, res.locals.makeContext, function(err, data) {
         if (err)
           return callback(err);
 
+        if (res.locals.hasPermission(data.badge, 'publish')) {
+          data.canPublish = true;
+        }
+
         data.section = section;
-        data.category = category;
 
         callback(null, data);
       });
@@ -120,7 +138,7 @@ exports.getTexts = function getTexts(req, res, next) {
       res.send(500, err);
 
     var texts = files.map(function(file) {
-      return { id: file, 
+      return { id: file,
                image: res.locals.static(path.join(studioPath, 'texts', file)) };
     });
 
@@ -134,7 +152,7 @@ exports.getIcons = function getIcons(req, res, next) {
       res.send(500, err);
 
     var icons = files.map(function(file) {
-      return { id: file, 
+      return { id: file,
                image: res.locals.static(path.join(studioPath, 'icons', file)) };
     });
 
@@ -161,10 +179,10 @@ function saveBadge(req, callback) {
   const limitNumber = parseInt(req.body.limitNumber, 10);
   const numCriteria = parseInt(req.body.numCriteria, 10);
 
-  const query = { 
-    id: req.body.badgeId, 
+  const query = {
+    id: req.body.badgeId,
     name: req.body.name,
-    description: req.body.description, 
+    description: req.body.description,
     tags: req.body.tags,
     issuerUrl: req.body.issuerUrl,
     earnerDescription: req.body.earnerDescription,
@@ -276,13 +294,13 @@ exports.save = function save (req, res, next) {
 
 exports.archive = function archive (req, res, next) {
   const badgeId = req.params.badgeId;
-  openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, badge) {
+  openbadger.getBadge(res.locals.makeContext({ badge: { slug: badgeId }}), function(err, badge) {
     if (err)
       return res.send(500, err);
 
     badge.archived = true;
-    openbadger.updateBadge(openbadger.makeContext({ badge: badge }), function(err) {
-      if (err) 
+    openbadger.updateBadge(res.locals.makeContext({ badge: badge }), function(err) {
+      if (err)
         return res.send(500, err);
 
       req.session.notification = 'archived';
@@ -303,8 +321,12 @@ exports.publish = function publish (req, res, next) {
       if (err)
         return res.send(500, err);
 
+      if (!res.locals.hasPermission({ system: row.system, issuer: row.issuer, program: row.program }, 'publish'))
+        return res.send(403, 'You do not have permission to publish this badge');
+
       var badge = openbadger.toOpenbadgerBadge(row);
-      openbadger.createBadge(openbadger.makeContext({ badge: badge }), function(err) {
+
+      openbadger.createBadge({ system: row.system, issuer: row.issuer, program: row.program, badge: badge }, function(err) {
         if (err) {
           if ((/^ResourceConflictError/).test(err.toString())) {
             return res.send(409, 'A badge with that name already exists');
@@ -328,9 +350,19 @@ exports.publish = function publish (req, res, next) {
 
 exports.copy = function copy (req, res, next) {
   const badgeId = req.params.badgeId;
-  openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, badge) {
+
+  openbadger.getBadge(res.locals.makeContext({ badge: { slug: badgeId }}), function(err, badge) {
     if (err)
       return res.send(500, err);
+
+    var context = {
+      system: badge.system ? badge.system.slug : undefined,
+      issuer: badge.issuer ? badge.issuer.slug : undefined,
+      program: badge.program ? badge.program.slug : undefined
+    }
+
+    if (!res.locals.hasPermission(context, 'draft'))
+      return res.send(403, 'You do not have permission to create a badge');
 
     Image.put({ url: badge.imageUrl }, function(err, imageResult) {
       if (err)
@@ -344,6 +376,10 @@ exports.copy = function copy (req, res, next) {
       badge.imageId = imageResult.insertId;
       var criteria = badge.criteria;
       delete badge.criteria;
+      badge.status = 'draft';
+      badge.system = context.system;
+      badge.issuer = context.issuer;
+      badge.program = context.program;
 
       Badge.put(badge, function (err, badgeResult) {
         if (err) {
@@ -388,7 +424,7 @@ exports.image = function image (req, res, next) {
         }
       }
       else {
-        res.sendfile(path.join(__dirname, '../static/images/default-badge.png'));
+        res.sendfile(path.join(__dirname, '../static/images/badge-template-1.png'));
       }
     }
     else {
@@ -400,7 +436,7 @@ exports.image = function image (req, res, next) {
 exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge(openbadger.makeContext({ badge: { slug: badgeId }}), function(err, data) {
+  openbadger.getBadge(res.locals.makeContext({ badge: { slug: badgeId }}), function(err, data) {
     if (err)
       return res.send(500, err);
 
@@ -410,7 +446,7 @@ exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
 };
 
 exports.issueByEmail = function issueByEmail (req, res, next) {
-  const query = { 
+  const query = {
     learner: {
       email: req.body.email
     },
@@ -425,13 +461,13 @@ exports.issueByEmail = function issueByEmail (req, res, next) {
 
       return middleware.redirect('directory', 302)(req, res, next);
   //});
-  
+
 };
 
 exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
   const badgeId = req.params.badgeId;
 
-  openbadger.getBadge(openbadger.makeContext({badge: { slug: badgeId }}), function(err, data) {
+  openbadger.getBadge(res.locals.makeContext({badge: { slug: badgeId }}), function(err, data) {
     if (err)
       return res.send(500, err);
 

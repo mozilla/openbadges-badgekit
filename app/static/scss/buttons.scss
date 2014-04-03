@@ -20,6 +20,11 @@
   }
 }
 
+.blue-btn {
+  background-color: $light-blue;
+  &:hover { background-color: $hover-blue; }
+}
+
 .edit-btn {
   display: inline-block;
   width: 80px;

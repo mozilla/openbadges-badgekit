@@ -1,0 +1,75 @@
+{% extends "about/layout.html" %}
+
+{% block content %}
+  <section class="about-badges">
+    <div class="container">
+      <h1 class="info-heading">About Badgekit</h1>
+      <div class="two-column-text">
+        <p>BadgeKit is a set of practical tools for working with <a href="http://openbadges.org" class="bold">Open Badges</a>. Organizations can use BadgeKit to quickly and easily build custom badging systems tailored to their own communities.</p>
+        <p>BadgeKit provides many of the component parts required within any badge issuing application, but is open and flexibly designed, giving you agency to configure the experience you want badge earners to have.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="access-to-badges clearfix">
+      <div class="left access-image">
+        <img src="{{ static('images/access.png') }}">
+        <a href="http://badgekit.org">Request Access Now</a>
+      </div>
+      <p>Currently available in hosted private beta form for organizations looking to get involved at an early stage and play a role in BadgeKit's future, the tools are under continuing development - you can <a href="http://badgekit.org">sign-up</a> to request access now. If you don't have the resources required for access at this stage - stay tuned for future developments!</p>
+    </div>
+    <hr>
+    <div class="apply-review-issue">
+      <img src="{{ static('images/apply-badgekit.png') }}">
+      <img src="{{ static('images/review-badgekit.png') }}">
+      <img src="{{ static('images/issue-badgekit.png') }}">
+      <div class="two-column-text">
+        <p>Badging systems involve a number of key processes, including creating badges, letting people apply for them, reviewing applications and issuing badges. The tools within BadgeKit are aimed at helping organizations to implement these processes within their own systems. Since BadgeKit is open, you can customize the tools to meet the needs of your own community.</p>
+      </div>
+    </div>
+    <hr>
+    <div class="tools-for-badges clearfix">
+      <div class="right tools-image">
+        <img src="{{ static('images/tools-badgekit.png') }}">
+      </div>
+      <p>BadgeKit is built on technologies that have evolved over a period of several years, so the tools benefit from extensive testing and understanding gained through work with real-world badging systems.</p>
+      <p>At the moment you can work with BadgeKit either by signing up for private beta access or by downloading the code from <a href="https://github.com/mozilla/openbadges-badgekit">GitHub</a> and installing it on your own server.</p>
+    </div>
+    <hr>
+    <div class="two-column-text">
+      <p>Although currently focused on supporting organizations with significant technical and other resources, BadgeKit is continually developing to cater for anyone looking to implement a badging system. The BadgeKit tools evolved through badging projects with cities, so are primarily suited to larger organizations - support for individuals who want to issue badges is coming down the line!</p>
+    </div>
+    <p>See the following resources for further information about BadgeKit:</p>
+    <ul class="about-page">
+      <li><a href="https://badgekit.org/help">Help and FAQs</a></li>
+      <li><a href="https://github.com/mozilla/openbadges-badgekit/wiki/BadgeKit-Tutorial">Tutorial</a> </li>
+      <li><a href=" https://github.com/mozilla/openbadges-badgekit/wiki/Glossary">Glossary</a></li>
+      <li><a href="https://github.com/mozilla/openbadges-badgekit/wiki/BadgeKit-API-Introduction">BadgeKit API Introduction</a></li>
+      <li><a href="https://github.com/mozilla/openbadges-badgekit/wiki/BadgeKit-and-Open-Badges-Resources">Resources</a></li>
+    </ul>
+  </section>
+
+  <section class="about-badges about-open-badges">
+    <div class="container">
+      <h1 class="info-heading">About Open Badges</h1>
+      <div class="two-column-text">
+        <p>Mozilla developed the Open Badges Infrastructure (OBI) to help people recognize skills and achievements gained in the classroom or elsewhere. Traditional education typically only accounts for a portion of the learning a person experiences, with working life and personal/ community life equipping most of us with a diverse set of skills.</p>
+        <p>Open Badges give individuals, employers and educators a framework to represent the full range of skills we earn in different areas of life. Badges also let people paint a more complete, detailed and ultimately representative impression of their cumulative experiences.</p>
+        <p>The Open Badges standard means that an individual can build an accurate description of their skills which is interoperable. Badge earners can represent their experiences in a consistent way, stitching together varied types of skills acquired across contexts and learning environments. The portable nature of badges has huge potential to remove obstacles to opportunities. Open Badges empower earners to take control over their career pathways and lifelong learning.</p>
+        <p>An Open Badge is more than just a visual image - it contains data about the skill or experience it represents. Badge earners can display their badges online and share them on social networks, letting potential employers, educators and peers see what the badge demonstrates, together with supporting information.</p>
+        <p>Mozilla is developing various tools and projects to aid adoption of Open Badges, including BadgeKit. Stay tuned for additional developments throughout 2014!</p>
+      </div>
+      <ul class="about-page">
+      <li><a href="http://openbadges.org/about/">Learn more about Open Badges</a></li>
+      <li><a href="http://community.openbadges.org/">Get involved with Open Badges</a> </li>
+      <li><a href="http://openbadges.tumblr.com/">Keep up with what's happening with Open Badges</a></li>
+      <li><a href="http://discovery.openbadges.org/">Learn about Open Badges Discovery</a></li>
+      <li><a href="https://badgekit.org/help">BadgeKit Help</a></li>
+    </ul>
+    </div>
+    <div class="more-about-open-badges">
+      <a href="http://http://openbadges.org/" class="open-badges-button">Now learn more about OpenBadges</a>
+    </div>
+  </section>
+{% endblock %}

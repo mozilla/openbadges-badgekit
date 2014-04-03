@@ -3,6 +3,7 @@
 <head>
   <title>{% block title %}BadgeKit{% endblock %}</title>
   {% block head -%}
+    {{ newrelic.getBrowserTimingHeader() | safe }}
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="{{ static('/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ static('/css/base.css') }}">
@@ -43,7 +44,7 @@
           </nav>
           <nav class="settings-small-screen"></nav> -->
 
-          <img src="{{ static('images/badgekit-logo.png') }}" class="badgekit-logo left">
+          <a href="{{ url('home') }}"><img src="{{ static('images/badgekit-logo.png') }}" class="badgekit-logo left"></a>
           <nav class="nav-header homepage-nav">
             <ul class="navigation-dropdown">
               <span class="arrow-down"></span>
@@ -54,7 +55,7 @@
                   <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
                   <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
                   <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
-                  <a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>
+                  {% if canCreateDraft %}<a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>{% endif %}
                 </ul>
               </li>
             </ul>
@@ -89,21 +90,14 @@
             </ul>
           {% else %}
             <ul class="navigation-dropdown">
-              <span class="arrow-down about-arrow"></span>
-              <li class="menu-item">
-                About
-                <ul class="menu-hover about-hover">
-                  <a href=""><li>BadgeKit</li></a>
-                  <a href=""><li>Open Badges</li></a>
-                </ul>
-              </li>
+              <a href="{{ url('about') }}"><li class="menu-item">About</li></a>
             </ul>
 
             <ul class="navigation-dropdown">
               <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
             </ul>
 
-            <a href="#" class="menu-item js-login">
+            <a href="#" class="menu-item js-login login-hover">
               <i class="fa fa-sign-in"></i>Log In
             </a>
 
@@ -121,7 +115,7 @@
     {%- endblock %}
 
     {% block footerWrapper -%}
-      <footer id="footer" class="footer-container clearfix">
+      <footer id="footer" class="footer-container clearfix cb">
         {% block footer -%}
           <div class="footer-logo-container left">
             <a href="http://openbadges.org" id="open-badges-logo" target="_blank">
