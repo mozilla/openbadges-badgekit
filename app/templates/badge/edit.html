@@ -100,42 +100,17 @@
           <input class="upload-image js-upload-image" type="file" name="uploadImage" {{ disabled() }}/>
         </div>
 
-        <section class="make-your-badge left">
-          <div class="form-field-wrapper clearfix js-visual-shape">
-            <label class="badge-label studio-label block" for="shape">Shape</label>
-            <div class="studio-input-image-container clearfix">
-              {% for shape in shapes %}
-                <div class="studio-input-image left">
-                  <img class="studio-thumb block" src="{{ shape.image }}"/>
-                  <input class="radio-badge-field js-shape-radio block" type="radio" name="shape" value="{{ shape.id }}" {% if badge.studioShape == shape.id %}checked{% endif %}/>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
 
-          <div class="form-field-wrapper clearfix js-visual-background" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-text" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-icon" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-color" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
-          </div>
-        </section>
 
         <section class="preview-make-your-badge left">
-          <p>Icon View</p>
-          <div class="canvas-wrapper cb right">
+          <div class="canvas-wrapper cb">
             <canvas width="180" height="180" class="badge-canvas js-badge-canvas"></canvas>
             <p>Badge at 90px</p>
           </div>
 
           <canvas width="30" height="10" class="color-canvas js-color-canvas"></canvas>
 
-          <a class="btn hidden studio-submit submit-btn js-save-image">Save Badge Image</a>
+          <a class="btn submit-btn js-save-image">Delete Design</a>
 
         </section>
       </div>
@@ -252,6 +227,60 @@
 
       </div>
     </form>
+    <section class="make-badge-full-page">
+      <input class="clear-btn save js-save-btn left" value="Saved" {{ disabled() }}/>
+      <i class="fa fa-refresh fa-spin js-save-spinner"></i>
+      <section class="preview-make-your-badge right">
+        <div>
+          <a class="btn">Clear Design</a>
+        </div>
+        <div>
+          <a class="btn">Exit</a>
+        </div>
+        <div class="canvas-wrapper right">
+          <canvas width="180" height="180" class="badge-canvas js-badge-canvas"></canvas>
+        </div>
+      </section>
+
+      <section class="cb edit-badge-design-container js-edit-badge-design-container js-visual-shape">
+        {% for shape in shapes %}
+          <div class="studio-input-image left">
+            <img class="studio-thumb block" src="{{ shape.image }}"/>
+            <input class="radio-badge-field js-shape-radio block" type="radio" name="shape" value="{{ shape.id }}" {% if badge.studioShape == shape.id %}checked{% endif %}/>
+          </div>
+        {% endfor %}
+        <div class="shape-container arrow-down"></div>
+      </section>
+
+      <section class="edit-badge-design-container js-visual-background" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
+      </section>
+
+      <section class="edit-badge-design-container js-visual-text" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
+      </section>
+
+      <section class="edit-badge-design-container js-visual-image">
+        <a class="btn blue-btn">Select File</a>
+        <a class="btn">Remove Image</a>
+        <i class="fa fa-question-circle js-tooltip"></i>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">For best results, upload a square image between 300px-500px.</p></div>
+      </section>
+
+      <section class="edit-badge-design-container js-visual-icon" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
+      </section>
+
+      <section class="edit-badge-design-container js-visual-color" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
+      </section>
+
+      <ul class="visual-designer-tabs">
+        <li class="designer-tab">Shape</li>
+        <li class="designer-tab">Background</li>
+        <li class="designer-tab">Text</li>
+        <li class="designer-tab">Image</li>
+        <li class="designer-tab">Icon</li>
+        <li class="designer-tab">Color</li>
+      </ul>
+
+    </section>
   </div>
 {% endblock %}
 

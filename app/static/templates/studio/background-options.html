@@ -1,9 +1,8 @@
-<label class="badge-label studio-label block" for="background">Background</label>
-<div class="studio-input-image-container clearfix">
-  {% for background in backgrounds %}
-    <div class="studio-input-image left">
-      <img class="studio-thumb block" src="{{ background.image }}"/>
-      <input class="radio-badge-field block js-background-radio" type="radio" name="background" value="{{ background.id }}" {% if savedBackground == background.id %}checked{% endif %}/>
-    </div>
-  {% endfor %}
-</div>
+{% for background in backgrounds %}
+  <div class="studio-input-image left">
+    <img class="studio-thumb block" src="{{ background.image }}"/>
+    <input class="radio-badge-field block js-background-radio" type="radio" name="background" value="{{ background.id }}" {% if savedBackground == background.id %}checked{% endif %}/>
+  </div>
+{% endfor %}
+<div class="background-container arrow-down"></div>
+
