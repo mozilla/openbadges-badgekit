@@ -71,6 +71,8 @@ app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.
 app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);
 app.post('/badge/:badgeId/publish', 'badge.publish', secureRouteHandlers, views.badge.publish);
 app.post('/badge/:badgeId/copy', 'badge.copy', secureRouteHandlers, views.badge.copy);
+// dedicated url for visual designer for full page editign
+// app.post('/badge/:badgeId/design', 'badge.design', secureRouteHandlers, views.badge.design);
 
 app.get('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', secureRouteHandlers, views.badge.renderIssueByEmail);
 app.post('/badge/:badgeId/issueByEmail', 'badge.issueByEmail', secureRouteHandlers, views.badge.issueByEmail);
