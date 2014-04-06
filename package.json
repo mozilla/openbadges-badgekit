@@ -23,6 +23,7 @@
     "xtend": "~2.1.1",
     "db-migrate": "~0.6.3",
     "streamsql": "~0.5.2",
+    "jwt-simple": "~0.2.0",
     "node-sass": "~0.7.0",
     "newrelic": "~1.4.0",
     "validator": "~3.5.1",
