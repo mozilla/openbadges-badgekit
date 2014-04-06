@@ -168,6 +168,14 @@ input[type="checkbox"]:checked + span:before {
   content: "\f046"; /* check */
 }
 
+pre.stacktrace {
+  text-align: left;
+  overflow: auto;
+  white-space: pre;
+  background: $gray5;
+  padding: 20px;
+}
+
 /* Let's get this scrollbar started */
 ::-webkit-scrollbar {
     width: 12px;

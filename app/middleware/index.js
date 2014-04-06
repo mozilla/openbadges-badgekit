@@ -28,6 +28,12 @@ exports.addCsrfToken = function addCsrfToken (req, res, next) {
   next();
 };
 
+exports.debug = function debug (req, res, next) {
+  const debug = (config('NODE_ENV', '') === 'test') || config('DEBUG', false);
+  res.locals.debug = debug;
+  next();
+}
+
 exports.redirect = function (target, params, status) {
   if (typeof params === 'number') {
     status = params;

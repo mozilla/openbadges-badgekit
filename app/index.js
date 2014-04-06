@@ -17,6 +17,7 @@ const path = require('path');
 const middleware = require('./middleware');
 const views = require('./views');
 const persona = require('express-persona-observer');
+const http = require('http');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use(middleware.session());
 app.use(middleware.csrf({ whitelist: [ '/persona/login', '/persona/logout', '/persona/verify'] }));
 app.use(middleware.sass(staticDir, staticRoot));
 app.use(middleware.addCsrfToken);
+app.use(middleware.debug);
 app.use(staticRoot, express.static(staticDir));
 
 persona.express(app, { audience: config('PERSONA_AUDIENCE'),
@@ -84,8 +86,39 @@ app.get('/studio/icons', 'studio.icons', secureRouteHandlers, views.badge.getIco
 app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getColors);
 
 app.get('/help', 'help', views.help.home);
-
 app.get('/about', 'about', views.about.home);
+
+app.get('*', function (req, res, next) {
+  var error = new Error('Page not found');
+
+  Object.defineProperties(error, {
+    name: {value: 'ResourceNotFoundError'},
+    code: {value: 404},
+  });
+
+  next(error);
+});
+
+app.all('*', function (req, res, next) {
+  var error = new Error('Method not allowed');
+
+  Object.defineProperties(error, {
+    name: {value: 'MethodNotAllowedError'},
+    code: {value: 405},
+  });
+
+  next(error);
+});
+
+app.use(function (err, req, res, next) {
+  const status = err.code || 500;
+  const msg = http.STATUS_CODES[status] || err.message;
+
+  res.status(status).render('error.html', {
+    message: msg,
+    error: err
+  });
+});
 
 if (!module.parent) {
   const port = config('PORT', 3000);
