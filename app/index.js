@@ -16,6 +16,7 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const views = require('./views');
+const api = require('./api');
 const persona = require('express-persona-observer');
 const http = require('http');
 
@@ -44,7 +45,7 @@ app.use(function (req, res, next) {
 app.use(express.compress());
 app.use(express.bodyParser());
 app.use(middleware.session());
-app.use(middleware.csrf({ whitelist: [ '/persona/login', '/persona/logout', '/persona/verify'] }));
+app.use(middleware.csrf({ whitelist: [ '/persona/login', '/persona/logout', '/persona/verify', '/api/user'] }));
 app.use(middleware.sass(staticDir, staticRoot));
 app.use(middleware.addCsrfToken);
 app.use(middleware.debug);
@@ -55,6 +56,7 @@ persona.express(app, { audience: config('PERSONA_AUDIENCE'),
                        selectors: { login: '.js-login', logout: '.js-logout' } });
 
 var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', []), 'sorry.html')];
+var secureApiHandlers = [middleware.verifyApiRequest()];
 
 app.get('/', 'home', [persona.ensureLoggedOut()], views.home);
 app.get('/directory', 'directory', secureRouteHandlers, views.directory.home);
@@ -63,7 +65,7 @@ app.get('/directory/useTemplate', 'directory.useTemplate', secureRouteHandlers, 
 
 app.get('/badge/:badgeId', 'badge', secureRouteHandlers, views.badge.home);
 app.get('/badge/:badgeId/edit', 'badge.edit', secureRouteHandlers, views.badge.edit);
-app.post('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
+app.del('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
 app.get('/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.save);
 app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);
@@ -79,6 +81,12 @@ app.post('/badge/:badgeId/issueByClaimCode', 'badge.issueByClaimCode', secureRou
 app.get('/images/badge/:badgeId', 'badge.image', views.badge.image);
 
 app.get('/settings', 'settings', secureRouteHandlers, views.settings.home);
+app.get('/settings/systems', 'settings.systems', secureRouteHandlers, views.settings.systems);
+app.get('/settings/issuers', 'settings.issuers', secureRouteHandlers, views.settings.issuers);
+app.get('/settings/programs', 'settings.programs', secureRouteHandlers, views.settings.programs);
+app.get('/settings/users', 'settings.users', secureRouteHandlers, views.settings.users);
+app.post('/settings/users', 'settings.editUser', secureRouteHandlers, views.settings.editUser);
+app.del('/settings/users', 'settings.deleteUser', secureRouteHandlers, views.settings.deleteUser);
 
 app.get('/studio/backgrounds', 'studio.backgrounds', secureRouteHandlers, views.badge.getBackgrounds);
 app.get('/studio/texts', 'studio.texts', secureRouteHandlers, views.badge.getTexts);
@@ -87,6 +95,9 @@ app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getC
 
 app.get('/help', 'help', views.help.home);
 app.get('/about', 'about', views.about.home);
+
+app.post('/api/user', 'api.user.add', secureApiHandlers, api.user.addUser);
+app.del('/api/user', 'api.user.delete', secureApiHandlers, api.user.deleteUser);
 
 app.get('*', function (req, res, next) {
   var error = new Error('Page not found');

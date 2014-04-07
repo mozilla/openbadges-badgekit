@@ -1,9 +1,9 @@
 @import "base";
 
-.visual-studio-tabs {
+.tabs {
   margin: 30px auto 0 auto;
   padding: 10px 10px 5px 0;
-  .studio-tab {
+  .tab {
     cursor: pointer;
     background-color: $light-gray;
     display: inline;
@@ -264,6 +264,17 @@
 
 .submit-button-wrapper { text-align: center; }
 
+.form-heading {
+  font-size: 18px;
+  border-bottom: 1px solid $light-gray;
+  padding-bottom: 15px;
+  margin-bottom: 40px;
+  .form-heading-span {
+    color: $light-blue;
+    font-weight: bold;
+  }
+}
+
 .badge-form {
   width: $six-wide;
   margin: 0 auto 30px auto;
@@ -274,16 +285,6 @@
     height: 200px;
     margin: 20px 40px 50px 40px;
     .or { top: 65px; }
-  }
-  .form-heading {
-    font-size: 18px;
-    border-bottom: 1px solid $light-gray;
-    padding-bottom: 15px;
-    margin-bottom: 40px;
-    .form-heading-span {
-      color: $light-blue;
-      font-weight: bold;
-    }
   }
   .badge-label {
     font-weight: bold;

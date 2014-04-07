@@ -1,0 +1,11 @@
+{% include "settings/issuer-left.html" %}
+
+<div class="left column-wide">
+  <p class="admin-title">Issuer Users</p>
+  {% for user in users %}
+    <p><a href="" class="js-edit-issuer-user-btn">{{ user.account.email }}</a></p>
+  {% endfor %}
+
+  <input class="badge-field left js-email-input" type="text" name="name" value="" placeholder="Enter an email address"></input>
+  <a href="" class="btn add-btn js-add-issuer-user-btn">Add User</a>
+</div>

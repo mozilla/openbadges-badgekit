@@ -5,8 +5,12 @@ $(document).ready(function() {
   });
 
   $('.js-delete-confirm-btn').click(function() {
-    $.post(this.href, { _csrf: $(this).data('csrf') }, function(data) {
-      window.location.href = data.location;
+    $.ajax({ url: this.href, 
+             type: 'DELETE',
+             data: { _csrf: $(this).data('csrf') }, 
+             success: function(data) {
+              window.location.href = data.location;
+             }
     });
     return false;
   });

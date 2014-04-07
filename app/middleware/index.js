@@ -4,6 +4,7 @@ var formatUrl = require('url').format;
 var parseUrl = require('url').parse;
 var sass = require('node-sass');
 var xtend = require('xtend');
+var jwt = require('jwt-simple');
 
 var Account = require('../models/account')("DATABASE");
 
@@ -11,6 +12,7 @@ exports.csrf = require('./csrf');
 
 var COOKIE_KEY = config('COOKIE_KEY', 'session');
 var COOKIE_SECRET = config('COOKIE_SECRET');
+var API_SECRET = config('API_SECRET');
 
 exports.session = function session () {
   return clientSessions({
@@ -152,5 +154,42 @@ exports.getMonthName = function getMonthName (monthNum, getShort, lang) {
   }
   else {
     return monthNamesByLanguage[lang].shortNames[monthNum];
+  }
+}
+
+function createForbiddenError(message) {
+  var err = new Error(message);
+  err.code = 403;
+  return err;
+}
+
+exports.verifyApiRequest = function verifyApiRequest () {
+  return function (req, res, next) {
+    const param = req.method === "GET" ? req.query : req.body;
+    const token = param.auth;
+    const email = param.email;
+
+    const now = Date.now()/1000|0;
+    var decodedToken, msg;
+    if (!token)
+      return next(createForbiddenError('missing mandatory `auth` param'));
+    try {
+      decodedToken = jwt.decode(token, API_SECRET);
+    } catch(err) {
+      return next(createForbiddenError('error decoding JWT: ' + err.message));
+    }
+
+    if (decodedToken.prn !== email) {
+      msg = '`prn` mismatch: given %s, expected %s';
+      return next(createForbiddenError(util.format(msg, decodedToken.prn, email)));
+    }
+
+    if (!decodedToken.exp)
+      return next(createForbiddenError('Token must have exp (expiration) set'));
+
+    if (decodedToken.exp < now)
+      return next(createForbiddenError('Token has expired'));
+
+    return next();
   }
 }
