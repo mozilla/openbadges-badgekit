@@ -70,7 +70,7 @@ $(document).ready(function() {
       var newCriterionDiv = nunjucks.render('badge/criterion.html', { index: i });
       criterionDivs.last().after(newCriterionDiv);
     }
-    
+
     $('.js-criterion').not(criterionDivs).find('.js-add-note').click(toggleNote);
   });
 
@@ -148,23 +148,23 @@ $(document).ready(function() {
       if (!(element.value.length >= 1)) {
         notification.append('<p>Criteria ' + (index+1) + ' Description must not be empty</p>');
         result = false;
-      } 
+      }
     });
     return result;
   }
 
   function validateInput() {
     var valid = true;
-    valid = validateField('name', 'Name must be between 1 and 255 characters', 
+    valid = validateField('name', 'Name must be between 1 and 255 characters',
               function(val) { return (val.length >= 1 && val.length <= 255) })
             && valid;
-    valid = validateField('description', 'Short Description must be between 1 and 140 characters', 
+    valid = validateField('description', 'Short Description must be between 1 and 140 characters',
               function(val) { return (val.length >= 1 && val.length <= 140) })
             && valid;
-    valid = validateField('earnerDescription', 'Earner Description must not be empty', 
+    valid = validateField('earnerDescription', 'Earner Description must not be empty',
               function(val) { return (val.length >= 1) })
             && valid;
-    valid = validateField('consumerDescription', 'Consumer Description must not be empty', 
+    valid = validateField('consumerDescription', 'Consumer Description must not be empty',
               function(val) { return (val.length >= 1) })
             && valid;
     valid = validateCriteria() && valid;

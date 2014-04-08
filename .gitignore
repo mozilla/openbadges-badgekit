@@ -19,3 +19,5 @@ config.json
 
 .DS_Store
 .env
+
+Procfile.local

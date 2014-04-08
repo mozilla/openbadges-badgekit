@@ -204,6 +204,21 @@
         </div>
 
         <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="badgeType">Type<p class="small-copy">Select a badge type.<i class="fa fa-question-circle js-tooltip"></i></p>
+            <div class="tooltip-container js-tooltip-container"><p class="small-copy">Read more about how you can use <a>badge types</a>.</p></div>
+          </label>
+          <div class="form-dropdown">
+            <span class="arrow-down"></span>
+            <select name="badgeType">
+              <option value="">Select an optional badge type</option>
+              {% for badgeType in badgeTypes %}
+                <option value="{{ badgeType }}" {% if badgeType == badge.badgeType %} selected {% endif %}>{{ badgeType }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="license">License<p class="small-copy">Choose a creative commons license.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">Can others remix and issue your badge?</p></div>
           </label>
