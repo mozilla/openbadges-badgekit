@@ -8,28 +8,27 @@
   </section>
 
   {% for badge in badges %}
-    <section class="clearfix">
-      <h2>
-        <a href="{{ url('applications.forBadge', badge.slug) }}">
-          {{ badge.name }}
-          <img class="badge-image left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
+    <section class="approval-section">
+      <section class="badges-for-approval clearfix">
+        <a href="{{ url('badge', {badgeId: badge.slug}) }}">
+          <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
+          <h2 class="pending-badge-title">{{ badge.name }}</h2>
         </a>
-      </h2>
-      <ul>
-        {% for application in badge.applications.slice(0,5) %}
-          <li>
-            <dl>
-              <dt>Learner</dt>
-                <dd><a href="{{ url('application', {badgeId: badge.slug, applicationId: application.slug}) }}">{{ application.learner }}</a></dd>
-              <dt>Applied on</dt>
-                <dd>{{ application.created }}</dd>
-            </dl>
-          </li>
-        {% endfor %}
-      </ul>
-      {% if badge.applications.length > 5 %}
-      <p><a href="{{ url('applications.forBadge', badge.slug) }}">+ {{ badge.applications.length - 5 }} more</a></p>
+      </section>
+      {% if badge.applications and badge.applications.length %}
+        <section class="pending-list-table">
+          {% for application in badge.applications.slice(0,5) %}
+            {% include "applications/_application-list-item.html" %}
+          {% endfor %}
+        </section>
       {% endif %}
+      <p class="right"><a href="{{ url('applications.forBadge', badge.slug) }}" class="btn">
+        {%- if badge.applications.length > 5 -%}
+          + {{ badge.applications.length - 5 }} more
+        {%- else -%}
+          See all
+        {%- endif -%}
+      </a></p>
     </section>
   {% endfor %}
 </div>

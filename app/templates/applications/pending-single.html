@@ -1,2 +1,163 @@
 {% extends "applications/layout.html" %}
 
+{% block content %}
+<section class="application-container white-container container clearfix">
+  <div class="badger-info left">
+    <h1 class="badger-email">{{ application.learner }}</h1>
+    <a href="{{ url('badge', {badgeId: badge.slug}) }}">
+      <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
+      <span class="badge-name">{{ badge.name }}</span>
+    </a>
+    <p class="application-status">Status: Application Pending</p>
+    <p class="application-submission-date">Submitted: {{ application.created }}</p>
+  </div>
+
+  <div class="application-review-status right">
+    {# <p class="small-copy warning-text">Review will close after 20 minutes of idle time.</p> #}
+    {# <a href="" class="btn cancel-btn right">Cancel &amp; Exit</a> #}
+    <section class="status-bar right cb">
+      <p class="status-info">Applicant should meet all required items and <span>2</span> out of <span>3</span> optional criteria.</p>
+    </section>
+    <section class="status-visual right cb">
+      <!-- if requirement met --><i class="fa fa-check-circle"></i>
+      <!-- if requirement not met --><i class="fa fa-times-circle"></i>
+      <!-- if requirement not completed --><i class="fa fa-circle-o"></i>
+      <!-- if requirement not completed --><i class="fa fa-circle-o"></i>
+    </section>
+  </div>
+
+  <div class="application-tabs cb">
+    <div class="tab left">
+      <input type="radio" class="tab-input" id="description" name="tab-group-1" checked="">
+      <label class="tab-label" for="description">Description</label>
+
+      <div class="tab-content">
+        {% if badge.strapline %}
+          <p class="title">Short Description</p>
+          <p class="small-copy">{{ badge.strapline }}</p>
+        {% endif %}
+
+        <p class="title">Description for Earners</p>
+        <p class="small-copy">{{ badge.earnerDescription | default('<em>No description given</em>') }}</p>
+
+        <p class="title">Description for Consumers</p>
+        <p class="small-copy">{{ badge.consumerDescription | default('<em>No description given</em>') }}</p>
+
+        {# Tags?
+        <p class="title">Tags</p>
+        <p class="small-copy">common tags, in our work, tomato, tomahto</p>
+        #}
+      </div>
+    </div>
+
+    <div class="tab left">
+      <input type="radio" class="tab-input" id="evidence" name="tab-group-1">
+      <label class="tab-label" for="evidence">Evidence</label>
+
+      <div class="tab-content">
+        {% if application.evidence.length %}
+          {% for evidence in application.evidence %}
+            <p class="title{% if loop.first %} first-title{% endif %}">Evidence #{{ loop.index }}
+              - {% if evidence.mediaType == 'image' %}Picture{% else %}Link{% endif %}</p>
+            <p class="small-copy left"><a href="{{ evidence.url }}" target="_blank">{{ evidence.url }}</a></p>
+            {% if evidence.reflection %}
+              <p class="small-copy">{{ evidence.reflection }}</p>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p><strong>No evidence found</strong></p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="tab left">
+      <input type="radio" class="tab-input" id="criteria" name="tab-group-1">
+      <label class="tab-label" for="criteria">Criteria</label>
+
+      <div class="tab-content">
+        <p class="title">Rubric</p>
+        <p class="small-copy">{{ badge.rubricUrl }}</p>
+        <hr>
+        {% if badge.criteria.length %}
+          {% for criteria in badge.criteria %}
+            <section class="criterion-left left">
+              <p class="title">Criterion #{{ loop.index }}
+                {% if evidence.required %}<span class="badge-requirement">Required</span>{% endif %}
+                {# <i class="fa fa-check-circle"></i> #}
+              </p>
+              <p class="small-copy">{{ criteria.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
+            </section>
+            <section class="criterion-right left">
+              <p class="title">Review</p>
+              <p class="small-copy">How well does this meet the criterion?</p>
+            </section>
+          {% endfor %}
+        {% else %}
+          <p><strong>No criteria found</strong></p>
+        {% endif %}
+
+        {#
+        <section class="criterion-left left">
+          <p class="title">Criterion #1
+            <span class="badge-requirement">Required</span>
+            <i class="fa fa-check-circle"></i>
+          </p>
+          <p class="small-copy">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. </p>
+          <p class="small-copy">Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </section>
+        <!-- <section class="criterion-right left">
+        <p class="title">Review</p>
+        <input type="radio" name="meets" value="meets criterion">Meets Criterion<br>
+        <input type="radio" name="does-not" value="does not meet criterion">Does Not Meet Criterion
+        </section> -->
+        <hr class="cb">
+        <section class="criterion-left left">
+          <p class="title">Criterion #2<i class="fa fa-times-circle"></i></p>
+          <p class="small-copy">Description: A wonderful serinity...</p>
+          <p class="small-copy">Note: Remember to consider...</p>
+        </section>
+        <section class="criterion-right left">
+          <p class="title">Review</p>
+          <p class="small-copy">How well does this meet the criterion?</p>
+        </section>
+        #}
+      </div>
+    </div>
+
+    <div class="tab left">
+      <input type="radio" class="tab-input" id="finish" name="tab-group-1">
+      <label class="tab-label" for="finish">Finish</label>
+
+      <div class="tab-content">
+        <form class="comment-form clearfix" name="input" action="" method="post" enctype="multipart/form-data">
+          <div class="form-field-wrapper">
+            <label class="badge-label left" for="issuerUrl">Issuer</label>
+            <textarea class="badge-field" type="text" name=""></textarea>
+          </div>
+
+          <div class="form-field-wrapper">
+            <label class="badge-label left" for="issuerUrl">Issuer</label>
+            <textarea class="badge-field" type="text" name=""></textarea>
+          </div>
+
+          <div class="form-field-wrapper">
+            <label class="badge-label left" for="issuerUrl">Issuer</label>
+            <textarea class="badge-field" type="text" name=""></textarea>
+          </div>
+
+          <div class="form-field-wrapper">
+            <label class="badge-label left" for="issuerUrl">Issuer</label>
+            <textarea class="badge-field" type="text" name=""></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="cb"></div>
+</section>
+{% endblock %}

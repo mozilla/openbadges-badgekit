@@ -64,10 +64,9 @@ exports.forBadge = function forBadge (req, res, next) {
   });
 
   function render (badge, applications) {
-    badge.applications = applications || [];
-
     res.render('applications/for-badge.html', {
-      badge: badge
+      badge: badge,
+      applications: applications || [],
     });
   }
 
@@ -102,6 +101,7 @@ exports.application = function application (req, res, next) {
     const template = 'applications/' + state + '-single.html';
 
     res.render(template, {
+      badge: application.badge,
       application: application,
     });
   });

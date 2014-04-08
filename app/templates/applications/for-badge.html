@@ -1,2 +1,22 @@
 {% extends "applications/layout.html" %}
 
+{% block content %}
+  <div class="container clearfix">
+    <section class="info">
+      <h1 class="info-heading">{{ badge.name }}</h1>
+      <p class="info-text">
+        <img class="badgethumb" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.slug})) }}">
+      </p>
+    </section>
+
+    <section class="approval-section">
+      {% if applications.length %}
+        <section class="pending-list-table">
+          {% for application in applications %}
+            {% include "applications/_application-list-item.html" %}
+          {% endfor %}
+        </section>
+      {% endif %}
+    </section>
+  </div>
+{% endblock %}
