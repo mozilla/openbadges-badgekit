@@ -112,7 +112,7 @@ exports.edit = function edit (req, res, next) {
 
       var data = results[0];
       data.shapes = results[1];
-
+      data.badgeTypes = ['Community', 'Skill', 'Knowledge', 'Showcase'];
       res.render('badge/edit.html', data);
     }
   );
@@ -193,6 +193,7 @@ function saveBadge(req, callback) {
     limit: req.body.limit == 'limit' ? (limitNumber > 0 ? limitNumber : 0) : 0,
     unique: req.body.unique == 'unique' ? 1 : 0,
     multiClaimCode: req.body.multiClaimCode,
+    badgeType: req.body.badgeType
   };
 
   if ('shape' in req.body) query.studioShape = req.body.shape;

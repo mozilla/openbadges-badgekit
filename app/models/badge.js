@@ -25,7 +25,7 @@ module.exports = function getBadgeModel (key) {
       });
     },
     function(err) {
-      const deleteQuery = { 
+      const deleteQuery = {
         badgeId: {
           value: badgeId,
           op: '='
@@ -58,7 +58,7 @@ module.exports = function getBadgeModel (key) {
       delete criterion.badgeId;
       delete criterion.id;
     });
-    
+
     delete badge.criteria;
     badge.created = new Date();
     delete badge.lastUpdated;
@@ -99,11 +99,11 @@ module.exports = function getBadgeModel (key) {
 
   function deleteBadge(callback) {
     const badgeId = this.id;
-    
+
     Criteria.del({ badgeId: badgeId }, function (err) {
-      if (err) 
+      if (err)
         return callback(err);
-      
+
       Badge.del({ id: badgeId }, function (err) {
         return callback(err);
       });
@@ -113,30 +113,30 @@ module.exports = function getBadgeModel (key) {
   var db = getDb(key);
 
   var Criteria = db.table('criteria', {
-    fields: 
+    fields:
       ['id',
        'description',
        'badgeId',
-       'required', 
+       'required',
        'note']
   });
 
   var Badge = db.table('badge', {
-    fields: 
+    fields:
       ['id',
-       'name', 
-       'status', 
-       'description', 
-       'issuerUrl', 
-       'earnerDescription', 
-       'consumerDescription', 
-       'tags', 
+       'name',
+       'status',
+       'description',
+       'issuerUrl',
+       'earnerDescription',
+       'consumerDescription',
+       'tags',
        'rubricUrl',
        'timeValue',
        'timeUnits',
        'limit',
        'multiClaimCode',
-       'unique', 
+       'unique',
        'published',
        'imageId',
        'studioShape',
@@ -149,7 +149,8 @@ module.exports = function getBadgeModel (key) {
        'lastUpdated',
        'system',
        'issuer',
-       'program'],
+       'program',
+       'badgeType'],
     relationships: {
       criteria: {
         type: 'hasMany',
