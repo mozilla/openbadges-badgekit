@@ -192,7 +192,8 @@ function saveBadge(req, callback) {
     timeUnits: req.body.timeUnits,
     limit: req.body.limit == 'limit' ? (limitNumber > 0 ? limitNumber : 0) : 0,
     unique: req.body.unique == 'unique' ? 1 : 0,
-    multiClaimCode: req.body.multiClaimCode
+    multiClaimCode: req.body.multiClaimCode,
+    badgeType: req.body.badgeType
   };
 
   if ('shape' in req.body) query.studioShape = req.body.shape;
@@ -201,7 +202,6 @@ function saveBadge(req, callback) {
   if ('textContents' in req.body) query.studioTextContents = req.body.textContents;
   if ('icon' in req.body) query.studioIcon = req.body.icon;
   if ('color' in req.body) query.studioColor = req.body.color;
-  if (req.body.badgeType) query.badgeType = req.body.badgeType;
 
   Badge.put(query, function (err, result) {
     if (err)

@@ -209,7 +209,7 @@
           </label>
           <div class="form-dropdown">
             <span class="arrow-down"></span>
-            <select name="badgeType">
+            <select {{ disabled() }} name="badgeType">
               <option value="">Select an optional badge type</option>
               {% for badgeType in badgeTypes %}
                 <option value="{{ badgeType }}" {% if badgeType == badge.badgeType %} selected {% endif %}>{{ badgeType }}</option>
