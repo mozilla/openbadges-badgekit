@@ -45,40 +45,8 @@
           <nav class="settings-small-screen"></nav> -->
 
           <a href="{{ url('home') }}"><img src="{{ static('images/badgekit-logo.png') }}" class="badgekit-logo left"></a>
-          <nav class="nav-header homepage-nav">
-            <ul class="navigation-dropdown">
-              <span class="arrow-down"></span>
-              <li class="menu-item">
-                Badges
-                <ul class="menu-hover">
-                  <a href="{{ url('directory') }}?category=template"><li>Templates</li></a>
-                  <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
-                  <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
-                  <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
-                  {% if canCreateDraft %}<a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>{% endif %}
-                </ul>
-              </li>
-            </ul>
-
           {% if loggedInUser %}
-            <ul class="navigation-dropdown">
-              <span class="arrow-down"></span>
-              <li class="menu-item">
-                Applications (27)
-                <ul class="menu-hover hover-applications">
-                  <a href=""><li>Pending</li></a>
-                  <a href=""><li>Awarded</li></a>
-                </ul>
-              </li>
-            </ul>
-
-            <ul class="navigation-dropdown">
-              <li class="menu-item">
-                <a href="{{ url('help') }}">Help</a>
-              </li>
-            </ul>
-
-            <ul class="navigation-dropdown">
+            <ul class="navigation-dropdown right">
               <span class="arrow-down"></span>
               <li class="menu-item">
                 {{ loggedInUser }}
@@ -88,23 +56,64 @@
                 </ul>
               </li>
             </ul>
-          {% else %}
-            <ul class="navigation-dropdown">
-              <a href="{{ url('about') }}"><li class="menu-item">About</li></a>
-            </ul>
-
-            <ul class="navigation-dropdown">
-              <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
-            </ul>
-
-            <a href="#" class="menu-item js-login login-hover">
-              <i class="fa fa-sign-in"></i>Log In
-            </a>
-
+            <!-- <ul class="navigation-dropdown right">
+              <span class="arrow-down"></span>
+              <li class="menu-item">Issuer Name{{ issuer.name }}</li>
+            </ul> -->
           {% endif %}
-          </nav>
         {%- endblock %}
       </header>
+      <section class="navigation clearfix right">
+        <nav class="nav-header">
+          <ul class="navigation-dropdown">
+            <span class="arrow-down"></span>
+            <li class="menu-item">
+              Badges
+              <ul class="menu-hover">
+                <a href="{{ url('directory') }}?category=template"><li>Templates</li></a>
+                <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
+                <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
+                <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
+                {% if canCreateDraft %}<a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>{% endif %}
+              </ul>
+            </li>
+          </ul>
+
+        {% if loggedInUser %}
+          <ul class="navigation-dropdown">
+            <span class="arrow-down"></span>
+            <li class="menu-item">
+              Applications (27)
+              <ul class="menu-hover hover-applications">
+                <a href=""><li>Pending</li></a>
+                <a href=""><li>Awarded</li></a>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="navigation-dropdown">
+            <li class="menu-item">
+              <a href="{{ url('help') }}">Help</a>
+            </li>
+          </ul>
+
+        {% else %}
+          <ul class="navigation-dropdown">
+            <a href="{{ url('about') }}"><li class="menu-item">About</li></a>
+          </ul>
+
+          <ul class="navigation-dropdown">
+            <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
+          </ul>
+          <ul class="navigation-dropdown">
+            <a href="#" class="js-login login-hover">
+              <li class="menu-item"><i class="fa fa-sign-in"></i>Log In</li>
+            </a>
+          </ul>
+
+        {% endif %}
+        </nav>
+      </section>
     {%- endblock %}
 
     {% block contentWrapper -%}

@@ -126,9 +126,8 @@
   margin-left: -20px;
 }
 
-.homepage-nav { margin-top: 3.5%; }
-
-.nav-header {
+.nav-header,
+.header-container {
   .arrow-down {
     border-top-color: $dark-gray;
     position: absolute;
@@ -200,6 +199,20 @@
   }
 }
 
+.header-container {
+  .navigation-dropdown {
+    padding: 0;
+    margin-top: -15px;
+  }
+  .arrow-down { top: 15px; right: 0; }
+  .menu-item {
+    &:hover {
+      background-color: $dark-gray;
+      color: $white;
+    }
+  }
+}
+
 .pending-count {
   margin-left: 40px;
   border-radius: 145px;
@@ -236,12 +249,18 @@
   cursor: pointer;
 }
 
-.header-container {
+.navigation {
+  background-color: #d0d0d0;
+  position: relative;
+  bottom: 35px;
+  width: $four-wide;
+  float: right;
   .menu-item.login-hover:hover {
     background-color: transparent;
     color: $hover-gray;
   }
   .menu-item {
+    border-left: 1px solid $light-gray;
     font-size: 18px;
     padding: 0 25px;
     color: $dark-gray;
