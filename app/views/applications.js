@@ -109,7 +109,7 @@ exports.application = function application (req, res, next) {
 
 exports.submitReview = function submitReview (req, res, next) {
   const context = res.locals.makeContext({
-    badge: req.body.badgeIdm
+    badge: req.body.badgeId,
     application: req.body.applicationId
   });
 
