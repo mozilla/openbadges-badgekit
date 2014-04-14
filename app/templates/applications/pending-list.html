@@ -10,7 +10,7 @@
   {% for badge in badges %}
     <section class="approval-section">
       <section class="badges-for-approval clearfix">
-        <a href="{{ url('badge', {badgeId: badge.slug}) }}">
+        <a href="{{ url('badge', {badgeId: badge.slug}) }}?category=published">
           <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
           <h2 class="pending-badge-title">{{ badge.name }}</h2>
         </a>

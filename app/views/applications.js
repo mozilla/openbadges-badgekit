@@ -106,3 +106,15 @@ exports.application = function application (req, res, next) {
     });
   });
 }
+
+exports.submitReview = function submitReview (req, res, next) {
+  const context = res.locals.makeContext({
+    badge: req.body.badgeIdm
+    application: req.body.applicationId
+  });
+
+  const comment = req.body.comment;
+  const reviewItems = req.body.reviewItems;
+
+  //TODO
+};

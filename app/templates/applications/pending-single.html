@@ -4,7 +4,7 @@
 <section class="application-container white-container container clearfix">
   <div class="badger-info left">
     <h1 class="badger-email">{{ application.learner }}</h1>
-    <a href="{{ url('badge', {badgeId: badge.slug}) }}">
+    <a href="{{ url('badge', {badgeId: badge.slug}) }}?category=published">
       <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
       <span class="badge-name">{{ badge.name }}</span>
     </a>
@@ -13,16 +13,17 @@
   </div>
 
   <div class="application-review-status right">
-    {# <p class="small-copy warning-text">Review will close after 20 minutes of idle time.</p> #}
-    {# <a href="" class="btn cancel-btn right">Cancel &amp; Exit</a> #}
+    <p class="small-copy warning-text">Review will close after 20 minutes of idle time.</p>
+    <a href="{{ url('applications') }}" class="btn cancel-btn right">Cancel &amp; Exit</a>
     <section class="status-bar right cb">
-      <p class="status-info">Applicant should meet all required items and <span>2</span> out of <span>3</span> optional criteria.</p>
+      <p class="status-info">Applicant should meet all required items</p>
     </section>
     <section class="status-visual right cb">
-      <!-- if requirement met --><i class="fa fa-check-circle"></i>
-      <!-- if requirement not met --><i class="fa fa-times-circle"></i>
-      <!-- if requirement not completed --><i class="fa fa-circle-o"></i>
-      <!-- if requirement not completed --><i class="fa fa-circle-o"></i>
+      {% for criterion in badge.criteria %}
+        {% if criterion.required %}
+          <i class="fa fa-circle-o js-criterion-{{ criterion.id }}-marker"></i>
+        {% endif %}
+      {% endfor %}
     </section>
   </div>
 
@@ -77,55 +78,26 @@
       <div class="tab-content">
         <p class="title">Rubric</p>
         <p class="small-copy">{{ badge.rubricUrl }}</p>
-        <hr>
         {% if badge.criteria.length %}
-          {% for criteria in badge.criteria %}
+          {% for criterion in badge.criteria %}
             <section class="criterion-left left">
               <p class="title">Criterion #{{ loop.index }}
-                {% if evidence.required %}<span class="badge-requirement">Required</span>{% endif %}
+                {% if criterion.required %}<span class="badge-requirement">Required</span>{% endif %}
                 {# <i class="fa fa-check-circle"></i> #}
               </p>
-              <p class="small-copy">{{ criteria.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
+              <p class="small-copy">{{ criterion.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
             </section>
             <section class="criterion-right left">
               <p class="title">Review</p>
-              <p class="small-copy">How well does this meet the criterion?</p>
+              <input class="js-criterion-met" data-criterion-id="{{ criterion.id }}" type="radio" name="criterion-{{ criterion.id }}-met" value="yes">Meets Criterion<br>
+              <input class="js-criterion-met" data-criterion-id="{{ criterion.id }}"type="radio" name="criterion-{{ criterion.id }}-met" value="no">Does Not Meet Criterion<br><br>
+              <label class="badge-label left" for="criterion-{{ criterion.id }}-comment">Comments</label><br>
+              <textarea class="badge-field" type="text" name="criterion-{{ criterion.id }}-comment"></textarea>
             </section>
           {% endfor %}
         {% else %}
           <p><strong>No criteria found</strong></p>
         {% endif %}
-
-        {#
-        <section class="criterion-left left">
-          <p class="title">Criterion #1
-            <span class="badge-requirement">Required</span>
-            <i class="fa fa-check-circle"></i>
-          </p>
-          <p class="small-copy">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. </p>
-          <p class="small-copy">Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </section>
-        <!-- <section class="criterion-right left">
-        <p class="title">Review</p>
-        <input type="radio" name="meets" value="meets criterion">Meets Criterion<br>
-        <input type="radio" name="does-not" value="does not meet criterion">Does Not Meet Criterion
-        </section> -->
-        <hr class="cb">
-        <section class="criterion-left left">
-          <p class="title">Criterion #2<i class="fa fa-times-circle"></i></p>
-          <p class="small-copy">Description: A wonderful serinity...</p>
-          <p class="small-copy">Note: Remember to consider...</p>
-        </section>
-        <section class="criterion-right left">
-          <p class="title">Review</p>
-          <p class="small-copy">How well does this meet the criterion?</p>
-        </section>
-        #}
       </div>
     </div>
 
@@ -134,26 +106,13 @@
       <label class="tab-label" for="finish">Finish</label>
 
       <div class="tab-content">
-        <form class="comment-form clearfix" name="input" action="" method="post" enctype="multipart/form-data">
+        <form class="comment-form clearfix" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="post" enctype="multipart/form-data">
           <div class="form-field-wrapper">
-            <label class="badge-label left" for="issuerUrl">Issuer</label>
-            <textarea class="badge-field" type="text" name=""></textarea>
+            <label class="badge-label left" for="comments">Feedback</label>
+            <textarea class="badge-field" type="text" name="comments"></textarea>
           </div>
 
-          <div class="form-field-wrapper">
-            <label class="badge-label left" for="issuerUrl">Issuer</label>
-            <textarea class="badge-field" type="text" name=""></textarea>
-          </div>
-
-          <div class="form-field-wrapper">
-            <label class="badge-label left" for="issuerUrl">Issuer</label>
-            <textarea class="badge-field" type="text" name=""></textarea>
-          </div>
-
-          <div class="form-field-wrapper">
-            <label class="badge-label left" for="issuerUrl">Issuer</label>
-            <textarea class="badge-field" type="text" name=""></textarea>
-          </div>
+          <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Submit Review</a>
         </form>
       </div>
     </div>

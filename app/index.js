@@ -96,6 +96,7 @@ app.get('/studio/colors', 'studio.colors', secureRouteHandlers, views.badge.getC
 app.get('/applications', 'applications', secureRouteHandlers, views.applications.home);
 app.get('/applications/:badgeId', 'applications.forBadge', secureRouteHandlers, views.applications.forBadge);
 app.get('/applications/:badgeId/:applicationId', 'application', secureRouteHandlers, views.applications.application);
+app.post('/applications/:badgeId/:applicationId', 'application.submit', secureRouteHandlers, views.applications.submitReview);
 
 app.get('/help', 'help', views.help.home);
 app.get('/about', 'about', views.about.home);

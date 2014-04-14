@@ -202,7 +202,9 @@
 
       .criterion-left,
       .criterion-right {
+        border-top: 1px solid black;
         width: $three-wide;
+        margin-bottom: 15px;
 
         .title,
         .small-copy {
@@ -212,6 +214,18 @@
         .fa-check-circle,
         .fa-times-circle {
           padding: 0 10px;
+        }
+        input[type="radio"] {
+          display: inline-block;
+          margin-right: 10px;
+        }
+      }
+
+      .comment-form {
+        textarea {
+          margin-left: 100px;
+          margin-bottom: 20px;
+          width: 50%;
         }
       }
     }

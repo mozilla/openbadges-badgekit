@@ -4,3 +4,8 @@
   {{ super() }}
   <link rel="stylesheet" href="{{ static('/css/application.css') }}">
 {%- endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/application.js') }}"></script>
+{%- endblock %}
