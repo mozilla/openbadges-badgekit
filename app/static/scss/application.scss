@@ -19,7 +19,7 @@
   width: $three-wide;
 
   .badgethumb {
-    width: 25px;
+    width: 90px;
     height: auto;
     margin: 0 20px 50px 0;
   }
@@ -96,13 +96,14 @@
   padding: 20px 0;
 
   .badgethumb {
-    width: 50px;
+    width: 90px;
     height: auto;
     margin: 0 20px 20px 0;
   }
 
   .pending-badge-title {
     margin-bottom: 0;
+    padding-top: 20px;
   }
 
   .badge-approval-status {
@@ -112,7 +113,7 @@
 
   .pending-list-table {
     display: table;
-    width: $five-wide;
+    width: $six-wide;
     line-height: 2.5em;
 
     .pending-item {
@@ -144,7 +145,13 @@
 
     .email-cell {
       color: $light-blue;
+      padding-left: 10px;
     }
+  }
+
+  .centered-block {
+    width: 102px;
+    margin: 0 auto;
   }
 }
 
@@ -154,12 +161,10 @@
   margin: 25px 0;
 
   .tab {
-    margin: 0 10px;
-
+    margin-right: 20px;
     .tab-label {
-      background: $light-beige;
+      background: $light-gray;
       padding: 10px 10px 6px 10px;
-      border: 1px solid $dark-beige;
       margin-left: -1px;
       position: relative;
       left: 1px;
@@ -170,8 +175,8 @@
       display: none;
 
       &:checked ~ .tab-label {
-        background-color: $gray;
-        color: $white;
+        background-color: $white;
+        border: 1px solid $light-gray;
         z-index: 2;
       }
 
