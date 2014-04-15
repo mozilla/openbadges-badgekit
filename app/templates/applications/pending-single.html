@@ -2,6 +2,7 @@
 
 {% block content %}
 <section class="application-container white-container container clearfix">
+  <div class="notification js-notification"></div>
   <div class="badger-info left">
     <h1 class="badger-email">{{ application.learner }}</h1>
     <a href="{{ url('badge', {badgeId: badge.slug}) }}?category=published">
@@ -87,12 +88,12 @@
               </p>
               <p class="small-copy">{{ criterion.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
             </section>
-            <section class="criterion-right left">
+            <section class="criterion-right left js-criterion-section" data-criterion-id="{{ criterion.id }}">
               <p class="title">Review</p>
-              <input class="js-criterion-met" data-criterion-id="{{ criterion.id }}" type="radio" name="criterion-{{ criterion.id }}-met" value="yes">Meets Criterion<br>
-              <input class="js-criterion-met" data-criterion-id="{{ criterion.id }}"type="radio" name="criterion-{{ criterion.id }}-met" value="no">Does Not Meet Criterion<br><br>
+              <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="1">Meets Criterion<br>
+              <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="0">Does Not Meet Criterion<br><br>
               <label class="badge-label left" for="criterion-{{ criterion.id }}-comment">Comments</label><br>
-              <textarea class="badge-field" type="text" name="criterion-{{ criterion.id }}-comment"></textarea>
+              <textarea class="badge-field js-criterion-comment" type="text" data-criterion-id="{{ criterion.id }}" name="criterion-{{ criterion.id }}-comment"></textarea>
             </section>
           {% endfor %}
         {% else %}
@@ -106,10 +107,11 @@
       <label class="tab-label" for="finish">Finish</label>
 
       <div class="tab-content">
-        <form class="comment-form clearfix" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="post" enctype="multipart/form-data">
+        <form class="comment-form clearfix js-review-form" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
           <div class="form-field-wrapper">
-            <label class="badge-label left" for="comments">Feedback</label>
-            <textarea class="badge-field" type="text" name="comments"></textarea>
+            <label class="badge-label left" for="comment">Feedback</label>
+            <textarea class="badge-field js-comment" type="text" name="comment"></textarea>
           </div>
 
           <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Submit Review</a>

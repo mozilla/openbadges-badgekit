@@ -109,12 +109,19 @@ exports.application = function application (req, res, next) {
 
 exports.submitReview = function submitReview (req, res, next) {
   const context = res.locals.makeContext({
-    badge: req.body.badgeId,
-    application: req.body.applicationId
+    badge: req.params.badgeId,
+    application: req.params.applicationId,
+    review: {
+      author: req.session.email,
+      comment: req.body.comment,
+      reviewItems: req.body.reviewItems
+    }
   });
 
-  const comment = req.body.comment;
-  const reviewItems = req.body.reviewItems;
+  openbadger.addReview(context, function (err, review) {
+    if (err)
+      return next(err);
 
-  //TODO
+    return res.send(200, 'Success');
+  });
 };
