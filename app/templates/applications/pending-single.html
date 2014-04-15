@@ -28,97 +28,81 @@
     </section>
   </div>
 
-  <div class="application-tabs cb">
-    <div class="tab left">
-      <input type="radio" class="tab-input" id="description" name="tab-group-1" checked="">
-      <label class="tab-label" for="description">Description</label>
+  <ul class="tabs">
+    <li class="tab js-tab selected">Description</li>
+    <li class="tab js-tab">Evidence</li>
+    <li class="tab js-tab">Criteria</li>
+    <li class="tab js-tab">Finish</li>
+  </ul>
 
-      <div class="tab-content">
-        {% if badge.strapline %}
-          <p class="title">Short Description</p>
-          <p class="small-copy">{{ badge.strapline }}</p>
-        {% endif %}
+  <div class="tab-content description-content">
+    {% if badge.strapline %}
+      <p class="title">Short Description</p>
+      <p class="small-copy">{{ badge.strapline }}</p>
+    {% endif %}
 
-        <p class="title">Description for Earners</p>
-        <p class="small-copy">{{ badge.earnerDescription | default('<em>No description given</em>') }}</p>
+    <p class="title">Description for Earners</p>
+    <p class="small-copy">{{ badge.earnerDescription | default('<em>No description given</em>') }}</p>
 
-        <p class="title">Description for Consumers</p>
-        <p class="small-copy">{{ badge.consumerDescription | default('<em>No description given</em>') }}</p>
+    <p class="title">Description for Consumers</p>
+    <p class="small-copy">{{ badge.consumerDescription | default('<em>No description given</em>') }}</p>
 
-        {# Tags?
-        <p class="title">Tags</p>
-        <p class="small-copy">common tags, in our work, tomato, tomahto</p>
-        #}
-      </div>
-    </div>
-
-    <div class="tab left">
-      <input type="radio" class="tab-input" id="evidence" name="tab-group-1">
-      <label class="tab-label" for="evidence">Evidence</label>
-
-      <div class="tab-content">
-        {% if application.evidence.length %}
-          {% for evidence in application.evidence %}
-            <p class="title{% if loop.first %} first-title{% endif %}">Evidence #{{ loop.index }}
-              - {% if evidence.mediaType == 'image' %}Picture{% else %}Link{% endif %}</p>
-            <p class="small-copy left"><a href="{{ evidence.url }}" target="_blank">{{ evidence.url }}</a></p>
-            {% if evidence.reflection %}
-              <p class="small-copy">{{ evidence.reflection }}</p>
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          <p><strong>No evidence found</strong></p>
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="tab left">
-      <input type="radio" class="tab-input" id="criteria" name="tab-group-1">
-      <label class="tab-label" for="criteria">Criteria</label>
-
-      <div class="tab-content">
-        <p class="title">Rubric</p>
-        <p class="small-copy">{{ badge.rubricUrl }}</p>
-        {% if badge.criteria.length %}
-          {% for criterion in badge.criteria %}
-            <section class="criterion-left left">
-              <p class="title">Criterion #{{ loop.index }}
-                {% if criterion.required %}<span class="badge-requirement">Required</span>{% endif %}
-                {# <i class="fa fa-check-circle"></i> #}
-              </p>
-              <p class="small-copy">{{ criterion.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
-            </section>
-            <section class="criterion-right left js-criterion-section" data-criterion-id="{{ criterion.id }}">
-              <p class="title">Review</p>
-              <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="1">Meets Criterion<br>
-              <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="0">Does Not Meet Criterion<br><br>
-              <label class="badge-label left" for="criterion-{{ criterion.id }}-comment">Comments</label><br>
-              <textarea class="badge-field js-criterion-comment" type="text" data-criterion-id="{{ criterion.id }}" name="criterion-{{ criterion.id }}-comment"></textarea>
-            </section>
-          {% endfor %}
-        {% else %}
-          <p><strong>No criteria found</strong></p>
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="tab left">
-      <input type="radio" class="tab-input" id="finish" name="tab-group-1">
-      <label class="tab-label" for="finish">Finish</label>
-
-      <div class="tab-content">
-        <form class="comment-form clearfix js-review-form" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
-          <div class="form-field-wrapper">
-            <label class="badge-label left" for="comment">Feedback</label>
-            <textarea class="badge-field js-comment" type="text" name="comment"></textarea>
-          </div>
-
-          <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Submit Review</a>
-        </form>
-      </div>
-    </div>
+    {# Tags?
+    <p class="title">Tags</p>
+    <p class="small-copy">common tags, in our work, tomato, tomahto</p>
+    #}
   </div>
-  <div class="cb"></div>
+
+  <div class="tab-content evidence-content">
+    {% if application.evidence.length %}
+      {% for evidence in application.evidence %}
+        <p class="title{% if loop.first %} first-title{% endif %}">Evidence #{{ loop.index }}
+          - {% if evidence.mediaType == 'image' %}Picture{% else %}Link{% endif %}</p>
+        <p class="small-copy left"><a href="{{ evidence.url }}" target="_blank">{{ evidence.url }}</a></p>
+        {% if evidence.reflection %}
+          <p class="small-copy">{{ evidence.reflection }}</p>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p><strong>No evidence found</strong></p>
+    {% endif %}
+  </div>
+
+  <div class="tab-content criteria-content">
+    <p class="title">Rubric</p>
+    <p class="small-copy">{{ badge.rubricUrl }}</p>
+    {% if badge.criteria.length %}
+      {% for criterion in badge.criteria %}
+        <section class="criterion-left left">
+          <p class="title">Criterion #{{ loop.index }}
+            {% if criterion.required %}<span class="badge-requirement">Required</span>{% endif %}
+            {# <i class="fa fa-check-circle"></i> #}
+          </p>
+          <p class="small-copy">{{ criterion.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
+        </section>
+        <section class="criterion-right left js-criterion-section" data-criterion-id="{{ criterion.id }}">
+          <p class="title">Review</p>
+          <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="1">Meets Criterion<br>
+          <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="0">Does Not Meet Criterion<br><br>
+          <label class="badge-label left" for="criterion-{{ criterion.id }}-comment">Comments</label><br>
+          <textarea class="badge-field js-criterion-comment" type="text" data-criterion-id="{{ criterion.id }}" name="criterion-{{ criterion.id }}-comment"></textarea>
+        </section>
+      {% endfor %}
+    {% else %}
+      <p><strong>No criteria found</strong></p>
+    {% endif %}
+  </div>
+
+  <div class="tab-content finish-content">
+    <form class="comment-form clearfix js-review-form" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="comment">Feedback</label>
+        <textarea class="badge-field js-comment" type="text" name="comment"></textarea>
+      </div>
+
+      <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Submit Review</a>
+    </form>
+  </div>
 </section>
 {% endblock %}

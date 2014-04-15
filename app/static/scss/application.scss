@@ -151,94 +151,57 @@
 
   .centered-block {
     width: 102px;
-    margin: 0 auto;
+    margin: 20px auto;
   }
 }
 
-.application-tabs {
-  position: relative;
-  min-height: 800px; /* This part sucks...need to figure out another solution*/
-  margin: 25px 0;
+.tab-content {
+  border: 1px solid $light-gray;
+  width: $six-wide;
+  padding: 20px;
+  .title {
+    margin-bottom: 0;
+    font-weight: bold;
+    &:first-child { margin-top: 0; }
+  }
 
-  .tab {
-    margin-right: 20px;
-    .tab-label {
-      background: $light-gray;
-      padding: 10px 10px 6px 10px;
-      margin-left: -1px;
-      position: relative;
-      left: 1px;
-      cursor: pointer;
+  .title,
+  .small-copy {
+    width: $four-wide;
+  }
+
+  .criterion-left,
+  .criterion-right {
+    border-top: 1px solid black;
+    width: $three-wide;
+    margin-bottom: 15px;
+
+    .title,
+    .small-copy {
+      width: $six-wide;
     }
 
-    .tab-input {
-      display: none;
-
-      &:checked ~ .tab-label {
-        background-color: $white;
-        border: 1px solid $light-gray;
-        z-index: 2;
-      }
-
-      &:checked ~ .tab-label ~ .tab-content {
-        z-index: 1;
-      }
+    .fa-check-circle,
+    .fa-times-circle {
+      padding: 0 10px;
     }
-
-    .tab-content {
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background-color: $white;
-      right: 0;
-      bottom: 0;
-      padding: 20px;
-      border-top: 1px solid $gray;
-
-      .title {
-        margin-bottom: 0;
-        font-weight: bold;
-      }
-
-      .title,
-      .small-copy {
-        width: $four-wide;
-      }
-
-      .criterion-left,
-      .criterion-right {
-        border-top: 1px solid black;
-        width: $three-wide;
-        margin-bottom: 15px;
-
-        .title,
-        .small-copy {
-          width: $six-wide;
-        }
-
-        .fa-check-circle,
-        .fa-times-circle {
-          padding: 0 10px;
-        }
-        input[type="radio"] {
-          display: inline-block;
-          margin-right: 10px;
-        }
-      }
-
-      .comment-form {
-        textarea {
-          margin-left: 100px;
-          margin-bottom: 20px;
-          width: 50%;
-        }
-      }
+    input[type="radio"] {
+      display: inline-block;
+      margin-right: 10px;
     }
   }
 
-  .badge-requirement {
-    text-transform: uppercase;
-    font-size: 10px;
-    color: red;
+  .comment-form {
+    textarea {
+      margin-left: 100px;
+      margin-bottom: 20px;
+      width: 50%;
+    }
   }
+}
+
+.badge-requirement {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: red;
 }
