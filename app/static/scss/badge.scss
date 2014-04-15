@@ -1,23 +1,5 @@
 @import "base";
 
-.tabs {
-  margin: 30px auto 0 auto;
-  padding: 10px 10px 5px 0;
-  .tab {
-    cursor: pointer;
-    background-color: $light-gray;
-    display: inline;
-    padding: 5px 15px;
-    margin: 20px 10px 20px 0;
-    border: 1px solid $light-gray;
-    a { color: $dark-gray; }
-  }
-  .selected {
-    background-color: $white;
-    border-bottom: 1px solid $white;
-  }
-}
-
 .nav-inputs {
   margin: 30px auto 0 auto;
   position: relative;
@@ -214,8 +196,7 @@
 .draft-actions   {
   border: 1px solid $light-gray;
   width: $six-wide;
-  background-color: $white;
-  padding: 30px;
+  padding: 20px;
   .badge-title {
     font-weight: bold;
     .badge-description {

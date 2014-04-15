@@ -27,6 +27,24 @@
   column-gap: 0px;
 }
 
+.tabs {
+  margin: 30px auto 0 auto;
+  padding: 10px 10px 5px 0;
+  .tab {
+    cursor: pointer;
+    background-color: $light-gray;
+    display: inline;
+    padding: 5px 15px;
+    margin: 20px 10px 20px 0;
+    border: 1px solid $light-gray;
+    a { color: $dark-gray; }
+  }
+  .selected {
+    background-color: $white;
+    border-bottom: 1px solid $white;
+  }
+}
+
 .about-badges {
   color: $white;
   background-color: #5bc5c8;
