@@ -29,13 +29,13 @@
   </div>
 
   <ul class="tabs">
-    <li class="tab js-tab selected">Description</li>
-    <li class="tab js-tab">Evidence</li>
-    <li class="tab js-tab">Criteria</li>
-    <li class="tab js-tab">Finish</li>
+    <li class="tab js-tab selected" data-section="description">Description</li>
+    <li class="tab js-tab" data-section="evidence">Evidence</li>
+    <li class="tab js-tab" data-section="criteria">Criteria</li>
+    <li class="tab js-tab" data-section="finish">Finish</li>
   </ul>
 
-  <div class="tab-content description-content">
+  <div class="tab-content description-content js-section js-section-description">
     {% if badge.strapline %}
       <p class="title">Short Description</p>
       <p class="small-copy">{{ badge.strapline }}</p>
@@ -53,7 +53,7 @@
     #}
   </div>
 
-  <div class="tab-content evidence-content">
+  <div class="tab-content evidence-content js-section js-section-evidence hidden">
     {% if application.evidence.length %}
       {% for evidence in application.evidence %}
         <p class="title{% if loop.first %} first-title{% endif %}">Evidence #{{ loop.index }}
@@ -68,7 +68,7 @@
     {% endif %}
   </div>
 
-  <div class="tab-content criteria-content">
+  <div class="tab-content criteria-content js-section js-section-criteria hidden">
     <p class="title">Rubric</p>
     <p class="small-copy">{{ badge.rubricUrl }}</p>
     {% if badge.criteria.length %}
@@ -91,9 +91,10 @@
     {% else %}
       <p><strong>No criteria found</strong></p>
     {% endif %}
+    <p>&nbsp</p>  <!-- This is pretty lame, but it makes the borders around the div work -->
   </div>
 
-  <div class="tab-content finish-content">
+  <div class="tab-content finish-content js-section js-section-finish hidden">
     <form class="comment-form clearfix js-review-form" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
       <div class="form-field-wrapper">

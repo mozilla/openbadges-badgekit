@@ -1,4 +1,15 @@
 $(document).ready(function() {
+  $('.js-tab').click(function() {
+    var clickedTab = $(this);
+    $('.js-tab').removeClass('selected');
+    clickedTab.addClass('selected');
+
+    var section = clickedTab.data('section');
+
+    $('.js-section').addClass('hidden');
+    $('.js-section-' + section).removeClass('hidden');
+  });
+
   $('.js-criterion-met').removeAttr('checked');
 
   $('.js-criterion-met').click(function() {

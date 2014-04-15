@@ -30,12 +30,14 @@ function pending (req, res, next) {
     const badges = [];
     var currentBadge = {};
     applications.forEach(function (application) {
-      if (application.badge.id !== currentBadge.id) {
-        currentBadge = application.badge;
-        currentBadge.applications = [];
-        badges.push(currentBadge);
+      if (!application.processed) {
+        if (application.badge.id !== currentBadge.id) {
+          currentBadge = application.badge;
+          currentBadge.applications = [];
+          badges.push(currentBadge);
+        }
+        currentBadge.applications.push(application);
       }
-      currentBadge.applications.push(application);
     })
 
     res.render('applications/pending-list.html', {
