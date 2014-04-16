@@ -95,14 +95,34 @@
   </div>
 
   <div class="tab-content finish-content js-section js-section-finish hidden">
+    <p class="title">Add your feedback</p>
+    <p class="small-copy">Use the comments below to tell APPLICANT what you loved, what you found confusing, what did not work, and ideas for improvement</p>
     <form class="comment-form clearfix js-review-form" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="comment">Greeting & Intro</label>
+        <textarea class="badge-field js-comment" type="text" name="comment" placeholder="Hey, great job. Below are some comments about your badge application."></textarea>
+      </div>
+
       <div class="form-field-wrapper">
         <label class="badge-label left" for="comment">Feedback</label>
         <textarea class="badge-field js-comment" type="text" name="comment"></textarea>
       </div>
 
-      <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Submit Review</a>
+      <div class="form-field-wrapper clearfix">
+        <label class="badge-label left" for="">Conclusion</label>
+      </div>
+      <div class="badge-feedback-container">
+        <i class="fa fa-smile-o"></i><input class="badge-feedback" type="text" name="" placeholder="Add here what you love about this work.">
+      </div>
+      <div class="badge-feedback-container">
+        <i class="fa fa-frown-o"></i><input class="badge-feedback" type="text" name="" placeholder="Add here what is quite not working yet.">
+      </div>
+
+      <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Approve</a>
+      <a href="" class="btn submit-btn blue-btn">Decline</a>
+      <p class="small-copy">Results and comments will be sent to applicant.</p>
     </form>
   </div>
 </section>

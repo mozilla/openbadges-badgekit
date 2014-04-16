@@ -45,6 +45,16 @@
   }
 }
 
+.badge-label {
+  font-weight: bold;
+  width: $two-wide;
+  margin-right: 6%;
+}
+
+.badge-field {
+  width: $three-wide;
+}
+
 .about-badges {
   color: $white;
   background-color: #5bc5c8;
