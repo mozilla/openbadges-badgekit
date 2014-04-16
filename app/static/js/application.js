@@ -29,7 +29,11 @@ $(document).ready(function() {
     var href = $(this).attr('href');
     var data = {};
 
-    data.comment = $('.js-comment').val();
+    data.comment = '';
+    $('.js-comment').each(function() {
+      data.comment += $(this).val() + '\n\n';
+    });
+
     data._csrf = form.find('input[name="_csrf"]').val();
     data.reviewItems = [];
 
