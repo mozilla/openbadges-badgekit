@@ -212,11 +212,9 @@ module.exports = function getBadgeModel (key) {
       setCriteria: setCriteria,
       setCategories: setCategories,
       createCopy: createCopy,
-      del: deleteBadge,
+      del: deleteBadge
     }
   });
-
-  Badge.Category = Category;
 
   return Badge;
 };
