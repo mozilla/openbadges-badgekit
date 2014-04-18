@@ -1,3 +1,4 @@
+/*
 @import "normalize";
 @import "font-awesome";
 @import "base";
@@ -7,3 +8,220 @@
 @import "directory";
 @import "settings";
 @import "responsive";
+*/
+@import "base";
+
+.application-container {
+  padding: 20px;
+}
+
+.badger-info {
+  width: $three-wide;
+
+  .badgethumb {
+    width: 90px;
+    height: auto;
+    margin: 0 20px 50px 0;
+  }
+
+  .badger-email {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: $gray;
+    font-weight: normal;
+    font-size: 30px;
+  }
+
+  .badge-name {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .application-status,
+  .application-submission-date {
+    margin: 0;
+    font-size: 13px;
+  }
+}
+
+.application-review-status {
+  width: $three-wide;
+
+  .warning-text {
+    text-align: right;
+    color: $gray;
+  }
+}
+
+.fa-check-circle,
+.fa-times-circle,
+.fa-circle-o {
+  font-size: 25px;
+  padding: 0 20px;
+}
+
+.fa-check-circle {
+  color: $medium-green;
+}
+
+.fa-times-circle {
+  color: orange;
+}
+
+.status-bar {
+  background-color: $gray;
+  width: $four-wide;
+  padding: 10px;
+  margin-top: 50px;
+
+  .status-info {
+    line-height: 1.3em;
+    margin: 0;
+    color: $white;
+
+    span {
+      font-size: 17px;
+      font-weight: bold;
+    }
+  }
+}
+
+.status-visual {
+  width: $four-wide;
+  background-color: $light-gray;
+  padding: 10px;
+}
+
+.approval-section {
+  padding: 20px 0;
+
+  .badgethumb {
+    width: 90px;
+    height: auto;
+    margin: 0 20px 20px 0;
+  }
+
+  .pending-badge-title {
+    margin-bottom: 0;
+    padding-top: 20px;
+  }
+
+  .badge-approval-status {
+    margin-top: 0;
+    margin-right: 20px;
+  }
+
+  .pending-list-table {
+    display: table;
+    width: $six-wide;
+    line-height: 2.5em;
+
+    .pending-item {
+      color: $gray;
+      display: table-row;
+
+      &:hover {
+        background-color: $lightest-blue;
+        color: $hover-blue;
+
+        .email-cell {
+          color: $hover-blue;
+        }
+      }
+    }
+
+    .pending-cell {
+      display: table-cell;
+      width: 20%;
+      border-bottom: 1px solid $gray;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .pending-button {
+      background-color: $gray;
+    }
+
+    .email-cell {
+      color: $light-blue;
+      padding-left: 10px;
+    }
+  }
+
+  .centered-block {
+    width: 102px;
+    margin: 20px auto;
+  }
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+.tab-content {
+  border: 1px solid $light-gray;
+  width: $six-wide;
+  padding: 20px;
+  .title {
+    margin-bottom: 0;
+    font-weight: bold;
+    &:first-child { margin-top: 0; }
+  }
+
+  .title,
+  .small-copy {
+    width: $four-wide;
+  }
+
+  .small-copy { margin-top: 5px; }
+
+  .criterion-left,
+  .criterion-right {
+    border-top: 1px solid black;
+    width: $three-wide;
+    margin-bottom: 15px;
+
+    .title,
+    .small-copy {
+      width: $six-wide;
+    }
+
+    .fa-check-circle,
+    .fa-times-circle {
+      padding: 0 10px;
+    }
+    input[type="radio"] {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  .comment-form {
+    textarea {
+      margin-left: 100px;
+      margin-bottom: 20px;
+      width: 50%;
+    }
+  }
+
+  .badge-feedback-container { margin-left: 33.2%; }
+
+  .badge-feedback {
+    display: inline;
+    margin: 10px;
+    width: $four-wide;
+  }
+
+  .fa-smile-o,
+  .fa-frown-o {
+    font-size: 25px;
+    color: $gray;
+  }
+}
+
+.badge-requirement {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: red;
+}

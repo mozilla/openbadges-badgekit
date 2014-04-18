@@ -37,9 +37,12 @@
             </ul>
 
             <ul>
+              <p class="menu-title second-menu-title"><a href="{{ url('applications') }}">Applications</a></p>
+              {#
               <p class="menu-title second-menu-title"><i class="fa fa-folder-open"></i>Applications</p>
               <a href=""><li class="first-item">Pending</li></a>
               <a href=""><li class="last-item">Awarded</li></a>
+              #}
             </ul>
           </nav>
           <nav class="settings-small-screen"></nav> -->
@@ -83,10 +86,10 @@
           <ul class="navigation-dropdown">
             <span class="arrow-down"></span>
             <li class="menu-item">
-              Applications (27)
+              Applications
               <ul class="menu-hover hover-applications">
-                <a href=""><li>Pending</li></a>
-                <a href=""><li>Awarded</li></a>
+                <a href="{{ url('applications') }}"><li>Pending</li></a>
+                <!--<a href="{{ url('applications') }}?view=awarded"><li>Awarded</li></a>-->
               </ul>
             </li>
           </ul>

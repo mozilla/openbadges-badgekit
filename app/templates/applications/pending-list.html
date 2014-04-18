@@ -1,0 +1,37 @@
+{% extends "applications/layout.html" %}
+
+{% block content %}
+<div class="container clearfix">
+  <!-- <section class="info">
+    <h1 class="info-heading">Applications</h1>
+    <p class="info-text"><em>Do we have copy for this?</em></p>
+  </section> -->
+
+  {% for badge in badges %}
+    <section class="approval-section">
+      <section class="badges-for-approval clearfix">
+        <a href="{{ url('badge', {badgeId: badge.slug}) }}?category=published">
+          <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
+          <h2 class="pending-badge-title">{{ badge.name }}</h2>
+        </a>
+      </section>
+      {% if badge.applications and badge.applications.length %}
+        <section class="pending-list-table">
+          {% for application in badge.applications.slice(0,5) %}
+            {% include "applications/_application-list-item.html" %}
+          {% endfor %}
+        </section>
+      {% endif %}
+      <div class="centered-block">
+        <a href="{{ url('applications.forBadge', badge.slug) }}" class="btn centered">
+          {%- if badge.applications.length > 5 -%}
+            + {{ badge.applications.length - 5 }} more
+          {%- else -%}
+            See all
+          {%- endif -%}
+        </a>
+      </div>
+    </section>
+  {% endfor %}
+</div>
+{% endblock %}

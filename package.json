@@ -1,7 +1,7 @@
 {
   "name": "openbadges-badgekit",
   "description": "Mozilla Openbadges BadgeKit",
-  "version": "0.0.24",
+  "version": "0.1.1",
   "main": "app/index.js",
   "author": "Mozilla Open Badges http://openbadges.org",
   "license": "MPL 2.0",
@@ -30,7 +30,7 @@
     "express-persona-observer": "git+https://github.com/christensenep/express-persona-observer.git#multiple-buttons",
     "async": "~0.2.9",
     "mysql": "~2.0.0-rc1",
-    "badgekit-api-client": "git+https://github.com/mozilla/badgekit-api-client.git#heritage-fix"
+    "badgekit-api-client": "git+https://github.com/mozilla/badgekit-api-client.git#application-updates"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
