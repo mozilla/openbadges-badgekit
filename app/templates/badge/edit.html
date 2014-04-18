@@ -219,6 +219,38 @@
         </div>
 
         <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="badgeCategory">Category<p class="small-copy">Select a badge category.<i class="fa fa-question-circle js-tooltip"></i></p>
+            <div class="tooltip-container js-tooltip-container"><p class="small-copy">Read more about how you can use <a>badge categories</a>.</p></div>
+          </label>
+          <div class="badge-input">
+            {% for category in badge.categories %}
+              <div class="form-dropdown">
+                <span class="arrow-down"></span>
+                <select {{ disabled() }} name="category"{% if loop.first %} id="badgeCategory"{% endif %}>
+                  <option value="">Select an optional badge category</option>
+                  {% for badgeCategory in badgeCategories %}
+                    <option value="{{ badgeCategory.id }}"{% if category == badgeCategory.id %} selected{% endif %}>{{ badgeCategory.label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <br>
+            {% endfor %}
+            {% for i in range(badge.categories.length, 3) %}
+              <div class="form-dropdown">
+                <span class="arrow-down"></span>
+                <select {{ disabled() }} name="category"{% if i == 0 %} id="badgeCategory"{% endif %}>
+                  <option value="">Select an optional badge category</option>
+                  {% for badgeCategory in badgeCategories %}
+                    <option value="{{ badgeCategory.id }}">{{ badgeCategory.label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <br>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="license">License<p class="small-copy">Choose a creative commons license.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">Can others remix and issue your badge?</p></div>
           </label>

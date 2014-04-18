@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Badge = require('../models/badge')("DATABASE");
+const BadgeCategory = require('../models/badge-category')("DATABASE");
 const Image = require('../models/image')("DATABASE");
 const async = require('async');
 
@@ -89,6 +90,9 @@ exports.edit = function edit (req, res, next) {
         }
 
         data.section = section;
+        data.badge.categories = data.badge.categories.map(function (category) {
+          return category.id;
+        });
 
         callback(null, data);
       });
@@ -96,7 +100,7 @@ exports.edit = function edit (req, res, next) {
     function(callback) {
       fs.readdir(path.join(__dirname, '../static', studioPath, 'shapes'), function(err, files) {
         if (err)
-          callback(err);
+          return callback(err);
 
         var shapes = files.map(function(file) {
           return { id: file,
@@ -105,6 +109,10 @@ exports.edit = function edit (req, res, next) {
 
         callback(null, shapes);
       });
+    },
+    function(callback) {
+      // getAll doesn't seem to be working here
+      BadgeCategory.get({}, callback);
     }],
     function(err, results) {
       if (err)
@@ -113,6 +121,7 @@ exports.edit = function edit (req, res, next) {
       var data = results[0];
       data.shapes = results[1];
       data.badgeTypes = ['Community', 'Skill', 'Knowledge', 'Showcase'];
+      data.badgeCategories = results[2];
       res.render('badge/edit.html', data);
     }
   );
@@ -271,6 +280,12 @@ function saveBadge(req, callback) {
           else {
             return innerCallback(null);
           }
+        },
+        function(innerCallback) {
+          if (!('category' in req.body))
+            return innerCallback(null);
+
+          badgeRow.setCategories(req.body.category, innerCallback);
         }],
         function(err) {
           callback(err, badgeRow);
