@@ -68,7 +68,7 @@ module.exports = function getBadgeModel (key) {
 
       categories.forEach(function (categoryId, pos) {
         // Filter out empty and duplicate values
-        if (categoryId === '' || categories.indexOf(categoryId) !== pos)
+        if (isNaN(parseInt(categoryId)) || categories.indexOf(categoryId) !== pos)
           return;
 
         stream.write({badgeId: badgeId, categoryId: categoryId});
