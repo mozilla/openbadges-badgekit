@@ -94,6 +94,13 @@ module.exports = function getBadgeModel (key) {
     });
 
     delete badge.criteria;
+
+    var categories = (badge.categories || []).map(function (category) {
+      return category.id;
+    });
+
+    delete badge.categories;
+
     badge.created = new Date();
     delete badge.lastUpdated;
     if (badge.image && (badge.image.id !== null)) {
@@ -123,7 +130,10 @@ module.exports = function getBadgeModel (key) {
           if (err)
             return callback(err);
 
-          row.setCriteria(criteria, function(err) {
+          async.series([
+            row.setCriteria.bind(row, criteria),
+            row.setCategories.bind(row, categories)
+          ], function (err) {
             callback(err, row);
           });
         });
