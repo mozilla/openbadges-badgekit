@@ -9,5 +9,6 @@ exports.sorry = function sorry (req, res, next) {
 exports.directory = require('./directory');
 exports.badge = require('./badge');
 exports.settings = require('./settings');
+exports.applications = require('./applications');
 exports.help = require('./help');
 exports.about = require('./about');

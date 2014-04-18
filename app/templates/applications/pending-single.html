@@ -1,0 +1,128 @@
+{% extends "applications/layout.html" %}
+
+{% block content %}
+<section class="application-container white-container container clearfix">
+  <div class="notification js-notification"></div>
+  <div class="badger-info left">
+    <h1 class="badger-email">{{ application.learner }}</h1>
+    <a href="{{ url('badge', {badgeId: badge.slug}) }}?category=published">
+      <img class="badgethumb left" src="{{ badge.imageUrl | default(url('badge.image', {badgeId: badge.id})) }}">
+      <span class="badge-name">{{ badge.name }}</span>
+    </a>
+    <p class="application-status">Status: Application Pending</p>
+    <p class="application-submission-date">Submitted: {{ application.created }}</p>
+  </div>
+
+  <div class="application-review-status right">
+    <p class="small-copy warning-text">Review will close after 20 minutes of idle time.</p>
+    <a href="{{ url('applications') }}" class="btn cancel-btn right">Cancel &amp; Exit</a>
+    <section class="status-bar right cb">
+      <p class="status-info">Applicant should meet all required items</p>
+    </section>
+    <section class="status-visual right cb">
+      {% for criterion in badge.criteria %}
+        {% if criterion.required %}
+          <i class="fa fa-circle-o js-criterion-{{ criterion.id }}-marker"></i>
+        {% endif %}
+      {% endfor %}
+    </section>
+  </div>
+
+  <ul class="tabs">
+    <li class="tab js-tab selected" data-section="description">Description</li>
+    <li class="tab js-tab" data-section="evidence">Evidence</li>
+    <li class="tab js-tab" data-section="criteria">Criteria</li>
+    <li class="tab js-tab" data-section="finish">Finish</li>
+  </ul>
+
+  <div class="tab-content description-content js-section js-section-description">
+    {% if badge.strapline %}
+      <p class="title">Short Description</p>
+      <p class="small-copy">{{ badge.strapline }}</p>
+    {% endif %}
+
+    <p class="title">Description for Earners</p>
+    <p class="small-copy">{{ badge.earnerDescription | default('<em>No description given</em>') }}</p>
+
+    <p class="title">Description for Consumers</p>
+    <p class="small-copy">{{ badge.consumerDescription | default('<em>No description given</em>') }}</p>
+
+    {# Tags?
+    <p class="title">Tags</p>
+    <p class="small-copy">common tags, in our work, tomato, tomahto</p>
+    #}
+  </div>
+
+  <div class="tab-content evidence-content js-section js-section-evidence hidden">
+    {% if application.evidence.length %}
+      {% for evidence in application.evidence %}
+        <p class="title{% if loop.first %} first-title{% endif %}">Evidence #{{ loop.index }}
+          - {% if evidence.mediaType == 'image' %}Picture{% else %}Link{% endif %}</p>
+        <p class="small-copy left"><a href="{{ evidence.url }}" target="_blank">{{ evidence.url }}</a></p>
+        {% if evidence.reflection %}
+          <p class="small-copy">{{ evidence.reflection }}</p>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p><strong>No evidence found</strong></p>
+    {% endif %}
+  </div>
+
+  <div class="tab-content criteria-content js-section js-section-criteria hidden">
+    <p class="title">Rubric</p>
+    <p class="small-copy">{{ badge.rubricUrl }}</p>
+    {% if badge.criteria.length %}
+      {% for criterion in badge.criteria %}
+        <section class="criterion-left left">
+          <p class="title">Criterion #{{ loop.index }}
+            {% if criterion.required %}<span class="badge-requirement">Required</span>{% endif %}
+            {# <i class="fa fa-check-circle"></i> #}
+          </p>
+          <p class="small-copy">{{ criterion.description.replace('\n\n', '</p>\n<p class="small-copy">').replace('\n', '\n<br>\n') }}</p>
+        </section>
+        <section class="criterion-right left js-criterion-section" data-criterion-id="{{ criterion.id }}">
+          <p class="title">Review</p>
+          <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="1">Meets Criterion<br>
+          <input class="js-criterion-met" type="radio" name="criterion-{{ criterion.id }}-met" value="0">Does Not Meet Criterion<br><br>
+          <label class="badge-label left" for="criterion-{{ criterion.id }}-comment">Comments</label><br>
+          <textarea class="badge-field js-criterion-comment" type="text" data-criterion-id="{{ criterion.id }}" name="criterion-{{ criterion.id }}-comment"></textarea>
+        </section>
+      {% endfor %}
+    {% else %}
+      <p><strong>No criteria found</strong></p>
+    {% endif %}
+    <p>&nbsp</p>  <!-- This is pretty lame, but it makes the borders around the div work -->
+  </div>
+
+  <div class="tab-content finish-content js-section js-section-finish hidden">
+    <p class="title">Add your feedback</p>
+    <p class="small-copy">Use the comments below to tell APPLICANT what you loved, what you found confusing, what did not work, and ideas for improvement</p>
+    <form class="comment-form clearfix js-review-form" name="input" action="{{ url('application.submit', { badgeId: badge.slug, applicationId: application.slug }) }}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="comment">Greeting & Intro</label>
+        <textarea class="badge-field js-comment" type="text" name="comment" placeholder="Hey, great job. Below are some comments about your badge application."></textarea>
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label left" for="comment">Feedback</label>
+        <textarea class="badge-field js-comment" type="text" name="comment"></textarea>
+      </div>
+
+      <div class="form-field-wrapper clearfix">
+        <label class="badge-label left" for="">Conclusion</label>
+      </div>
+      <div class="badge-feedback-container">
+        <i class="fa fa-smile-o"></i><input class="badge-feedback js-comment" type="text" name="" placeholder="Add here what you love about this work.">
+      </div>
+      <div class="badge-feedback-container">
+        <i class="fa fa-frown-o"></i><input class="badge-feedback js-comment" type="text" name="" placeholder="Add here what is quite not working yet.">
+      </div>
+
+      <a href="{{ url('applications') }}" class="btn submit-btn js-submit-review">Submit Review</a>
+      <p class="small-copy">Results and comments will be sent to applicant.</p>
+    </form>
+  </div>
+</section>
+{% endblock %}
