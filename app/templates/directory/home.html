@@ -44,8 +44,8 @@
             Sort badges <i class="fa fa-caret-down"></i>
             <ul class="menu-hover sort-menu-hover">
               <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
-              <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
-              <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a>
+              <!-- <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a> -->
               <a href="{{ url('directory') }}?category={{ category }}&sort=dateactive"><li>Date Active</li></a>
               <a href="{{ url('directory') }}?category={{ category }}&sort=datecreated"><li>Date Created</li></a>
             </ul>
@@ -81,7 +81,7 @@
             {% if category == 'published' %}
               <a href="" class="btn action-btn js-action-btn">Action<span class="arrow-down"></span></a>
               <ul class="action-dropdown js-action-dropdown">
-                <a href=""><li>Review Applicants</li></a>
+                <!-- <a href=""><li>Review Applicants</li></a> -->
                 <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>Issue by Email</li></a>
                 <!-- <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>Issue by Claim Code</li></a> -->
                 <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>Copy as new</li></a>
