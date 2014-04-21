@@ -39,7 +39,7 @@
       <li class="tab selected"><a {{ createSectionAnchorAttributes('description') }}>Description</a></li>
       <li class="tab"><a {{ createSectionAnchorAttributes('options') }}>Options</a></li>
       <li class="tab"><a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a></li>
-      <li class="tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li>
+      <!-- <li class="tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li> -->
       <li class="tab"><a {{ createSectionAnchorAttributes('visual') }}>Visual</a></li>
     </ul>
 
@@ -64,11 +64,11 @@
           <textarea class="badge-field short-description" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
         </div>
 
-        <div class="form-field-wrapper">
+        <!-- <div class="form-field-wrapper">
           <label class="badge-label left" for="tags">Tags<p class="small-copy">Comma separated keywords</p></label>
-          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}" placeholder="org name, subject, activity, keywords, etc"/>
+          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}" placeholder="org name, subject, activity, keywords, etc"/> -->
           <!-- <a class="btn add-btn">Add<i class="fa fa-plus"></i></a> -->
-        </div>
+        <!-- </div> -->
 
         <div class="form-field-wrapper cb">
           <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">Describe why and how someone would apply for this badge.</p></label>
@@ -149,7 +149,7 @@
 
       <div {{ createSectionDivAttributes('options') }}>
         <p class="form-heading"><span class="form-heading-span">Options</span> Choose optional badge properties and constraints.</p>
-        <div class="form-field-wrapper clearfix">
+        <!-- <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="group">Group<p class="small-copy">Related badges can be grouped.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">For administration and display. (Feature Coming Soon...)</p></div>
           </label>
@@ -159,7 +159,7 @@
               <option value="Feature Coming Soon...">Feature Coming Soon...</option>
             </select>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="timeValue">Time<p class="small-copy">Approximate time for earners to complete.<i class="fa fa-question-circle js-tooltip"></i></p>
@@ -193,7 +193,7 @@
           </div>
         </div>
 
-        <div class="form-field-wrapper clearfix">
+        <!-- <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="license">License<p class="small-copy">Choose a creative commons license.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">Can others remix and issue your badge?</p></div>
           </label>
@@ -203,7 +203,7 @@
               <option value="Feature Coming Soon...">Feature Coming Soon...</option>
             </select>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="limit">Limit<p class="small-copy">How many people can earn this badge?</p></label>
@@ -218,12 +218,12 @@
           <input class="radio-badge-field" type="radio" name="unique" value="unique" {% if badge.unique %} checked {% endif %}{{ disabled() }}>Limit one-per-person</input>
         </div>
 
-        <div class="form-field-wrapper clearfix">
+        <!-- <div class="form-field-wrapper clearfix">
           <label class="badge-label left" for="multiClaimCode">Multi-use Claim Code<p class="small-copy">Allow earner to self-issue? Provide a claim code.<i class="fa fa-question-circle js-tooltip"></i></p>
             <div class="tooltip-container js-tooltip-container"><p class="small-copy"><a href="{{ url('help') }}">Learn more</a> about claim code.</p></div>
           </label>
           <input class="badge-field" type="text" {{ disabled() }} name="multiClaimCode" value="{{ badge.multiClaimCode }}"></input>
-        </div>
+        </div> -->
 
       </div>
     </form>

@@ -2,13 +2,13 @@
 {% block content %}
   <div class="container clearfix">
     <ul class="tabs">
-      <li class="tab js-tab selected" data-section="profile">Profile</li>
+      <!-- <li class="tab js-tab selected" data-section="profile">Profile</li>
       <li class="tab js-tab" data-section="notifications">Notifications</li>
-      <li class="tab js-tab" data-section="privacy">Privacy</li>
-      <li class="tab js-tab" data-section="permissions">Admin</li>
+      <li class="tab js-tab" data-section="privacy">Privacy</li> -->
+      <li class="tab js-tab selected" data-section="permissions">Admin</li>
     </ul>
 
-    <form class="settings-form settings settings-profile js-settings js-settings-profile left" name="input" action="" method="post">
+    <form class="settings-form settings settings-profile js-settings js-settings-profile left hidden" name="input" action="" method="post">
       <div class="form-field-wrapper">
         <label class="badge-label left" for="name">Name</label>
         <input class="badge-field" type="text" name="name" value="">
@@ -127,7 +127,7 @@
       <a class="btn submit-btn" type="submit">Save</a>
     </form>
 
-    <section class="settings-form js-settings js-settings-permissions left hidden clearfix" data-systems-url="{{ systemsUrl }}" data-issuers-url="{{ issuersUrl }}" data-programs-url="{{ programsUrl }}" data-users-url="{{ usersUrl }}" data-current-system="" data-current-issuer="" data-current-program="" data-csrf="{{ csrfToken }}">
+    <section class="settings-form js-settings js-settings-permissions left clearfix" data-systems-url="{{ systemsUrl }}" data-issuers-url="{{ issuersUrl }}" data-programs-url="{{ programsUrl }}" data-users-url="{{ usersUrl }}" data-current-system="" data-current-issuer="" data-current-program="" data-csrf="{{ csrfToken }}">
       {% include "settings/nav.html" %}
     </section>
 
