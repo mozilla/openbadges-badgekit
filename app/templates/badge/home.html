@@ -25,14 +25,14 @@
     </ul>
 
     <div class="badge-info  js-badge-info">
-      <p class="badge-title">Issuer<span class="badge-description">{{ badge.issuerUrl }}</span></p>
+      {% if badge.issuerUrl %}<p class="badge-title">Issuer<span class="badge-description">{{ badge.issuerUrl }}</span></p> {% endif %}
 
-      <p class="badge-title">Program<span class="badge-description">{{ badge.program.name }}</span>
+      {% if badge.program %}<p class="badge-title">Program<span class="badge-description">{{ badge.program.name }}</span>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container">
           <p class="small-copy">Feature Badges by group using the Display API.</p>
         </div>
-      </p>
+      </p>{% endif %}
 
 
 
@@ -45,8 +45,8 @@
       <p class="badge-title">Technical Description</p>
       <p class="badge-description">{{ badge.consumerDescription }}</p>
 
-      <p class="badge-title">Tags</p>
-      <p class="badge-description">{{ badge.tags }}</p>
+      <!-- <p class="badge-title">Tags</p>
+      <p class="badge-description">{{ badge.tags }}</p> -->
 
       {% for criteria in badge.criteria %}
         <p class="badge-title">Criteria {{ loop.index }}</p>
