@@ -1,0 +1,16 @@
+<a class="pending-item" href="{{ url('application', {badgeId: badge.slug, applicationId: application.slug }) }}">
+  <div class="pending-cell email-cell">
+    {{ application.learner }}
+  </div>
+  <div class="pending-cell">
+    <span class="pending-cell-content">{{ application.created }}{# this needs to be formatted #}
+  </div>
+  <div class="pending-cell">
+    {# Saved #}
+  </div>
+  <div class="pending-cell">
+    {%- if application.sensitive -%}
+      <span class="btn pending-btn">Sensitive</span>
+    {%- endif -%}
+  </div>
+</a>

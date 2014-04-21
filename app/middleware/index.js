@@ -5,6 +5,7 @@ var parseUrl = require('url').parse;
 var sass = require('node-sass');
 var xtend = require('xtend');
 var jwt = require('jwt-simple');
+var util = require('util');
 
 var Account = require('../models/account')("DATABASE");
 
@@ -157,38 +158,51 @@ exports.getMonthName = function getMonthName (monthNum, getShort, lang) {
   }
 }
 
-function createForbiddenError(message) {
-  var err = new Error(message);
-  err.code = 403;
-  return err;
-}
-
 exports.verifyApiRequest = function verifyApiRequest () {
   return function (req, res, next) {
-    const param = req.method === "GET" ? req.query : req.body;
-    const token = param.auth;
-    const email = param.email;
+    const token = req.body.auth;
 
     const now = Date.now()/1000|0;
     var decodedToken, msg;
     if (!token)
-      return next(createForbiddenError('missing mandatory `auth` param'));
+      return res.send(403, 'missing mandatory `auth` param');
     try {
       decodedToken = jwt.decode(token, API_SECRET);
     } catch(err) {
-      return next(createForbiddenError('error decoding JWT: ' + err.message));
+      return res.send(403, 'error decoding JWT: ' + err.message);
     }
 
-    if (decodedToken.prn !== email) {
-      msg = '`prn` mismatch: given %s, expected %s';
-      return next(createForbiddenError(util.format(msg, decodedToken.prn, email)));
+    if (decodedToken.prn.email !== req.body.email) {
+      msg = '`prn.email` mismatch: given %s, expected %s';
+      return res.send(403, util.format(msg, decodedToken.prn.email, req.body.email));
+    }
+
+    const jwtContext = JSON.stringify(decodedToken.prn.context);
+    const receivedContext = JSON.stringify(req.body.context);
+
+    if (jwtContext !== receivedContext) {
+      msg = '`prn.context` mismatch: given %s, expected %s';
+      return res.send(403, util.format(msg, jwtContext, receivedContext));
+    }
+
+    const jwtPermissions = JSON.stringify(decodedToken.prn.permissions);
+    const receivedPermissions = JSON.stringify(req.body.permissions);
+
+    if (jwtPermissions !== receivedPermissions) {
+      msg = '`prn.permissions` mismatch: given %s, expected %s';
+      return res.send(403, util.format(msg, jwtPermissions, receivedPermissions));
+    }
+
+    if (decodedToken.method !== req.method) {
+      msg = '`method` mismatch: given %s, expected %s';
+      return res.send(403, util.format(msg, decodedToken.method, req.method));
     }
 
     if (!decodedToken.exp)
-      return next(createForbiddenError('Token must have exp (expiration) set'));
+      return res.send(403, 'Token must have exp (expiration) set');
 
     if (decodedToken.exp < now)
-      return next(createForbiddenError('Token has expired'));
+      return res.send(403, 'Token has expired');
 
     return next();
   }
