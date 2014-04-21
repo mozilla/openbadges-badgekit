@@ -111,6 +111,78 @@ $(document).ready(function() {
     });
   }
 
+  (function () {
+    var categoryContainer = $('#badge-categories');
+    var model = categoryContainer.find('.form-dropdown').last().clone();
+    model.find('select')[0].selectedIndex = 0;
+
+    function eachDropdown (fn) {
+      var dropdowns = categoryContainer.find('.form-dropdown');
+      dropdowns.each(function (i) {
+        var el = $(this);
+        var select = el.find('select');
+        var selectedIndex = select[0].selectedIndex;
+        fn(i, el, select, selectedIndex, dropdowns);
+      });
+    }
+
+    function checkAvailableOptions () {
+      var selected = [];
+
+      eachDropdown(function (i, el, select) {
+        if (el[0] === model[0]) return;
+
+        var selectedIndex = select[0].selectedIndex;
+        selected.push(selectedIndex);
+      });
+
+      eachDropdown(function (i, el, select) {
+        var options = select.find('option');
+        var selectedIndex = select[0].selectedIndex;
+        var offset = (el[0] === model[0]) ? 1 : 0;
+
+        options.each(function (i) {
+          var disabled = selectedIndex !== (i+offset) && selected.indexOf(i-offset) > -1;
+          options[i].disabled = disabled;
+        })
+      });
+    }
+
+    eachDropdown(function (i, el, select, index) {
+      if (index == 0) {
+        el.next('br').remove();
+        el.remove();
+      } else {
+        select.find('option').first().remove();
+        el.after('<i class="fa fa-times-circle remove-option"></i>');
+      }
+    });
+
+    model.on('change', 'select', function () {
+      var row = model.clone();
+      row.find('option').first().remove();
+      row.find('select')[0].selectedIndex = this.selectedIndex - 1;
+      model.before(row);
+      row.after('<i class="fa fa-times-circle remove-option"></i>');
+      model.before(document.createElement('br'));
+      this.selectedIndex = 0;
+    });
+
+    categoryContainer.append(model);
+    categoryContainer.append(document.createElement('br'));
+
+    categoryContainer.on('change', 'select', checkAvailableOptions);
+    categoryContainer.on('click', '.remove-option', function () {
+      var btn = $(this);
+      btn.prev('.form-dropdown').remove();
+      btn.next('br').remove();
+      btn.remove();
+
+      checkAvailableOptions();
+    });
+
+    checkAvailableOptions();
+  })();
 
   var nameField = $('.js-name-field');
   var hiddenNameField = $('.js-hidden-name-field');

@@ -299,6 +299,9 @@
   .badge-input {
     padding-left: $two-wide + 6%;
     margin-right: -($two-wide + 6%);
+    .form-dropdown {
+      display: inline-block;
+    }
   }
   .short-textarea { height: 90px; }
   .badge-field {
@@ -319,6 +322,12 @@
   }
   .submit-btn { margin-left: 0; }
   .hidden { display: none; }
+  .remove-option {
+    margin-left: 5px;
+    position: relative;
+    top: -3px;
+    cursor: pointer;
+  }
 }
 
 .criteria {
