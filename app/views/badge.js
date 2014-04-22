@@ -90,7 +90,7 @@ exports.edit = function edit (req, res, next) {
         }
 
         data.section = section;
-        data.badge.categories = data.badge.categories.map(function (category) {
+        data.badge.categories = (data.badge.categories || []).map(function (category) {
           return category.id;
         });
 
@@ -267,7 +267,7 @@ function saveBadge(req, callback) {
                   return innerCallback(err);
 
                 if (badgeRow.imageId === null) {
-                  Badge.update({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
+                  Badge.put({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
                     return innerCallback(err);
                   });
                 }
@@ -350,7 +350,7 @@ exports.publish = function publish (req, res, next) {
           return res.send(500, err);
         }
 
-        Badge.update({ id: badgeId, published: true }, function(err, result) {
+        Badge.put({ id: badgeId, published: true }, function(err, result) {
           if (err)
             return res.send(500, err);
 
