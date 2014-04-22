@@ -108,7 +108,7 @@ exports.edit = function edit (req, res, next) {
     }],
     function(err, results) {
       if (err)
-        res.send(500, err);
+        return res.send(500, err);
 
       var data = results[0];
       data.shapes = results[1];
@@ -121,7 +121,7 @@ exports.edit = function edit (req, res, next) {
 exports.getBackgrounds = function getBackgrounds(req, res, next) {
   fs.readdir(path.join(__dirname, '../static', studioPath, 'backgrounds'), function(err, files) {
     if (err)
-      res.send(500, err);
+      return res.send(500, err);
 
     var backgrounds = files.map(function(file) {
       return { id: file,
@@ -135,7 +135,7 @@ exports.getBackgrounds = function getBackgrounds(req, res, next) {
 exports.getTexts = function getTexts(req, res, next) {
   fs.readdir(path.join(__dirname, '../static', studioPath, 'texts'), function(err, files) {
     if (err)
-      res.send(500, err);
+      return res.send(500, err);
 
     var texts = files.map(function(file) {
       return { id: file,
@@ -149,7 +149,7 @@ exports.getTexts = function getTexts(req, res, next) {
 exports.getIcons = function getIcons(req, res, next) {
   fs.readdir(path.join(__dirname, '../static', studioPath, 'icons'), function(err, files) {
     if (err)
-      res.send(500, err);
+      return res.send(500, err);
 
     var icons = files.map(function(file) {
       return { id: file,
@@ -163,7 +163,7 @@ exports.getIcons = function getIcons(req, res, next) {
 exports.getColors = function getColors(req, res, next) {
   fs.readdir(path.join(__dirname, '../static', studioPath, 'colors'), function(err, files) {
     if (err)
-      res.send(500, err);
+      return res.send(500, err);
 
     var colors = files.map(function(file) {
       return { id: file,
