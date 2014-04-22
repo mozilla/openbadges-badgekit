@@ -48,6 +48,10 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
     delete criterion.badgeId;
     delete criterion.id;
   });
+  newBadge.type = badge.badgeType;
+  newBadge.categories = (badge.categories || []).map(function (category) {
+    return category.label;
+  });
   
   return newBadge;
 };
