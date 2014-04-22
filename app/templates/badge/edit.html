@@ -2,8 +2,8 @@
 
 {% import "badge/criterion.html" as criterionTemplate %}
 
-{% macro createSectionAnchorAttributes(s) %}
-  href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ badge.status }}" data-section="{{ s }}" class="js-category-anchor"
+{% macro createSectionTab(s) %}
+  <li class="tab {{ 'selected' if section == s }}"><a href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ badge.status }}" data-section="{{ s }}" class="js-category-anchor">{{ s | capitalize }}</a></li>
 {% endmacro %}
 
 {% macro createSectionDivAttributes(s) %}
@@ -36,11 +36,11 @@
     </div>
 
     <ul class="tabs">
-      <li class="tab selected"><a {{ createSectionAnchorAttributes('description') }}>Description</a></li>
-      <li class="tab"><a {{ createSectionAnchorAttributes('options') }}>Options</a></li>
-      <li class="tab"><a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a></li>
-      <!-- <li class="tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li> -->
-      <li class="tab"><a {{ createSectionAnchorAttributes('visual') }}>Visual</a></li>
+      {{ createSectionTab('description') }}
+      {{ createSectionTab('options') }}
+      {{ createSectionTab('criteria') }}
+      <!-- {{ createSectionTab('milestone') }} -->
+      {{ createSectionTab('visual') }}
     </ul>
 
     <form class="badge-form clearfix js-badge-form" name="input" action="{{ url('badge.save', { badgeId: badge.id }) }}" method="post" enctype="multipart/form-data">
@@ -86,8 +86,10 @@
         <p class="form-heading"><span class="form-heading-span">Visual</span> Use visuals to express the nature and value of a badge.</p>
 
         <div class="left design-upload-container design-container">
+        <a href="{{ url('badge.design', { badgeId: badge.id }) }}">
           <i class="fa fa-magic"></i>
           <p class="design-upload-heading">Design<span class="design-upload-subhead">from Scratch</span></p>
+        </a>
         </div>
 
         <section class="or-seperator left">
@@ -100,19 +102,15 @@
           <input class="upload-image js-upload-image" type="file" name="uploadImage" {{ disabled() }}/>
         </div>
 
-
-
-        <section class="preview-make-your-badge left">
-          <div class="canvas-wrapper cb">
-            <canvas width="180" height="180" class="badge-canvas js-badge-canvas"></canvas>
-            <p>Badge at 90px</p>
+        <div class="preview-wrapper">
+          <div class="preview cb">
+            <img class="preview-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/>
+            <p>Badge at 180px</p>
           </div>
+          <!-- <a class="btn submit-btn js-save-image">Delete Design</a> -->
+        </div>
 
-          <canvas width="30" height="10" class="color-canvas js-color-canvas"></canvas>
 
-          <a class="btn submit-btn js-save-image">Delete Design</a>
-
-        </section>
       </div>
 
       <div {{ createSectionDivAttributes('milestone') }}>
@@ -227,67 +225,12 @@
 
       </div>
     </form>
-    <section class="make-badge-full-page">
-      <input class="clear-btn save js-save-btn left" value="Saved" {{ disabled() }}/>
-      <i class="fa fa-refresh fa-spin js-save-spinner"></i>
-      <section class="preview-make-your-badge right">
-        <div>
-          <a class="btn">Clear Design</a>
-        </div>
-        <div>
-          <a class="btn">Exit</a>
-        </div>
-        <div class="canvas-wrapper right">
-          <canvas width="180" height="180" class="badge-canvas js-badge-canvas"></canvas>
-        </div>
-      </section>
 
-      <section class="cb edit-badge-design-container js-edit-badge-design-container js-visual-shape">
-        {% for shape in shapes %}
-          <div class="studio-input-image left">
-            <img class="studio-thumb block" src="{{ shape.image }}"/>
-            <input class="radio-badge-field js-shape-radio block" type="radio" name="shape" value="{{ shape.id }}" {% if badge.studioShape == shape.id %}checked{% endif %}/>
-          </div>
-        {% endfor %}
-        <div class="shape-container arrow-down"></div>
-      </section>
-
-      <section class="edit-badge-design-container js-visual-background" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
-      </section>
-
-      <section class="edit-badge-design-container js-visual-text" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
-      </section>
-
-      <section class="edit-badge-design-container js-visual-image">
-        <a class="btn blue-btn">Select File</a>
-        <a class="btn">Remove Image</a>
-        <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">For best results, upload a square image between 300px-500px.</p></div>
-      </section>
-
-      <section class="edit-badge-design-container js-visual-icon" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
-      </section>
-
-      <section class="edit-badge-design-container js-visual-color" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
-      </section>
-
-      <ul class="visual-designer-tabs">
-        <li class="designer-tab">Shape</li>
-        <li class="designer-tab">Background</li>
-        <li class="designer-tab">Text</li>
-        <li class="designer-tab">Image</li>
-        <li class="designer-tab">Icon</li>
-        <li class="designer-tab">Color</li>
-      </ul>
-
-    </section>
   </div>
 {% endblock %}
-
 
 {% block scripts -%}
   {{ super() }}
   <script src="{{ static('/js/edit-badge.js') }}"></script>
-  <script src="{{ static('/js/badge-studio.js') }}"></script>
   <script src="{{ static('/js/jquery.form.min.js') }}"></script>
 {%- endblock %}

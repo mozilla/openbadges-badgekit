@@ -78,17 +78,29 @@ exports.edit = function edit (req, res, next) {
   const section = req.query.section || 'description';
   const category = req.query.category || 'draft';
 
+  getBadgeById(badgeId, category, res.locals.makeContext, function(err, data) {
+    if (err)
+      return callback(err);
+
+    if (res.locals.hasPermission(data.badge, 'publish')) {
+      data.canPublish = true;
+    }
+
+    data.section = section;
+    data.badgeTypes = ['Community', 'Skill', 'Knowledge', 'Showcase'];
+    res.render('badge/edit.html', data);
+  });
+};
+
+exports.design = function design(req, res, next) {
+  const badgeId = req.params.badgeId;
+  const category = req.query.category || 'draft';
+
   async.parallel([
     function(callback) {
       getBadgeById(badgeId, category, res.locals.makeContext, function(err, data) {
         if (err)
           return callback(err);
-
-        if (res.locals.hasPermission(data.badge, 'publish')) {
-          data.canPublish = true;
-        }
-
-        data.section = section;
 
         callback(null, data);
       });
@@ -96,7 +108,7 @@ exports.edit = function edit (req, res, next) {
     function(callback) {
       fs.readdir(path.join(__dirname, '../static', studioPath, 'shapes'), function(err, files) {
         if (err)
-          callback(err);
+          return callback(err);
 
         var shapes = files.map(function(file) {
           return { id: file,
@@ -108,12 +120,11 @@ exports.edit = function edit (req, res, next) {
     }],
     function(err, results) {
       if (err)
-        res.send(500, err);
+        return res.send(500, err);
 
       var data = results[0];
       data.shapes = results[1];
-      data.badgeTypes = ['Community', 'Skill', 'Knowledge', 'Showcase'];
-      res.render('badge/edit.html', data);
+      res.render('badge/design.html', data);
     }
   );
 };
@@ -174,6 +185,7 @@ exports.getColors = function getColors(req, res, next) {
   });
 };
 
+
 function saveBadge(req, callback) {
   const timeValue = parseInt(req.body.timeValue, 10);
   const limitNumber = parseInt(req.body.limitNumber, 10);
@@ -195,13 +207,6 @@ function saveBadge(req, callback) {
     multiClaimCode: req.body.multiClaimCode,
     badgeType: req.body.badgeType
   };
-
-  if ('shape' in req.body) query.studioShape = req.body.shape;
-  if ('background' in req.body) query.studioBackground = req.body.background;
-  if ('textType' in req.body) query.studioTextType = req.body.textType;
-  if ('textContents' in req.body) query.studioTextContents = req.body.textContents;
-  if ('icon' in req.body) query.studioIcon = req.body.icon;
-  if ('color' in req.body) query.studioColor = req.body.color;
 
   Badge.put(query, function (err, result) {
     if (err)
@@ -235,11 +240,6 @@ function saveBadge(req, callback) {
           if (req.files) {
             var path = req.files.uploadImage.path;
             var type = req.files.uploadImage.type;
-
-            if (req.files.studioImage) {
-              path = req.files.studioImage.path;
-              type = req.files.studioImage.type;
-            }
 
             // Need to determine acceptable mime types... this is just accepting everything right now.
             fs.readFile(path, function(err, data) {
@@ -292,6 +292,73 @@ exports.save = function save (req, res, next) {
     return res.send(200, { location: res.locals.url('directory') + '?category=' + row.status });
   });
 };
+
+exports.saveDesign = function saveDesign (req, res, next) {
+  function doSave(callback) {
+    const query = {
+      id: req.body.badgeId
+    };
+
+    if ('shape' in req.body) query.studioShape = req.body.shape;
+    if ('background' in req.body) query.studioBackground = req.body.background;
+    if ('textType' in req.body) query.studioTextType = req.body.textType;
+    if ('textContents' in req.body) query.studioTextContents = req.body.textContents;
+    if ('icon' in req.body) query.studioIcon = req.body.icon;
+    if ('color' in req.body) query.studioColor = req.body.color;
+
+    Badge.put(query, function (err, result) {
+      if (err)
+        return callback(err);
+
+      Badge.getOne({ id: result.row.id }, function(err, badgeRow) {
+        if (err)
+          return callback(err);
+
+        if (req.files && req.files.studioImage) {
+          var path = req.files.studioImage.path;
+          var type = req.files.studioImage.type;
+
+          // Need to determine acceptable mime types... this is just accepting everything right now.
+          fs.readFile(path, function(err, data) {
+            if (err)
+              return callback(err);
+
+            const imageQuery = {
+              id: badgeRow.imageId,
+              mimetype: type,
+              data: data,
+              url: null
+            };
+
+            Image.put(imageQuery, function(err, imageResult) {
+              if (err)
+                return callback(err);
+
+              if (badgeRow.imageId === null) {
+                Badge.update({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
+                  return callback(err);
+                });
+              }
+              else {
+                return callback(null, badgeRow);
+              }
+            });
+          });
+        }
+        else {
+          return callback(null, badgeRow);
+        }
+      });
+    });
+  }
+
+  doSave(function(err, row) {
+    if (err)
+      return res.send(500, err);
+
+    return res.send(200, { location: res.locals.url('badge.edit', { badgeId: req.body.badgeId }) + '?category=' + row.status });
+  });
+}
 
 exports.archive = function archive (req, res, next) {
   const badgeId = req.params.badgeId;

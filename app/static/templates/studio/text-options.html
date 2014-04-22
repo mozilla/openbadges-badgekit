@@ -1,10 +1,3 @@
-{% for text in texts %}
-  <div class="studio-input-image left">
-    <img class="studio-thumb block" src="{{ text.image }}"/>
-    <input class="radio-badge-field block js-text-radio" type="radio" name="textType" value="{{ text.id }}" {% if savedTextType == text.id %}checked{% endif %}/>
-  </div>
-{% endfor %}
+<input class="designer-field js-text-contents" type="text" name="textContents" value="{{ savedTextContents }}" placeholder="Start typing..."/>
+
 <div class="text-container arrow-down"></div>
-
-
-<input class="badge-field studio-field js-text-contents" type="text" name="textContents" value="{{ savedTextContents }}" placeholder="Start typing..."/>

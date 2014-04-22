@@ -32,7 +32,7 @@
   }
 }
 
-.save-box {
+.save-box, .designer-save-box {
   position: relative;
   margin-top: -5px;
   margin-left: 15px;
@@ -56,12 +56,23 @@
   }
 }
 
+.designer-save-box {
+  margin-right: 50px;
+  display: inline-block;
+}
+
 .badge-image {
   height: 250px;
 }
 
+.preview-image {
+  height: 180px;
+}
+
 .preview-make-your-badge {
-  width: $three-wide;
+  width: 25%;
+  display: inline-block;
+  float:right;
   .form-field-wrapper {
     text-align: center;
     border-bottom: 1px solid $light-gray;
@@ -84,10 +95,6 @@
     .studio-input-image {
       width: 90px;
       margin: 0 35px;
-    }
-    .studio-input-icon-image {
-      width: 30px;
-      margin: 0 25px;
     }
   }
 }
@@ -120,7 +127,7 @@
   border: 1px solid $light-gray;
   font-family: "Open Sans Light";
   .designer-tab {
-    padding: 10px 5.75%;
+    padding: 10px 5.7%;
     background-color: $dark-gray;
     display: inline;
     border-right: 1px solid $light-gray;
@@ -149,15 +156,25 @@
   .studio-input-image {
     padding: 20px;
     &:hover { background-color: $light-gray; }
-    .studio-thumb,
-    .radio-badge-field { margin: 0 auto; }
+    .studio-thumb { margin: 0 auto; }
+    .radio-badge-field { margin: 5px auto 0 auto; }
+  }
+  .studio-input-icon-image {
+    margin: 10px 0px;
+  }
+  .studio-input-color-image {
+    margin: 30px 0px;
+  }
+  .designer-field {
+    margin-top:50px;
+    margin-left: 10px;
   }
 }
 
 .shape-container.arrow-down { left: 7%; }
-.background-container.arrow-down { left: 27%; }
-.text-container.arrow-down { left: 45%; }
-.icon-container.arrow-down { left: 76%; }
+.background-container.arrow-down { left: 25%; }
+.text-container.arrow-down { left: 44%; }
+.icon-container.arrow-down { left: 75.5%; }
 .color-container.arrow-down { left: 91%; }
 
 .preview-make-your-badge {
@@ -192,7 +209,7 @@
 }
 
 .studio-thumb.studio-icons {
-  width: 30px;
+  width: 60px;
   border: none;
   margin-right: 0;
 }
@@ -208,10 +225,33 @@
   }
 }
 .canvas-wrapper {
-  padding: 10px 30px 0 30px;
   border: 1px solid $gray;
   margin: 5px 135px;
-  canvas { margin-left: 5px; }
+  canvas { margin: 5px;}
+}
+
+.preview-wrapper {
+  display: block;
+}
+
+.preview {
+  display: block;
+  text-align: center;
+  width: 230px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0px 0 0px;
+  border: 1px solid $gray;
+}
+
+.big-canvas-wrapper {
+  width: 75%;
+  display:inline-block;
+  .badge-canvas-big { 
+    margin-left: auto; 
+    margin-right:auto; 
+    display: block 
+  }
 }
 
 .download-btn {

@@ -1,0 +1,82 @@
+{% extends "badge/layout.html" %}
+
+{% macro disabled() %}
+  {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
+{% endmacro %}
+
+{% block content %}
+  <div class="container clearfix">
+    <div class="notification js-notification"></div>
+    <section class="make-badge-full-page">
+      <form class="js-badge-form" name="input" action="{{ url('badge.saveDesign', { badgeId: badge.id }) }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+        <input type="hidden" name="badgeId" value="{{ badge.id }}"/>
+        <div class="big-canvas-wrapper">
+          <canvas width="400" height="400" class="badge-canvas-big js-big-badge-canvas"></canvas>
+          <canvas width="30" height="10" class="color-canvas js-color-canvas"></canvas>
+        </div>
+        <section class="preview-make-your-badge right">
+          <div class="designer-save-box">
+            <input class="save js-save-btn left" type="submit" value="Saved" {{ disabled() }}/>
+            <i class="fa fa-refresh fa-spin js-save-spinner hidden"></i>
+          </div>
+
+          <div>
+            <a class="btn">Clear Design</a>
+          </div>
+          <div>
+            <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?section=visual" class="btn js-save-and-exit-btn">Save and Exit</a>
+          </div>
+          <div class="canvas-wrapper right">
+            <canvas width="400" height="400" class="badge-canvas js-badge-canvas"></canvas>
+          </div>
+        </section>
+
+        <section class="cb edit-badge-design-container js-visual-section js-visual-shape">
+          {% for shape in shapes %}
+            <div class="studio-input-image left">
+              <img class="studio-thumb block" src="{{ shape.image }}"/>
+              <input class="radio-badge-field js-shape-radio block" type="radio" name="shape" value="{{ shape.id }}" {% if badge.studioShape == shape.id %}checked{% endif %}/>
+            </div>
+          {% endfor %}
+          <div class="shape-container arrow-down"></div>
+        </section>
+
+        <section class="edit-badge-design-container js-visual-section js-visual-background hidden" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
+        </section>
+
+        <section class="edit-badge-design-container js-visual-section js-visual-text hidden" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
+        </section>
+
+        <section class="edit-badge-design-container js-visual-section js-visual-image hidden">
+          <a class="btn blue-btn">Select File</a>
+          <a class="btn">Remove Image</a>
+          <i class="fa fa-question-circle js-tooltip"></i>
+          <div class="tooltip-container js-tooltip-container"><p class="small-copy">For best results, upload a square image between 300px-500px.</p></div>
+        </section>
+
+        <section class="edit-badge-design-container js-visual-section js-visual-icon hidden" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
+          <p> You must select a 
+        </section>
+
+        <section class="edit-badge-design-container js-visual-section js-visual-color hidden" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
+        </section>
+
+        <ul class="visual-designer-tabs">
+          <li class="designer-tab js-visual-section-anchor js-visual-shape-anchor" data-section="shape">Shape</li>
+          <li class="designer-tab js-visual-section-anchor js-visual-background-anchor disabled" data-section="background">Background</li>
+          <li class="designer-tab js-visual-section-anchor js-visual-text-anchor disabled" data-section="text">Text</li>
+          <li class="designer-tab" data-section="image">Image</li>
+          <li class="designer-tab js-visual-section-anchor js-visual-icon-anchor disabled" data-section="icon">Icon</li>
+          <li class="designer-tab js-visual-section-anchor js-visual-color-anchor disabled" data-section="color">Color</li>
+        </ul>
+      </form>
+    </section>
+  </div>
+{% endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/badge-studio.js') }}"></script>
+  <script src="{{ static('/js/jquery.form.min.js') }}"></script>
+{%- endblock %}
