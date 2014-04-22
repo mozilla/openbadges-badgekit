@@ -96,7 +96,7 @@ exports.edit = function edit (req, res, next) {
     function(callback) {
       fs.readdir(path.join(__dirname, '../static', studioPath, 'shapes'), function(err, files) {
         if (err)
-          callback(err);
+          return callback(err);
 
         var shapes = files.map(function(file) {
           return { id: file,
