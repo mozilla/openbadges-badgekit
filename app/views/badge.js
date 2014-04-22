@@ -447,22 +447,11 @@ exports.renderIssueByEmail = function renderIssueByEmail (req, res, next) {
 };
 
 exports.issueByEmail = function issueByEmail (req, res, next) {
-  const query = {
-    learner: {
-      email: req.body.email
-    },
-    badge: req.body.badgeId
-  };
+  var query = res.locals.makeContext({ badge: { slug: req.body.badgeId }, email: req.body.email });
 
-  // This API endpoint isn't yet implemented, and likely "query" will have to be changed when it is
-  //openbadger.grantBadgeAward(openbadger.makeContext(), req.body.badgeId, query, function(err, data) {
-    //suppressing errors for now, as this will always result in an error at the moment
-    //if (err)
-    //  return res.send(500, err);
-
-      return middleware.redirect('directory', 302)(req, res, next);
-  //});
-
+  return openbadger.createBadgeInstance(query, function (err, data) {
+    return res.redirect(302, res.locals.url('directory') + '?category=published');
+  });
 };
 
 exports.renderIssueByClaimCode = function renderIssueByClaimCode (req, res, next) {
