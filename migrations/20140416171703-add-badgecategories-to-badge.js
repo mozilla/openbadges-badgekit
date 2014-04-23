@@ -14,7 +14,9 @@ exports.up = function(db, callback) {
                      + "  badgeId BIGINT NOT NULL,"
                      + "  categoryId BIGINT NOT NULL,"
                      + "  UNIQUE KEY `badge_and_category` (`badgeId`, `categoryId`),"
-                     + "  UNIQUE KEY `category_and_badge` (`categoryId`, `badgeId`)"
+                     + "  UNIQUE KEY `category_and_badge` (`categoryId`, `badgeId`),"
+                     + "  FOREIGN KEY (badgeId) REFERENCES `badge`(`id`) ON DELETE CASCADE,"
+                     + "  FOREIGN KEY (categoryId) REFERENCES `badgeCategory`(`id`) ON DELETE CASCADE"
                      + ") ENGINE=InnoDB;"),
     db.runSql.bind(db, "INSERT INTO `badgeCategory` (`label`, `description`) VALUES"
                      + "  ('Exploring Earth and Space', 'science-related learning'),"
