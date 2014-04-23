@@ -21,9 +21,28 @@ function getBadgeById(badgeId, category, makeContext, callback) {
       if (err)
         return callback(err);
 
-      data = openbadger.toBadgekitBadge(data);
+      BadgeCategory.get({}, function (err, categories) {
+        if (err)
+          return callback(err);
 
-      callback(err, { badge: data });
+        var categoryMap = categories.reduce(function (map, category) {
+          map[category.label.toLowerCase().replace(/\W/, '')] = category;
+          return map;
+        }, {});
+
+        // We're ignoring categories we don't have internally
+        // It might make sense to create them instead - not sure
+        data.categories = (data.categories || []).reduce(function (categories, category) {
+          var key = (''+category).toLowerCase().replace(/\W/, '');
+          if (categoryMap.hasOwnProperty(key))
+            categories.push(categoryMap[key]);
+          return categories;
+        }, []);
+
+        data = openbadger.toBadgekitBadge(data);
+
+        callback(err, { badge: data });
+      });
     });
   }
 }
