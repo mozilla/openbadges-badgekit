@@ -70,7 +70,7 @@
 }
 
 .preview-make-your-badge {
-  width: 25%;
+  width: 18%;
   display: inline-block;
   float:right;
   .form-field-wrapper {
@@ -99,6 +99,8 @@
   }
 }
 
+.container.visual-designer-container { max-width: 100%; }
+
 .make-badge-full-page {
   width: 100%;
   position: relative;
@@ -121,10 +123,9 @@
 }
 
 .visual-designer-tabs {
+  text-align: center;
   padding: 10px 0;
-  background-color: $dark-gray;
   color: $white;
-  border: 1px solid $light-gray;
   font-family: "Open Sans Light";
   .designer-tab {
     padding: 10px 5.7%;
@@ -154,13 +155,10 @@
     border-top: 10px solid $light-gray;
   }
   .studio-input-image {
-    padding: 20px;
+    padding: 17px;
     &:hover { background-color: $light-gray; }
     .studio-thumb { margin: 0 auto; }
     .radio-badge-field { margin: 5px auto 0 auto; }
-  }
-  .studio-input-icon-image {
-    margin: 10px 0px;
   }
   .studio-input-color-image {
     margin: 30px 0px;
@@ -171,11 +169,13 @@
   }
 }
 
-.shape-container.arrow-down { left: 7%; }
-.background-container.arrow-down { left: 25%; }
+.edit-icon-container { min-height: 119px; }
+
+.shape-container.arrow-down { left: 11%; }
+.background-container.arrow-down { left: 28%; }
 .text-container.arrow-down { left: 44%; }
-.icon-container.arrow-down { left: 75.5%; }
-.color-container.arrow-down { left: 91%; }
+.icon-container.arrow-down { left: 73.5%; }
+.color-container.arrow-down { left: 87%; }
 
 .preview-make-your-badge {
   text-align: center;
@@ -245,12 +245,10 @@
 }
 
 .big-canvas-wrapper {
-  width: 75%;
-  display:inline-block;
-  .badge-canvas-big { 
-    margin-left: auto; 
-    margin-right:auto; 
-    display: block 
+  text-align: center;
+  width: 82%;
+  padding: 20px;
+  .badge-canvas-big {
   }
 }
 

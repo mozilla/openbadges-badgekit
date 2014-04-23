@@ -5,13 +5,13 @@
 {% endmacro %}
 
 {% block content %}
-  <div class="container clearfix">
+  <div class="container visual-designer-container clearfix">
     <div class="notification js-notification"></div>
     <section class="make-badge-full-page">
       <form class="js-badge-form" name="input" action="{{ url('badge.saveDesign', { badgeId: badge.id }) }}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
         <input type="hidden" name="badgeId" value="{{ badge.id }}"/>
-        <div class="big-canvas-wrapper">
+        <div class="big-canvas-wrapper left">
           <canvas width="400" height="400" class="badge-canvas-big js-big-badge-canvas"></canvas>
           <canvas width="30" height="10" class="color-canvas js-color-canvas"></canvas>
         </div>
@@ -42,24 +42,24 @@
           <div class="shape-container arrow-down"></div>
         </section>
 
-        <section class="edit-badge-design-container js-visual-section js-visual-background hidden" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
+        <section class="cb edit-badge-design-container js-visual-section js-visual-background hidden" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
         </section>
 
-        <section class="edit-badge-design-container js-visual-section js-visual-text hidden" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
+        <section class="cb edit-badge-design-container js-visual-section js-visual-text hidden" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
         </section>
 
-        <section class="edit-badge-design-container js-visual-section js-visual-image hidden">
+        <section class="cb edit-badge-design-container js-visual-section js-visual-image hidden">
           <a class="btn blue-btn">Select File</a>
           <a class="btn">Remove Image</a>
           <i class="fa fa-question-circle js-tooltip"></i>
           <div class="tooltip-container js-tooltip-container"><p class="small-copy">For best results, upload a square image between 300px-500px.</p></div>
         </section>
 
-        <section class="edit-badge-design-container js-visual-section js-visual-icon hidden" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
-          <p> You must select a 
+        <section class="cb edit-badge-design-container edit-icon-container js-visual-section js-visual-icon hidden" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
+          <p> You must select a
         </section>
 
-        <section class="edit-badge-design-container js-visual-section js-visual-color hidden" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
+        <section class="cb edit-badge-design-container js-visual-section js-visual-color hidden" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
         </section>
 
         <ul class="visual-designer-tabs">
