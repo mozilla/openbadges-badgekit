@@ -1,6 +1,12 @@
+const AUTOSAVE_INTERVAL_MS = 10000;
+const SAVING_TEXT = 'Saving';
+
 $(document).ready(function() {
-  var canvas = $('.js-badge-canvas');
+  var canvas = $('.js-big-badge-canvas');
   var canvasContext = canvas[0].getContext('2d');
+
+  var smallCanvas = $('.js-badge-canvas');
+  var smallCanvasContext = smallCanvas[0].getContext('2d');
 
   var colorCanvas = $('.js-color-canvas');
   var colorCanvasContext = colorCanvas[0].getContext('2d');
@@ -26,7 +32,24 @@ $(document).ready(function() {
   var savedIcon = iconDiv.data('saved-icon');
   var savedColor = colorDiv.data('saved-color');
 
-  var submitBtn = $('.js-save-image');
+  var submitBtn = $('.js-save-and-exit-btn');
+
+  function saveBadge(doRedirect) {
+    clearTimeout(timeoutID);
+    saveButton.attr('disabled', true);
+    saveButton.val(SAVING_TEXT);
+    saveSpinner.removeClass('hidden');
+
+    $.post(form.attr('action'), form.serialize(), function(data) {
+      saveButton.removeAttr('disabled');
+      saveButton.val(saveButtonText);
+      saveSpinner.addClass('hidden');
+      timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
+      if (doRedirect) {
+        window.location.href = data.location;
+      }
+    });
+  }
 
   function renderBadge() {
     canvasContext.save();
@@ -43,14 +66,14 @@ $(document).ready(function() {
     }
 
     if (iconImg) {
-      canvasContext.drawImage(iconImg, 20, 0, 140, 140 * iconImg.height / iconImg.width);
+      canvasContext.drawImage(iconImg, 60, 30, 280, 280 * iconImg.height / iconImg.width);
     }
 
     var textColor = 'black';
 
     if (colorImg) {
       colorCanvasContext.drawImage(colorImg, 0, 0, colorCanvas.attr('width'), colorCanvas.attr('height'));
-      var oldColors = [[0,0,0],[146,146,146],[235,235,235]];
+      var oldColors = [[0,0,0],[0,255,255],[235,235,235]];
       var newColors = [];
 
       for (var i = 0; i < 3; i++) {
@@ -82,10 +105,12 @@ $(document).ready(function() {
       canvasContext.font = '20pt open-sans';
       canvasContext.textAlign = 'center';
       canvasContext.fillStyle = textColor;
-      canvasContext.fillText(textVal, 90, 153);
+      canvasContext.fillText(textVal, 200, 325);
     }
 
     canvasContext.restore();
+    smallCanvasContext.clearRect(0, 0, smallCanvas.attr('width'), smallCanvas.attr('height'));
+    smallCanvasContext.drawImage(canvas[0], 0, 0);
   }
 
   shapeRadio.change(function() {
@@ -102,6 +127,7 @@ $(document).ready(function() {
       data.savedBackground = savedBackground;
       var backgroundOptions = nunjucks.render('studio/background-options.html', data);
       backgroundDiv.html(backgroundOptions);
+      $('.js-visual-background-anchor').removeClass('disabled');
       setupBackgroundChange();
     });
   });
@@ -126,7 +152,23 @@ $(document).ready(function() {
         data.savedTextContents = savedTextContents;
         var textOptions = nunjucks.render('studio/text-options.html', data);
         textDiv.html(textOptions);
+        $('.js-visual-text-anchor').removeClass('disabled');
         setupTextChange();
+          $.get(iconUrl, query, function(data) {
+          data.savedIcon = savedIcon;
+          var iconOptions = nunjucks.render('studio/icon-options.html', data);
+          iconDiv.html(iconOptions);
+          $('.js-visual-icon-anchor').removeClass('disabled');
+          setupIconChange();
+          $.get(colorUrl, query, function(data) {
+            data.savedColor = savedColor;
+            var colorOptions = nunjucks.render('studio/color-options.html', data);
+            console.log(colorDiv);
+            colorDiv.html(colorOptions);
+            $('.js-visual-color-anchor').removeClass('disabled');
+            setupColorChange();
+          });
+        });
       });
     });
 
@@ -145,13 +187,6 @@ $(document).ready(function() {
       renderBadge();
 
       savedTextType = textId = $(this).val();
-      var query = { shapeId: shapeId, backgroundId: backgroundId, textId: textId };
-      $.get(iconUrl, query, function(data) {
-        data.savedIcon = savedIcon;
-        var iconOptions = nunjucks.render('studio/icon-options.html', data);
-        iconDiv.html(iconOptions);
-        setupIconChange();
-      });
     });
 
     $('.js-text-contents').change(function() {
@@ -166,21 +201,11 @@ $(document).ready(function() {
     var iconRadio = $('.js-icon-radio');
 
     iconRadio.change(function() {
-      colorDiv.empty();
-
       iconImg = $(this).prev('img')[0];
-      colorImg = null;
       submitBtn.addClass('hidden');
       renderBadge();
 
       savedIcon = iconId = $(this).val();
-      var query = { shapeId: shapeId, backgroundId: backgroundId, textId: textId, iconId: iconId };
-      $.get(colorUrl, query, function(data) {
-        data.savedColor = savedColor;
-        var colorOptions = nunjucks.render('studio/color-options.html', data);
-        colorDiv.html(colorOptions);
-        setupColorChange();
-      });
     });
 
     iconRadio.filter(':checked').change();
@@ -203,13 +228,53 @@ $(document).ready(function() {
   var form = $('.js-badge-form');
 
   submitBtn.click(function() {
+    var href = $(this).attr('href');
     canvas[0].toBlob(function(blob) {
       var formData = new FormData(form[0]);
       formData.append('studioImage', blob, 'canvasimage.png');
 
       var request = new XMLHttpRequest();
+      request.onload = function () {
+        window.location.href = href;
+      };
       request.open("POST", form.attr('action'));
       request.send(formData);
     });
+    return false;
   });
+
+  var saveButton = $('.js-save-btn');
+  if (!saveButton.attr('disabled')) {
+    var saveSpinner = $('.js-save-spinner');
+    var form = $('.js-badge-form');
+    form.ajaxForm();
+
+    var saveButtonText = saveButton.val();
+
+    var timeoutID = setTimeout(saveBadge, AUTOSAVE_INTERVAL_MS);
+    saveButton.click(function() {
+      saveBadge(false);
+      return false;
+    });
+
+    var uploadImage = $('.js-upload-image');
+    uploadImage.change(function() {
+      form.ajaxSubmit();
+    });
+  }
+
+  var sectionAnchors = $('.js-visual-section-anchor');
+  var sections = $('.js-visual-section');
+
+  sectionAnchors.click(function() {
+    if ($(this).hasClass('disabled')) {
+      return false;
+    }
+
+    sections.addClass('hidden');
+    var section = $(this).data('section');
+    $('.js-visual-' + section).removeClass('hidden');
+    return false;
+  });
+
 });

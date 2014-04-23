@@ -32,7 +32,7 @@
   }
 }
 
-.save-box {
+.save-box, .designer-save-box {
   position: relative;
   margin-top: -5px;
   margin-left: 15px;
@@ -56,14 +56,23 @@
   }
 }
 
+.designer-save-box {
+  margin-right: 50px;
+  display: inline-block;
+}
+
 .badge-image {
   height: 250px;
 }
 
-.preview-make-your-badge,
-.make-your-badge {
-  width: $three-wide;
-  padding: 50px 0 0 0;
+.preview-image {
+  height: 180px;
+}
+
+.preview-make-your-badge {
+  width: 18%;
+  display: inline-block;
+  float:right;
   .form-field-wrapper {
     text-align: center;
     border-bottom: 1px solid $light-gray;
@@ -87,12 +96,86 @@
       width: 90px;
       margin: 0 35px;
     }
-    .studio-input-icon-image {
-      width: 30px;
-      margin: 0 25px;
+  }
+}
+
+.container.visual-designer-container { max-width: 100%; }
+
+.make-badge-full-page {
+  width: 100%;
+  position: relative;
+  .fa-spin {
+    position: absolute;
+    left: 55px;
+    top: 5px;
+  }
+  .preview-make-your-badge {
+    text-align: right;
+    padding: 0 0 20px 0;
+    .canvas-wrapper {
+      margin: 5px 0;
+    }
+    .btn {
+      margin: 5px 0;
+      min-width: 157px;
     }
   }
 }
+
+.visual-designer-tabs {
+  text-align: center;
+  padding: 10px 0;
+  color: $white;
+  font-family: "Open Sans Light";
+  .designer-tab {
+    padding: 10px 5.7%;
+    background-color: $dark-gray;
+    display: inline;
+    border-right: 1px solid $light-gray;
+    &:last-child { border-right: none; }
+    &:hover {
+      cursor: pointer;
+      background-color: $hover-gray;
+    }
+  }
+}
+
+.edit-badge-design-container {
+  min-height: 145px;
+  border: 1px solid $light-gray;
+  width: 100%;
+  position: relative;
+  .arrow-down {
+    z-index: 1;
+    position: absolute;
+    bottom: -10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+
+    border-top: 10px solid $light-gray;
+  }
+  .studio-input-image {
+    padding: 17px;
+    &:hover { background-color: $light-gray; }
+    .studio-thumb { margin: 0 auto; }
+    .radio-badge-field { margin: 5px auto 0 auto; }
+  }
+  .studio-input-color-image {
+    margin: 30px 0px;
+  }
+  .designer-field {
+    margin-top:50px;
+    margin-left: 10px;
+  }
+}
+
+.edit-icon-container { min-height: 119px; }
+
+.shape-container.arrow-down { left: 11%; }
+.background-container.arrow-down { left: 28%; }
+.text-container.arrow-down { left: 44%; }
+.icon-container.arrow-down { left: 73.5%; }
+.color-container.arrow-down { left: 87%; }
 
 .preview-make-your-badge {
   text-align: center;
@@ -100,11 +183,6 @@
     margin: 20px;
     margin-left: 35px;
   }
-}
-
-.make-your-badge {
-  max-height: 500px;
-  overflow: auto;
 }
 
 .tooltip-container {
@@ -131,7 +209,7 @@
 }
 
 .studio-thumb.studio-icons {
-  width: 30px;
+  width: 60px;
   border: none;
   margin-right: 0;
 }
@@ -147,11 +225,31 @@
   }
 }
 .canvas-wrapper {
-  padding: 10px 30px 0 30px;
   border: 1px solid $gray;
-  border-radius: 5px;
   margin: 5px 135px;
-  canvas { margin-left: 5px; }
+  canvas { margin: 5px;}
+}
+
+.preview-wrapper {
+  display: block;
+}
+
+.preview {
+  display: block;
+  text-align: center;
+  width: 230px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0px 0 0px;
+  border: 1px solid $gray;
+}
+
+.big-canvas-wrapper {
+  text-align: center;
+  width: 82%;
+  padding: 20px;
+  .badge-canvas-big {
+  }
 }
 
 .download-btn {
@@ -281,7 +379,6 @@
     margin-right: 5px;
     display: inline;
   }
-  .submit-btn { margin-left: 0; }
   .hidden { display: none; }
 }
 
