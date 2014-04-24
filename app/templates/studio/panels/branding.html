@@ -1,0 +1,10 @@
+<ul class="options">
+  {% for brand in branding %}
+    <li class="option">
+      <input type="radio" class="hidden" name="brand" id="studio_brand_{{ loop.index }}" value="{{ brand.value }}"{% if loop.first %} checked{% endif %}>
+      <label for="studio_brand_{{ loop.index }}">
+        <img src="{{ brand.src}}" alt="{{ brand.label}}" class="thumb">
+      </label>
+    </li>
+  {% endfor %}
+</ul>

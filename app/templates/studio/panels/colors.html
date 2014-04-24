@@ -1,0 +1,14 @@
+<ul class="options">
+  {% for swatch in swatches %}
+    <li class="option">
+      <input type="radio" class="hidden" name="palette" id="studio_palette_{{ loop.index }}" value="{{ swatch.value }}"{% if loop.first %} checked{% endif %}>
+      <label for="studio_palette_{{ loop.index }}">
+        <span class="swatch">
+          {% for color in swatch.colors %}
+            <span class="swatch-item" style="background-color: {{ color }};" data-color="{{ color }}"></span>
+          {% endfor %}
+        </span>
+      </label>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,168 @@
+#studio {
+  position: relative;
+  padding-bottom: 13em;
+  margin: 0 auto;
+  max-width: 1000px;
+
+  .canvas {
+    height: 500px;
+  }
+
+  .aside {
+    position: absolute;
+    top: 1em;
+    right: 0;
+    background: #F0F0F0;
+    border: solid 1px #999;
+    box-shadow: 0 0 5px rgba(0,0,0,0.25);
+    padding: 1em;
+
+    .btn {
+      display: block;
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .tabset {
+    position: absolute;
+    bottom: 0.5em;
+    left: 0.5em;
+    right: 0.5em;
+  }
+
+  .panels {
+    background: #F0F0F0;
+    border: solid 1px #999;
+    box-shadow: 0 0 5px rgba(0,0,0,0.25);
+
+    .panel {
+      border: none;
+      overflow: auto;
+      padding: 0.5em;
+      max-height: 10em;
+
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+
+  .tabs {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 1em 0 0;
+    position: relative;
+    z-index: 1;
+
+    .tab {
+      float: left;
+      width: 20%;
+      display: block;
+      cursor: pointer;
+      background: #4D4E53;
+      border-left: solid 1px #EEE;
+      padding: 0.5em 1em;
+      margin: 0;
+      color: #EEE;
+      position: relative;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &:hover,
+      &:focus {
+        background: #282828;
+        outline: none;
+      }
+
+      &.selected:before,
+      &.selected:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: block;
+        width: 0;
+        height: 0;
+        border: solid;
+        border-width: 12px 12px 0;
+        border-color: #999 transparent;
+        margin: -1.05em 0 0 -6px;
+      }
+
+      &.selected:after {
+        border-top-color: #F0F0F0;
+        border-width: 11px 11px 0;
+        margin: -1.1em 0 0 -5px;
+      }
+    }
+  }
+
+  legend {
+    position: absolute;
+    left: -999em;
+  }
+
+  .swatch {
+    display: inline-block;
+    background: #EEE;
+    padding: 3px 3px 3px 0;
+    border: solid 1px #CCC;
+    overflow: hidden;
+    vertical-align: middle;
+    border-radius: 2px;
+  }
+
+  .swatch-item {
+    display: block;
+    float: left;
+    width: 2em;
+    height: 2em;
+    margin: 0 0 0 3px;
+    border: solid 1px #999;
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0));
+  }
+
+  .options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    clear: both;
+
+    .option {
+      float: left;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    input.hidden {
+      position: absolute;
+      left: -999em;
+    }
+
+    label {
+      cursor: pointer;
+      display: block;
+      padding: 1em;
+    }
+
+    input:focus + label,
+    label:hover {
+      background: #E9E9E9;
+    }
+
+    input:checked + label {
+      background: #DDD;
+    }
+  }
+
+  img.thumb {
+    width: 100px;
+  }
+}

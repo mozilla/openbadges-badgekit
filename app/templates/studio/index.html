@@ -1,0 +1,46 @@
+{% extends "studio/layout.html" %}
+
+{% block content %}
+<div id="studio">
+  <div class="canvas">
+    <!-- put canvas-y stuff here -->
+  </div>
+  <form method="post" action="{{ url('studio.save', {badgeId: badge.id}) }}">
+    <div class="tabset">
+      <div class="panels">
+        <fieldset id="shape" class="panel" role="tabpanel" aria-hidden="false">
+          <legend>Shape</legend>
+          {% include('studio/panels/shapes.html') %}
+        </fieldset>
+        <fieldset id="background" class="panel hidden" role="tabpanel" aria-hidden="true">
+          <legend>Background</legend>
+          {% include('studio/panels/backgrounds.html') %}
+        </fieldset>
+        <fieldset id="graphic" class="panel hidden" role="tabpanel" aria-hidden="true">
+          <legend>Graphic</legend>
+          {% include('studio/panels/graphics.html') %}
+        </fieldset>
+        <fieldset id="color" class="panel hidden" role="tabpanel" aria-hidden="true">
+          <legend>Color</legend>
+          {% include('studio/panels/colors.html') %}
+        </fieldset>
+        <fieldset id="branding" class="panel hidden" role="tabpanel" aria-hidden="true">
+          <legend>Branding</legend>
+          {% include('studio/panels/branding.html') %}
+        </fieldset>
+      </div>
+      <ul class="tabs" role="tablist">
+        <li class="tab selected" role="tab" tabindex="0" aria-controls="shape" aria-selected="true">Shape</li>
+        <li class="tab" role="tab" tabindex="0" aria-controls="background" aria-selected="false">Background</li>
+        <li class="tab" role="tab" tabindex="0" aria-controls="graphic" aria-selected="false">Graphic</li>
+        <li class="tab" role="tab" tabindex="0" aria-controls="color" aria-selected="false">Color</li>
+        <li class="tab" role="tab" tabindex="0" aria-controls="branding" aria-selected="false">Branding</li>
+      </ul>
+    </div>
+    <div class="aside">
+      <button type="submit" id="studio-save-btn" class="btn blue-btn"><i class="fa fa-check"></i> Save and Exit</button>
+      <button type="reset" id="studio-reset-btn" class="btn"><i class="fa fa-trash-o"></i> Clear Design</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

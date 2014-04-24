@@ -85,10 +85,12 @@
       <div {{ createSectionDivAttributes('visual') }}>
         <p class="form-heading"><span class="form-heading-span">Visual</span> Use visuals to express the nature and value of a badge.</p>
 
-        <div class="left design-upload-container design-container">
-          <i class="fa fa-magic"></i>
-          <p class="design-upload-heading">Design<span class="design-upload-subhead">from Scratch</span></p>
-        </div>
+        <a href="{{ url('studio.edit', {badgeId: badge.id}) }}">
+          <div class="left design-upload-container design-container">
+            <i class="fa fa-magic"></i>
+            <p class="design-upload-heading">Design<span class="design-upload-subhead">from Scratch</span></p>
+          </div>
+        </a>
 
         <section class="or-seperator left">
           <span class="or">or</span>
@@ -99,45 +101,6 @@
           <label class="design-upload-heading" for="uploadImage">Upload<span class="design-upload-subhead">a PNG</span></label>
           <input class="upload-image js-upload-image" type="file" name="uploadImage" {{ disabled() }}/>
         </div>
-
-        <section class="make-your-badge left">
-          <div class="form-field-wrapper clearfix js-visual-shape">
-            <label class="badge-label studio-label block" for="shape">Shape</label>
-            <div class="studio-input-image-container clearfix">
-              {% for shape in shapes %}
-                <div class="studio-input-image left">
-                  <img class="studio-thumb block" src="{{ shape.image }}"/>
-                  <input class="radio-badge-field js-shape-radio block" type="radio" name="shape" value="{{ shape.id }}" {% if badge.studioShape == shape.id %}checked{% endif %}/>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-background" data-url="{{ url('studio.backgrounds') }}" data-saved-background="{{ badge.studioBackground }}">
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-text" data-url="{{ url('studio.texts') }}" data-saved-text-type="{{ badge.studioTextType }}" data-saved-text-contents="{{ badge.studioTextContents }}">
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-icon" data-url="{{ url('studio.icons') }}" data-saved-icon="{{ badge.studioIcon }}">
-          </div>
-
-          <div class="form-field-wrapper clearfix js-visual-color" data-url="{{ url('studio.colors') }}" data-saved-color="{{ badge.studioColor }}">
-          </div>
-        </section>
-
-        <section class="preview-make-your-badge left">
-          <p>Icon View</p>
-          <div class="canvas-wrapper cb right">
-            <canvas width="180" height="180" class="badge-canvas js-badge-canvas"></canvas>
-            <p>Badge at 90px</p>
-          </div>
-
-          <canvas width="30" height="10" class="color-canvas js-color-canvas"></canvas>
-
-          <a class="btn hidden studio-submit submit-btn js-save-image">Save Badge Image</a>
-
-        </section>
       </div>
 
       <div {{ createSectionDivAttributes('milestone') }}>
@@ -259,6 +222,5 @@
 {% block scripts -%}
   {{ super() }}
   <script src="{{ static('/js/edit-badge.js') }}"></script>
-  <script src="{{ static('/js/badge-studio.js') }}"></script>
   <script src="{{ static('/js/jquery.form.min.js') }}"></script>
 {%- endblock %}
