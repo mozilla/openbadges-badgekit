@@ -67,9 +67,6 @@
       margin: 0;
       color: #EEE;
       position: relative;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-
 
       &:first-child {
         border-left: none;
@@ -136,9 +133,10 @@
     clear: both;
 
     .option {
-      float: left;
       margin: 0;
       overflow: hidden;
+      display: block;
+      float: left;
     }
 
     input.hidden {
@@ -150,6 +148,12 @@
       cursor: pointer;
       display: block;
       padding: 1em;
+      text-align: center;
+
+      .fa {
+        display: inline-block;
+        margin-top: 0.2em;
+      }
     }
 
     input:focus + label,
@@ -162,7 +166,15 @@
     }
   }
 
-  img.thumb {
-    width: 100px;
+  .thumbs {
+    label {
+      min-width: 7em;
+      min-height: 7em;
+    }
+
+    img {
+      width: 5em;
+      display: block;
+    }
   }
 }

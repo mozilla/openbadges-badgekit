@@ -1,9 +1,16 @@
-<ul class="options">
+<ul class="options thumbs">
+  <li class="option">
+    <input type="radio" class="hidden" name="graphic" id="studio_graphic_0" value="" checked>
+    <label for="studio_graphic_0">
+      <i class="fa fa-ban fa-3x"></i><br>
+      None
+    </label>
+  </li>
   {% for graphic in graphics %}
     <li class="option">
-      <input type="radio" class="hidden" name="graphic" id="studio_graphic_{{ loop.index }}" value="{{ graphic.value }}"{% if loop.first %} checked{% endif %}>
+      <input type="radio" class="hidden" name="graphic" id="studio_graphic_{{ loop.index }}" value="{{ graphic.value }}">
       <label for="studio_graphic_{{ loop.index }}">
-        <img src="{{ graphic.src}}" alt="{{ graphic.label}}" class="thumb">
+        <img src="{{ graphic.src}}" alt="{{ graphic.label}}">
       </label>
     </li>
   {% endfor %}

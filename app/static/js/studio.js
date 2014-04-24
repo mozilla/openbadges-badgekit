@@ -96,7 +96,7 @@
           return selectTab($(this).next('.tab')[0]);
         if (evt.keyCode === 38) // up
           $(document.getElementById(this.getAttribute('aria-controls')))
-            .find('input').first().focus();
+            .find('input:checked').first().focus();
       });
   });
 
