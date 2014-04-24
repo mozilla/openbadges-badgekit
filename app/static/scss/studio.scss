@@ -144,7 +144,8 @@
       left: -999em;
     }
 
-    label {
+    label,
+    .label {
       cursor: pointer;
       display: block;
       padding: 1em;
@@ -157,7 +158,8 @@
     }
 
     input:focus + label,
-    label:hover {
+    label:hover,
+    .label:hover {
       background: #E9E9E9;
     }
 
@@ -167,7 +169,8 @@
   }
 
   .thumbs {
-    label {
+    label,
+    .label {
       min-width: 7em;
       min-height: 7em;
     }
