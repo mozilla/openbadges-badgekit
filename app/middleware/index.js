@@ -90,7 +90,7 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
 
       return function (data) {
         return xtend(context, data);
-      }  
+      }
     }
 
     function sendDenied() {
@@ -207,3 +207,10 @@ exports.verifyApiRequest = function verifyApiRequest () {
     return next();
   }
 }
+
+exports.verifyApiRequestReadOnly = function verifyApiRequestReadOnly () {
+  return function (req, res, next) {
+    // Permission requirements here TBC
+    return next();
+  };
+};
