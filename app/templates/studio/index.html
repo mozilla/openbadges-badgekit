@@ -6,6 +6,7 @@
     <!-- put canvas-y stuff here -->
   </div>
   <form method="post" action="{{ url('studio.save', {badgeId: badge.id}) }}">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <div class="tabset">
       <div class="panels">
         <fieldset id="shape" class="panel" role="tabpanel" aria-hidden="false">
