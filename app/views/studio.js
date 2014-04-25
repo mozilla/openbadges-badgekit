@@ -76,19 +76,19 @@ function getSwatches (callback) {
   callback(null, [
     {
       value: 1,
-      colors: ['#333', '#666', '#999'],
+      colors: ['#333', '#666'],
     },
     {
       value: 2,
-      colors: ['#FF0000', '#0000FF', '#00FF00'],
+      colors: ['#FF0000', '#0000FF'],
     },
     {
       value: 3,
-      colors: ['#FF9900', '#9900FF', '#00FF99'],
+      colors: ['#FF9900', '#9900FF'],
     },
     {
       value: 4,
-      colors: ['#009900', '#990000', '#000099'],
+      colors: ['#009900', '#990000'],
     }
   ]);
 }
