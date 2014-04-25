@@ -70,6 +70,17 @@
     shield: {ribbonOptions: { top: -20, left: 80 }}
   }
 
+  BadgeStudio.defaultBrandingCity = 'CHI';
+  BadgeStudio.defaultBrandingStyle = {
+    left: 0,
+    top: 70,
+    fill: '#fff',
+    fontFamily: 'Open Sans',
+    fontSize: 40,
+    originX: 'center',
+    originY: 'center'
+  };
+
   /**
    * Sets the main shape of the badge. This works by clipping the canvas
    * to the shape so anything outside of that shape will not get
@@ -205,6 +216,7 @@
 
       this.ribbon = ribbon
       this.styleRibbon();
+      ribbon.add(new fabric.Text(BadgeStudio.defaultBrandingCity, BadgeStudio.defaultBrandingStyle));
       canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
