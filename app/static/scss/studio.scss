@@ -1,11 +1,13 @@
 #studio {
   position: relative;
-  padding-bottom: 13em;
+  padding: 1em 0 13em;
   margin: 0 auto;
   max-width: 1000px;
 
   .canvas {
+    width: 500px;
     height: 500px;
+    margin: 0 auto;
   }
 
   .aside {
