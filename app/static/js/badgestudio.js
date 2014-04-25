@@ -63,11 +63,11 @@
   }
 
   BadgeStudio.shapes = {
-    hexagon: {ribbonOptions: { top: 20 }},
-    square: {ribbonOptions: { left: 75 }},
-    diamond: {ribbonOptions: { top: 45, left: 120 }},
-    circle: {ribbonOptions: { top: 45, left: 120 }},
-    shield: {ribbonOptions: { top: 45, left: 120 }}
+    hexagon: {ribbonOptions: { top: 20, left: 70 }},
+    square: {ribbonOptions: { left: 85 }},
+    diamond: {ribbonOptions: { top: 35, left: 120 }},
+    circle: {ribbonOptions: { top: 0, left: 80 }},
+    shield: {ribbonOptions: { top: -20, left: 80 }}
   }
 
   /**
@@ -251,7 +251,6 @@
     var shape = BadgeStudio.shapes[this.shape] || {}
     var shapeRibbonOptions = shape.ribbonOptions || {}
     var defaultOptions = BadgeStudio.defaultRibbonOptions || {}
-    console.log(defaultOptions, shapeRibbonOptions, style);
     ribbon.set(defaultOptions)
     ribbon.set(shapeRibbonOptions)
     ribbon.set(style)
