@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block head -%}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ static('/css/studio.css') }}">
+{%- endblock %}
+
+{% block scripts %}
+  {{ super () }}
+  <script src="{{ static('/js/fabric.min.js') }}"></script>
+  <script src="{{ static('/js/badgestudio.js') }}"></script>
+  <script src="{{ static('/js/badgestudio-ui.js') }}"></script>
+{% endblock %}

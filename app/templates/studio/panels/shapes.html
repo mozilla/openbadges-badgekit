@@ -1,0 +1,15 @@
+<ul class="options thumbs">
+  {% for shape in shapes %}
+    <li class="option">
+      <input type="radio"
+        class="hidden"
+        name="shape"
+        id="studio_shape_{{ loop.index }}"
+        value="{{ shape.value }}"
+        {% if loop.first %} checked{% endif %}>
+      <label for="studio_shape_{{ loop.index }}">
+        <img src="{{ shape.src}}" alt="{{ shape.label}}" title="{{ shape.label }}">
+      </label>
+    </li>
+  {% endfor %}
+</ul>
