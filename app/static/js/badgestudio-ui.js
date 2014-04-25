@@ -83,7 +83,9 @@ function BadgeStudioUI (config) {
       addImageLoader($container);
 
     function init () {
-      $container.find('input:checked').trigger('change');
+      setTimeout(function () {
+        $container.find('input:checked').trigger('change');
+      }, 0);
     }
 
     $(init);
