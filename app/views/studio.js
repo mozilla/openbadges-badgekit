@@ -114,22 +114,18 @@ function getGraphics (prefix, callback) {
 }
 
 function getSwatches (callback) {
-  callback(null, [
-    {
-      value: 1,
-      colors: ['#333', '#666'],
-    },
-    {
-      value: 2,
-      colors: ['#FF0000', '#0000FF'],
-    },
-    {
-      value: 3,
-      colors: ['#FF9900', '#9900FF'],
-    },
-    {
-      value: 4,
-      colors: ['#009900', '#990000'],
-    }
-  ]);
+  var colorSets = [
+    ['#ffb500','#fffd00','#ff6f00'],
+    ['#bfecff','#ffbfc3','#ffefbf'],
+    ['#d7bfff','#fff5bf','#d6ffbf'],
+    ['#e6d873','#5777ae','#ba5d9f'],
+    ['#63458a','#be5f9c','#5a75b3'],
+    ['#ffb000','#f5ff00','#ff5500'],
+    ['#1220ba','#660099','#00a67e'],
+    ['#540099','#c40098','#1e14ad']
+  ];
+
+  callback(null, colorSets.map(function (c, i) {
+    return {value: i+1, colors: c};
+  }));
 }

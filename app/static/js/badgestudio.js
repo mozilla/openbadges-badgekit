@@ -63,12 +63,23 @@
   }
 
   BadgeStudio.shapes = {
-    hexagon: {ribbonOptions: { top: 20 }},
-    square: {ribbonOptions: { left: 75 }},
-    diamond: {ribbonOptions: { top: 45, left: 120 }},
-    circle: {ribbonOptions: { top: 45, left: 120 }},
-    shield: {ribbonOptions: { top: 45, left: 120 }}
+    hexagon: {ribbonOptions: { top: 20, left: 70 }},
+    square: {ribbonOptions: { left: 85 }},
+    diamond: {ribbonOptions: { top: 35, left: 120 }},
+    circle: {ribbonOptions: { top: 0, left: 80 }},
+    shield: {ribbonOptions: { top: -20, left: 80 }}
   }
+
+  BadgeStudio.defaultBrandingCity = 'CHI';
+  BadgeStudio.defaultBrandingStyle = {
+    left: 0,
+    top: 70,
+    fill: '#fff',
+    fontFamily: 'Open Sans',
+    fontSize: 40,
+    originX: 'center',
+    originY: 'center'
+  };
 
   /**
    * Sets the main shape of the badge. This works by clipping the canvas
@@ -203,22 +214,9 @@
       if (this.ribbon)
         canvas.remove(this.ribbon)
 
-      // Try to accommodate for ribbons that are far bigger than the canvas.
-      var wRatio = canvas.width / ribbon.width;
-      var hRatio = canvas.height / ribbon.height;
-      var scaleX = 1;
-      var scaleY = 1;
-      if (wRatio < 1 || hRatio < 1) {
-        // Use whichever ratio is smaller to scale the ribbon
-        scaleX = wRatio < hRatio ? wRatio : hRatio;
-        scaleY =  wRatio < hRatio ? wRatio : hRatio;
-      }
-
       this.ribbon = ribbon
-      this.styleRibbon({
-        scaleX: scaleX,
-        scaleY: scaleY
-      });
+      this.styleRibbon();
+      ribbon.add(new fabric.Text(BadgeStudio.defaultBrandingCity, BadgeStudio.defaultBrandingStyle));
       canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
@@ -251,7 +249,6 @@
     var shape = BadgeStudio.shapes[this.shape] || {}
     var shapeRibbonOptions = shape.ribbonOptions || {}
     var defaultOptions = BadgeStudio.defaultRibbonOptions || {}
-    console.log(defaultOptions, shapeRibbonOptions, style);
     ribbon.set(defaultOptions)
     ribbon.set(shapeRibbonOptions)
     ribbon.set(style)
