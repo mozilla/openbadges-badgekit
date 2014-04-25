@@ -49,8 +49,35 @@
 
 {% block scripts %}
   {{ super() }}
+  <script class="badge-studio-config" type="application/json">
+    {
+      "shape": "{{ badge.studioShape }}",
+      "background": "{{ badge.studioBackground }}",
+      "graphic": "{{ badge.studioIcon }}",
+      "palette": "{{ badge.studioColor }}",
+      "branding": "{{ badge.studioBranding }}"
+    }
+  </script>
   <script>
     (function () {
+      var badgeStudioConfig = JSON.parse($('.badge-studio-config').text());
+
+      if (badgeStudioConfig.shape) {
+        $('input[name=shape][value=' + badgeStudioConfig.shape + ']').prop('checked', true);
+      }
+      if (badgeStudioConfig.background) {
+        $('input[name=background][value=' + badgeStudioConfig.background + ']').prop('checked', true);
+      }
+      if (badgeStudioConfig.graphic) {
+        $('input[name=graphic][value=' + badgeStudioConfig.graphic + ']').prop('checked', true);
+      }
+      if (badgeStudioConfig.palette) {
+        $('input[name=palette][value=' + badgeStudioConfig.palette + ']').prop('checked', true);
+      }
+      if (badgeStudioConfig.branding) {
+        $('input[name=branding][value=' + badgeStudioConfig.branding + ']').prop('checked', true);
+      }
+
       var studio = new BadgeStudio('studioCanvas');
       var ui = new BadgeStudioUI(studio, {
         canAddBackgrounds: true,
