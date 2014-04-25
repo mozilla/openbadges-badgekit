@@ -142,6 +142,7 @@
 
     this.branding.on('change', function (branding) {
       // TO DO
+      studio.setRibbon(branding);
       console.log('Branding:', branding);
     });
 

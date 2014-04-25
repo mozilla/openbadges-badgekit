@@ -64,7 +64,8 @@ function getBackgrounds (prefix, callback) {
 }
 
 function getBranding (prefix, callback) {
-  callback(null, []);
+  var filepath = path.join(STUDIO_PATH, 'ribbons');
+  readDirectory(filepath, prefix + '/ribbons', callback);
 }
 
 function getGraphics (prefix, callback) {

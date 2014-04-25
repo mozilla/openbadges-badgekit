@@ -47,7 +47,7 @@
   BadgeStudio.defaultRibbonOptions = {
     scaleY: 0.8,
     scaleX: 0.8,
-    left: 100,
+    left: 0,
     top: 0,
     selectable: false,
   }
@@ -66,8 +66,8 @@
     hexagon: {ribbonOptions: { top: 20 }},
     square: {ribbonOptions: { left: 75 }},
     diamond: {ribbonOptions: { top: 45, left: 120 }},
-    circle: {},
-    shield: {}
+    circle: {ribbonOptions: { top: 45, left: 120 }},
+    shield: {ribbonOptions: { top: 45, left: 120 }}
   }
 
   /**
@@ -192,12 +192,33 @@
     callback = callback || noop
     var canvas = this.canvas
 
+    if (!name) {
+      if (this.ribbon) {
+        canvas.remove(this.ribbon);
+      }
+      return;
+    }
+
     BadgeStudio.util.loadRibbon(name, function (ribbon) {
       if (this.ribbon)
         canvas.remove(this.ribbon)
 
+      // Try to accommodate for ribbons that are far bigger than the canvas.
+      var wRatio = canvas.width / ribbon.width;
+      var hRatio = canvas.height / ribbon.height;
+      var scaleX = 1;
+      var scaleY = 1;
+      if (wRatio < 1 || hRatio < 1) {
+        // Use whichever ratio is smaller to scale the ribbon
+        scaleX = wRatio < hRatio ? wRatio : hRatio;
+        scaleY =  wRatio < hRatio ? wRatio : hRatio;
+      }
+
       this.ribbon = ribbon
-      this.styleRibbon()
+      this.styleRibbon({
+        scaleX: scaleX,
+        scaleY: scaleY
+      });
       canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
@@ -230,6 +251,7 @@
     var shape = BadgeStudio.shapes[this.shape] || {}
     var shapeRibbonOptions = shape.ribbonOptions || {}
     var defaultOptions = BadgeStudio.defaultRibbonOptions || {}
+    console.log(defaultOptions, shapeRibbonOptions, style);
     ribbon.set(defaultOptions)
     ribbon.set(shapeRibbonOptions)
     ribbon.set(style)
