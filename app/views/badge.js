@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Badge = require('../models/badge')("DATABASE");
+const BadgeCategory = require('../models/badge-category')("DATABASE");
 const Image = require('../models/image')("DATABASE");
 const async = require('async');
 
@@ -20,9 +21,28 @@ function getBadgeById(badgeId, category, makeContext, callback) {
       if (err)
         return callback(err);
 
-      data = openbadger.toBadgekitBadge(data);
+      BadgeCategory.get({}, function (err, categories) {
+        if (err)
+          return callback(err);
 
-      callback(err, { badge: data });
+        var categoryMap = categories.reduce(function (map, category) {
+          map[category.label.toLowerCase().replace(/\W/, '')] = category;
+          return map;
+        }, {});
+
+        // We're ignoring categories we don't have internally
+        // It might make sense to create them instead - not sure
+        data.categories = (data.categories || []).reduce(function (categories, category) {
+          var key = (''+category).toLowerCase().replace(/\W/, '');
+          if (categoryMap.hasOwnProperty(key))
+            categories.push(categoryMap[key]);
+          return categories;
+        }, []);
+
+        data = openbadger.toBadgekitBadge(data);
+
+        callback(err, { badge: data });
+      });
     });
   }
 }
@@ -89,6 +109,9 @@ exports.edit = function edit (req, res, next) {
         }
 
         data.section = section;
+        data.badge.categories = (data.badge.categories || []).map(function (category) {
+          return category.id;
+        });
 
         callback(null, data);
       });
@@ -105,6 +128,10 @@ exports.edit = function edit (req, res, next) {
 
         callback(null, shapes);
       });
+    },
+    function(callback) {
+      // getAll doesn't seem to be working here
+      BadgeCategory.get({}, callback);
     }],
     function(err, results) {
       if (err)
@@ -113,6 +140,7 @@ exports.edit = function edit (req, res, next) {
       var data = results[0];
       data.shapes = results[1];
       data.badgeTypes = ['Community', 'Skill', 'Knowledge', 'Showcase'];
+      data.badgeCategories = results[2];
       res.render('badge/edit.html', data);
     }
   );
@@ -258,7 +286,7 @@ function saveBadge(req, callback) {
                   return innerCallback(err);
 
                 if (badgeRow.imageId === null) {
-                  Badge.update({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
+                  Badge.put({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
                     return innerCallback(err);
                   });
                 }
@@ -271,6 +299,12 @@ function saveBadge(req, callback) {
           else {
             return innerCallback(null);
           }
+        },
+        function(innerCallback) {
+          if (!('category' in req.body))
+            return innerCallback(null);
+
+          badgeRow.setCategories(req.body.category, innerCallback);
         }],
         function(err) {
           callback(err, badgeRow);
@@ -335,7 +369,7 @@ exports.publish = function publish (req, res, next) {
           return res.send(500, err);
         }
 
-        Badge.update({ id: badgeId, published: true }, function(err, result) {
+        Badge.put({ id: badgeId, published: true }, function(err, result) {
           if (err)
             return res.send(500, err);
 

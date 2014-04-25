@@ -1,7 +1,7 @@
 {
   "name": "openbadges-badgekit",
   "description": "Mozilla Openbadges BadgeKit",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "app/index.js",
   "author": "Mozilla Open Badges http://openbadges.org",
   "license": "MPL 2.0",
@@ -22,7 +22,7 @@
     "config-store": "~0.2.0",
     "xtend": "~2.1.1",
     "db-migrate": "~0.6.3",
-    "streamsql": "~0.5.2",
+    "streamsql": "~0.8.0",
     "jwt-simple": "~0.2.0",
     "node-sass": "~0.7.0",
     "newrelic": "~1.4.0",
