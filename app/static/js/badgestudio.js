@@ -203,22 +203,8 @@
       if (this.ribbon)
         canvas.remove(this.ribbon)
 
-      // Try to accommodate for ribbons that are far bigger than the canvas.
-      var wRatio = canvas.width / ribbon.width;
-      var hRatio = canvas.height / ribbon.height;
-      var scaleX = 1;
-      var scaleY = 1;
-      if (wRatio < 1 || hRatio < 1) {
-        // Use whichever ratio is smaller to scale the ribbon
-        scaleX = wRatio < hRatio ? wRatio : hRatio;
-        scaleY =  wRatio < hRatio ? wRatio : hRatio;
-      }
-
       this.ribbon = ribbon
-      this.styleRibbon({
-        scaleX: scaleX,
-        scaleY: scaleY
-      });
+      this.styleRibbon();
       canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
