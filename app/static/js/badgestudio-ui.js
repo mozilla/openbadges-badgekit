@@ -111,7 +111,7 @@
     return new Component();
   }
 
-  function BadgeStudioUI (config) {
+  function BadgeStudioUI (studio, config) {
     config = config || {};
 
     this.shape = createComponent('shape', {});
@@ -119,6 +119,34 @@
     this.graphic = createComponent('graphic', {canAdd: !!config.canAddGraphics}, {});
     this.color = createComponent('color', {});
     this.branding = createComponent('branding', {canAdd: !!config.canAddBranding}, {});
+
+    this.shape.on('change', function (shape) {
+      studio.setShape(shape);
+    });
+
+    this.background.on('change', function (background) {
+      studio.setBackgroundImage(background);
+    });
+
+    this.graphic.on('change', function (graphic) {
+      // TO DO
+      console.log('Graphic:', graphic);
+    });
+
+    this.color.on('change', function (color) {
+      // TO DO
+      console.log('Color:', color);
+    });
+
+    this.branding.on('change', function (branding) {
+      // TO DO
+      console.log('Branding:', branding);
+    });
+
+    $('#studio').submit(function () {
+      var form = $(this).find('form')[0];
+      form.image.value = studio.toDataURL();
+    });
   }
 
   window.BadgeStudioUI = BadgeStudioUI;

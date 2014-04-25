@@ -52,32 +52,10 @@
   <script>
     (function () {
       var studio = new BadgeStudio('studioCanvas');
-      var ui = new BadgeStudioUI({
+      var ui = new BadgeStudioUI(studio, {
         canAddBackgrounds: true,
         canAddGraphics: true,
         canAddBranding: false
-      });
-
-      ui.shape.on('change', function (shape) {
-        studio.setShape(shape);
-        // console.log('Shape:', shape);
-      });
-
-      ui.background.on('change', function (background) {
-        studio.setBackgroundImage(background);
-        // console.log('Background:', background);
-      });
-
-      ui.graphic.on('change', function (graphic) {
-        console.log('Graphic:', graphic);
-      });
-
-      ui.color.on('change', function (color) {
-        console.log('Color:', color);
-      });
-
-      ui.branding.on('change', function (branding) {
-        console.log('Branding:', branding);
       });
     })();
   </script>

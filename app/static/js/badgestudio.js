@@ -5,11 +5,6 @@
 
   function BadgeStudio(canvasId) {
     this.canvas = new fabric.Canvas(canvasId)
-    this.shape = null
-    this.image = null
-    this.fill = null
-    this.icon = null
-    this.banner = null
   }
 
   BadgeStudio.util = {
@@ -17,7 +12,7 @@
       return url.trim().indexOf('data:image') === 0
     },
 
-    imageFromUrl: function imageFromUrl(url, callback) {
+    imageFromURL: function imageFromURL(url, callback) {
       if (!BadgeStudio.util.isDataURL(url))
         return fabric.Image.fromURL(url, callback)
 
@@ -46,7 +41,7 @@
       // TODO: make prefix directory configurable. That will likely
       // require this to be an instance method.
       BadgeStudio.util.loadSVG('ribbons', name, callback)
-    }
+    },
   }
 
   BadgeStudio.defaultRibbonOptions = {
@@ -54,6 +49,7 @@
     scaleX: 0.8,
     left: 100,
     top: 0,
+    selectable: false,
   }
 
   BadgeStudio.defaultShapeOptions = {
@@ -63,15 +59,15 @@
     // TODO: these should be configurable (and thus likely be attached
     // to the instance instead of the class)
     width: 500,
-    height: 500,
+    height: 500
   }
 
   BadgeStudio.shapes = {
     hexagon: {ribbonOptions: { top: 20 }},
     square: {ribbonOptions: { left: 75 }},
-    circle: {},
-    shield: {},
     diamond: {ribbonOptions: { top: 45, left: 120 }},
+    circle: {},
+    shield: {}
   }
 
   /**
@@ -158,19 +154,27 @@
     callback = callback || noop
     var canvas = this.canvas
 
-    BadgeStudio.util.imageFromUrl(url, function (image) {
-      if (this.image)
-        canvas.remove(this.image)
-
+    BadgeStudio.util.imageFromURL(url, function (image) {
+      this.removeBackgroundImage()
+      this.removeBackgroundPattern()
       this.image = image
 
-      canvas.add(image)
+      canvas.add(image).renderAll()
       image.center()
       image.moveTo(0)
+      if (this.glyph)
+        canvas.setActiveObject(this.glyph)
       return callback(image)
     }.bind(this))
   }
 
+  /**
+   * Remove the background image, if there is one.
+   */
+  BadgeStudio.prototype.removeBackgroundImage = function removeBackgroundImage() {
+    if (!this.image) return
+    this.canvas.remove(this.image)
+  }
 
   /**
    * Set the top ribbon. Calls `BadgeStudio#styleRibbon` to figure out
@@ -194,10 +198,19 @@
 
       this.ribbon = ribbon
       this.styleRibbon()
-      canvas.add(ribbon)
+      canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
     }.bind(this))
+  }
+
+  /**
+   * Remove the ribbon from the canvas
+   */
+
+  BadgeStudio.prototype.removeRibbon = function removeRibbon() {
+    if (!this.ribbon) return
+    this.canvas.remove(this.ribbon)
   }
 
   /**
@@ -224,6 +237,146 @@
       ribbon.canvas.renderAll()
       ribbon.moveTo(Infinity)
     }
+  }
+
+  /**
+   * Set a glyph. Delegates to `BadgeStudio#setGlyphFromURL`
+   *
+   * @param {String} name The name of the glyph to add. Should be a file
+   *   (without file extension) from the `glyphs/` directory.
+   *
+   * @param {Function} [callback] Invoked once the glyph has been
+   *   rendered to the canvas. Optional.
+   *
+   * @see BadgeStudio#setGlyphFromURL
+   */
+  BadgeStudio.prototype.setGlyph = function setGlyph(name, callback) {
+    return this.setGlyphFromURL('glyphs/' + name + '.png', callback)
+  }
+
+  /**
+   * Set a glyph from an arbitrary URL. There can only be one active
+   * glyph on the canvas right now (for arbitrary reasons), so
+   * `BadgeStudio#removeGlyph` will be called before trying to add the
+   * new one.
+   *
+   * @param {String} url URL for the glyph image file. Should probably
+   *   be a relatively simple shape. Can be a DataURL
+   *
+   * @param {Function} [callback] Invoked after the glyph has been
+   *   rendered to the canvas. Optional.
+   *
+   * @see BadgeStudio@setGlyphColor
+   */
+  BadgeStudio.prototype.setGlyphFromURL = function setGlyphFromURL(url, callback) {
+    callback = callback || noop
+    var canvas = this.canvas
+    this.removeGlyph()
+    BadgeStudio.util.imageFromURL(url, function (glyph) {
+      canvas.add(glyph).renderAll()
+      glyph.center()
+      glyph.moveTo(1)
+      canvas.setActiveObject(glyph)
+      this.glyph = glyph
+      this.setGlyphColor()
+      return callback()
+    }.bind(this))
+  }
+
+  /**
+   * Remove the glyph that's currently on the canvas.
+   */
+  BadgeStudio.prototype.removeGlyph = function removeGlyph() {
+    if (!this.glyph) return
+    this.canvas.remove(this.glyph)
+  }
+
+  /**
+   * Set the color of the glyph on the canvas.
+   *
+   * XXX: Because glyphs are currently PNGs, this has to use image
+   * filters, which are slow. We should eventually change to using SVGs
+   * (at least our defaults should be SVGs) and change this method to
+   * use some smart detection to check whether we can use a fill or if
+   * we're stuck with a filter.
+   *
+   * @param {String} color A string representing a color. Can be in any
+   *   format that `new fabric.Color` accepts, but it's probably easiest
+   *   to just use a hex representation, e.g. '#ff00ff'
+   */
+  BadgeStudio.prototype.setGlyphColor = function setGlyphColor(color) {
+    if (!this.glyph) return
+
+    color = color || this.glyphColor
+    this.glyphColor = color
+
+    if (!color) return
+
+    var glyph = this.glyph
+    var canvas = this.canvas
+    var filter = new fabric.Image.filters.Tint({
+      color: color,
+      opacity: 1
+    })
+    glyph.filters[0] = filter
+    glyph.applyFilters(canvas.renderAll.bind(canvas))
+  }
+
+  /**
+   * Set background pattern. Removes background image if there's one set.
+   *
+   * @param {String} url HTTP URL or DataURL. Must conform to
+   *   Same-Origin-Policy (or be CORS capable). Removes any previously
+   *   set patterns or backgrounds
+   *
+   * @param {Function} [callback] Invoked when the pattern is
+   *   rendered. Optional.
+   */
+  BadgeStudio.prototype.setBackgroundPattern = function setBackgroundPattern(url, callback) {
+    callback = callback || noop
+    var canvas = this.canvas
+    var image = document.createElement('img')
+    image.src = url
+    image.onload = function onload() {
+      image.onload = null
+      this.removeBackgroundImage()
+      this.removeBackgroundPattern()
+      var pattern = new fabric.Pattern({
+        source: image,
+        repeat: 'repeat'
+      })
+
+      var rect = this.pattern = new fabric.Rect({
+        left: 0,
+        top: 0,
+        width: canvas.width,
+        height: canvas.height,
+        fill: pattern,
+        selectable: false,
+      })
+
+      canvas.add(rect).renderAll()
+      rect.moveTo(0)
+      return callback()
+    }.bind(this)
+  }
+
+  /**
+   * Remove the background pattern.
+   */
+  BadgeStudio.prototype.removeBackgroundPattern = function removeBackgroundPattern() {
+    if (!this.pattern) return
+    this.canvas.remove(this.pattern)
+  }
+
+  /**
+   * Get a DataURL representation of what's currently visible on the
+   * canvas.
+   *
+   * @return {String} PNG data in DataURL format.
+   */
+  BadgeStudio.prototype.toDataURL = function toDataURL() {
+    return this.canvas.toDataURL()
   }
 
   window.BadgeStudio = BadgeStudio
