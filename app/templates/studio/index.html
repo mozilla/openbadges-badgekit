@@ -55,7 +55,7 @@
       "background": "{{ badge.studioBackground }}",
       "graphic": "{{ badge.studioIcon }}",
       "palette": "{{ badge.studioColor }}",
-      "branding": "{{ badge.studioBranding }}"
+      "brand": "{{ badge.studioBranding }}"
     }
   </script>
   <script>
@@ -74,8 +74,8 @@
       if (badgeStudioConfig.palette) {
         $('input[name=palette][value=' + badgeStudioConfig.palette + ']').prop('checked', true);
       }
-      if (badgeStudioConfig.branding) {
-        $('input[name=branding][value=' + badgeStudioConfig.branding + ']').prop('checked', true);
+      if (badgeStudioConfig.brand) {
+        $('input[name=brand][value=' + badgeStudioConfig.brand + ']').prop('checked', true);
       }
 
       var studio = new BadgeStudio('studioCanvas');

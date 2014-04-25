@@ -59,8 +59,8 @@ exports.save = function saveDesign (req, res, next) {
         studioShape: req.body.shape,
         studioBackground: req.body.background,
         studioIcon: req.body.graphic,
-        studioColor: req.body.palette
-        // how do I shot brand? studioBrand: req.body.brand ?
+        studioColor: req.body.palette,
+        studioBranding: req.body.brand
       }
 
       Badge.update(badgeQuery, function(err, badgeResult) {
