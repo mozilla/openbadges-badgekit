@@ -63,7 +63,7 @@ exports.save = function saveDesign (req, res, next) {
         studioBranding: req.body.brand
       }
 
-      Badge.update(badgeQuery, function(err, badgeResult) {
+      Badge.put(badgeQuery, function(err, badgeResult) {
         if (err) {
           return next(err);
         }
