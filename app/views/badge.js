@@ -350,11 +350,11 @@ exports.publish = function publish (req, res, next) {
 
   saveBadge(req, function(err, row) {
     if (err)
-      return res.send(500, err);
+      return res.send(500, err.message);
 
     Badge.getOne({ id: badgeId }, { relationships: true }, function(err, row) {
       if (err)
-        return res.send(500, err);
+        return res.send(500, err.message);
 
       if (!res.locals.hasPermission({ system: row.system, issuer: row.issuer, program: row.program }, 'publish'))
         return res.send(403, 'You do not have permission to publish this badge');
@@ -366,12 +366,12 @@ exports.publish = function publish (req, res, next) {
           if ((/^ResourceConflictError/).test(err.toString())) {
             return res.send(409, 'A badge with that name already exists');
           }
-          return res.send(500, err);
+          return res.send(500, err.message);
         }
 
         Badge.put({ id: badgeId, published: true }, function(err, result) {
           if (err)
-            return res.send(500, err);
+            return res.send(500, err.message);
 
           req.session.lastCreatedId = badge.slug;
           req.session.notification = 'published';

@@ -23,7 +23,7 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.criteria = badge.criteria;
   newBadge.created = new Date(badge.created);
   newBadge.lastUpdated = new Date(badge.created); // not a typo.  badgekit-api doesn't yet have a notion of last updated.
-  newBadge.type = badge.type;
+  newBadge.badgeType = badge.type;
   newBadge.categories = badge.categories || [];
 
   return newBadge;
