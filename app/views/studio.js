@@ -100,7 +100,9 @@ function getShapes (prefix, callback) {
 
 function getBackgrounds (prefix, callback) {
   var filepath = path.join(STUDIO_PATH, 'backgrounds');
-  readDirectory(filepath, prefix + '/backgrounds', callback);
+  // This is a quick fix for the fact that we have an empty backgrounds directory.
+  callback(null, []);
+  //readDirectory(filepath, prefix + '/backgrounds', callback);
 }
 
 function getBranding (prefix, callback) {
