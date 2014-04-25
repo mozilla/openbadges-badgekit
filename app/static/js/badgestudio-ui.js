@@ -126,8 +126,7 @@
     });
 
     this.graphic.on('change', function (graphic) {
-      // TO DO
-      console.log('Graphic:', graphic);
+      studio.setGlyphFromURL(graphic);
     });
 
     this.color.on('change', function (color) {

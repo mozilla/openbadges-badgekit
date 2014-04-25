@@ -273,6 +273,16 @@
     var canvas = this.canvas
     this.removeGlyph()
     BadgeStudio.util.imageFromURL(url, function (glyph) {
+
+      // Try to accommodate for glyphs that are far bigger than the canvas.
+      var wRatio = canvas.width / glyph.width;
+      var hRatio = canvas.height / glyph.height;
+      if (wRatio < 1 || hRatio < 1) {
+        // Use whichever ratio is smaller to scale the glyph
+        glyph.setScaleX(wRatio < hRatio ? wRatio : hRatio);
+        glyph.setScaleY(wRatio < hRatio ? wRatio : hRatio);
+      }
+
       canvas.add(glyph).renderAll()
       glyph.center()
       glyph.moveTo(1)
