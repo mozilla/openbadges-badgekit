@@ -1,6 +1,4 @@
-function BadgeStudioUI (config) {
-  config = config || {};
-
+(function () {
   function addImageLoader ($container) {
     if (!window.FileReader)
       return false;
@@ -113,12 +111,18 @@ function BadgeStudioUI (config) {
     return new Component();
   }
 
-  this.shape = createComponent('shape', {});
-  this.background = createComponent('background', {canAdd: !!config.canAddBackgrounds}, {});
-  this.graphic = createComponent('graphic', {canAdd: !!config.canAddGraphics}, {});
-  this.color = createComponent('color', {});
-  this.branding = createComponent('branding', {canAdd: !!config.canAddBranding}, {});
-}
+  function BadgeStudioUI (config) {
+    config = config || {};
+
+    this.shape = createComponent('shape', {});
+    this.background = createComponent('background', {canAdd: !!config.canAddBackgrounds}, {});
+    this.graphic = createComponent('graphic', {canAdd: !!config.canAddGraphics}, {});
+    this.color = createComponent('color', {});
+    this.branding = createComponent('branding', {canAdd: !!config.canAddBranding}, {});
+  }
+
+  window.BadgeStudioUI = BadgeStudioUI;
+})();
 
 // Initialise UI
 (function() {
