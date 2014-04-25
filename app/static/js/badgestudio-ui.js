@@ -130,12 +130,19 @@
     });
 
     this.color.on('change', function (color) {
-      // TO DO
-      console.log('Color:', color);
+      var swatchElement = document.querySelector('label[for="studio_palette_' + color + '"] > .swatch');
+      if (swatchElement) {
+        var colorElements = swatchElement.querySelectorAll('*[data-color]');
+        if (colorElements.length > 1) {
+          studio.setBackgroundColor(colorElements[0].getAttribute('data-color'));
+          studio.setGlyphColor(colorElements[1].getAttribute('data-color'));
+        }
+      }
     });
 
     this.branding.on('change', function (branding) {
       // TO DO
+      studio.setRibbon(branding);
       console.log('Branding:', branding);
     });
 

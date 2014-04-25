@@ -90,6 +90,8 @@ $(document).ready(function() {
   if (!saveButton.attr('disabled')) {
     var saveSpinner = $('.js-save-spinner');
     var form = $('.js-badge-form');
+    var badgeImage = $('.badge-image');
+    var badgeImageSrc = badgeImage.attr('src');
     form.ajaxForm();
 
     var saveButtonText = saveButton.val();
@@ -107,7 +109,9 @@ $(document).ready(function() {
 
     var uploadImage = $('.js-upload-image');
     uploadImage.change(function() {
-      form.ajaxSubmit();
+      form.ajaxSubmit(function() {
+        badgeImage.attr('src', badgeImageSrc + '?cachebust=' + Date.now());
+      });
     });
   }
 
