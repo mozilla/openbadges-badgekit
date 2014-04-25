@@ -7,5 +7,7 @@
 
 {% block scripts %}
   {{ super () }}
+  <script src="{{ static('/js/fabric.min.js') }}"></script>
+  <script src="{{ static('/js/badgestudio.js') }}"></script>
   <script src="{{ static('/js/badgestudio-ui.js') }}"></script>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 <div id="studio">
   <div class="canvas">
-    <!-- put canvas-y stuff here -->
+    <canvas id="studioCanvas" width="500" height="500"></canvas>
   </div>
   <form method="post" action="{{ url('studio.save', {badgeId: badge.id}) }}">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -51,6 +51,7 @@
   {{ super() }}
   <script>
     (function () {
+      var studio = new BadgeStudio('studioCanvas');
       var ui = new BadgeStudioUI({
         canAddBackgrounds: true,
         canAddGraphics: true,
@@ -58,11 +59,13 @@
       });
 
       ui.shape.on('change', function (shape) {
-        console.log('Shape:', shape);
+        studio.setShape(shape);
+        // console.log('Shape:', shape);
       });
 
       ui.background.on('change', function (background) {
-        console.log('Background:', background);
+        studio.setBackgroundImage(background);
+        // console.log('Background:', background);
       });
 
       ui.graphic.on('change', function (graphic) {
