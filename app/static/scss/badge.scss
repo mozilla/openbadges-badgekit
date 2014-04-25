@@ -262,10 +262,27 @@
   background-color: $white;
   padding: 10px 30px 30px 30px;
   border: 1px solid $light-gray;
+  .form-field-wrapper {
+    overflow: hidden;
+    padding-bottom: 20px;
+    margin-bottom: 0;
+  }
   .or-seperator {
     height: 200px;
     margin: 20px 40px 50px 40px;
     .or { top: 65px; }
+  }
+  .badge-label {
+    font-weight: bold;
+    width: $two-wide;
+    margin-right: 6%;
+  }
+  .badge-input {
+    padding-left: $two-wide + 6%;
+    margin-right: -($two-wide + 6%);
+    .form-dropdown {
+      display: inline-block;
+    }
   }
   .short-textarea { height: 90px; }
   .short-description { height: 80px; }
@@ -283,6 +300,12 @@
   }
   .submit-btn { margin-left: 0; }
   .hidden { display: none; }
+  .remove-option {
+    margin-left: 5px;
+    position: relative;
+    top: -3px;
+    cursor: pointer;
+  }
 }
 
 .criteria {

@@ -2,6 +2,7 @@ var getDb = require('../lib/db').getDb;
 var async = require('async');
 
 module.exports = function getBadgeModel (key) {
+  var BadgeCategory = require('./badge-category')(key);
   var Image = require('./image')(key);
 
   function setCriteria(criteria, callback) {
@@ -44,6 +45,39 @@ module.exports = function getBadgeModel (key) {
     });
   }
 
+  function setCategories(categories, callback) {
+    const badgeId = this.id;
+
+    if (!Array.isArray(categories))
+      categories = [categories];
+
+    Category.del({badgeId: badgeId}, function (err) {
+      if (err)
+        return callback(err);
+
+      const stream = Category.createWriteStream();
+
+      stream.on('error', function (err) {
+        callback(err);
+        callback = function () {};
+      });
+
+      stream.on('close', function () {
+        callback(null);
+      });
+
+      categories.forEach(function (categoryId, pos) {
+        // Filter out empty and duplicate values
+        if (isNaN(parseInt(categoryId)) || categories.indexOf(categoryId) !== pos)
+          return;
+
+        stream.write({badgeId: badgeId, categoryId: categoryId});
+      });
+
+      stream.end();
+    });
+  }
+
   function createCopy(overrides, callback) {
     var badge = JSON.parse(JSON.stringify(this));
 
@@ -60,6 +94,13 @@ module.exports = function getBadgeModel (key) {
     });
 
     delete badge.criteria;
+
+    var categories = (badge.categories || []).map(function (category) {
+      return category.id;
+    });
+
+    delete badge.categories;
+
     badge.created = new Date();
     delete badge.lastUpdated;
     if (badge.image && (badge.image.id !== null)) {
@@ -89,7 +130,10 @@ module.exports = function getBadgeModel (key) {
           if (err)
             return callback(err);
 
-          row.setCriteria(criteria, function(err) {
+          async.series([
+            row.setCriteria.bind(row, criteria),
+            row.setCategories.bind(row, categories)
+          ], function (err) {
             callback(err, row);
           });
         });
@@ -119,6 +163,10 @@ module.exports = function getBadgeModel (key) {
        'badgeId',
        'required',
        'note']
+  });
+
+  var Category = db.table('_badgeCategory', {
+    fields: ['badgeId', 'categoryId']
   });
 
   var Badge = db.table('badge', {
@@ -157,6 +205,12 @@ module.exports = function getBadgeModel (key) {
         local: 'id',
         foreign: { table: 'criteria', key: 'badgeId' }
       },
+      categories: {
+        type: 'hasMany',
+        local: 'id',
+        foreign: { table: 'badgeCategory', key: 'id' },
+        via: { table: '_badgeCategory', local: 'badgeId', foreign: 'categoryId' }
+      },
       image: {
         type: 'hasOne',
         local: 'imageId',
@@ -166,6 +220,7 @@ module.exports = function getBadgeModel (key) {
     },
     methods: {
       setCriteria: setCriteria,
+      setCategories: setCategories,
       createCopy: createCopy,
       del: deleteBadge
     }
