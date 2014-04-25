@@ -134,7 +134,6 @@
 
     .option {
       margin: 0;
-      overflow: hidden;
       display: block;
       float: left;
     }
@@ -157,14 +156,24 @@
       }
     }
 
-    input:focus + label,
-    label:hover,
-    .label:hover {
-      background: #E9E9E9;
-    }
-
     input:checked + label {
       background: #DDD;
+    }
+
+    input:focus + label,
+    .label:focus {
+      -webkit-box-shadow: 0 0 8px rgba(102, 175, 233, 0.8);
+      box-shadow: 0 0 8px rgba(102, 175, 233, 0.8);
+      outline: none;
+      background: #CCC;
+    }
+
+    input:checked + label:hover,
+    input:focus + label:hover,
+    label:hover,
+    .label:hover,
+    .label:focus {
+      background: #CCC;
     }
   }
 
@@ -176,8 +185,10 @@
     }
 
     img {
-      width: 5em;
+      max-width: 5em;
+      max-height: 5em;
       display: block;
+      margin: 0 auto;
     }
   }
 }

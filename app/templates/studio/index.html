@@ -45,3 +45,36 @@
   </form>
 </div>
 {% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    (function () {
+      var ui = new BadgeStudioUI({
+        canAddBackgrounds: true,
+        canAddGraphics: true,
+        canAddBranding: false
+      });
+
+      ui.shape.on('change', function (shape) {
+        console.log('Shape:', shape);
+      });
+
+      ui.background.on('change', function (background) {
+        console.log('Background:', background);
+      });
+
+      ui.graphic.on('change', function (graphic) {
+        console.log('Graphic:', graphic);
+      });
+
+      ui.color.on('change', function (color) {
+        console.log('Color:', color);
+      });
+
+      ui.branding.on('change', function (branding) {
+        console.log('Branding:', branding);
+      });
+    })();
+  </script>
+{% endblock %}

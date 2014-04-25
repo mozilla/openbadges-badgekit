@@ -8,16 +8,15 @@
   </li>
   {% for graphic in graphics %}
     <li class="option">
-      <input type="radio" class="hidden" name="graphic" id="studio_graphic_{{ loop.index }}" value="{{ graphic.value }}">
+      <input type="radio"
+        class="hidden"
+        name="graphic"
+        id="studio_graphic_{{ loop.index }}"
+        value="{{ graphic.value }}"
+        data-value="{{ graphic.src }}">
       <label for="studio_graphic_{{ loop.index }}">
-        <img src="{{ graphic.src}}" alt="{{ graphic.label}}">
+        <img src="{{ graphic.src}}" alt="{{ graphic.label}}" title="{{ graphic.label }}">
       </label>
     </li>
   {% endfor %}
-  <li class="option">
-    <span class="label">
-      <i class="fa fa-plus fa-3x"></i><br>
-      Add
-    </span>
-  </li>
 </ul>

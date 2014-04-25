@@ -8,7 +8,12 @@
   </li>
   {% for background in backgrounds %}
     <li class="option">
-      <input type="radio" class="hidden" name="background" id="studio_background_{{ loop.index }}" value="{{ background.value }}">
+      <input type="radio"
+        class="hidden"
+        name="background"
+        id="studio_background_{{ loop.index }}"
+        value="{{ background.value }}"
+        data-value="{{ background.src }}">
       <label for="studio_background_{{ loop.index }}">
         <img src="{{ background.src}}" alt="{{ background.label}}">
       </label>
