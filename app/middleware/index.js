@@ -93,6 +93,18 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
       }  
     }
 
+    function buildContext(permissions) {
+      var context = {};
+      if (permissions.system)
+        context.system = permissions.system;
+      if (permissions.issuer)
+        context.issuer = permissions.issuer;
+      if (permissions.program)
+        context.program = permissions.program;
+
+      return context;
+    }
+
     function sendDenied() {
       if (!deniedPage)
         return res.send(403, 'Access Denied');
@@ -107,7 +119,17 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
         res.locals.hasPermission = function() { return true; }
         res.locals.makeContext = makeContext({ system: config('OPENBADGER_SYSTEM') });
         res.locals.canCreateDraft = true;
-        return next();
+        return Account.getOne({ email: req.session.email }, { relationships: true }, function(err, row) {
+          if (err)
+            return next();
+          if (!row || !row.accountPermissions.length)
+            return next();
+
+          var context = buildContext(row.accountPermissions[0]);
+          res.locals.makeContext = makeContext(context);
+
+          return next();
+        });
       }
       else {
         return Account.getOne({ email: req.session.email }, { relationships: true }, function(err, row) {
@@ -120,20 +142,12 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
           // This isn't a good solution, as it is basically assuming one permission per account,
           // particularly at the issuer level and above.  While this currently matches the design, I doubt we can count
           // on this being true for long.
-          var context = {};
-          if (row.accountPermissions[0].system)
-            context.system = row.accountPermissions[0].system;
-          if (row.accountPermissions[0].issuer)
-            context.issuer = row.accountPermissions[0].issuer;
-          if (row.accountPermissions[0].program)
-            context.program = row.accountPermissions[0].program;
+          var context = buildContext(row.accountPermissions[0]);
 
           res.locals.makeContext = makeContext(context);
           res.locals.canCreateDraft = row.hasPermission(context, 'draft');
           return next();
         });
-
-        return sendDenied();
       }
     }
     return sendDenied();
