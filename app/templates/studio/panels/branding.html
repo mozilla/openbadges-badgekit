@@ -12,10 +12,9 @@
         class="hidden"
         name="brand"
         id="studio_brand_{{ loop.index }}"
-        value="{{ brand.value }}"
-        data-value="{{ brand.src }}">
+        value="{{ brand.value }}">
       <label for="studio_brand_{{ loop.index }}">
-        <img src="{{ brand.src}}" alt="{{ brand.label}}" title="{{ brand.label }}">
+        <img src="{{ brand.src }}" alt="{{ brand.label }}" title="{{ brand.label }}">
       </label>
     </li>
   {% endfor %}
