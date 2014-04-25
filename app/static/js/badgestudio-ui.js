@@ -65,14 +65,9 @@
     }
   }
 
-  function createComponent (containerId, options, proto) {
+  function createComponent (containerId, options) {
     if (!options)
       options = {}
-
-    if (!proto) {
-      proto = options;
-      options = {};
-    }
 
     var container = document.getElementById(containerId);
     var $container = $(container);
@@ -89,21 +84,23 @@
     $(init);
     $(container.form).on('reset', init);
 
-    proto.on = function (event, handler) {
-      var context = this;
-      $container.on(event, function (evt) {
-        var args = Array.prototype.slice.call(arguments, 1);
+    var proto = {
+      on: function (event, handler) {
+        var context = this;
+        $container.on(event, function (evt) {
+          var args = Array.prototype.slice.call(arguments, 1);
 
-        if (!args.length) {
-          if (evt.target.hasAttribute('data-value')) {
-            args = [evt.target.getAttribute('data-value')];
-          } else {
-            args = [evt.target.value];
+          if (!args.length) {
+            if (evt.target.hasAttribute('data-value')) {
+              args = [evt.target.getAttribute('data-value')];
+            } else {
+              args = [evt.target.value];
+            }
           }
-        }
 
-        handler.apply(context, args);
-      });
+          handler.apply(context, args);
+        });
+      }
     }
 
     function Component () {};
@@ -114,11 +111,11 @@
   function BadgeStudioUI (studio, config) {
     config = config || {};
 
-    this.shape = createComponent('shape', {});
-    this.background = createComponent('background', {canAdd: !!config.canAddBackgrounds}, {});
-    this.graphic = createComponent('graphic', {canAdd: !!config.canAddGraphics}, {});
-    this.color = createComponent('color', {});
-    this.branding = createComponent('branding', {canAdd: !!config.canAddBranding}, {});
+    this.shape = createComponent('shape');
+    this.background = createComponent('background', {canAdd: !!config.canAddBackgrounds});
+    this.graphic = createComponent('graphic', {canAdd: !!config.canAddGraphics});
+    this.color = createComponent('color');
+    this.branding = createComponent('branding', {canAdd: !!config.canAddBranding});
 
     this.shape.on('change', function (shape) {
       studio.setShape(shape);
