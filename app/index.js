@@ -66,7 +66,6 @@ app.get('/directory/useTemplate', 'directory.useTemplate', secureRouteHandlers, 
 app.get('/badge/:badgeId', 'badge', secureRouteHandlers, views.badge.home);
 app.get('/badge/:badgeId/edit', 'badge.edit', secureRouteHandlers, views.badge.edit);
 app.del('/badge/:badgeId/delete', 'badge.delete', secureRouteHandlers, views.badge.del);
-app.get('/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 app.post('/badge/:badgeId/edit', 'badge.save', secureRouteHandlers, views.badge.save);
 app.post('/badge/:badgeId/archive', 'badge.archive', secureRouteHandlers, views.badge.archive);
 app.post('/badge/:badgeId/publish', 'badge.publish', secureRouteHandlers, views.badge.publish);
@@ -102,6 +101,8 @@ app.post('/applications/:badgeId/:applicationId', 'application.submit', secureRo
 
 app.get('/help', 'help', views.help.home);
 app.get('/about', 'about', views.about.home);
+
+app.get('/system/:systemId/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 
 app.post('/api/user', 'api.user.add', secureApiHandlers, api.user.addUser);
 app.del('/api/user', 'api.user.delete', secureApiHandlers, api.user.deleteUser);

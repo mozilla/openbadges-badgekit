@@ -86,7 +86,7 @@
         <p class="form-heading"><span class="form-heading-span">Visual</span> Use visuals to express the nature and value of a badge.</p>
 
         <div>
-          <img class="badge-image" src="/images/badge/{{ badge.id }}" style="display: block; margin: 0 auto;">
+          <img class="badge-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}" style="display: block; margin: 0 auto;">
         </div>
 
         <a href="{{ url('studio.edit', {badgeId: badge.id}) }}">
