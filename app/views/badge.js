@@ -10,14 +10,15 @@ const middleware = require('../middleware');
 
 const studioPath = 'images/studio/';
 
-function getBadgeById(badgeId, category, makeContext, callback) {
+function getBadgeById(badgeId, category, context, callback) {
   if (category === 'draft' || category === 'template') {
     Badge.getOne({ id: badgeId }, { relationships: true }, function(err, row) {
      callback(err, { badge: row } );
    });
   }
   else {
-    openbadger.getBadge(makeContext({ badge: { slug: badgeId }}), function(err, data) {
+    context.badge = badgeId;
+    openbadger.getBadge(context, function(err, data) {
       if (err)
         return callback(err);
 
@@ -51,7 +52,7 @@ exports.home = function home (req, res, next) {
   const badgeId = req.params.badgeId;
   const category = req.query.category || 'draft';
 
-  getBadgeById(badgeId, category, res.locals.makeContext, function(err, data) {
+  getBadgeById(badgeId, category, res.locals.makeContext(), function(err, data) {
     if (err)
       return res.send(500, err);
 
@@ -83,9 +84,10 @@ exports.del = function del (req, res, next) {
 };
 
 exports.criteria = function criteria (req, res, next) {
-  const badgeId = req.params.badgeId;
+  const badge = req.params.badgeId;
+  const system = req.params.systemId;
 
-  getBadgeById(badgeId, 'published', res.locals.makeContext, function(err, data) {
+  getBadgeById(badge, 'published', { system: system }, function(err, data) {
     if (err)
       return res.send(404, 'Not Found');
 
@@ -100,7 +102,7 @@ exports.edit = function edit (req, res, next) {
 
   async.parallel([
     function(callback) {
-      getBadgeById(badgeId, category, res.locals.makeContext, function(err, data) {
+      getBadgeById(badgeId, category, res.locals.makeContext(), function(err, data) {
         if (err)
           return callback(err);
 
@@ -411,6 +413,8 @@ exports.copy = function copy (req, res, next) {
       badge.imageId = imageResult.insertId;
       var criteria = badge.criteria;
       delete badge.criteria;
+      var categories = badge.categories;
+      delete badge.categories;
       badge.status = 'draft';
       badge.system = context.system;
       badge.issuer = context.issuer;
@@ -426,13 +430,18 @@ exports.copy = function copy (req, res, next) {
             return res.send(500, err);
           }
 
-          badgeRow.setCriteria(criteria, function(err) {
-            if (err) {
-              return res.send(500, err);
-            }
+          async.parallel([
+            badgeRow.setCriteria.bind(badgeRow, criteria),
+            badgeRow.setCategories.bind(badgeRow, categories)
+            ],
+            function(err, results) {
+              if (err) {
+                return res.send(500, err);
+              }
 
-            return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
-          });
+              return res.send(200, { location: res.locals.url('directory') + '?category=draft' })
+            }
+          );
         });
       });
     });

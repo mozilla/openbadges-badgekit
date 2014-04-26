@@ -51,30 +51,53 @@ module.exports = function getBadgeModel (key) {
     if (!Array.isArray(categories))
       categories = [categories];
 
-    Category.del({badgeId: badgeId}, function (err) {
-      if (err)
-        return callback(err);
+    var categoryIds = [];
+    async.each(categories, function(category, innerCallback) {
+      if (isNaN(parseInt(category))) {
+        BadgeCategory.getOne({ label: category }, function(err, categoryRow) {
+          if (err)
+            return innerCallback(err);
 
-      const stream = Category.createWriteStream();
+          if (!categoryRow)
+            return innerCallback();
 
-      stream.on('error', function (err) {
-        callback(err);
-        callback = function () {};
+          // this doesn't preserve order of categoryIds from the original categories array.
+          // don't think that matters, but noting it here just in case.
+          categoryIds.push(categoryRow.id);
+          return innerCallback();
+        });
+      }
+      else {
+        categoryIds.push(category);
+        return innerCallback();
+      }
+    },
+    function(err) {
+      Category.del({badgeId: badgeId}, function (err) {
+        if (err)
+          return callback(err);
+
+        const stream = Category.createWriteStream();
+
+        stream.on('error', function (err) {
+          callback(err);
+          callback = function () {};
+        });
+
+        stream.on('close', function () {
+          callback(null);
+        });
+
+        categoryIds.forEach(function (categoryId, pos) {
+          // Filter out empty and duplicate values
+          if (isNaN(parseInt(categoryId)) || categoryIds.indexOf(categoryId) !== pos)
+            return;
+
+          stream.write({badgeId: badgeId, categoryId: categoryId});
+        });
+
+        stream.end();
       });
-
-      stream.on('close', function () {
-        callback(null);
-      });
-
-      categories.forEach(function (categoryId, pos) {
-        // Filter out empty and duplicate values
-        if (isNaN(parseInt(categoryId)) || categories.indexOf(categoryId) !== pos)
-          return;
-
-        stream.write({badgeId: badgeId, categoryId: categoryId});
-      });
-
-      stream.end();
     });
   }
 
