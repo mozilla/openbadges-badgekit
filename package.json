@@ -1,7 +1,7 @@
 {
   "name": "openbadges-badgekit",
   "description": "Mozilla Openbadges BadgeKit",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "app/index.js",
   "author": "Mozilla Open Badges http://openbadges.org",
   "license": "MPL 2.0",
