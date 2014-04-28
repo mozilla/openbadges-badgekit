@@ -405,6 +405,8 @@
    * @return {String} PNG data in DataURL format.
    */
   BadgeStudio.prototype.toDataURL = function toDataURL() {
+    // unselect any selected items, so the canvas doesn't include controls
+    this.canvas._activeObject.active = false
     return this.canvas.toDataURL()
   }
 
