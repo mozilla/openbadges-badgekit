@@ -57,6 +57,7 @@ persona.express(app, { audience: config('PERSONA_AUDIENCE'),
 
 var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', []), 'sorry.html')];
 var secureApiHandlers = [middleware.verifyApiRequest()];
+var readOnlyApiHandlers = [middleware.verifyApiRequestReadOnly()];
 
 app.get('/', 'home', [persona.ensureLoggedOut()], views.home);
 app.get('/directory', 'directory', secureRouteHandlers, views.directory.home);
@@ -106,6 +107,8 @@ app.get('/system/:systemId/badge/:badgeId/criteria', 'badge.criteria', views.bad
 
 app.post('/api/user', 'api.user.add', secureApiHandlers, api.user.addUser);
 app.del('/api/user', 'api.user.delete', secureApiHandlers, api.user.deleteUser);
+
+app.get('/api/metrics/badges', 'api.metrics.badges', readOnlyApiHandlers, api.metrics.getBadgeMetrics);
 
 app.get('*', function (req, res, next) {
   var error = new Error('Page not found');
