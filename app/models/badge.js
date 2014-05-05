@@ -166,7 +166,7 @@ module.exports = function getBadgeModel (key) {
     delete badge.categories;
 
     var tags = (badge.tags || []).map(function (tag) {
-      return tag.id;
+      return tag.value;
     });
 
     delete badge.tags;
