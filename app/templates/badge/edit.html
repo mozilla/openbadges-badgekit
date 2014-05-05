@@ -14,6 +14,12 @@
   {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
 {% endmacro %}
 
+{% macro generateTagString(tags) -%}
+  {% for tag in tags -%}
+    {% if loop.index0 %},{% endif %}{{ tag.value }}
+  {%- endfor %}
+{%- endmacro %}
+
 <!-- {% block header -%}
   {{ super() }}
 {%- endblock %} -->
@@ -64,11 +70,11 @@
           <textarea class="badge-field short-description" {{ disabled() }} type="text" name="description">{{ badge.description }}</textarea>
         </div>
 
-        <!-- <div class="form-field-wrapper">
+        <div class="form-field-wrapper">
           <label class="badge-label left" for="tags">Tags<p class="small-copy">Comma separated keywords</p></label>
-          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ badge.tags }}" placeholder="org name, subject, activity, keywords, etc"/> -->
+          <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ generateTagString(badge.tags) }}" placeholder="org name, subject, activity, keywords, etc"/>
           <!-- <a class="btn add-btn">Add<i class="fa fa-plus"></i></a> -->
-        <!-- </div> -->
+        </div> 
 
         <div class="form-field-wrapper cb">
           <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">Describe why and how someone would apply for this badge.</p></label>
