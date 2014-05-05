@@ -14,12 +14,6 @@
   {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
 {% endmacro %}
 
-{% macro generateTagString(tags) -%}
-  {% for tag in tags -%}
-    {% if loop.index0 %},{% endif %}{{ tag.value }}
-  {%- endfor %}
-{%- endmacro %}
-
 <!-- {% block header -%}
   {{ super() }}
 {%- endblock %} -->
