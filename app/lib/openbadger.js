@@ -25,6 +25,7 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.lastUpdated = new Date(badge.created); // not a typo.  badgekit-api doesn't yet have a notion of last updated.
   newBadge.badgeType = badge.type;
   newBadge.categories = badge.categories || [];
+  newBadge.tags = badge.tags || [];
 
   return newBadge;
 };
@@ -54,6 +55,8 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
   newBadge.categories = (badge.categories || []).map(function (category) {
     return category.label;
   });
-  
+  newBadge.tags = (badge.tags || []).map(function (tag) {
+    return tag.value;
+  });
   return newBadge;
 };

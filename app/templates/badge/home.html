@@ -45,8 +45,8 @@
       <p class="badge-title">Technical Description</p>
       <p class="badge-description">{{ badge.consumerDescription }}</p>
 
-      <!-- <p class="badge-title">Tags</p>
-      <p class="badge-description">{{ badge.tags }}</p> -->
+      <p class="badge-title">Tags</p>
+      <p class="badge-description">{{ generateTagString(badge.tags) }}</p>
 
       {% for criteria in badge.criteria %}
         <p class="badge-title">Criteria {{ loop.index }}</p>
