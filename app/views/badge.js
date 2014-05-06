@@ -213,7 +213,6 @@ function saveBadge(req, callback) {
     id: req.body.badgeId,
     name: req.body.name,
     description: req.body.description,
-    tags: req.body.tags,
     issuerUrl: req.body.issuerUrl,
     earnerDescription: req.body.earnerDescription,
     consumerDescription: req.body.consumerDescription,
@@ -307,6 +306,12 @@ function saveBadge(req, callback) {
             return innerCallback(null);
 
           badgeRow.setCategories(req.body.category, innerCallback);
+        },
+        function(innerCallback) {
+          if (!('tags' in req.body))
+            return innerCallback(null);
+
+          badgeRow.setTags(req.body.tags, innerCallback);
         }],
         function(err) {
           callback(err, badgeRow);
@@ -415,6 +420,8 @@ exports.copy = function copy (req, res, next) {
       delete badge.criteria;
       var categories = badge.categories;
       delete badge.categories;
+      var tags = badge.tags;
+      delete badge.tags;
       badge.status = 'draft';
       badge.system = context.system;
       badge.issuer = context.issuer;
@@ -432,7 +439,8 @@ exports.copy = function copy (req, res, next) {
 
           async.parallel([
             badgeRow.setCriteria.bind(badgeRow, criteria),
-            badgeRow.setCategories.bind(badgeRow, categories)
+            badgeRow.setCategories.bind(badgeRow, categories),
+            badgeRow.setTags.bind(badgeRow, tags)
             ],
             function(err, results) {
               if (err) {

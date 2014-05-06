@@ -1,5 +1,11 @@
 {% extends "layout.html" %}
 
+{% macro generateTagString(tags) -%}
+  {% for tag in tags -%}
+    {% if loop.index0 %},{% endif %}{{ tag.value }}
+  {%- endfor %}
+{%- endmacro %}
+
 {% block head -%}
   {{ super() }}
   <link rel="stylesheet" href="{{ static('/css/badge.css') }}">
