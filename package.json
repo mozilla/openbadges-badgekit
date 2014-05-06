@@ -16,7 +16,7 @@
   "dependencies": {
     "express": "~3.4.0",
     "express-monkey-patch": "~0.1.1",
-    "nunjucks": "~1.0.0",
+    "nunjucks": "~1.0.4",
     "optimist": "~0.6.0",
     "client-sessions": "~0.4.0",
     "config-store": "~0.2.0",
