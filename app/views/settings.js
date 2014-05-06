@@ -27,6 +27,10 @@ exports.systems = function systems (req, res, next) {
   });
 }
 
+exports.context = function context (req, res, next) {
+  return res.render('settings/context.html');
+}
+
 function getSystems(hasPermission, callback) {
   openbadger.getSystems(function(err, systemData) {
     if (err)
@@ -94,7 +98,7 @@ exports.programs = function issuers (req, res, next) {
         return res.send(500, err);
 
       var data = { programs: [] };
-      
+
       programData.forEach(function(program) {
         var context = { system: systemSlug, issuer: issuerSlug, program: program.slug };
         if (res.locals.hasPermission(context, 'view')) {
