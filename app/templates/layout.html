@@ -59,10 +59,12 @@
                 </ul>
               </li>
             </ul>
-            <!-- <ul class="navigation-dropdown right">
-              <span class="arrow-down"></span>
-              <li class="menu-item">Issuer Name{{ issuer.name }}</li>
-            </ul> -->
+            {% if system %}
+              <ul class="navigation-dropdown right">
+                <span class="arrow-down"></span>
+                <li class="menu-item">{{ system.name }}</li>
+              </ul>
+            {% endif %}
           {% endif %}
         {%- endblock %}
       </header>
