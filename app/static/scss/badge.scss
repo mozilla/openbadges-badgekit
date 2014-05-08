@@ -1,5 +1,38 @@
 @import "base";
 
+.overlay {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width:100%;
+  height: 980px;
+  z-index: 100;
+  background-color: black;
+  opacity: 0.85;
+}
+
+.modal-container {
+  position: relative;
+  width: 500px;
+  margin: 100px auto;
+  background-color: $white;
+  padding:15px;
+  background-color: white;
+  border: 1px solid $light-gray;
+  z-index: 100;
+  .close-btn {
+    font-size: 20px;
+    color: $dark-gray;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .badge-field:last-child { margin-top: 5px; }
+  .form-dropdown { width: 45%; margin-right: 20px; }
+}
+
 .nav-inputs {
   margin: 30px auto 0 auto;
   position: relative;
@@ -21,7 +54,16 @@
   padding-left: 23px;
 }
 
-
+.support-badge-modal {
+  width: 50px;
+  height: 50px;
+  background-color: #63c6f4;
+  padding: 5px 16px;
+  color: white;
+  font-size: 30px;
+  margin-top: -20px;
+  cursor: pointer;
+}
 
 .publish-save {
   text-align: right;

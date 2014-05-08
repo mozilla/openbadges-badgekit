@@ -3,6 +3,16 @@ const SAVING_TEXT = 'Saving';
 
 $(document).ready(function() {
 
+  $(".js-modal").on("click", function() {
+    $(".overlay").show();
+    $(".modal-container").show();
+  });
+
+  $(".js-close").on("click", function() {
+    $(".modal-container").hide();
+    $(".overlay").hide();
+  });
+
   var notification = $('.js-notification');
 
   $(document).ajaxError(function(event, jqXHR, ajaxSetting, thrownError) {
