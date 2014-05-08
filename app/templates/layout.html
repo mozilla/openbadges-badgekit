@@ -59,10 +59,9 @@
                 </ul>
               </li>
             </ul>
-            {% if system %}
+            {% if contextName %}
               <ul class="navigation-dropdown right">
-                <span class="arrow-down"></span>
-                <li class="menu-item">{{ system.name }}</li>
+                <a href="{{ url('settings.context') }}"><li class="menu-item">{{ contextName }}</li></a>
               </ul>
             {% endif %}
           {% endif %}

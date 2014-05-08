@@ -1,5 +1,6 @@
 const validator = require('validator');
 const openbadger = require('../lib/openbadger');
+const async = require('async');
 
 const Account = require('../models/account')("DATABASE");
 const AccountPermission = require('../models/account-permission')("DATABASE");
@@ -25,10 +26,6 @@ exports.systems = function systems (req, res, next) {
 
     return res.send(200, data);
   });
-}
-
-exports.context = function context (req, res, next) {
-  return res.render('settings/context.html');
 }
 
 function getSystems(hasPermission, callback) {
@@ -251,3 +248,79 @@ exports.deleteUser = function deleteUser (req, res, next) {
     });
   });
 };
+
+function nameSort(a, b) {
+  if (a.name.toUpperCase() > b.name.toUpperCase())
+    return 1;
+  return -1;
+};
+
+exports.context = function context (req, res, next) {
+  var data = { dataUrl: res.locals.url('settings.contextData') };
+  return res.render('settings/context.html', data);
+}
+
+exports.setContext = function setContext (req, res, next) {
+  var context = { system: req.body.system };
+
+  if (req.body.issuer)
+    context.issuer = req.body.issuer;
+
+  if (req.body.program)
+    context.program = req.body.program;
+
+  req.session.context = context;
+  res.send(200, { location: res.locals.url('directory') });
+}
+
+exports.contextData = function contextData (req, res, next) {
+  openbadger.getSystems(function(err, systems) {
+    if (err)
+      return callback(err)
+
+    var data = { systems: [] };
+
+    async.each(systems, function(system, innerCallback) {
+      if (res.locals.hasPermission({ system: system.slug }, 'view')) {
+        openbadger.getIssuers({ system: system.slug }, function(err, issuers) {
+          if (err)
+            return innerCallback(err);
+
+          system.issuers = [];
+
+          issuers.forEach(function(issuer) {
+            if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug }, 'view')) {
+
+              issuer.programs = [];
+
+              issuer.programs.forEach(function(program) {
+                if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug, program: program.slug }, 'view')) {
+                  issuer.programs.push({ name: program.name, slug: program.slug });
+                }
+              });
+
+              issuer.programs.sort(nameSort);
+              system.issuers.push({ name: issuer.name, slug: issuer.slug, programs: issuer.programs });
+            }
+          });
+
+          system.issuers.sort(nameSort);
+
+          data.systems.push({ name: system.name, slug: system.slug, issuers: system.issuers });
+
+          return innerCallback();
+        });
+      }
+      else {
+        return innerCallback();
+      }
+    },
+    function(err) {
+      if (err)
+        return next(err);
+
+      data.systems.sort(nameSort);
+      return res.send(200, data);
+    });
+  });
+}

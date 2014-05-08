@@ -3,87 +3,97 @@
 {% block content %}
   {% raw %}
     <script type="text/x-handlebars" id="index">
-      <div class="column left">
-        <i class="fa fa-arrow-circle-o-right"></i>
-        <p class="admin-title">System</p>
-        <div class="form-dropdown">
-          <span class="arrow-down"></span>
-          {{view Ember.Select content=systems
-            optionValuePath="content.name"
-            optionLabelPath="content.name"
-            selection=selectedSystem
-          }}
+      <div class="container clearfix">
+        <div class="column left">
+          <i class="fa fa-arrow-circle-o-right"></i>
+          <p class="admin-title">Systems</p>
+          <div class="form-dropdown">
+            <span class="arrow-down"></span>
+            {{view Ember.Select content=systems class="js-system-select"
+              optionValuePath="content.slug"
+              optionLabelPath="content.name"
+              selection=selectedSystem
+            }}
+          </div>
+          <br>
+          <div>
+            {{# if selectedSystem.issuers }}
+              <label>
+                {{input type="checkbox" name="useIssuer" class="js-use-issuer" checked=useIssuer}}
+                <span>Select Issuer</span>
+              </label>
+            {{/if}}
+          </div>
         </div>
-      </div>
 
-      {{#if selectedSystem}}
-        {{render "issuers" selectedSystem.issuers}}
-      {{/if}}
+        {{#if selectedSystem}}
+          {{# if selectedSystem.issuers }}
+            {{#if useIssuer }}
+              {{render "issuers" selectedSystem}}
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      </div>
+      <div class="container clearfix submit-button-wrapper">
+        <a {{action 'submit' }} class="btn submit-btn" type="submit">Save</a>
+      </div>
     </script>
 
     <script type="text/x-handlebars" id="issuers">
       <div class="column left">
         <i class="fa fa-arrow-circle-o-right"></i>
         <p class="admin-title">Issuer</p>
-        {{input type="text" value=filterString placeholder="search"}}
-        {{#if areAllSelected}}
-          <button {{action 'deselectAll'}} class="btn sel-del-btn">Deselect All</button>
-        {{else}}
-          <button {{action 'selectAll'}} class="btn sel-del-btn">Select All</button>
-        {{/if}}
 
-        <ul>
-        {{#each}}
-          <li>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          {{view Ember.Select content=issuers class="js-issuer-select"
+            optionValuePath="content.slug"
+            optionLabelPath="content.name"
+            selection=selectedIssuer
+          }}
+        </div>
+        <br>
+        <div>
+          {{# if selectedIssuer.programs }}
             <label>
-              {{input type="checkbox" checked=isSelected}}
-              <span>{{name}}</span>
+              {{input type="checkbox" name="useProgram" class="js-use-program" checked=useProgram}}
+              <span>Select Program</span>
             </label>
-          </li>
-        {{/each}}
-        </ul>
-
-        {{partial 'pagination-buttons'}}
+          {{/if}}  
+        </div>
       </div>
-      {{#if selectedPrograms}}
-        {{render "programs" selectedPrograms}}
+
+      {{#if selectedIssuer}}
+        {{#if useProgram }}
+          {{# if selectedIssuer.programs }}
+            {{render "programs" selectedIssuer}}
+          {{/if}}
+        {{/if}}
       {{/if}}
     </script>
 
     <script type="text/x-handlebars" id="programs">
       <div class="column left">
         <i class="fa fa-arrow-circle-o-right"></i>
-        <p class="admin-title">Programs</p>
-        {{input type="text" value=filterString}}
-
-        <ul>
-          {{#each}}
-            <li>
-            <label>
-              {{input type="checkbox" checked=isSelected}}
-              <span>{{name}}</span>
-            </label>
-            </li>
-          {{/each}}
-        </ul>
-
-        {{partial 'pagination-buttons'}}
-      </div>
-    </script>
-
-    <script type="text/x-handlebars" id="_pagination-buttons">
-      <div class="cb">
-        <p class="admin-title">Page {{page}} of {{maxPage}}</p>
-        <button {{action 'goToFirstPage'}} class="btn pagination-btn">&laquo;</button>
-        <button {{action 'goToPreviousPage'}} class="btn pagination-btn">&lt;</button>
-        <button {{action 'goToNextPage'}} class="btn pagination-btn">&gt;</button>
-        <button {{action 'goToLastPage'}} class="btn pagination-btn">&raquo;</button>
+        <p class="admin-title">Program</p>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          {{view Ember.Select content=programs class="js-program-select"
+            optionValuePath="content.slug"
+            optionLabelPath="content.name"
+            selection=selectedProgram
+          }}
+        </div>
       </div>
     </script>
   {% endraw %}
 
-  <div class="container clearfix">
+  <div class="js-ember-container" data-url="{{dataUrl}}" data-csrf="{{ csrfToken }}">
+    <div class="container clearfix loading-header">
+      <h1>Loading</h1>
+    </div>
   </div>
+
 {% endblock %}
 
 {% block scripts -%}
