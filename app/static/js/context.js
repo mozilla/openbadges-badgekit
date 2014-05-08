@@ -18,15 +18,9 @@ function setupEmberApp(systems) {
   App.IssuersController = Ember.ObjectController.extend({
     useProgram: false,
     selectedIssuer: null,
-
     showPrograms: function() {
       return this.get('useProgram') && this.get('selectedIssuer').programs.length;
     }.property('useProgram', 'selectedIssuer'),
-
-    preselect: function () {
-      var issuer = this.get('issuers.firstObject');
-      this.set('selectedIssuer', issuer);
-    }.observes('issuers.@each')
   });
 
   App.ProgramsController = Ember.ObjectController.extend({
@@ -34,12 +28,18 @@ function setupEmberApp(systems) {
   });
 
   App.IndexController = Ember.Controller.extend({
+    needs: ['issuers','programs'],
     systems: function() {
       return systems;
     }.property(),
 
     selectedSystem: null,
     useIssuer: false,
+
+    preselect: function () {
+      var issuer = this.get('selectedSystem.issuers.firstObject');
+      this.set('controllers.issuers.selectedIssuer', issuer);
+    }.observes('selectedSystem'),
 
     showIssuers: function() {
       return this.get('useIssuer') && this.get('selectedSystem').issuers.length;
@@ -55,14 +55,13 @@ function setupEmberApp(systems) {
         var data = { system: { slug: systemSelect.val(), name: systemSelect.find('option:selected').text() },
                      _csrf: csrfToken };
 
-        if (issuerSelect.val()) { 
+        if (this.get('showIssuers') && issuerSelect.val()) {
           data.issuer = { slug: issuerSelect.val(), name: issuerSelect.find('option:selected').text() };
+          if (this.get('controllers.issuers').get('showPrograms') && programSelect.val()) { 
+            data.program = { slug: programSelect.val(), name: programSelect.find('option:selected').text() };
+          }
         }
-
-        if (programSelect.val()) { 
-          data.program = { slug: programSelect.val(), name: programSelect.find('option:selected').text() };
-        }
-
+        
         $.ajax({
           type: 'POST',
           data: data,
