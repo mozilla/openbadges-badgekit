@@ -276,7 +276,7 @@ exports.setContext = function setContext (req, res, next) {
 exports.contextData = function contextData (req, res, next) {
   openbadger.getSystems(function(err, systems) {
     if (err)
-      return callback(err)
+      return next(err);
 
     var data = { systems: [] };
 
@@ -291,21 +291,20 @@ exports.contextData = function contextData (req, res, next) {
           issuers.forEach(function(issuer) {
             if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug }, 'view')) {
 
-              issuer.programs = [];
+              var programs = [];
 
               issuer.programs.forEach(function(program) {
                 if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug, program: program.slug }, 'view')) {
-                  issuer.programs.push({ name: program.name, slug: program.slug });
+                  programs.push({ name: program.name, slug: program.slug });
                 }
               });
 
-              issuer.programs.sort(nameSort);
-              system.issuers.push({ name: issuer.name, slug: issuer.slug, programs: issuer.programs });
+              programs.sort(nameSort);
+              system.issuers.push({ name: issuer.name, slug: issuer.slug, programs: programs });
             }
           });
 
           system.issuers.sort(nameSort);
-
           data.systems.push({ name: system.name, slug: system.slug, issuers: system.issuers });
 
           return innerCallback();

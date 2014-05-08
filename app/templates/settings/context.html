@@ -25,14 +25,9 @@
             {{/if}}
           </div>
         </div>
-
-        {{#if selectedSystem}}
-          {{# if selectedSystem.issuers }}
-            {{#if useIssuer }}
-              {{render "issuers" selectedSystem}}
-            {{/if}}
-          {{/if}}
-        {{/if}}
+        <div {{bind-attr class="showIssuers::hidden"}}>
+          {{render "issuers" selectedSystem}}
+        </div>
       </div>
       <div class="container clearfix submit-button-wrapper">
         <a {{action 'submit' }} class="btn submit-btn" type="submit">Save</a>
@@ -62,14 +57,9 @@
           {{/if}}  
         </div>
       </div>
-
-      {{#if selectedIssuer}}
-        {{#if useProgram }}
-          {{# if selectedIssuer.programs }}
-            {{render "programs" selectedIssuer}}
-          {{/if}}
-        {{/if}}
-      {{/if}}
+      <div {{bind-attr class="showPrograms::hidden"}}>
+        {{render "programs" selectedIssuer}}
+      </div>
     </script>
 
     <script type="text/x-handlebars" id="programs">
@@ -99,6 +89,6 @@
 {% block scripts -%}
   {{ super() }}
   <script src="{{ static('/js/handlebars.js') }}"></script>
-  <script src="{{ static('/js/ember.js') }}"></script>
+  <script src="{{ static('/js/ember.min.js') }}"></script>
   <script src="{{ static('/js/context.js') }}"></script>
 {%- endblock %}

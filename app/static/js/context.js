@@ -16,23 +16,34 @@ function setupEmberApp(systems) {
   });
 
   App.IssuersController = Ember.ObjectController.extend({
-    useIssuer: false,
+    useProgram: false,
     selectedIssuer: null,
+
+    showPrograms: function() {
+      return this.get('useProgram') && this.get('selectedIssuer').programs.length;
+    }.property('useProgram', 'selectedIssuer'),
+
+    preselect: function () {
+      var issuer = this.get('issuers.firstObject');
+      this.set('selectedIssuer', issuer);
+    }.observes('issuers.@each')
   });
 
-
   App.ProgramsController = Ember.ObjectController.extend({
-    useProgram: false,
     selectedProgram: null
   });
 
   App.IndexController = Ember.Controller.extend({
-    needs: ['issuers', 'programs'],
     systems: function() {
       return systems;
     }.property(),
 
     selectedSystem: null,
+    useIssuer: false,
+
+    showIssuers: function() {
+      return this.get('useIssuer') && this.get('selectedSystem').issuers.length;
+    }.property('useIssuer', 'selectedSystem'),
 
     actions: {
       submit: function(issuer) {
