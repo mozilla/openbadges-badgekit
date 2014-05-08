@@ -19,7 +19,7 @@
 {%- endblock %} -->
 
 {% block content %}
-  <div class="container clearfix">
+  <div class="container page-container clearfix">
     <div class="notification js-notification"></div>
     <div class="nav-inputs">
       <input class="badge-field js-name-field left" type="text" name="name" {{ disabled() }} value="{{ badge.name }}">
@@ -39,7 +39,7 @@
       <li class="tab selected"><a {{ createSectionAnchorAttributes('description') }}>Description</a></li>
       <li class="tab"><a {{ createSectionAnchorAttributes('options') }}>Options</a></li>
       <li class="tab"><a {{ createSectionAnchorAttributes('criteria') }}>Criteria</a></li>
-      <!-- <li class="tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li> -->
+      <li class="tab"><a {{ createSectionAnchorAttributes('milestone') }}>Milestone</a></li>
       <li class="tab"><a {{ createSectionAnchorAttributes('visual') }}>Visual</a></li>
     </ul>
 
@@ -68,7 +68,7 @@
           <label class="badge-label left" for="tags">Tags<p class="small-copy">Comma separated keywords</p></label>
           <input class="badge-field" type="text" name="tags" {{ disabled() }} value="{{ generateTagString(badge.tags) }}" placeholder="org name, subject, activity, keywords, etc"/>
           <!-- <a class="btn add-btn">Add<i class="fa fa-plus"></i></a> -->
-        </div> 
+        </div>
 
         <div class="form-field-wrapper cb">
           <label class="badge-label left" for="earnerDescription">Description for Earners<p class="small-copy">Describe why and how someone would apply for this badge.</p></label>
@@ -110,8 +110,46 @@
       <div {{ createSectionDivAttributes('milestone') }}>
         <p class="form-heading"><span class="form-heading-span">Milestone</span> Recognize earners who have been awarded a set of badges.</p>
 
-        <p>Feature Coming Soon...</p>
-        <p class="form-heading"><span class="form-heading-span">A badge can be setup as a milestone.</span> When an earner successfully acquires a particular set of badges, they can be automatically issued with a milestone badge. This allows you to acknowledge higher-level experiences and skills. Conversely, a milestone badge could also allow you to create smaller, more granular badges that culminate in this badge.</p>
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="">Milestone Badge<p class="small-copy">Is this badge and automatic milestone based on earning other badges?</p>
+            <div class="tooltip-container js-tooltip-container"><p class="small-copy"></p></div>
+          </label>
+          <input class="radio-badge-field" type="radio" name="" value="yes">Yes</input>
+          <input class="radio-badge-field" type="radio" name="" value="no">No</input>
+        </div>
+
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="">Automatic Result</label>
+          <input class="radio-badge-field block" type="radio" name="" value="automatic">Automatically Issue the badge</input>
+          <input class="radio-badge-field block" type="radio" name="" value="queue">Queue an Application for review</input>
+        </div>
+
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="">Requirements<p class="small-copy">How many badges must be earned to achieve this milestone? Update Badge Criteria Accordingly</p></label>
+          <input class="badge-field short-badge-field" type="number" name="quantity" min="1" max="100" placeholder="100"> Badges
+        </div>
+
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label" for="">Support Badges<p class="small-copy">How many badges must be earned to achieve this milestone? Update Badge Criteria Accordingly</p></label>
+          <div class="support-badge-modal js-modal">+</div>
+        </div>
+        <div class="overlay">
+          <div class="modal-container">
+            <span class="close-btn js-close">x</span>
+            <p>3 Badges Required. 5 Badges selected.</p>
+            <p>10 combinations available to earn!</p>
+            <hr>
+            <div class="form-field-wrapper clearfix">
+              <div class="form-dropdown left">
+                <span class="arrow-down"></span>
+                <select class="badge-field" name="categories">
+                  <option value="View All Categories"></option>
+                </select>
+              </div>
+              <input class="badge-field" placeholder="Find By Keyword">
+            </div>
+          </div>
+        </div>
       </div>
 
       <div {{ createSectionDivAttributes('criteria') }}>
