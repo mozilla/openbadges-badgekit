@@ -7,14 +7,18 @@
         <div class="column left">
           <i class="fa fa-arrow-circle-o-right"></i>
           <p class="admin-title">Systems</p>
-          <div class="form-dropdown">
-            <span class="arrow-down"></span>
-            {{view Ember.Select content=systems class="js-system-select"
-              optionValuePath="content.slug"
-              optionLabelPath="content.name"
-              selection=selectedSystem
-            }}
-          </div>
+          {{#if selectedSystem}}
+            <div class="form-dropdown">
+              <span class="arrow-down"></span>
+              {{view Ember.Select content=systems class="js-system-select"
+                optionValuePath="content.slug"
+                optionLabelPath="content.name"
+                selection=selectedSystem
+              }}
+            </div>
+          {{else}}
+            <p>Loading... <i class="fa fa-refresh fa-spin"></i></p>
+          {{/if}}
           <br>
           <div>
             <div {{bind-attr class="selectedSystem.issuers.length::hidden" }}>
@@ -29,9 +33,11 @@
           {{partial "issuers"}}
         </div>
       </div>
-      <div class="container clearfix submit-button-wrapper">
-        <a {{action 'submit' }} class="btn submit-btn" type="submit">Save</a>
-      </div>
+      {{#if selectedSystem}}
+        <div class="container clearfix submit-button-wrapper">
+          <a {{action 'submit' }} class="btn submit-btn" type="submit">Save</a>
+        </div>
+      {{/if}}
     </script>
 
     <script type="text/x-handlebars" id="_issuers">
@@ -79,9 +85,6 @@
   {% endraw %}
 
   <div class="js-ember-container" data-url="{{dataUrl}}" data-csrf="{{ csrfToken }}">
-    <div class="container clearfix loading-header">
-      <h1>Loading</h1>
-    </div>
   </div>
 
 {% endblock %}

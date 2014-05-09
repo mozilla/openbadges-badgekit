@@ -1,16 +1,4 @@
 (function() {
-  var dataUrl = $('.js-ember-container').data('url');
-  $.ajax({
-    url: dataUrl,
-    type: 'GET',
-    dataType: 'json'
-  }).done(function (data) {
-    $('.js-ember-container').html('');
-    setupEmberApp(data.systems);
-  })
-})();
-
-function setupEmberApp(systems) {
   var App = Ember.Application.create({
     rootElement: '.js-ember-container'
   });
@@ -29,10 +17,7 @@ function setupEmberApp(systems) {
 
   App.IndexController = Ember.Controller.extend({
     needs: ['issuers','programs'],
-    systems: function() {
-      return systems;
-    }.property(),
-
+    systems: [],
     selectedSystem: null,
     useIssuer: false,
 
@@ -44,6 +29,19 @@ function setupEmberApp(systems) {
     showIssuers: function() {
       return this.get('useIssuer') && this.get('selectedSystem').issuers.length;
     }.property('useIssuer', 'selectedSystem'),
+
+    init: function() {
+      var dataUrl = $('.js-ember-container').data('url');
+      var controller = this;
+      $.ajax({
+        url: dataUrl,
+        type: 'GET',
+        dataType: 'json'
+      }).done(function (data) {
+        controller.set('systems', data.systems);
+        controller.set('selectedSystem', controller.get('systems.firstObject'));
+      })
+    },
 
     actions: {
       submit: function(issuer) {
@@ -71,5 +69,4 @@ function setupEmberApp(systems) {
       }
     }
   });
-
-}
+})();
