@@ -59,10 +59,11 @@
                 </ul>
               </li>
             </ul>
-            <!-- <ul class="navigation-dropdown right">
-              <span class="arrow-down"></span>
-              <li class="menu-item">Issuer Name{{ issuer.name }}</li>
-            </ul> -->
+            {% if contextName %}
+              <ul class="navigation-dropdown right">
+                <a href="{{ url('settings.context') }}"><li class="menu-item">{{ contextName }}</li></a>
+              </ul>
+            {% endif %}
           {% endif %}
         {%- endblock %}
       </header>

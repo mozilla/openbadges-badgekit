@@ -1,0 +1,97 @@
+{% extends "settings/layout.html" %}
+
+{% block content %}
+  {% raw %}
+    <script type="text/x-handlebars" id="index">
+      <div class="container clearfix">
+        <div class="column left">
+          <i class="fa fa-arrow-circle-o-right"></i>
+          <p class="admin-title">Systems</p>
+          {{#if selectedSystem}}
+            <div class="form-dropdown">
+              <span class="arrow-down"></span>
+              {{view Ember.Select content=systems class="js-system-select"
+                optionValuePath="content.slug"
+                optionLabelPath="content.name"
+                selection=selectedSystem
+              }}
+            </div>
+          {{else}}
+            <p>Loading... <i class="fa fa-refresh fa-spin"></i></p>
+          {{/if}}
+          <br>
+          <div>
+            <div {{bind-attr class="selectedSystem.issuers.length::hidden" }}>
+              <label>
+                {{input type="checkbox" name="useIssuer" class="js-use-issuer" checked=useIssuer}}
+                <span>Select Issuer</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div {{bind-attr class="showIssuers::hidden"}}>
+          {{partial "issuers"}}
+        </div>
+      </div>
+      {{#if selectedSystem}}
+        <div class="container clearfix submit-button-wrapper">
+          <a {{action 'submit' }} class="btn submit-btn" type="submit">Save</a>
+        </div>
+      {{/if}}
+    </script>
+
+    <script type="text/x-handlebars" id="_issuers">
+      <div class="column left">
+        <i class="fa fa-arrow-circle-o-right"></i>
+        <p class="admin-title">Issuer</p>
+
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          {{view Ember.Select content=selectedSystem.issuers class="js-issuer-select"
+            optionValuePath="content.slug"
+            optionLabelPath="content.name"
+            selection=controllers.issuers.selectedIssuer
+          }}
+        </div>
+        <br>
+        <div>
+          <div {{bind-attr class="controllers.issuers.selectedIssuer.programs.length::hidden" }}>
+            <label>
+              {{input type="checkbox" name="useProgram" class="js-use-program" checked=controllers.issuers.useProgram}}
+              <span>Select Program</span>
+            </label>
+          </div> 
+        </div>
+      </div>
+      <div {{bind-attr class="controllers.issuers.showPrograms::hidden"}}>
+        {{partial "programs"}}
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="_programs">
+      <div class="column left">
+        <i class="fa fa-arrow-circle-o-right"></i>
+        <p class="admin-title">Program</p>
+        <div class="form-dropdown">
+          <span class="arrow-down"></span>
+          {{view Ember.Select content=controllers.issuers.selectedIssuer.programs class="js-program-select"
+            optionValuePath="content.slug"
+            optionLabelPath="content.name"
+            selection=controllers.programs.selectedProgram
+          }}
+        </div>
+      </div>
+    </script>
+  {% endraw %}
+
+  <div class="js-ember-container" data-url="{{dataUrl}}" data-csrf="{{ csrfToken }}">
+  </div>
+
+{% endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/handlebars.js') }}"></script>
+  <script src="{{ static('/js/ember.min.js') }}"></script>
+  <script src="{{ static('/js/context.js') }}"></script>
+{%- endblock %}

@@ -53,7 +53,8 @@ app.use(staticRoot, express.static(staticDir));
 
 persona.express(app, { audience: config('PERSONA_AUDIENCE'),
                        redirects: { notLoggedIn: '/', notLoggedOut: '/directory' },
-                       selectors: { login: '.js-login', logout: '.js-logout' } });
+                       selectors: { login: '.js-login', logout: '.js-logout' },
+                       middleware: middleware.clearSession });
 
 var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', []), 'sorry.html')];
 var secureApiHandlers = [middleware.verifyApiRequest()];
@@ -85,6 +86,9 @@ app.get('/settings', 'settings', secureRouteHandlers, views.settings.home);
 app.get('/settings/systems', 'settings.systems', secureRouteHandlers, views.settings.systems);
 app.get('/settings/issuers', 'settings.issuers', secureRouteHandlers, views.settings.issuers);
 app.get('/settings/programs', 'settings.programs', secureRouteHandlers, views.settings.programs);
+app.get('/settings/context', 'settings.context', secureRouteHandlers, views.settings.context);
+app.post('/settings/context', 'settings.setContext', secureRouteHandlers, views.settings.setContext);
+app.get('/settings/context/data', 'settings.contextData', secureRouteHandlers, views.settings.contextData);
 app.get('/settings/users', 'settings.users', secureRouteHandlers, views.settings.users);
 app.post('/settings/users', 'settings.editUser', secureRouteHandlers, views.settings.editUser);
 app.del('/settings/users', 'settings.deleteUser', secureRouteHandlers, views.settings.deleteUser);

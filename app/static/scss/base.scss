@@ -146,6 +146,15 @@ input {
   }
 }
 
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  cursor: pointer;
+  border: none;
+}
+
 input[type="submit"] {
   border-top: none;
   border-left: none;

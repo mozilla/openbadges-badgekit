@@ -44,6 +44,13 @@
   }
 }
 
+.pagination-btn {
+  padding: 0 10px;
+  line-height: 0;
+}
+
+.sel-del-btn { margin-top: 15px; }
+
 .blank-btn,
 .review-publish-btn {
   background-color: $light-blue;

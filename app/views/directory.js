@@ -100,7 +100,7 @@ exports.home = function home (req, res, next) {
   }
 
   const pageNum = parseInt(req.query.page, 10) || 1;
-  const category = req.query.category || 'template';
+  const category = req.query.category || 'draft';
   const sort = req.query.sort;
 
   switch (category) {
