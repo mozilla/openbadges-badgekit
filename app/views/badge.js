@@ -261,7 +261,7 @@ function saveBadge(req, callback) {
           }
         },
         function(innerCallback) {
-          if (req.files) {
+          if (req.files && (req.files.uploadImage || req.files.studioImage)) {
             var path = req.files.uploadImage.path;
             var type = req.files.uploadImage.type;
 
