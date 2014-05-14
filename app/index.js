@@ -108,6 +108,10 @@ app.get('/about', 'about', views.about.home);
 
 app.get('/system/:systemId/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 
+app.get('/share', 'share', views.share.home);
+app.post('/share', 'share.subscribe', views.share.subscribe);
+app.get('/share/:shareId', 'share.template', views.share.template);
+
 app.post('/api/user', 'api.user.add', secureApiHandlers, api.user.addUser);
 app.del('/api/user', 'api.user.delete', secureApiHandlers, api.user.deleteUser);
 
