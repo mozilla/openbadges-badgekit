@@ -226,7 +226,6 @@ function saveBadge(req, callback) {
   };
 
   if ('shape' in req.body) query.studioShape = req.body.shape;
-  if ('background' in req.body) query.studioBackground = req.body.background;
   if ('textType' in req.body) query.studioTextType = req.body.textType;
   if ('textContents' in req.body) query.studioTextContents = req.body.textContents;
   if ('icon' in req.body) query.studioIcon = req.body.icon;
