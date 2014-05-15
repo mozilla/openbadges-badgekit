@@ -274,7 +274,6 @@ exports.setContext = function setContext (req, res, next) {
 }
 
 exports.contextData = function contextData (req, res, next) {
-  var util = require('util');
   openbadger.getSystems(function(err, systems) {
     if (err) {
       console.log("error! " + err);
@@ -287,7 +286,7 @@ exports.contextData = function contextData (req, res, next) {
       if (res.locals.hasPermission({ system: system.slug }, 'view')) {
         openbadger.getIssuers({ system: system.slug }, function(err, issuers) {
           if (err) {
-            console.log("inner error" + util.inspect(err));
+            console.log("inner error" + err);
             return innerCallback(err);
           };
 

@@ -26,8 +26,6 @@ exports.edit = function editDesign (req, res, next) {
       swatches: getSwatches,
     }, function (err, data) {
       data.badge = badge;
-      var util = require('util');
-      console.log("here is the badge " + util.inspect(badge));
       res.render('studio/index.html', data)
     });
   });
