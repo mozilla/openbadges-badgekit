@@ -62,8 +62,9 @@
         <h1 class="info-heading">Import a Template</h1>
         <p class="info-text">This will create a new copy in your directory.<a href="{{ url('help') }}" class="fa fa-question-circle"></a></p>
 
-        <form method="post" action="{{ url('share') }}">
-          <input class="badge-field left" placeholder="http://badgekit.org/share/hahgihaghieh">
+        <form method="post" action="{{ url('share.subscribe') }}">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          <input class="badge-field left" placeholder="http://badgekit.org/share/hahgihaghieh" name="subscription">
           <button class="btn blue-btn">Import</button>
         </form>
       </div>

@@ -1,9 +1,14 @@
-const Badge = require('../models/badge');
+const Badge = require('../models/badge')("DATABASE");
 const request = require('request');
 const url = require('url');
+const validator = require('validator');
 
 function isUrl (str) {
-  // TODO: verify it really is a URL!
+  return validator.isURL(str);
+}
+
+function isValidTemplate (str) {
+  // TODO: verify it really is a valid template
   return true;
 }
 
@@ -14,12 +19,15 @@ exports.home = function home (req, res, next) {
 exports.subscribe = function subscribe (req, res, next) {
   var subscription = req.body.subscription;
 
+  if (!subscription)
+    return res.redirect(303, res.locals.url('share'));
+
   // Test subscription is a URL. If not, reformat.
   if (!isUrl(subscription)) {
     subscription = url.format({
       protocol: req.protocol,
-      host: req.host,
-      pathname: res.locals.url('share.template', {shareId: subscription})
+      host: req.headers.host,
+      pathname: res.locals.url('share.template', {shareId: encodeURI(subscription)})
     });
   }
 
@@ -31,16 +39,21 @@ exports.subscribe = function subscribe (req, res, next) {
 
   request(options, function (err, rsp, body) {
     if (err)
+      return handleError(err);
+
+    if (!isValidTemplate(body))
+      return handleError(new Error('Invalid template'));
+
+    // TODO: consume new template
+    res.send(body);
+  });
+
+  function handleError (err) {
+    if (!req.xhr)
       return next(err);
 
-    // TODO: validate body
-    // TODO: consume new template
-
-    // If content is valid template (see `templateAsJson` below),
-    // 'import' it and redirect to new template
-
-    // If content is invalid, display error message
-  });
+    res.send(500, {error: err.message});
+  }
 }
 
 exports.template = function template (req, res, next) {
