@@ -274,35 +274,43 @@ exports.setContext = function setContext (req, res, next) {
 }
 
 exports.contextData = function contextData (req, res, next) {
+  var util = require('util');
   openbadger.getSystems(function(err, systems) {
-    if (err)
+    if (err) {
+      console.log("error! " + err);
       return next(err);
+    };
 
     var data = { systems: [] };
 
     async.each(systems, function(system, innerCallback) {
       if (res.locals.hasPermission({ system: system.slug }, 'view')) {
         openbadger.getIssuers({ system: system.slug }, function(err, issuers) {
-          if (err)
+          if (err) {
+            console.log("inner error" + util.inspect(err));
             return innerCallback(err);
+          };
 
           system.issuers = [];
 
-          issuers.forEach(function(issuer) {
-            if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug }, 'view')) {
+          if (issuers) {
+            issuers.forEach(function(issuer) {
+              if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug }, 'view')) {
 
-              var programs = [];
+                var programs = [];
 
-              issuer.programs.forEach(function(program) {
-                if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug, program: program.slug }, 'view')) {
-                  programs.push({ name: program.name, slug: program.slug });
-                }
-              });
-
-              programs.sort(nameSort);
-              system.issuers.push({ name: issuer.name, slug: issuer.slug, programs: programs });
-            }
-          });
+                if (issuer.programs) {
+                  issuer.programs.forEach(function(program) {
+                    if (res.locals.hasPermission({ system: system.slug, issuer: issuer.slug, program: program.slug }, 'view')) {
+                      programs.push({ name: program.name, slug: program.slug });
+                    }
+                  });
+                };
+                programs.sort(nameSort);
+                system.issuers.push({ name: issuer.name, slug: issuer.slug, programs: programs });
+              }
+            });
+          };
 
           system.issuers.sort(nameSort);
           data.systems.push({ name: system.name, slug: system.slug, issuers: system.issuers });
@@ -315,8 +323,10 @@ exports.contextData = function contextData (req, res, next) {
       }
     },
     function(err) {
-      if (err)
+      if (err) {
+        console.log("error" + err);
         return next(err);
+      }
 
       data.systems.sort(nameSort);
       return res.send(200, data);

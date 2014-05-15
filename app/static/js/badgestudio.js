@@ -191,15 +191,23 @@
    * Set the top ribbon. Calls `BadgeStudio#styleRibbon` to figure out
    * how to style the ribbon.
    *
-   * @param {String} name The name of the ribbon to load. The SVG file
-   *   should be located in the `ribbons/` folder.
+   * @param {Object} config {name, cityName} name: The name of the ribbon to load. The SVG file
+   *   should be located in the `ribbons/` folder. cityName: The city name to include on the ribbon.
    *
    * @param {Function} [callback] Invoked once the ribbon has been
    *   applied to the canvas. Optional.
    *
    * @see BadgeStudio#styleRibbon
    */
-  BadgeStudio.prototype.setRibbon = function setRibbon(name, callback) {
+  BadgeStudio.prototype.setRibbon = function setRibbon(config, callback) {
+    var name = config.name;
+    this.cityName = config.cityName;
+
+    if (!this.cityName) {
+      // would rather branding not be an option if they're not in a city
+      this.cityName = ""
+    };
+
     callback = callback || noop
     var canvas = this.canvas
 
@@ -216,7 +224,7 @@
 
       this.ribbon = ribbon
       this.styleRibbon();
-      ribbon.add(new fabric.Text(BadgeStudio.defaultBrandingCity, BadgeStudio.defaultBrandingStyle));
+      ribbon.add(new fabric.Text(this.cityName, BadgeStudio.defaultBrandingStyle));
       canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
