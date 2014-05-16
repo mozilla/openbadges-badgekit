@@ -226,6 +226,34 @@ $(document).ready(function() {
     });
   }
 
+  function escapeSlug(slug) {
+    if (slug)
+      return slug.replace(/([ #;?%&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
+    return slug;
+  }
+
+  var supportBadgeCheckbox = $('.js-support-checkbox');
+  supportBadgeCheckbox.change(function() {
+    if($(this).is(":checked")) {
+      var newDiv = nunjucks.render('badge/support-badge.html', { supportBadge: { supportBadgeSlug: $(this).val(), imageUrl: $(this).data('image-url') } });
+      $('.js-plus-button').after(newDiv);
+    }
+    else {
+      $('.js-support-badge[data-slug=' + escapeSlug($(this).val()) + ']').remove();
+    }
+  });
+
+  var isMilestone = $('.js-is-milestone');
+  isMilestone.change(function() {
+    if ($(this).val() == 'yes') {
+      $('.js-milestone-only').show();
+    } 
+    else {
+      $('.js-milestone-only').hide();
+    }
+  });
+  isMilestone.filter(':checked').change();
+
   function validateField(inputName, error, test) {
     var val = $('[name=' + inputName + ']').val();
     if (test(val) == false) {

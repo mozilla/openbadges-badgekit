@@ -26,6 +26,19 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.badgeType = badge.type;
   newBadge.categories = badge.categories || [];
   newBadge.tags = badge.tags || [];
+  newBadge.system = badge.system ? badge.system.slug : null;
+  newBadge.issuer = badge.issuer ? badge.issuer.slug : null;
+  newBadge.program = badge.program ? badge.program.slug : null;
+  
+  var milestone = badge.milestones.length ? badge.milestones[0] : null;
+  var supportBadges = milestone ? milestone.supportBadges : null;
+
+  newBadge.milestoneNumRequired = milestone ? milestone.numberRequired : null;
+  newBadge.milestoneAction = milestone ? milestone.action : 'issue';
+  newBadge.isMilestone = milestone ? 1 : 0;
+  newBadge.supportBadges = (supportBadges || []).map(function (supportBadge) {
+    return { supportBadgeSlug: supportBadge.slug, imageUrl: supportBadge.imageUrl };
+  });
 
   return newBadge;
 };

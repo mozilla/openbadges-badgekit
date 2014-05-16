@@ -14,7 +14,7 @@
 
 .modal-container {
   position: relative;
-  width: 500px;
+  width: 600px;
   margin: 100px auto;
   background-color: $white;
   padding:15px;
@@ -31,6 +31,10 @@
   }
   .badge-field:last-child { margin-top: 5px; }
   .form-dropdown { width: 45%; margin-right: 20px; }
+  .support-badges-list {
+    height: 500px;
+    overflow-y: scroll;
+  }
 }
 
 .nav-inputs {
@@ -52,17 +56,6 @@
 }
 .review-publish-btn {
   padding-left: 23px;
-}
-
-.support-badge-modal {
-  width: 50px;
-  height: 50px;
-  background-color: #63c6f4;
-  padding: 5px 16px;
-  color: white;
-  font-size: 30px;
-  margin-top: -20px;
-  cursor: pointer;
 }
 
 .publish-save {
@@ -170,6 +163,37 @@
   width: 90px;
   border: 1px solid $light-gray;
   margin-right: 50px;
+}
+
+.support-badges-entry {
+  p, input {
+    display: inline;
+    position: relative;
+    bottom: 38px;
+  }
+}
+
+.support-badge-thumb-wrapper {
+  display: inline-block;
+  height: 90px;
+  width: 100px;
+  overflow: hidden;
+  text-align: center;
+  img {
+    height: 90px;
+  }
+}
+
+.support-badge-modal {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background-color: #63c6f4;
+  padding: 3px 28px;
+  color: white;
+  font-size: 60px;
+  cursor: pointer;
+  vertical-align:top;
 }
 
 .studio-thumb.studio-icons {

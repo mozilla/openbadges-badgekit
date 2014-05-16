@@ -4,6 +4,8 @@ var async = require('async');
 module.exports = function getBadgeModel (key) {
   var BadgeCategory = require('./badge-category')(key);
   var BadgeTag = require('./badge-tag')(key);
+  var SupportBadge = require('./support-badge')(key);
+
   var Image = require('./image')(key);
 
   function setCriteria(criteria, callback) {
@@ -85,6 +87,37 @@ module.exports = function getBadgeModel (key) {
     });
   }
 
+  function setSupportBadges(supportBadges, callback) {
+    const badgeId = this.id;
+
+    var supportSlugs = supportBadges.map(function (supportBadge) { return supportBadge.supportBadgeSlug || supportBadge });
+
+    SupportBadge.del({primaryBadgeId: badgeId}, function (err) {
+      if (err)
+        return callback(err);
+
+      const stream = SupportBadge.createWriteStream();
+
+      stream.on('error', function (err) {
+        callback(err);
+        callback = function () {};
+      });
+
+      stream.on('close', function () {
+        callback(null);
+      });
+
+      supportSlugs.forEach(function (supportSlug, pos) {
+        // Filter out duplicate values
+        if (supportSlugs.indexOf(supportSlug) !== pos)
+          return;
+
+        stream.write({primaryBadgeId: badgeId, supportBadgeSlug: supportSlug});
+      });
+
+      stream.end();
+    });
+  }
 
   function setCategories(categories, callback) {
     const badgeId = this.id;
@@ -171,6 +204,12 @@ module.exports = function getBadgeModel (key) {
 
     delete badge.tags;
 
+    var supportBadges = (badge.supportBadges || []).map(function (supportBadge) {
+      return supportBadge.supportBadgeSlug;
+    });
+
+    delete badge.supportBadges;
+
     badge.created = new Date();
     delete badge.lastUpdated;
     if (badge.image && (badge.image.id !== null)) {
@@ -203,7 +242,8 @@ module.exports = function getBadgeModel (key) {
           async.series([
             row.setCriteria.bind(row, criteria),
             row.setCategories.bind(row, categories),
-            row.setTags.bind(row, tags)
+            row.setTags.bind(row, tags),
+            row.setSupportBadges.bind(row, supportBadges),
           ], function (err) {
             callback(err, row);
           });
@@ -269,7 +309,10 @@ module.exports = function getBadgeModel (key) {
        'issuer',
        'program',
        'badgeType',
-       'studioBranding'],
+       'studioBranding',
+       'milestoneNumRequired',
+       'milestoneAction',
+       'isMilestone'],
     relationships: {
       criteria: {
         type: 'hasMany',
@@ -292,12 +335,18 @@ module.exports = function getBadgeModel (key) {
         local: 'imageId',
         foreign: { table: 'image', key: 'id' },
         optional: true
+      },
+      supportBadges: {
+        type: 'hasMany',
+        local: 'id',
+        foreign: { table: 'supportBadge', key: 'primaryBadgeId' }
       }
     },
     methods: {
       setCriteria: setCriteria,
       setTags: setTags,
       setCategories: setCategories,
+      setSupportBadges: setSupportBadges,
       createCopy: createCopy,
       del: deleteBadge
     }
