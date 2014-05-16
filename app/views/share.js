@@ -12,6 +12,11 @@ function isValidTemplate (str) {
   return true;
 }
 
+function serializeTemplate (template) {
+  // TODO: serialize template
+  return JSON.stringify(template);
+}
+
 exports.home = function home (req, res, next) {
   return res.render('share/home.html');
 }
@@ -52,7 +57,7 @@ exports.subscribe = function subscribe (req, res, next) {
     if (!req.xhr)
       return next(err);
 
-    res.send(500, {error: err.message});
+    res.json(500, {error: err.message});
   }
 }
 
@@ -62,7 +67,9 @@ exports.template = function template (req, res, next) {
 
   const shareId = req.params.shareId;
 
-  Badge.get({shareId: shareId}, function (err, badge) {
+  Badge.getOne({slug: shareId, status: 'template'}, {
+    relationships: true
+  }, function (err, badge) {
     if (req.accepts('json'))
       return templateAsJson(err, badge, req, res, next);
 
@@ -74,13 +81,12 @@ function templateAsJson (err, template, req, res, next) {
   // Render template as JSON - the actual data needed for sharing this template
 
   if (err)
-    return res.send(500, JSON.stringify(err)); // TODO: do this properly
+    return res.json(500, err); // TODO: do this properly
 
   if (!template)
-    return res.send(404, JSON.stringify(new Error('Not found'))) // TODO
+    return res.json(404, {error: 'Not Found'})
 
-  // Is this sufficient? Not sure what data is required for sharing
-  return res.send(200, JSON.stringify(template));
+  return res.send(200, serializeTemplate(template));
 }
 
 function templateAsHtml (err, template, req, res, next) {
@@ -90,7 +96,7 @@ function templateAsHtml (err, template, req, res, next) {
     return next(err);
 
   if (!template)
-    return next(new Error('Not found')); // TODO: should be a 404 really
+    return next(); // Should force a 404
 
   return res.render('share/template.html', {
     template: template
