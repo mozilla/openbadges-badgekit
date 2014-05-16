@@ -70,7 +70,7 @@ exports.template = function template (req, res, next) {
   Badge.getOne({slug: shareId, status: 'template'}, {
     relationships: true
   }, function (err, badge) {
-    if (req.accepts('json'))
+    if (req.accepts('json, html') === 'json')
       return templateAsJson(err, badge, req, res, next);
 
     return templateAsHtml(err, badge, req, res, next);
