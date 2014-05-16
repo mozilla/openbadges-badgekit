@@ -54,8 +54,12 @@ exports.subscribe = function subscribe (req, res, next) {
     if (err)
       return next(err);
 
-    if (rsp.statusCode >= 300)
-      return next(new Error('Error importing template'));
+    if (rsp.statusCode >= 300) {
+      return res.render('share/home.html', {
+        subscription: req.body.subscription,
+        message: 'Error importing template'
+      });
+    }
 
     consumeTemplate(body, function (err, template) {
       if (err)
@@ -88,10 +92,10 @@ function templateAsJson (err, template, req, res, next) {
   // Render template as JSON - the actual data needed for sharing this template
 
   if (err)
-    return res.json(500, err); // TODO: do this properly
+    return res.json(500, {error: err.message});
 
   if (!template)
-    return res.json(404, {error: 'Not Found'})
+    return res.json(404, {error: 'Not Found'});
 
   return res.send(200, serializeTemplate(template));
 }

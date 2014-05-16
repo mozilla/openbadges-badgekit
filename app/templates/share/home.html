@@ -6,3 +6,30 @@
   should POST to itself.
 
 #}
+
+{% block content %}
+<div class="container clearfix">
+  {% if message %}
+    <div class="notification"><p>{{ message }}</p></div>
+  {% endif %}
+
+  <section class="info">
+    <h1 class="info-heading">Import a template</h1>
+    <p class="info-text">Share a template from another provider.</p>
+
+    <form method="post" action="{{ url('share.subscribe') }}" class="center">
+      <p>This will create a new copy in your directory.</p>
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <input class="badge-field left" placeholder="http://badgekit.org/share/9bee00edcb06b8b6" value="{{ subscription }}" name="subscription">
+      <button class="btn blue-btn">Import</button>
+    </form>
+  </section>
+
+  <br><br><br>
+
+  <section class="info">
+    <h1 class="info-heading">Share your own templates</h1>
+    <p class="info-text">You can find the URL for sharing your own templates on each template page.</p>
+  </section>
+</div>
+{% endblock %}
