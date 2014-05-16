@@ -115,7 +115,29 @@ exports.edit = function edit (req, res, next) {
           return category.id;
         });
 
-        callback(null, data);
+        var badgeContext = { system: data.badge.system };
+        if (data.badge.issuer) badgeContext.issuer = data.badge.issuer;
+        if (data.badge.program) badgeContext.program = data.badge.program;
+
+        openbadger.getAllBadges(badgeContext, function (err, supportData) {
+          if (err)
+            return callback(err);
+
+          supportData.forEach(function(badgeData) {
+            data.badge.supportBadges.forEach(function(supportBadge) {
+              if (badgeData.slug === supportBadge.supportBadgeSlug) {
+                supportBadge.imageUrl = badgeData.imageUrl;
+                badgeData.checked = true;
+              }
+            });
+          });
+
+          data.availableSupportBadges = supportData.map(function(badge) { 
+            return { slug: badge.slug, name: badge.name, imageUrl: badge.imageUrl, checked: badge.checked }; 
+          });
+
+          callback(null, data);
+        });
       });
     },
     function(callback) {
@@ -222,7 +244,9 @@ function saveBadge(req, callback) {
     limit: req.body.limit == 'limit' ? (limitNumber > 0 ? limitNumber : 0) : 0,
     unique: req.body.unique == 'unique' ? 1 : 0,
     multiClaimCode: req.body.multiClaimCode,
-    badgeType: req.body.badgeType
+    badgeType: req.body.badgeType,
+    milestoneNumRequired: req.body.milestoneNumRequired,
+    isMilestone: req.body.isMilestone == 'yes' ? 1 : 0
   };
 
   if ('shape' in req.body) query.studioShape = req.body.shape;
@@ -307,6 +331,11 @@ function saveBadge(req, callback) {
           badgeRow.setCategories(req.body.category, innerCallback);
         },
         function(innerCallback) {
+          var supportBadges = req.body.supportBadges || [];
+
+          badgeRow.setSupportBadges(supportBadges, innerCallback);
+        },
+        function(innerCallback) {
           if (!('tags' in req.body))
             return innerCallback(null);
 
@@ -367,7 +396,7 @@ exports.publish = function publish (req, res, next) {
 
       var badge = openbadger.toOpenbadgerBadge(row);
 
-      openbadger.createBadge({ system: row.system, issuer: row.issuer, program: row.program, badge: badge }, function(err) {
+      openbadger.createBadge({ system: row.system, issuer: row.issuer, program: row.program, badge: badge }, function(err, newBadge) {
         if (err) {
           if ((/^ResourceConflictError/).test(err.toString())) {
             return res.send(409, 'A badge with that name already exists');
@@ -379,10 +408,29 @@ exports.publish = function publish (req, res, next) {
           if (err)
             return res.send(500, err.message);
 
+          if (row.isMilestone) {
+            async.map(row.supportBadges, function (supportBadge, callback) {
+              openbadger.getBadge({ system: row.system, badge: supportBadge.supportBadgeSlug }, callback);
+            },
+            function (err, supportBadges) {
+              if (err) 
+                return console.log('Error creating milestone: ' + err.message);
+
+              var milestone = { numberRequired: row.milestoneNumRequired, action: row.milestoneAction, primaryBadgeId: newBadge.id, supportBadges: [] };
+              supportBadges.forEach(function(supportBadge) {
+                milestone.supportBadges.push(supportBadge.id);
+              });
+
+              openbadger.createMilestone({ system: row.system, milestone: milestone}, function (err) {
+                if (err) 
+                  return console.log('Error creating milestone: ' + err.message)
+              });
+            });
+          }
+
           req.session.lastCreatedId = badge.slug;
           req.session.notification = 'published';
-
-          return res.send(200, { location: res.locals.url('directory') + '?category=published' });
+          return res.send(200, { location: res.locals.url('directory') + '?category=published' });       
         });
       });
     });
@@ -421,6 +469,8 @@ exports.copy = function copy (req, res, next) {
       delete badge.categories;
       var tags = badge.tags;
       delete badge.tags;
+      var supportBadges = badge.supportBadges;
+      delete badge.supportBadges;
       badge.status = 'draft';
       badge.system = context.system;
       badge.issuer = context.issuer;
@@ -439,7 +489,8 @@ exports.copy = function copy (req, res, next) {
           async.parallel([
             badgeRow.setCriteria.bind(badgeRow, criteria),
             badgeRow.setCategories.bind(badgeRow, categories),
-            badgeRow.setTags.bind(badgeRow, tags)
+            badgeRow.setTags.bind(badgeRow, tags),
+            badgeRow.setSupportBadges.bind(badgeRow, supportBadges),
             ],
             function(err, results) {
               if (err) {
