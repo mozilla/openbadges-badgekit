@@ -7,7 +7,7 @@ function isUrl (str) {
   return validator.isURL(str);
 }
 
-function isValidTemplate (str) {
+function isValidTemplate (data) {
   // TODO: verify it really is a valid template
   return true;
 }
@@ -15,6 +15,14 @@ function isValidTemplate (str) {
 function serializeTemplate (template) {
   // TODO: serialize template
   return JSON.stringify(template);
+}
+
+function consumeTemplate (data, callback) {
+  if (!isValidTemplate(data))
+    return callback(new Error('Invalid template'), null);
+
+  // TODO: convert data into working template, and return via callback
+  callback(null, {id: 1});
 }
 
 exports.home = function home (req, res, next) {
@@ -46,18 +54,24 @@ exports.subscribe = function subscribe (req, res, next) {
     if (err)
       return handleError(err);
 
-    if (!isValidTemplate(body))
-      return handleError(new Error('Invalid template'));
+    consumeTemplate(body, function (err, template) {
+      if (err)
+        return handleError(err);
 
-    // TODO: consume new template
-    res.send(body);
+      var redirect = res.locals.url('badge', {badgeId: template.id});
+
+      if (!req.xhr)
+        return res.redirect(303, redirect);
+
+      res.json(200, {status: 'ok', message: redirect});
+    })
   });
 
   function handleError (err) {
     if (!req.xhr)
       return next(err);
 
-    res.json(500, {error: err.message});
+    res.json(500, {status: 'error', message: err.message});
   }
 }
 
