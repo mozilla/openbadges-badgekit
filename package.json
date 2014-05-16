@@ -30,7 +30,7 @@
     "express-persona-observer": "git+https://github.com/christensenep/express-persona-observer.git#multiple-buttons",
     "async": "~0.2.9",
     "mysql": "~2.0.0-rc1",
-    "badgekit-api-client": "git+https://github.com/mozilla/badgekit-api-client.git#application-updates",
+    "badgekit-api-client": "git+https://github.com/mozilla/badgekit-api-client.git#milestones",
     "data-uri-to-buffer": "0.0.3"
   },
   "devDependencies": {
