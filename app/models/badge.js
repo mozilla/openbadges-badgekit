@@ -283,6 +283,7 @@ module.exports = function getBadgeModel (key) {
   var Badge = db.table('badge', {
     fields:
       ['id',
+       'slug',
        'name',
        'status',
        'description',
