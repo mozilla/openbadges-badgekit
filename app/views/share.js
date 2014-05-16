@@ -52,27 +52,20 @@ exports.subscribe = function subscribe (req, res, next) {
 
   request(options, function (err, rsp, body) {
     if (err)
-      return handleError(err);
+      return next(err);
+
+    if (rsp.statusCode >= 300)
+      return next(new Error('Error importing template'));
 
     consumeTemplate(body, function (err, template) {
       if (err)
-        return handleError(err);
+        return next(err);
 
       var redirect = res.locals.url('badge', {badgeId: template.id});
 
-      if (!req.xhr)
-        return res.redirect(303, redirect);
-
-      res.json(200, {status: 'ok', message: redirect});
+      return res.redirect(303, redirect);
     })
   });
-
-  function handleError (err) {
-    if (!req.xhr)
-      return next(err);
-
-    res.json(500, {status: 'error', message: err.message});
-  }
 }
 
 exports.template = function template (req, res, next) {
