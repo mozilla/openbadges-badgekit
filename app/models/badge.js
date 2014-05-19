@@ -269,7 +269,9 @@ module.exports = function getBadgeModel (key) {
        'issuer',
        'program',
        'badgeType',
-       'studioBranding'],
+       'studioBranding',
+       'studioBrandingLabel',
+      ],
     relationships: {
       criteria: {
         type: 'hasMany',
