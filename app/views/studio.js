@@ -65,7 +65,6 @@ exports.save = function saveDesign (req, res, next) {
         // handle INSERT || UPDATE
         imageId: imageRow.insertId || imageRow.row.id,
         studioShape: req.body.shape,
-        studioBackground: req.body.background,
         studioIcon: req.body.graphic,
         studioColor: req.body.palette,
         studioBranding: req.body.brand,
