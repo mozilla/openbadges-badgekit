@@ -3,7 +3,7 @@ var async = require('async');
 var crypto = require('crypto');
 
 function randomStr (len) {
-  const characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+  const characters = '0123456789abcdef';
   const rand = new Buffer(len);
   const bytes = crypto.randomBytes(len);
   for (var i = 0; i < bytes.length; i++)
