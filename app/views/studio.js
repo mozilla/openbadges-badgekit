@@ -1,4 +1,5 @@
 const async = require('async');
+const config = require('../lib/config');
 const dataUriToBuffer = require('data-uri-to-buffer');
 const fs = require('fs');
 const path = require('path');
@@ -25,7 +26,14 @@ exports.edit = function editDesign (req, res, next) {
       graphics: getGraphics.bind(null, staticDir),
       swatches: getSwatches,
     }, function (err, data) {
+      if (err)
+        return next(err);
+
+      var brandingLabel = config('BRANDING_' + badge.system, '')
+                          || config('BRANDING', '');
+
       data.badge = badge;
+      data.brandingLabel = brandingLabel;
       res.render('studio/index.html', data)
     });
   });
@@ -60,7 +68,8 @@ exports.save = function saveDesign (req, res, next) {
         studioBackground: req.body.background,
         studioIcon: req.body.graphic,
         studioColor: req.body.palette,
-        studioBranding: req.body.brand
+        studioBranding: req.body.brand,
+        studioBrandingLabel: req.body.brandLabel
       }
 
       Badge.put(badgeQuery, function(err, badgeResult) {
@@ -82,8 +91,8 @@ function readDirectory (filepath, prefix, callback) {
     callback(null, files.map(function(file) {
       var filename = path.basename(file, path.extname(file));
       var label = filename.toLowerCase()
-                    .replace('_', ' ')
-                    .replace(/((?:^| )\w)/, function (e) { return e.toUpperCase(); })
+                    .replace(/[_-]/g, ' ')
+                    .replace(/((?:^| )\w)/g, function (e) { return e.toUpperCase(); })
       return {
         label: label,
         value: filename,

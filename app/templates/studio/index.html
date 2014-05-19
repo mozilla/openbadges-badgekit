@@ -49,19 +49,16 @@
 
 {% block scripts %}
   {{ super() }}
-  <script class="badge-studio-config" type="application/json">
-    {
-      "shape": "{{ badge.studioShape }}",
-      "background": "{{ badge.studioBackground }}",
-      "graphic": "{{ badge.studioIcon }}",
-      "palette": "{{ badge.studioColor }}",
-      "brand": "{{ badge.studioBranding }}",
-      "system" : "{{ badge.system }}"
-    }
-  </script>
   <script>
     (function () {
-      var badgeStudioConfig = JSON.parse($('.badge-studio-config').text());
+      var badgeStudioConfig = {
+        shape: "{{ badge.studioShape }}",
+        background: "{{ badge.studioBackground }}",
+        graphic: "{{ badge.studioIcon }}",
+        palette: "{{ badge.studioColor }}",
+        branding: "{{ badge.studioBranding }}",
+        brandingLabel: "{{ badge.studioBrandingLabel | default(brandingLabel) }}"
+      };
 
       if (badgeStudioConfig.shape) {
         $('input[name=shape][value=' + badgeStudioConfig.shape + ']').prop('checked', true);
@@ -75,16 +72,18 @@
       if (badgeStudioConfig.palette) {
         $('input[name=palette][value=' + badgeStudioConfig.palette + ']').prop('checked', true);
       }
-      if (badgeStudioConfig.brand) {
-        $('input[name=brand][value=' + badgeStudioConfig.brand + ']').prop('checked', true);
+      if (badgeStudioConfig.branding) {
+        $('input[name=brand][value=' + badgeStudioConfig.branding + ']').prop('checked', true);
       }
 
-      var studio = new BadgeStudio('studioCanvas');
+      var studio = new BadgeStudio('studioCanvas', {
+        brandingLabel: badgeStudioConfig.brandingLabel
+      });
+
       var ui = new BadgeStudioUI(studio, {
         canAddBackgrounds: true,
         canAddGraphics: true,
-        canAddBranding: false,
-        system: badgeStudioConfig.system
+        canAddBranding: false
       });
     })();
   </script>

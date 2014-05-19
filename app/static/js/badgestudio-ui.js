@@ -116,7 +116,8 @@
     this.graphic = createComponent('graphic', {canAdd: !!config.canAddGraphics});
     this.color = createComponent('color');
     this.branding = createComponent('branding', {canAdd: !!config.canAddBranding});
-    this.system = config.system;
+
+    var brandingLabel = config.brandingLabel || '';
 
     this.shape.on('change', function (shape) {
       studio.setShape(shape);
@@ -142,11 +143,10 @@
     });
 
     this.branding.on('change', function (branding) {
-      var cityNames = {'chicago':'CHI','dallas':'DAL','los-angeles':'LA'};
-      studio.setRibbon({name:branding, cityName:cityNames[this.system]});
-      console.log('Branding:', branding);
-      console.log('City Name:', cityNames[this.system]);
-      console.log('System:', this.system);
+      studio.setRibbon({
+        name: branding,
+        label: brandingLabel
+      });
     }.bind(this));
 
     $('#studio').submit(function () {
