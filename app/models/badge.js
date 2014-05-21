@@ -310,9 +310,11 @@ module.exports = function getBadgeModel (key) {
        'program',
        'badgeType',
        'studioBranding',
+       'studioBrandingLabel',
        'milestoneNumRequired',
        'milestoneAction',
-       'isMilestone'],
+       'isMilestone',
+      ],
     relationships: {
       criteria: {
         type: 'hasMany',

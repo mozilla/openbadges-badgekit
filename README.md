@@ -82,6 +82,7 @@ The following environment variables are currently used:
 - PERSONA_AUDIENCE: Should be set to the app's url (example: "http://localhost:3000"). _Required_
 - ACCESS_LIST: An array of regular expressions that define "administrator" email patterns.  e.g. ["^edogg@example.org$"].  These users will automatically be members of the OPENBADGER_SYSTEM system.
 - API_SECRET: A string used as a shared secret for BadgeKit's API functions (currently this is only add/delete user functionality). _Required_
+- BRANDING: A short string used by the badge studio to add a label to the branding ribbon. Alternatively, this can be an object keyed by `system` slug.
 - DEBUG: If set to true, enables additional logging. Defaults to false.
 
 For a MySQL database, you'll also want to set:

@@ -117,6 +117,8 @@
     this.color = createComponent('color');
     this.branding = createComponent('branding', {canAdd: !!config.canAddBranding});
 
+    var brandingLabel = config.brandingLabel || '';
+
     this.shape.on('change', function (shape) {
       studio.setShape(shape);
     });
@@ -141,10 +143,11 @@
     });
 
     this.branding.on('change', function (branding) {
-      // TO DO
-      studio.setRibbon(branding);
-      console.log('Branding:', branding);
-    });
+      studio.setRibbon({
+        name: branding,
+        label: brandingLabel
+      });
+    }.bind(this));
 
     $('#studio').submit(function () {
       var form = $(this).find('form')[0];
@@ -200,5 +203,3 @@
     });
   });
 })();
-
-
