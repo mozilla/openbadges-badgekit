@@ -29,7 +29,7 @@ exports.edit = function editDesign (req, res, next) {
       if (err)
         return next(err);
 
-      var brandingLabel = config('BRANDING_' + badge.system, '')
+      var brandingLabel = config('BRANDING_' + badge.system.replace(/\W/g, ''), '')
                           || config('BRANDING', '');
 
       data.badge = badge;
