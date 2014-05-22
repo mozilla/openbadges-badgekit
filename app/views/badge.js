@@ -4,6 +4,8 @@ const Badge = require('../models/badge')("DATABASE");
 const BadgeCategory = require('../models/badge-category')("DATABASE");
 const Image = require('../models/image')("DATABASE");
 const async = require('async');
+const url = require('url');
+const config = require('../lib/config');
 
 const openbadger = require('../lib/openbadger');
 const middleware = require('../middleware');
@@ -62,6 +64,10 @@ exports.home = function home (req, res, next) {
     data.createdFormatted = middleware.getMonthName(data.badge.created.getMonth()) + ' ' +
                                   data.badge.created.getDate() + ', ' +
                                   data.badge.created.getFullYear();
+
+    if (data.badge.status === 'template') {
+      data.shareUrl = url.resolve(config('PERSONA_AUDIENCE'), res.locals.url('share.template', { shareId: data.badge.slug }));
+    }
 
     res.render('badge/home.html', data);
   });
@@ -475,7 +481,7 @@ exports.copy = function copy (req, res, next) {
       badge.system = context.system;
       badge.issuer = context.issuer;
       badge.program = context.program;
-
+      badge.slug = Badge.generateSlug();
       Badge.put(badge, function (err, badgeResult) {
         if (err) {
           return res.send(500, err);

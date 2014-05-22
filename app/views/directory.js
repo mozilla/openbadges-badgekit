@@ -137,7 +137,7 @@ exports.home = function home (req, res, next) {
 
 exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
-  var query = res.locals.makeContext({ name: 'New Badge', status: category, created: new Date() });
+  var query = res.locals.makeContext({ name: 'New Badge', status: category, created: new Date(), slug: Badge.generateSlug() });
 
   if (!res.locals.hasPermission(query, 'draft'))
     return res.send(403, 'You do not have permission to create a badge');

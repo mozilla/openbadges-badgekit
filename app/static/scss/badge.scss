@@ -1,4 +1,5 @@
 @import "base";
+@import "buttons";
 
 .overlay {
   display: none;
@@ -150,12 +151,25 @@
   margin-top: -10px;
   position: absolute;
   width: 200px;
-  @include drop-shadow;
   .small-copy { margin-bottom: 0; }
+}
+
+.copied-badge-view {
+  border: 1px solid $light-gray;
+  padding: 20px;
+  margin-top: 20px;
+  button { margin-top: 10px; }
+}
+
+.import-template-tooltip {
+  display: block;
+  position: absolute;
+  right: 0;
 }
 
 .fa-question-circle {
   cursor: pointer;
+  color: $black;
   &:hover { color: $light-blue; }
 }
 
@@ -302,9 +316,17 @@
   .fa-share-square,
   .fa-cloud-upload,
   .fa-pencil,
-  .fa-rocket { color: $white; margin-right: 5px; }
+  .fa-rocket,
+  .fa-copy { color: $white; margin-right: 5px; }
+  .fa-copy {
+    padding: 5px;
+    background-color: $light-blue;
+    margin-left: 50px;
+    margin-right: 10px;
+  }
   .border-top { width: $six-wide; }
   .admin-btn-container { margin: 10px 0; }
+  .share-url { color: $gray; }
 }
 
 .form-field-wrapper { margin-bottom: 20px; }

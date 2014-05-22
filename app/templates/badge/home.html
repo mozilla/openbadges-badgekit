@@ -3,6 +3,7 @@
 {% block content %}
   <div class="container clearfix">
     <div class="notification js-delete-confirm-text hidden"><p>Click <a href="{{ url('badge.delete', { badgeId: badge.id }) }}" class="js-delete-confirm-btn" data-csrf="{{ csrfToken }}">here</a> to delete this badge.  This cannot be undone.</p></div>
+
     <div class="badge-details">
       <img class="badge-image left" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
@@ -82,6 +83,17 @@
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
       </div>
+      <hr>
+      <div class="admin-btn-container">
+        <span>Share</span>
+        <i class="fa fa-question-circle js-tooltip"></i>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Give this URL to any BadgeKit user. They will recieve a copy of you template</p></div>
+      </div>
+      <div class="admin-btn-container">
+        <span class="uppercase">Share URL</span><i class="fa fa-copy"></i>
+        <span class="share-url">{{ shareUrl }}</span>
+      </div>
+      <hr>
       <div>
         <a href="" class="btn js-delete-btn">Delete</a>
         <i class="fa fa-question-circle js-tooltip"></i>

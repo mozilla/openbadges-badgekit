@@ -1,6 +1,14 @@
 $(document).ready(function() {
   nunjucks.configure('/static/templates', { autoescape: true });
 
+  $('.js-import-template').on('click', function() {
+    $('.js-import-template-modal').show();
+  });
+
+  $('.js-close').on('click', function() {
+    $('.js-import-template-modal').hide();
+  });
+
   var mobileButton = $('.js-small-screen-dropdown');
   var mobileDropdown = $('.js-small-screen-menu');
 

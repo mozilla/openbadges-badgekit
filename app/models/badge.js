@@ -1,5 +1,15 @@
 var getDb = require('../lib/db').getDb;
 var async = require('async');
+var crypto = require('crypto');
+
+function randomStr (len) {
+  const characters = '0123456789abcdef';
+  const rand = new Buffer(len);
+  const bytes = crypto.randomBytes(len);
+  for (var i = 0; i < bytes.length; i++)
+    rand[i] = characters[bytes[i] % characters.length].charCodeAt(0);
+  return rand.toString('utf8');
+}
 
 module.exports = function getBadgeModel (key) {
   var BadgeCategory = require('./badge-category')(key);
@@ -183,6 +193,7 @@ module.exports = function getBadgeModel (key) {
     }
 
     delete badge.id;
+    badge.slug = Badge.generateSlug();
 
     var criteria = badge.criteria;
     criteria.forEach(function(criterion) {
@@ -283,6 +294,7 @@ module.exports = function getBadgeModel (key) {
   var Badge = db.table('badge', {
     fields:
       ['id',
+       'slug',
        'name',
        'status',
        'description',
@@ -353,6 +365,8 @@ module.exports = function getBadgeModel (key) {
       del: deleteBadge
     }
   });
+
+  Badge.generateSlug = randomStr.bind(null, 16);
 
   return Badge;
 };

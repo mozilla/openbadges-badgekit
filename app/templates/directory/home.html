@@ -40,6 +40,11 @@
 
       <nav class="nav-header">
         <ul class="navigation-dropdown right">
+          {% if category == 'template' %}
+            <span class="small-copy js-import-template">Import a template
+              <i class="fa fa-clipboard js-import-template" title="Import a template"></i>
+            </span>
+          {% endif %}
           <li class="menu-item sort-menu">
             Sort badges <i class="fa fa-caret-down"></i>
             <ul class="menu-hover sort-menu-hover">
@@ -52,6 +57,17 @@
           </li>
         </ul>
       </nav>
+      <div class="import-template-modal js-import-template-modal">
+        <span class="close-btn js-close">x</span>
+        <h1 class="info-heading">Import a Template</h1>
+        <p class="info-text">This will create a new copy in your directory.<a href="{{ url('help') }}" class="fa fa-question-circle"></a></p>
+
+        <form method="post" action="{{ url('share.subscribe') }}">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          <input class="badge-field left" placeholder="http://badgekit.org/share/9bee00edcb06b8b6" name="subscription">
+          <button class="btn blue-btn">Import</button>
+        </form>
+      </div>
 
       <section class="directory-container js-masonry-container cb">
         {% if (category == 'template' or category == 'draft') and canCreateDraft %}
