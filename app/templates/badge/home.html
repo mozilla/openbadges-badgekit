@@ -4,12 +4,6 @@
   <div class="container clearfix">
     <div class="notification js-delete-confirm-text hidden"><p>Click <a href="{{ url('badge.delete', { badgeId: badge.id }) }}" class="js-delete-confirm-btn" data-csrf="{{ csrfToken }}">here</a> to delete this badge.  This cannot be undone.</p></div>
 
-    <!-- ONLY SHOW THIS WHEN A BADGE HAS BEEN SHARED AND THEY'RE BROUGHT TO THIS URL -->
-    <div class="copied-badge-view clearfix">
-      <p class="left">You are viewing the [...]'s template.</p>
-      <button class="btn blue-btn right"><i class="fa fa-copy">Copy to my Badgekit</i></button>
-    </div>
-
     <div class="badge-details">
       <img class="badge-image left" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
@@ -97,7 +91,7 @@
       </div>
       <div class="admin-btn-container">
         <span class="uppercase">Share URL</span><i class="fa fa-copy"></i>
-        <span class="share-url"> http://badgekit.org/share/phgahegigheng27</span>
+        <span class="share-url">{{ shareUrl }}</span>
       </div>
       <hr>
       <div>

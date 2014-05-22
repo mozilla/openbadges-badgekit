@@ -1,15 +1,14 @@
 const Badge = require('../models/badge')("DATABASE");
+const Image = require('../models/image')("DATABASE");
 const request = require('request');
 const url = require('url');
 const validator = require('validator');
+const async = require('async');
+
+const badgeView = require('./badge');
 
 function isUrl (str) {
   return validator.isURL(str);
-}
-
-function isValidTemplate (data) {
-  // TODO: verify it really is a valid template
-  return true;
 }
 
 function serializeTemplate (template) {
@@ -18,19 +17,107 @@ function serializeTemplate (template) {
 }
 
 function consumeTemplate (data, callback) {
-  if (!isValidTemplate(data))
-    return callback(new Error('Invalid template'), null);
+  const timeValue = parseInt(data.timeValue, 10);
+  const limitNumber = parseInt(data.limitNumber, 10);
 
-  // TODO: convert data into working template, and return via callback
-  callback(null, {id: 1});
-}
+  const query = {
+    name: data.name,
+    description: data.description,
+    issuerUrl: data.issuerUrl,
+    earnerDescription: data.earnerDescription,
+    consumerDescription: data.consumerDescription,
+    rubricUrl: data.rubricUrl,
+    timeValue: timeValue > 0 ? timeValue : 0,
+    timeUnits: data.timeUnits,
+    limit: data.limit == 'limit' ? (limitNumber > 0 ? limitNumber : 0) : 0,
+    unique: data.unique == 'unique' ? 1 : 0,
+    multiClaimCode: data.multiClaimCode,
+    badgeType: data.badgeType,
+    slug: Badge.generateSlug(),
+    created: new Date(),
+    status: 'template'
+  };
+
+  Badge.put(query, function (err, result) {
+    if (err)
+      return callback(err);
+
+    Badge.getOne({ id: result.insertId }, function(err, badgeRow) {
+      if (err)
+        return callback(err);
+
+      async.parallel([
+        function(innerCallback) {
+          if ('criteria' in data) {
+            const criteria = data.criteria.map(function(criterion) {
+              return {
+                description: criterion.description,
+                required: criterion.required,
+                note: criterion.note
+              };
+            });
+
+            badgeRow.setCriteria(criteria, function(err) {
+              return innerCallback(err);
+            });
+          }
+          else {
+            return innerCallback(null);
+          }
+        },
+        function(innerCallback) {
+          if (data.image && data.image.mimetype) {
+            var imageQuery = {
+              mimetype: data.image.mimetype,
+              data: data.image.data ? new Buffer(data.image.data) : null,
+              url: data.image.url
+            }
+
+            Image.put(imageQuery, function(err, imageResult) {
+              if (err)
+                return innerCallback(err);
+
+              if (badgeRow.imageId === null) {
+                Badge.put({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
+                  return innerCallback(err);
+                });
+              }
+              else {
+                return innerCallback(null);
+              }
+            });
+          }
+          else {
+            return innerCallback(null);
+          }
+        },
+        function(innerCallback) {
+          if (!('categories' in data))
+            return innerCallback(null);
+
+          var categories = data.categories.map(function (category) { return category.label; });
+          badgeRow.setCategories(categories, innerCallback);
+        },
+        function(innerCallback) {
+          if (!('tags' in data))
+            return innerCallback(null);
+
+          badgeRow.setTags(data.tags, innerCallback);
+        }],
+        function(err) {
+          callback(err, badgeRow);
+        }
+      );
+    });
+  });
+};
 
 exports.home = function home (req, res, next) {
   return res.render('share/home.html');
 }
 
 exports.subscribe = function subscribe (req, res, next) {
-  var subscription = req.body.subscription;
+  var subscription = req.body.subscription.trim();
 
   if (!subscription)
     return res.redirect(303, res.locals.url('share'));
@@ -110,6 +197,6 @@ function templateAsHtml (err, template, req, res, next) {
     return next(); // Should force a 404
 
   return res.render('share/template.html', {
-    template: template
+    badge: template
   });
 }

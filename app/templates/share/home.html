@@ -20,7 +20,7 @@
     <form method="post" action="{{ url('share.subscribe') }}" class="center">
       <p>This will create a new copy in your directory.</p>
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-      <input class="badge-field left" placeholder="http://badgekit.org/share/9bee00edcb06b8b6" value="{{ subscription }}" name="subscription">
+      <input class="badge-field left" placeholder="" value="{{ subscription }}" name="subscription">
       <button class="btn blue-btn">Import</button>
     </form>
   </section>
