@@ -16,11 +16,11 @@ function serializeTemplate (template) {
   return JSON.stringify(template);
 }
 
-function consumeTemplate (data, callback) {
+function consumeTemplate (data, makeContext, callback) {
   const timeValue = parseInt(data.timeValue, 10);
   const limitNumber = parseInt(data.limitNumber, 10);
 
-  const query = {
+  const query = makeContext({
     name: data.name,
     description: data.description,
     issuerUrl: data.issuerUrl,
@@ -36,7 +36,7 @@ function consumeTemplate (data, callback) {
     slug: Badge.generateSlug(),
     created: new Date(),
     status: 'template'
-  };
+  });
 
   Badge.put(query, function (err, result) {
     if (err)
@@ -148,7 +148,7 @@ exports.subscribe = function subscribe (req, res, next) {
       });
     }
 
-    consumeTemplate(body, function (err, template) {
+    consumeTemplate(body, res.locals.makeContext, function (err, template) {
       if (err)
         return next(err);
 
