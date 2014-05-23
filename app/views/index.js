@@ -14,3 +14,4 @@ exports.applications = require('./applications');
 exports.help = require('./help');
 exports.about = require('./about');
 exports.share = require('./share');
+exports.termsofuse = require('./termsofuse');
