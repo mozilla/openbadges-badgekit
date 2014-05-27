@@ -100,6 +100,9 @@ module.exports = function getBadgeModel (key) {
   function setSupportBadges(supportBadges, callback) {
     const badgeId = this.id;
 
+    if (!Array.isArray(supportBadges))
+      supportBadges = [supportBadges];
+    
     var supportSlugs = supportBadges.map(function (supportBadge) { return supportBadge.supportBadgeSlug || supportBadge });
 
     SupportBadge.del({primaryBadgeId: badgeId}, function (err) {
