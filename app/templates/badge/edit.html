@@ -149,7 +149,7 @@
               <div class="support-badges-list">
                 {% for supportBadge in availableSupportBadges %}
                   <div class="support-badges-entry">
-                    <input class="radio-badge-field js-support-checkbox" type="checkbox" name="supportBadges[]" value="{{supportBadge.slug}}" data-image-url="{{supportBadge.imageUrl}}" {% if supportBadge.checked %} checked {% endif %}/>
+                    <input class="radio-badge-field js-support-checkbox" type="checkbox" name="supportBadges" value="{{supportBadge.slug}}" data-image-url="{{supportBadge.imageUrl}}" {% if supportBadge.checked %} checked {% endif %}/>
                     <div class="support-badge-thumb-wrapper">
                       <img src="{{ supportBadge.imageUrl }}"/>
                     </div>
