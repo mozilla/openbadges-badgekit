@@ -47,7 +47,14 @@ exports.save = function saveDesign (req, res, next) {
       return next(err);
     }
 
-    const imageData = dataUriToBuffer(req.body.image);
+    var imageData;
+
+    try {
+      imageData = dataUriToBuffer(req.body.image);
+    } catch (e) {
+      return next(e);
+    }
+
     const imageQuery = {
       id: badgeRow.imageId,
       mimetype: imageData.type,

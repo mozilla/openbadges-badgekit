@@ -290,14 +290,11 @@ function saveBadge(req, callback) {
           }
         },
         function(innerCallback) {
-          if (req.files && (req.files.uploadImage || req.files.studioImage)) {
-            var path = req.files.uploadImage.path;
-            var type = req.files.uploadImage.type;
+          var image = req.files ? (req.files.studioImage || req.files.uploadImage) : null;
 
-            if (req.files.studioImage) {
-              path = req.files.studioImage.path;
-              type = req.files.studioImage.type;
-            }
+          if (image) {
+            var path = image.path;
+            var type = image.type;
 
             // Need to determine acceptable mime types... this is just accepting everything right now.
             fs.readFile(path, function(err, data) {
