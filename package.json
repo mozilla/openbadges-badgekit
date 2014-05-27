@@ -25,7 +25,7 @@
     "streamsql": "~0.8.0",
     "jwt-simple": "~0.2.0",
     "node-sass": "~0.7.0",
-    "newrelic": "~1.5.0",
+    "newrelic": "*",
     "validator": "~3.5.1",
     "express-persona-observer": "git+https://github.com/christensenep/express-persona-observer.git#multiple-buttons",
     "async": "~0.2.9",
