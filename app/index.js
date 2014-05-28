@@ -42,7 +42,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-if (config('ENABLE_GELF_LOGS')) {
+if (config('ENABLE_GELF_LOGS', false)) {
   var messina = require('messina');
   logger = messina('badgekit-' + config('NODE_ENV', 'development'));
   logger.init();
