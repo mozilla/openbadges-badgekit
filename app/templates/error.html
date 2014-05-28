@@ -1,11 +1,8 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container">
-  <section class="info">
-    <h1 class="info-heading">{{ message }}</h1>
-    {{ renderError(error) }}
-  </section>
+<div class="error-container">
+  {{ renderError(error) }}
 </div>
 {% endblock %}
 
@@ -13,9 +10,20 @@
   {% set errCode = err.code | default(500) %}
 
   {% if errCode == 404 %}
-    <p>The page you're looking for could not be found.</p>
+    <div class="four-oh-four">
+      <h2>Here are some tips to get you back on your way:</h2>
+      <ul class="bullet-list">
+        <li>- If you typed in the address, check your spelling. Could just be a typo.</li>
+        <li>- If you’ve found an issue, we’d appreciate it if you could report the problem in Github, our bug tracker. Our team will take a look at it as soon as possible.</li>
+        <li>- If you followed a link, it’s probably broken.</li>
+        <li>- If you’re not sure what you’re looking for, start at badgekit.org.</li>
+      </ul>
+    </div>
+    <img src="{{ static('images/404.png') }}">
   {% else %}
-    <p>Unfortunately, there was a problem :(</p>
+    <img src="{{ static('images/500.png') }}">
+    <h2>Something went wrong on our server.</h2>
+    <p>Try refreshing the page. If that doesn't work, try again in a few minutes.</p>
   {% endif %}
 
   {% if debug %}
