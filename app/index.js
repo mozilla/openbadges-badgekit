@@ -115,6 +115,7 @@ app.post('/applications/:badgeId/:applicationId', 'application.submit', secureRo
 
 app.get('/help', 'help', views.help.home);
 app.get('/about', 'about', views.about.home);
+app.get('/termsofuse', 'termsofuse', views.termsofuse.home);
 
 app.get('/system/:systemId/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
 
