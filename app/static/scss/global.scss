@@ -94,7 +94,24 @@
   }
 }
 
-
+.error-container {
+  color: white;
+  padding-bottom: 20px;
+  background-color: #6fc1d4;
+  margin: auto;
+  margin-bottom: -30px;
+  position: relative;
+  text-align: center;
+  .four-oh-four {
+    position: absolute;
+    text-align: left;
+    color: white;
+    width: 45%;
+    right: 50px;
+    top: 350px;
+    .bullet-list { padding-left: 10px; }
+  }
+}
 .access-to-badges {
   padding: 40px 0;
   .access-image { margin-right: 100px; }
