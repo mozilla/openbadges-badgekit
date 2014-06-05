@@ -4,9 +4,9 @@ BadgeKit is a software tool for issuing Open Badges. With BadgeKit, Mozilla aims
 
 ## Background
 
-BadgeKit is framed around a set of action verbs. Each verb represents an invitation to innovation around defining and refining the user experience for the particular action that the user is attempting to do. Here are the verbs: Build, Assess, Issue, Collect, Share, Discover and Use. 
+BadgeKit is framed around a set of action verbs. Each verb represents an invitation to innovation around defining and refining the user experience for the particular action that the user is attempting to do. Here are the verbs: Build, Assess, Issue, Collect, Share, Discover and Use.
 
-BadgeKit evolved out of several years of work in the badging field as well as LOTS of user testing and research. Much of BadgeKit was inspired by the work we did for the Chicago Summer of Learning, the Connected Educators Month and the Mozilla Summit. Each project helped us to produce some great open source solutions for distinct badging experience ranging in size from one badge to thousands of badges being issued. With each project, we user tested, got feedback and iterated - so just think of BadgeKit as our next big iteration on our offering. 
+BadgeKit evolved out of several years of work in the badging field as well as LOTS of user testing and research. Much of BadgeKit was inspired by the work we did for the Chicago Summer of Learning, the Connected Educators Month and the Mozilla Summit. Each project helped us to produce some great open source solutions for distinct badging experience ranging in size from one badge to thousands of badges being issued. With each project, we user tested, got feedback and iterated - so just think of BadgeKit as our next big iteration on our offering.
 
 More tools are being developed and will be announced throughout 2014, see also [Open Badges Discovery](http://discovery.openbadges.org/).
 
@@ -14,7 +14,7 @@ More tools are being developed and will be announced throughout 2014, see also [
 
 BadgeKit is made up of two distinct parts: an API and a Web app. This repo hosts the Web app - you can sign up to access the hosted private beta version at [BadgeKit.org](http://badgekit.openbadges.org/). The code in this repo lets you use the exact same components as the Mozilla hosted version, and you can of course alter the code to suit the needs of your own organization.
 
-The BadgeKit Web app is an admin tool for badge issuers - it lets issuer personnel create badges, defining their metadata and designing their appearance, as well as publishing and issuing them. BadgeKit also provides badge application management for issuers. The app doesn't actually store the data for the badges published through it - this is handled by the API. To install your own instance of BadgeKit, you therefore need the code in this repo and the [BadgeKit API Repo](https://github.com/mozilla/badgekit-api). 
+The BadgeKit Web app is an admin tool for badge issuers - it lets issuer personnel create badges, defining their metadata and designing their appearance, as well as publishing and issuing them. BadgeKit also provides badge application management for issuers. The app doesn't actually store the data for the badges published through it - this is handled by the API. To install your own instance of BadgeKit, you therefore need the code in this repo and the [BadgeKit API Repo](https://github.com/mozilla/badgekit-api).
 
 The BadgeKit API handles the data associated with published badges. You can call on the API webhooks to provide a custom front-end interface for your community of badge earners, so that you control the interaction and communication with them, while the BadgeKit app provides back-end badge issuing admin.
 
@@ -104,3 +104,10 @@ methods outlined above:
 - TEST_DATABASE_USER: Database user.
 - TEST_DATABASE_PASSWORD: Database password.
 - TEST_DATABASE_DATABASE: Name of the database to use.
+
+
+## Running all Badgekit apps on vagrant
+
+Please see the README.vagrant.md file for a detailed walk through to setup a fast local dev environment using [Vagrant](http://www.vagrantup.com/)
+
+This provides a mostly-prebuilt Ubuntu server, complete with MySQL and Node.JS at the correct versions.
