@@ -390,6 +390,7 @@ module.exports = function getBadgeModel (key) {
        'milestoneNumRequired',
        'milestoneAction',
        'isMilestone',
+       'evidenceType'
       ],
     relationships: {
       criteria: {

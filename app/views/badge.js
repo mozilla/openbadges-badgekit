@@ -253,7 +253,8 @@ function saveBadge(req, callback) {
     multiClaimCode: req.body.multiClaimCode,
     badgeType: req.body.badgeType,
     milestoneNumRequired: req.body.milestoneNumRequired,
-    isMilestone: req.body.isMilestone == 'yes' ? 1 : 0
+    isMilestone: req.body.isMilestone == 'yes' ? 1 : 0,
+    evidenceType: req.body.evidenceType || null
   };
 
   if ('shape' in req.body) query.studioShape = req.body.shape;
