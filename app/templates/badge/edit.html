@@ -10,6 +10,10 @@
   class="js-form-page js-section-{{ s }} {% if section != s %}hidden{% endif %}"
 {% endmacro %}
 
+{% macro createEvidenceTypeOption(s) %}
+  <option value="{{s}}" {% if s == badge.evidenceType %} selected {% endif %}>{{s}}</option>
+{% endmacro %}
+
 {% macro disabled() %}
   {{ 'disabled' if badge.status != "draft" and badge.status != "template" }}
 {% endmacro %}
@@ -179,6 +183,23 @@
             <div class="tooltip-container js-tooltip-container"><p class="small-copy">Guide your mentors with PDFs and other documents.</p></div>
           </label>
           <input class="badge-field" type="text" name="rubricUrl" {{ disabled() }} value="{{ badge.rubricUrl }}" placeholder="http://site.org/123/rubric.pdf"/>
+        </div>
+
+        <div class="form-field-wrapper clearfix">
+          <label class="badge-label left" for="evidenceType">Evidence Accepted<p class="small-copy">What type of evidence is accepted for this badge?<i class="fa fa-question-circle js-tooltip"></i></p>
+            <div class="tooltip-container js-tooltip-container"><p class="small-copy">Specify the type of evidence that should be accepted in applications for this badge.</p></div>
+          </label>
+          <div class="form-dropdown">
+            <span class="arrow-down"></span>
+            <select {{ disabled() }} name="evidenceType">
+              <option value="">Select an optional evidence type to accept</option>
+              {{ createEvidenceTypeOption('URL') }}
+              {{ createEvidenceTypeOption('Text') }}
+              {{ createEvidenceTypeOption('Photo') }}
+              {{ createEvidenceTypeOption('Video') }}
+              {{ createEvidenceTypeOption('Sound') }}
+            </select>
+          </div>
         </div>
       </div>
 

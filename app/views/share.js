@@ -35,7 +35,8 @@ function consumeTemplate (data, makeContext, callback) {
     badgeType: data.badgeType,
     slug: Badge.generateSlug(),
     created: new Date(),
-    status: 'template'
+    status: 'template',
+    evidenceType: data.evidenceType,
   });
 
   Badge.put(query, function (err, result) {

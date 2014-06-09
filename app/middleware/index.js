@@ -152,6 +152,9 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
           
           if (!req.session.context)
             req.session.context = buildContext(row.accountPermissions[0]);
+          if (!req.session.context.system) {
+            return sendDenied();
+          }
           res.locals.contextName = makeContextName(req.session.context);
           res.locals.makeContext = makeContext(req.session.context);
           res.locals.canCreateDraft = row.hasPermission(res.locals.makeContext(), 'draft');
