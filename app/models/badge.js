@@ -58,6 +58,49 @@ module.exports = function getBadgeModel (key) {
     });
   }
 
+  function setAlignments(alignments, callback) {
+    var alignmentIds = [];
+    const badgeId = this.id;
+
+    async.each(alignments, function(alignment, innerCallback) {
+      alignment.badgeId = badgeId;
+      Alignment.put(alignment, function(err, result) {
+        if (err)
+          return innerCallback(err);
+
+        if (result.insertId) {
+          alignmentIds.push(result.insertId);
+        }
+        else {
+          alignmentIds.push(result.row.id);
+        }
+
+        return innerCallback();
+      });
+    },
+    function(err) {
+      const deleteQuery = {
+        badgeId: {
+          value: badgeId,
+          op: '='
+        }
+      };
+
+      if (alignmentIds.length) {
+        deleteQuery.id = alignmentIds.map(function(alignmentId) {
+          return {
+            op: '!=',
+            value: alignmentId
+          };
+        });
+      }
+      
+      Alignment.del(deleteQuery, function(err) {
+        return callback(err);
+      });
+    });
+  }
+
   function setTags(tags, callback) {
     const badgeId = this.id;
 
@@ -206,6 +249,14 @@ module.exports = function getBadgeModel (key) {
 
     delete badge.criteria;
 
+    var alignments = badge.alignments;
+    alignments.forEach(function(alignment) {
+      delete alignment.badgeId;
+      delete alignment.id;
+    });
+
+    delete badge.alignments;
+
     var categories = (badge.categories || []).map(function (category) {
       return category.id;
     });
@@ -255,6 +306,7 @@ module.exports = function getBadgeModel (key) {
 
           async.series([
             row.setCriteria.bind(row, criteria),
+            row.setAlignments.bind(row, alignments),
             row.setCategories.bind(row, categories),
             row.setTags.bind(row, tags),
             row.setSupportBadges.bind(row, supportBadges),
@@ -288,6 +340,15 @@ module.exports = function getBadgeModel (key) {
        'badgeId',
        'required',
        'note']
+  });
+
+  var Alignment = db.table('alignment', {
+    fields:
+      ['id',
+       'badgeId',
+       'name',
+       'url',
+       'description']
   });
 
   var Category = db.table('_badgeCategory', {
@@ -336,6 +397,11 @@ module.exports = function getBadgeModel (key) {
         local: 'id',
         foreign: { table: 'criteria', key: 'badgeId' }
       },
+      alignments: {
+        type: 'hasMany',
+        local: 'id',
+        foreign: { table: 'alignment', key: 'badgeId' }
+      },
       categories: {
         type: 'hasMany',
         local: 'id',
@@ -361,6 +427,7 @@ module.exports = function getBadgeModel (key) {
     },
     methods: {
       setCriteria: setCriteria,
+      setAlignments: setAlignments,
       setTags: setTags,
       setCategories: setCategories,
       setSupportBadges: setSupportBadges,

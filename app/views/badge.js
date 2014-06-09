@@ -236,6 +236,7 @@ function saveBadge(req, callback) {
   const timeValue = parseInt(req.body.timeValue, 10);
   const limitNumber = parseInt(req.body.limitNumber, 10);
   const numCriteria = parseInt(req.body.numCriteria, 10);
+  const numAlignments = parseInt(req.body.numAlignments, 10);
 
   const query = {
     id: req.body.badgeId,
@@ -282,6 +283,25 @@ function saveBadge(req, callback) {
             });
 
             badgeRow.setCriteria(criteria, function(err) {
+              return innerCallback(err);
+            });
+          }
+          else {
+            return innerCallback(null);
+          }
+        },
+        function(innerCallback) {
+          if ('alignments' in req.body) {
+            const alignments = req.body.alignments.slice(0,numAlignments).map(function(alignment) {
+              return {
+                id: alignment.id || null,
+                name: alignment.name,
+                url: alignment.url,
+                description: alignment.description
+              };
+            });
+
+            badgeRow.setAlignments(alignments, function(err) {
               return innerCallback(err);
             });
           }
@@ -468,6 +488,8 @@ exports.copy = function copy (req, res, next) {
       badge.imageId = imageResult.insertId;
       var criteria = badge.criteria;
       delete badge.criteria;
+      var alignments = badge.alignments;
+      delete badge.alignments;
       var categories = badge.categories;
       delete badge.categories;
       var tags = badge.tags;
@@ -491,6 +513,7 @@ exports.copy = function copy (req, res, next) {
 
           async.parallel([
             badgeRow.setCriteria.bind(badgeRow, criteria),
+            badgeRow.setAlignments.bind(badgeRow, alignments),
             badgeRow.setCategories.bind(badgeRow, categories),
             badgeRow.setTags.bind(badgeRow, tags),
             badgeRow.setSupportBadges.bind(badgeRow, supportBadges),

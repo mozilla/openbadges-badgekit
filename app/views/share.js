@@ -66,6 +66,24 @@ function consumeTemplate (data, makeContext, callback) {
           }
         },
         function(innerCallback) {
+          if ('alignments' in data) {
+            const alignments = data.alignments.map(function(alignment) {
+              return {
+                description: alignment.description,
+                required: alignment.required,
+                note: alignment.note
+              };
+            });
+
+            badgeRow.setAlignments(alignments, function(err) {
+              return innerCallback(err);
+            });
+          }
+          else {
+            return innerCallback(null);
+          }
+        },
+        function(innerCallback) {
           if (data.image && data.image.mimetype) {
             var imageQuery = {
               mimetype: data.image.mimetype,
