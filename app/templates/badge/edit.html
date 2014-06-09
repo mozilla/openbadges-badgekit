@@ -3,7 +3,6 @@
 {% import "badge/criterion.html" as criterionTemplate %}
 {% import "badge/alignment.html" as alignmentTemplate %}
 
-
 {% macro createSectionAnchorAttributes(s) %}
   href="{{ url('badge.edit', { badgeId: badge.id }) }}?section={{ s }}&category={{ badge.status }}" data-section="{{ s }}" class="js-category-anchor"
 {% endmacro %}
