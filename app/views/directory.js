@@ -167,6 +167,12 @@ exports.useTemplate = function useTemplate (req, res, next) {
     if (err)
       return res.send(500, err);
 
+    if (!row) {
+      err = new Error('Badge not found');
+      err.code = 404;
+      return next(err);
+    }
+
     if (!res.locals.hasPermission(res.locals.makeContext(), 'draft'))
       return res.send(403, 'You do not have permission to create a badge');
 

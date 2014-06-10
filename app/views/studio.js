@@ -17,6 +17,12 @@ exports.edit = function editDesign (req, res, next) {
     if (err)
       return next(err);
 
+    if (!badge) {
+      err = new Error('Badge not found');
+      err.code = 404;
+      return next(err);
+    }
+
     var staticDir = res.locals.static('images/studio');
 
     async.parallel({
@@ -44,6 +50,12 @@ exports.save = function saveDesign (req, res, next) {
 
   Badge.getOne({id: badgeId}, function(err, badgeRow) {
     if (err) {
+      return next(err);
+    }
+
+    if (!badgeRow) {
+      err = new Error('Badge not found');
+      err.code = 404;
       return next(err);
     }
 

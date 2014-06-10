@@ -15,8 +15,13 @@ const studioPath = 'images/studio/';
 function getBadgeById(badgeId, category, context, callback) {
   if (category === 'draft' || category === 'template') {
     Badge.getOne({ id: badgeId }, { relationships: true }, function(err, row) {
-     callback(err, { badge: row } );
-   });
+      if (!row && !err) {
+        err = new Error('User not found');
+        err.code = 404;
+      }
+      
+      callback(err, { badge: row } );
+    });
   }
   else {
     context.badge = badgeId;
@@ -79,6 +84,12 @@ exports.del = function del (req, res, next) {
   Badge.getOne({ id: badgeId }, function(err, row) {
     if (err)
       return res.send(500, err);
+
+    if (!row) {
+      err = new Error('Badge not found');
+      err.code = 404;
+      return next(err);
+    }
 
     row.del(function(err) {
       if (err)
@@ -165,7 +176,7 @@ exports.edit = function edit (req, res, next) {
     }],
     function(err, results) {
       if (err)
-        return res.send(500, err);
+        return next(err);
 
       var data = results[0];
       data.shapes = results[1];
