@@ -94,7 +94,7 @@
         <span class="share-url">{{ shareUrl }}</span>
       </div>
       <hr>
-      <div>
+      <div class="admin-btn-container">
         <a href="" class="btn js-delete-btn">Delete</a>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
@@ -113,12 +113,12 @@
       <div class="admin-btn-container">
         <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ badge.status }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Edit freely. This will not affect badges that previously used this template.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Continue editing your draft badge until you are ready to publish it.</p></div>
       </div>
       <div class="admin-btn-container">
         <a class="btn blue-btn js-publish-btn blut-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}"><i class="fa fa-rocket"></i>Publish</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Publish your draft badge - once you publish you can no longer edit!</p></div>
       </div>
       <div class="admin-btn-container">
         <a href="" class="btn js-delete-btn">Delete</a>
