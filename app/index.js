@@ -19,6 +19,7 @@ const views = require('./views');
 const api = require('./api');
 const persona = require('express-persona-observer');
 const http = require('http');
+const helmet = require('helmet');
 
 var app = express();
 
@@ -47,10 +48,26 @@ if (config('ENABLE_GELF_LOGS', false)) {
   logger = messina('badgekit-' + config('NODE_ENV', 'development'));
   logger.init();
   app.use(logger.middleware());
-} 
+}
 else {
   app.use(express.logger());
 }
+
+if (process.env.HSTS_DISABLED != 'true') {
+  // Use HSTS
+  app.use(helmet.hsts());
+}
+if (process.env.DISABLE_XFO_HEADERS_DENY != 'true') {
+  // No xframes allowed
+  app.use(helmet.xframe('deny'));
+}
+if (process.env.IEXSS_PROTECTION_DISABLED != 'true') {
+// Use XSS protection
+  app.use(helmet.iexss());
+}
+
+// Hide that we're using Express
+app.use(helmet.hidePoweredBy());
 
 app.use(express.compress());
 app.use(express.bodyParser());
