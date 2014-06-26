@@ -44,6 +44,7 @@ function getSystems(hasPermission, callback) {
       }
     });
 
+    data.systems.sort(nameSort);
     return callback(null, data);
   });
 }
@@ -68,6 +69,7 @@ exports.issuers = function issuers (req, res, next) {
         }
       });
 
+      data.issuers.sort(nameSort);
       return res.send(200, data);
     });
   }
@@ -105,6 +107,7 @@ exports.programs = function issuers (req, res, next) {
         }
       });
 
+      data.programs.sort(nameSort);
       return res.send(200, data);
     });
   }
