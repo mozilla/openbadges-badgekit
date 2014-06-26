@@ -417,8 +417,16 @@ exports.archive = function archive (req, res, next) {
 
 exports.publish = function publish (req, res, next) {
   const badgeId = req.params.badgeId;
+  async.series([
+    function(callback) {
+      if (req.body.skipSave) {
+        return callback();
+      }
 
-  saveBadge(req, function(err, row) {
+      return saveBadge(req, callback);
+    }
+  ],
+  function(err, results) {
     if (err)
       return res.send(500, err.message);
 
@@ -428,6 +436,9 @@ exports.publish = function publish (req, res, next) {
 
       if (!res.locals.hasPermission({ system: row.system, issuer: row.issuer, program: row.program }, 'publish'))
         return res.send(403, 'You do not have permission to publish this badge');
+
+      if (row.published)
+        return res.send(500, 'This badge has already been published');
 
       var badge = openbadger.toOpenbadgerBadge(row);
 
