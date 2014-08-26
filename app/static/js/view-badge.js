@@ -12,17 +12,17 @@ $(document).ready(function() {
 
   $('.js-delete-btn').click(function() {
     notification.html($('.js-delete-confirm-text').html());
-    return false;
-  });
-
-  $('.js-delete-confirm-btn').click(function() {
-    $.ajax({ url: this.href, 
-             type: 'DELETE',
-             data: { _csrf: $(this).data('csrf') }, 
-             success: function(data) {
-              window.location.href = data.location;
-             }
+    notification.find('.js-delete-confirm-btn').click(function() {
+      $.ajax({ url: this.href, 
+               type: 'DELETE',
+               data: { _csrf: $(this).data('csrf') }, 
+               success: function(data) {
+                window.location.href = data.location;
+               }
+      });
+      return false;
     });
+
     return false;
   });
 
