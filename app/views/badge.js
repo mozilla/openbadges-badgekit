@@ -6,6 +6,7 @@ const Image = require('../models/image')("DATABASE");
 const async = require('async');
 const url = require('url');
 const config = require('../lib/config');
+const _ = require('lodash');
 
 const openbadger = require('../lib/openbadger');
 const middleware = require('../middleware');
@@ -19,15 +20,14 @@ function getBadgeById(badgeId, category, context, callback) {
         err = new Error('User not found');
         err.code = 404;
       }
-      
+
       callback(err, { badge: row } );
     });
   }
   else {
     context.badge = badgeId;
     openbadger.getBadge(context, function(err, data) {
-      if (err)
-        return callback(err);
+      if (err) return callback(err);
 
       BadgeCategory.get({}, function (err, categories) {
         if (err)
@@ -101,14 +101,22 @@ exports.del = function del (req, res, next) {
 };
 
 exports.criteria = function criteria (req, res, next) {
-  const badge = req.params.badgeId;
+  const badgeSlug = req.params.badgeId;
   const system = req.params.systemId;
 
-  getBadgeById(badge, 'published', { system: system }, function(err, data) {
-    if (err)
-      return res.send(404, 'Not Found');
-
-    res.render('badge/criteria.html', data);
+  // not my favorite solution, but iterating over all the badges in the system, transforming their titles into 'slugs'
+  // returning the one that matches.
+  var util = require('util');
+  Badge.getAll({}, function(err, badges) {
+    if (err) console.log("got an error " + err);
+    for (var i in badges) {
+      var badge = badges[i];
+      var oldSlug = badge.name.trim().toLowerCase().replace(/\s+/g, '-');
+      if (badgeSlug == oldSlug) {
+        return res.render('badge/criteria.html', badge);
+      }
+    }
+    return res.send(404, 'Not Found');
   });
 };
 
@@ -149,8 +157,8 @@ exports.edit = function edit (req, res, next) {
             });
           });
 
-          data.availableSupportBadges = supportData.map(function(badge) { 
-            return { slug: badge.slug, name: badge.name, imageUrl: badge.imageUrl, checked: badge.checked }; 
+          data.availableSupportBadges = supportData.map(function(badge) {
+            return { slug: badge.slug, name: badge.name, imageUrl: badge.imageUrl, checked: badge.checked };
           });
 
           callback(null, data);
@@ -459,7 +467,7 @@ exports.publish = function publish (req, res, next) {
               openbadger.getBadge({ system: row.system, badge: supportBadge.supportBadgeSlug }, callback);
             },
             function (err, supportBadges) {
-              if (err) 
+              if (err)
                 return console.log('Error creating milestone: ' + err.message);
 
               var milestone = { numberRequired: row.milestoneNumRequired, action: row.milestoneAction, primaryBadgeId: newBadge.id, supportBadges: [] };
@@ -468,7 +476,7 @@ exports.publish = function publish (req, res, next) {
               });
 
               openbadger.createMilestone({ system: row.system, milestone: milestone}, function (err) {
-                if (err) 
+                if (err)
                   return console.log('Error creating milestone: ' + err.message)
               });
             });
@@ -476,7 +484,7 @@ exports.publish = function publish (req, res, next) {
 
           req.session.lastCreatedId = badge.slug;
           req.session.notification = 'published';
-          return res.send(200, { location: res.locals.url('directory') + '?category=published' });       
+          return res.send(200, { location: res.locals.url('directory') + '?category=published' });
         });
       });
     });
