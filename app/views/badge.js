@@ -6,7 +6,6 @@ const Image = require('../models/image')("DATABASE");
 const async = require('async');
 const url = require('url');
 const config = require('../lib/config');
-const _ = require('lodash');
 
 const openbadger = require('../lib/openbadger');
 const middleware = require('../middleware');
