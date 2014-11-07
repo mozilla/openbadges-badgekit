@@ -2,20 +2,16 @@
 {% block content %}
   <div class="container clearfix">
     <div class="badge-details left">
-      <img class="badge-image" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
+      <img class="badge-image" src="https://badgekit.org/images/badge/{{ id }}">
       <div class="badge-preview-info">
       </div>
     </div>
       <div class="badge-info left">
-      <h1>{{ badge.name }} </h1>
+      <h1>{{ name }} </h1>
 
       <p class="bold">Description:</p>
-      <p class="small-copy">{{ badge.description }}</p>
+      <p class="small-copy">{{ consumerDescription }}</p>
 
-      {% for criteria in badge.criteria %}
-      <p class="bold">Criteria {{ loop.index }}:</p>
-      <p class="small-copy">{{ criteria.description }}</p>
-      {% endfor %}
     </div>
   </div>
 {% endblock %}
