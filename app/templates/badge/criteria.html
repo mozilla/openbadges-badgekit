@@ -12,6 +12,10 @@
       <p class="bold">Description:</p>
       <p class="small-copy">{{ consumerDescription }}</p>
 
+      {% for c in criteria %}
+      <p class="bold">Criteria {{ loop.index }}:</p>
+      <p class="small-copy">{{ c.description }}</p>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

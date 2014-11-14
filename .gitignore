@@ -19,5 +19,6 @@ config.json
 
 .DS_Store
 .env
+badgekit.env
 
 Procfile.local
