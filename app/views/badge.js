@@ -102,20 +102,35 @@ exports.del = function del (req, res, next) {
 exports.criteria = function criteria (req, res, next) {
   const badgeSlug = req.params.badgeId;
   const system = req.params.systemId;
+  const category = 'published';
 
   // not my favorite solution, but iterating over all the badges in the system, transforming their titles into 'slugs'
   // returning the one that matches.
+  var finalBadge = false; // will be the badge once the iteration is done, not a great solution to contend with async.
   var util = require('util');
-  Badge.getAll({}, function(err, badges) {
+
+  Badge.getAll({ relationships: false }, function(err, badges) {
     if (err) console.log("got an error " + err);
     for (var i in badges) {
       var badge = badges[i];
       var oldSlug = badge.name.trim().toLowerCase().replace(/\s+/g, '-');
-      if (badgeSlug == oldSlug) {
-        return res.render('badge/criteria.html', badge);
+      if ((badgeSlug == oldSlug) && (!finalBadge)) {
+        console.log("old / new", badgeSlug, oldSlug);
+        console.log("ID", badge.id);
+        finalBadge = badge;
       }
     }
-    return res.send(404, 'Not Found');
+    if (finalBadge) {
+      // we found a badge, let's get the criteria relationships now.
+      Badge.getOne({id: badge.id}, {relationships: true}, function(err, badge) {
+        if (err) {
+          return res.send(404);
+        }
+        return res.render('badge/criteria.html', finalBadge);
+      })
+    } else {
+      return res.send(404);
+    }
   });
 };
 
