@@ -115,8 +115,6 @@ exports.criteria = function criteria (req, res, next) {
       var badge = badges[i];
       var oldSlug = badge.name.trim().toLowerCase().replace(/\s+/g, '-');
       if ((badgeSlug == oldSlug) && (!finalBadge)) {
-        console.log("old / new", badgeSlug, oldSlug);
-        console.log("ID", badge.id);
         finalBadge = badge;
       }
     }
@@ -126,8 +124,6 @@ exports.criteria = function criteria (req, res, next) {
         if (err) {
           return res.send(404);
         }
-        console.log("badge", badge);
-        console.log("criteria", badge.criteria);
         return res.render('badge/criteria.html', badge);
       })
     } else {
