@@ -122,11 +122,13 @@ exports.criteria = function criteria (req, res, next) {
     }
     if (finalBadge) {
       // we found a badge, let's get the criteria relationships now.
-      Badge.getOne({id: badge.id}, {relationships: true}, function(err, badge) {
+      Badge.getOne({id: finalBadge.id}, {relationships: true, relationshipsDepth: -1}, function(err, badge) {
         if (err) {
           return res.send(404);
         }
-        return res.render('badge/criteria.html', finalBadge);
+        console.log("badge", badge);
+        console.log("criteria", badge.criteria);
+        return res.render('badge/criteria.html', badge);
       })
     } else {
       return res.send(404);
