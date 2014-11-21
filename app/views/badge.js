@@ -115,18 +115,16 @@ exports.criteria = function criteria (req, res, next) {
       var badge = badges[i];
       var oldSlug = badge.name.trim().toLowerCase().replace(/\s+/g, '-');
       if ((badgeSlug == oldSlug) && (!finalBadge)) {
-        console.log("old / new", badgeSlug, oldSlug);
-        console.log("ID", badge.id);
         finalBadge = badge;
       }
     }
     if (finalBadge) {
       // we found a badge, let's get the criteria relationships now.
-      Badge.getOne({id: badge.id}, {relationships: true}, function(err, badge) {
+      Badge.getOne({id: finalBadge.id}, {relationships: true, relationshipsDepth: -1}, function(err, badge) {
         if (err) {
           return res.send(404);
         }
-        return res.render('badge/criteria.html', finalBadge);
+        return res.render('badge/criteria.html', badge);
       })
     } else {
       return res.send(404);
