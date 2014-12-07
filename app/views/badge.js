@@ -107,7 +107,6 @@ exports.criteria = function criteria (req, res, next) {
   // not my favorite solution, but iterating over all the badges in the system, transforming their titles into 'slugs'
   // returning the one that matches.
   var finalBadge = false; // will be the badge once the iteration is done, not a great solution to contend with async.
-  var util = require('util');
 
   Badge.getAll({ relationships: false }, function(err, badges) {
     if (err) console.log("got an error " + err);
