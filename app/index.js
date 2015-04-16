@@ -175,7 +175,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-if (!module.parent) {
+if (!module.parent || module.parent.isApplicationLoader) {
   const port = config('PORT', 3000);
 
   app.listen(port, function(err) {
