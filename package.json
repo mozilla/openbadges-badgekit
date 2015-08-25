@@ -4,7 +4,7 @@
   "version": "0.1.39",
   "main": "app/index.js",
   "author": "Mozilla Open Badges http://openbadges.org",
-  "license": "MPL 2.0",
+  "license": "MPL-2.0",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
