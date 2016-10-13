@@ -34,7 +34,7 @@
     "mysql": "~2.0.0-rc1",
     "badgekit-api-client": "git+https://github.com/mozilla/badgekit-api-client.git#milestones",
     "data-uri-to-buffer": "0.0.3",
-    "request": "~2.34.0"
+    "request": "~2.74.0"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
