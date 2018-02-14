@@ -1,3 +1,6 @@
+
+**This software is no longer supported.**
+
 # BadgeKit
 
 BadgeKit is a software tool for issuing Open Badges. With BadgeKit, Mozilla aims to make it easier to get started badging by providing lightweight, modular, open options for the community of badge issuers. The BadgeKit private beta was launched in March 2014, offering badge issuing organizations a chance to sign up for hosted access to the tools. Alternatively, you can host your own instance of BadgeKit using the code in this repo. See the config information below or the [Self-Hosting Guide](https://github.com/mozilla/openbadges-badgekit/wiki/BadgeKit-Self-Hosting-Guide) for a fuller overview of how to build your own instance of BadgeKit.
