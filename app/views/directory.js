@@ -100,7 +100,7 @@ exports.home = function home (req, res, next) {
   }
 
   const pageNum = parseInt(req.query.page, 10) || 1;
-  const category = req.query.category || 'template';
+  const category = req.query.category || 'draft';
   const sort = req.query.sort;
 
   switch (category) {
@@ -137,7 +137,7 @@ exports.home = function home (req, res, next) {
 
 exports.addBadge = function addBadge (req, res, next) {
   const category  = req.query.category || 'draft';
-  var query = res.locals.makeContext({ name: 'New Badge', status: category, created: new Date() });
+  var query = res.locals.makeContext({ name: 'New Badge', status: category, created: new Date(), slug: Badge.generateSlug() });
 
   if (!res.locals.hasPermission(query, 'draft'))
     return res.send(403, 'You do not have permission to create a badge');
@@ -166,6 +166,12 @@ exports.useTemplate = function useTemplate (req, res, next) {
   Badge.getOne({id: templateId, status: 'template'}, { relationships: true }, function(err, row) {
     if (err)
       return res.send(500, err);
+
+    if (!row) {
+      err = new Error('Badge not found');
+      err.code = 404;
+      return next(err);
+    }
 
     if (!res.locals.hasPermission(res.locals.makeContext(), 'draft'))
       return res.send(403, 'You do not have permission to create a badge');

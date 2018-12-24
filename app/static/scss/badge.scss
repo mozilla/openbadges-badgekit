@@ -1,4 +1,42 @@
 @import "base";
+@import "buttons";
+
+.overlay {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width:100%;
+  height: 980px;
+  z-index: 100;
+  background-color: black;
+  opacity: 0.85;
+}
+
+.modal-container {
+  position: relative;
+  width: 600px;
+  margin: 100px auto;
+  background-color: $white;
+  padding:15px;
+  background-color: white;
+  border: 1px solid $light-gray;
+  z-index: 100;
+  .close-btn {
+    font-size: 20px;
+    color: $dark-gray;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .badge-field:last-child { margin-top: 5px; }
+  .form-dropdown { width: 45%; margin-right: 20px; }
+  .support-badges-list {
+    height: 500px;
+    overflow-y: scroll;
+  }
+}
 
 .nav-inputs {
   margin: 30px auto 0 auto;
@@ -21,7 +59,15 @@
   padding-left: 23px;
 }
 
-
+.publish-tooltip {
+  background-color: $light-gray;
+  padding: 10px 10px 0 10px;
+  margin-top: -10px;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  .small-copy { font-size: 11px; }
+}
 
 .publish-save {
   text-align: right;
@@ -31,6 +77,8 @@
     font-size: 15px;
   }
 }
+
+
 
 .save-box {
   position: relative;
@@ -115,12 +163,25 @@
   margin-top: -10px;
   position: absolute;
   width: 200px;
-  @include drop-shadow;
   .small-copy { margin-bottom: 0; }
+}
+
+.copied-badge-view {
+  border: 1px solid $light-gray;
+  padding: 20px;
+  margin-top: 20px;
+  button { margin-top: 10px; }
+}
+
+.import-template-tooltip {
+  display: block;
+  position: absolute;
+  right: 0;
 }
 
 .fa-question-circle {
   cursor: pointer;
+  color: $black;
   &:hover { color: $light-blue; }
 }
 
@@ -128,6 +189,37 @@
   width: 90px;
   border: 1px solid $light-gray;
   margin-right: 50px;
+}
+
+.support-badges-entry {
+  p, input {
+    display: inline;
+    position: relative;
+    bottom: 38px;
+  }
+}
+
+.support-badge-thumb-wrapper {
+  display: inline-block;
+  height: 90px;
+  width: 100px;
+  overflow: hidden;
+  text-align: center;
+  img {
+    height: 90px;
+  }
+}
+
+.support-badge-modal {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background-color: #63c6f4;
+  padding: 3px 28px;
+  color: white;
+  font-size: 60px;
+  cursor: pointer;
+  vertical-align:top;
 }
 
 .studio-thumb.studio-icons {
@@ -236,9 +328,17 @@
   .fa-share-square,
   .fa-cloud-upload,
   .fa-pencil,
-  .fa-rocket { color: $white; margin-right: 5px; }
+  .fa-rocket,
+  .fa-copy { color: $white; margin-right: 5px; }
+  .fa-copy {
+    padding: 5px;
+    background-color: $light-blue;
+    margin-left: 50px;
+    margin-right: 10px;
+  }
   .border-top { width: $six-wide; }
   .admin-btn-container { margin: 10px 0; }
+  .share-url { color: $gray; }
 }
 
 .form-field-wrapper { margin-bottom: 20px; }

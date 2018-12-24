@@ -88,21 +88,37 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
     function makeContext(context) {
       context = context || {};
 
+      var slugContext = { system: context.system.slug };
+      if (context.issuer)
+        slugContext.issuer = context.issuer.slug;
+      if (context.program)
+        slugContext.program = context.program.slug;
+
       return function (data) {
-        return xtend(context, data);
+        return xtend(slugContext, data);
       }  
     }
 
     function buildContext(permissions) {
       var context = {};
       if (permissions.system)
-        context.system = permissions.system;
+        context.system = { slug: permissions.system };
       if (permissions.issuer)
-        context.issuer = permissions.issuer;
+        context.issuer = { slug: permissions.issuer };
       if (permissions.program)
-        context.program = permissions.program;
+        context.program = { slug: permissions.program };
 
       return context;
+    }
+
+    function makeContextName(context) {
+      var contextName = 'System: ' + (context.system.name || context.system.slug);
+      if (context.issuer)
+        contextName = 'Issuer: ' + (context.issuer.name || context.issuer.slug);
+      if (context.program)
+        contextName = 'Program: ' + (context.program.name || context.program.slug);
+
+      return contextName;
     }
 
     function sendDenied() {
@@ -115,21 +131,15 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
 
     if (req.fromLoggedInUser()) {
       if (siteAdminList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) })) {
+        if (!req.session.context)
+          req.session.context = { system: { slug: config('OPENBADGER_SYSTEM') }};
+
+        res.locals.contextName = makeContextName(req.session.context);
         res.locals.isSiteAdmin = true;
         res.locals.hasPermission = function() { return true; }
-        res.locals.makeContext = makeContext({ system: config('OPENBADGER_SYSTEM') });
+        res.locals.makeContext = makeContext(req.session.context);
         res.locals.canCreateDraft = true;
-        return Account.getOne({ email: req.session.email }, { relationships: true }, function(err, row) {
-          if (err)
-            return next();
-          if (!row || !row.accountPermissions.length)
-            return next();
-
-          var context = buildContext(row.accountPermissions[0]);
-          res.locals.makeContext = makeContext(context);
-
-          return next();
-        });
+        return next();
       }
       else {
         return Account.getOne({ email: req.session.email }, { relationships: true }, function(err, row) {
@@ -139,13 +149,15 @@ exports.verifyPermission = function verifyPermission (siteAdminList, deniedPage)
             return sendDenied();
 
           res.locals.hasPermission = row.hasPermission.bind(row);
-          // This isn't a good solution, as it is basically assuming one permission per account,
-          // particularly at the issuer level and above.  While this currently matches the design, I doubt we can count
-          // on this being true for long.
-          var context = buildContext(row.accountPermissions[0]);
-
-          res.locals.makeContext = makeContext(context);
-          res.locals.canCreateDraft = row.hasPermission(context, 'draft');
+          
+          if (!req.session.context)
+            req.session.context = buildContext(row.accountPermissions[0]);
+          if (!req.session.context.system) {
+            return sendDenied();
+          }
+          res.locals.contextName = makeContextName(req.session.context);
+          res.locals.makeContext = makeContext(req.session.context);
+          res.locals.canCreateDraft = row.hasPermission(res.locals.makeContext(), 'draft');
           return next();
         });
       }
@@ -221,3 +233,8 @@ exports.verifyApiRequest = function verifyApiRequest () {
     return next();
   }
 }
+
+exports.clearSession = function clearSession (req, res, next) {
+  req.session.context = null;
+  next();
+};

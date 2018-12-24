@@ -1,8 +1,21 @@
 var getDb = require('../lib/db').getDb;
 var async = require('async');
+var crypto = require('crypto');
+
+function randomStr (len) {
+  const characters = '0123456789abcdef';
+  const rand = new Buffer(len);
+  const bytes = crypto.randomBytes(len);
+  for (var i = 0; i < bytes.length; i++)
+    rand[i] = characters[bytes[i] % characters.length].charCodeAt(0);
+  return rand.toString('utf8');
+}
 
 module.exports = function getBadgeModel (key) {
   var BadgeCategory = require('./badge-category')(key);
+  var BadgeTag = require('./badge-tag')(key);
+  var SupportBadge = require('./support-badge')(key);
+
   var Image = require('./image')(key);
 
   function setCriteria(criteria, callback) {
@@ -42,6 +55,123 @@ module.exports = function getBadgeModel (key) {
       Criteria.del(deleteQuery, function(err) {
         return callback(err);
       });
+    });
+  }
+
+  function setAlignments(alignments, callback) {
+    var alignmentIds = [];
+    const badgeId = this.id;
+
+    async.each(alignments, function(alignment, innerCallback) {
+      alignment.badgeId = badgeId;
+      Alignment.put(alignment, function(err, result) {
+        if (err)
+          return innerCallback(err);
+
+        if (result.insertId) {
+          alignmentIds.push(result.insertId);
+        }
+        else {
+          alignmentIds.push(result.row.id);
+        }
+
+        return innerCallback();
+      });
+    },
+    function(err) {
+      const deleteQuery = {
+        badgeId: {
+          value: badgeId,
+          op: '='
+        }
+      };
+
+      if (alignmentIds.length) {
+        deleteQuery.id = alignmentIds.map(function(alignmentId) {
+          return {
+            op: '!=',
+            value: alignmentId
+          };
+        });
+      }
+      
+      Alignment.del(deleteQuery, function(err) {
+        return callback(err);
+      });
+    });
+  }
+
+  function setTags(tags, callback) {
+    const badgeId = this.id;
+
+    if (!Array.isArray(tags)) {
+      tags = tags.split(',')
+                 .map(function (tag) { return tag.trim() })
+                 .filter(function (tag) { return tag.length });
+    }
+    else {
+      tags = tags.map(function (tag) { return tag.value || tag });
+    }
+
+    BadgeTag.del({badgeId: badgeId}, function (err) {
+      if (err)
+        return callback(err);
+
+      const stream = BadgeTag.createWriteStream();
+
+      stream.on('error', function (err) {
+        callback(err);
+        callback = function () {};
+      });
+
+      stream.on('close', function () {
+        callback(null);
+      });
+
+      tags.forEach(function (tag, pos) {
+        // Filter out duplicate values
+        if (tags.indexOf(tag) !== pos)
+          return;
+
+        stream.write({badgeId: badgeId, value: tag});
+      });
+
+      stream.end();
+    });
+  }
+
+  function setSupportBadges(supportBadges, callback) {
+    const badgeId = this.id;
+
+    if (!Array.isArray(supportBadges))
+      supportBadges = [supportBadges];
+    
+    var supportSlugs = supportBadges.map(function (supportBadge) { return supportBadge.supportBadgeSlug || supportBadge });
+
+    SupportBadge.del({primaryBadgeId: badgeId}, function (err) {
+      if (err)
+        return callback(err);
+
+      const stream = SupportBadge.createWriteStream();
+
+      stream.on('error', function (err) {
+        callback(err);
+        callback = function () {};
+      });
+
+      stream.on('close', function () {
+        callback(null);
+      });
+
+      supportSlugs.forEach(function (supportSlug, pos) {
+        // Filter out duplicate values
+        if (supportSlugs.indexOf(supportSlug) !== pos)
+          return;
+
+        stream.write({primaryBadgeId: badgeId, supportBadgeSlug: supportSlug});
+      });
+
+      stream.end();
     });
   }
 
@@ -109,6 +239,7 @@ module.exports = function getBadgeModel (key) {
     }
 
     delete badge.id;
+    badge.slug = Badge.generateSlug();
 
     var criteria = badge.criteria;
     criteria.forEach(function(criterion) {
@@ -118,11 +249,31 @@ module.exports = function getBadgeModel (key) {
 
     delete badge.criteria;
 
+    var alignments = badge.alignments;
+    alignments.forEach(function(alignment) {
+      delete alignment.badgeId;
+      delete alignment.id;
+    });
+
+    delete badge.alignments;
+
     var categories = (badge.categories || []).map(function (category) {
       return category.id;
     });
 
     delete badge.categories;
+
+    var tags = (badge.tags || []).map(function (tag) {
+      return tag.value;
+    });
+
+    delete badge.tags;
+
+    var supportBadges = (badge.supportBadges || []).map(function (supportBadge) {
+      return supportBadge.supportBadgeSlug;
+    });
+
+    delete badge.supportBadges;
 
     badge.created = new Date();
     delete badge.lastUpdated;
@@ -155,7 +306,10 @@ module.exports = function getBadgeModel (key) {
 
           async.series([
             row.setCriteria.bind(row, criteria),
-            row.setCategories.bind(row, categories)
+            row.setAlignments.bind(row, alignments),
+            row.setCategories.bind(row, categories),
+            row.setTags.bind(row, tags),
+            row.setSupportBadges.bind(row, supportBadges),
           ], function (err) {
             callback(err, row);
           });
@@ -188,6 +342,15 @@ module.exports = function getBadgeModel (key) {
        'note']
   });
 
+  var Alignment = db.table('alignment', {
+    fields:
+      ['id',
+       'badgeId',
+       'name',
+       'url',
+       'description']
+  });
+
   var Category = db.table('_badgeCategory', {
     fields: ['badgeId', 'categoryId']
   });
@@ -195,13 +358,13 @@ module.exports = function getBadgeModel (key) {
   var Badge = db.table('badge', {
     fields:
       ['id',
+       'slug',
        'name',
        'status',
        'description',
        'issuerUrl',
        'earnerDescription',
        'consumerDescription',
-       'tags',
        'rubricUrl',
        'timeValue',
        'timeUnits',
@@ -222,12 +385,23 @@ module.exports = function getBadgeModel (key) {
        'issuer',
        'program',
        'badgeType',
-       'studioBranding'],
+       'studioBranding',
+       'studioBrandingLabel',
+       'milestoneNumRequired',
+       'milestoneAction',
+       'isMilestone',
+       'evidenceType'
+      ],
     relationships: {
       criteria: {
         type: 'hasMany',
         local: 'id',
         foreign: { table: 'criteria', key: 'badgeId' }
+      },
+      alignments: {
+        type: 'hasMany',
+        local: 'id',
+        foreign: { table: 'alignment', key: 'badgeId' }
       },
       categories: {
         type: 'hasMany',
@@ -235,20 +409,35 @@ module.exports = function getBadgeModel (key) {
         foreign: { table: 'badgeCategory', key: 'id' },
         via: { table: '_badgeCategory', local: 'badgeId', foreign: 'categoryId' }
       },
+      tags: {
+        type: 'hasMany',
+        local: 'id',
+        foreign: { table: 'badgeTag', key: 'badgeId' }
+      },
       image: {
         type: 'hasOne',
         local: 'imageId',
         foreign: { table: 'image', key: 'id' },
         optional: true
+      },
+      supportBadges: {
+        type: 'hasMany',
+        local: 'id',
+        foreign: { table: 'supportBadge', key: 'primaryBadgeId' }
       }
     },
     methods: {
       setCriteria: setCriteria,
+      setAlignments: setAlignments,
+      setTags: setTags,
       setCategories: setCategories,
+      setSupportBadges: setSupportBadges,
       createCopy: createCopy,
       del: deleteBadge
     }
   });
+
+  Badge.generateSlug = randomStr.bind(null, 16);
 
   return Badge;
 };

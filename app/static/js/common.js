@@ -1,6 +1,24 @@
 $(document).ready(function() {
   nunjucks.configure('/static/templates', { autoescape: true });
 
+  var tooltipButton = $('.js-tooltip');
+  var tooltipDropdown = $('.js-tooltip-container');
+
+  tooltipButton.click(function(e) {
+    var thisTooltipDropdown = $(this).closest('.admin-btn-container').find('.js-tooltip-container');
+    tooltipDropdown.not(thisTooltipDropdown).hide();
+    thisTooltipDropdown.toggle();
+    return false;
+  });
+
+  $('.js-import-template').on('click', function() {
+    $('.js-import-template-modal').show();
+  });
+
+  $('.js-close').on('click', function() {
+    $('.js-import-template-modal').hide();
+  });
+
   var mobileButton = $('.js-small-screen-dropdown');
   var mobileDropdown = $('.js-small-screen-menu');
 

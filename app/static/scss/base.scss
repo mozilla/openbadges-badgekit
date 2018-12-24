@@ -35,6 +35,8 @@
   width: 90%; /*width: 960px;*/
   max-width: 960px;
   margin: auto;
+  position: relative;
+  clear: both;
 }
 
 $one-wide: 13.6%;
@@ -144,6 +146,15 @@ input {
     -moz-box-shadow: 0 0 2px;
     box-shadow: 0 0 2px;
   }
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  cursor: pointer;
+  border: none;
 }
 
 input[type="submit"] {

@@ -2,7 +2,9 @@
 
 {% block content %}
   <div class="container clearfix">
-    <div class="notification js-delete-confirm-text hidden"><p>Click <a href="{{ url('badge.delete', { badgeId: badge.id }) }}" class="js-delete-confirm-btn" data-csrf="{{ csrfToken }}">here</a> to delete this badge.  This cannot be undone.</p></div>
+    <div class="notification js-notification"></div>
+    <div class="js-delete-confirm-text hidden"><p>Click <a href="{{ url('badge.delete', { badgeId: badge.id }) }}" class="js-delete-confirm-btn" data-csrf="{{ csrfToken }}">here</a> to delete this badge.  This cannot be undone.</p></div>
+
     <div class="badge-details">
       <img class="badge-image left" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
       <div class="badge-preview-info">
@@ -30,7 +32,7 @@
       {% if badge.program %}<p class="badge-title">Program<span class="badge-description">{{ badge.program.name }}</span>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container">
-          <p class="small-copy">Feature Badges by group using the Display API.</p>
+          <p class="small-copy">Feature badges by group using the Display API.</p>
         </div>
       </p>{% endif %}
 
@@ -45,12 +47,24 @@
       <p class="badge-title">Technical Description</p>
       <p class="badge-description">{{ badge.consumerDescription }}</p>
 
-      <!-- <p class="badge-title">Tags</p>
-      <p class="badge-description">{{ badge.tags }}</p> -->
+      <p class="badge-title">Tags</p>
+      <p class="badge-description">{{ generateTagString(badge.tags) }}</p>
 
       {% for criteria in badge.criteria %}
         <p class="badge-title">Criteria {{ loop.index }}</p>
         <p class="badge-description">{{ criteria.description }}</p>
+      {% endfor %}
+
+      <input type="hidden" name="name" value="{{ badge.name }}"/>
+      <input type="hidden" name="description" value="{{ badge.description }}"/>
+      <input type="hidden" name="earnerDescription" value="{{ badge.earnerDescription }}"/>
+      <input type="hidden" name="consumerDescription" value="{{ badge.consumerDescription }}"/>
+      {% for criteria in badge.criteria %}
+        <input type="hidden" name="criterionDescription" value="{{ criteria.description }}"/>
+      {% endfor %}
+      {% for alignment in badge.alignments %}
+        <input type="hidden" name="alignmentName" value="{{ alignment.name }}"/>
+        <input type="hidden" name="alignmentUrl" value="{{ alignment.url }}"/>
       {% endfor %}
     </div>
 
@@ -82,7 +96,18 @@
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
       </div>
-      <div>
+      <hr>
+      <div class="admin-btn-container">
+        <span>Share</span>
+        <i class="fa fa-question-circle js-tooltip"></i>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Give this URL to any BadgeKit user. They can use it to import the template into their own system.</p></div>
+      </div>
+      <div class="admin-btn-container">
+        <span class="uppercase">Share URL</span><i class="fa fa-copy"></i>
+        <span class="share-url">{{ shareUrl }}</span>
+      </div>
+      <hr>
+      <div class="admin-btn-container">
         <a href="" class="btn js-delete-btn">Delete</a>
         <i class="fa fa-question-circle js-tooltip"></i>
         <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
@@ -101,16 +126,18 @@
       <div class="admin-btn-container">
         <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ badge.status }}" class="blue-btn btn" ><i class="fa fa-pencil"></i>Edit</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Edit freely. This will not affect badges that previously used this template.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Continue editing your draft badge until you are ready to publish it.</p></div>
       </div>
       <div class="admin-btn-container">
-        <a class="btn blue-btn js-publish-btn blut-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}"><i class="fa fa-rocket"></i>Publish</a>
+        <a class="btn blue-btn js-publish-btn blut-btn" data-url="{{ url('badge.publish', { badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><i class="fa fa-rocket"></i>Publish</a>
         <i class="fa fa-question-circle js-tooltip"></i>
-        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Use the template stencil to create a new draft.</p></div>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Publish your draft badge - once you publish you can no longer edit!</p></div>
       </div>
-      <a href="" class="btn js-delete-btn">Delete</a>
-      <i class="fa fa-question-circle js-tooltip"></i>
-      <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
+      <div class="admin-btn-container">
+        <a href="" class="btn js-delete-btn">Delete</a>
+        <i class="fa fa-question-circle js-tooltip"></i>
+        <div class="tooltip-container js-tooltip-container"><p class="small-copy">Careful. You cannot undo!</p></div>
+      </div>
     </div>
     {% endif %}
     </div>

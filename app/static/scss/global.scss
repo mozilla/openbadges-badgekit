@@ -74,6 +74,10 @@
   li { list-style-type: disc; }
 }
 
+.margin-top-none { margin-top: 0; }
+.margin-bottom-none { margin-bottom: 0; }
+.underline { text-decoration: underline; }
+
 .more-about-open-badges {
   padding: 40px;
   text-align: center;
@@ -94,7 +98,24 @@
   }
 }
 
-
+.error-container {
+  color: white;
+  padding-bottom: 20px;
+  background-color: #6fc1d4;
+  margin: auto;
+  margin-bottom: -30px;
+  position: relative;
+  text-align: center;
+  .four-oh-four {
+    position: absolute;
+    text-align: left;
+    color: white;
+    width: 45%;
+    right: 50px;
+    top: 350px;
+    .bullet-list { padding-left: 10px; }
+  }
+}
 .access-to-badges {
   padding: 40px 0;
   .access-image { margin-right: 100px; }
@@ -171,6 +192,10 @@
     margin: 0;
     padding: 15px 4px 17px 0;
     list-style: none;
+    .fa-clipboard {
+      margin-right: 20px;
+      cursor: pointer;
+    }
     .sort-by { color: $brown; }
     li {
       color: $dark-gray;
@@ -211,9 +236,7 @@
       .hover-applications { width: 250px; }
     }
     .sort-menu {
-      color: $white;
-      background-color: $gray;
-      border-bottom: 5px solid $dark-gray;
+      border: 1px solid $dark-gray;
     }
   }
   ul li:hover {
@@ -271,6 +294,12 @@
   float: right;
   margin-right: 200px;
   span { margin: 0 10px; }
+}
+
+.uppercase {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .js-login {
@@ -354,22 +383,50 @@
   text-align: center;
 }
 
+.import-template-modal {
+  display: none;
+  position: absolute;
+  left: 225px;
+  width: 500px;
+  margin: 100px auto;
+  background-color: $white;
+  padding:15px;
+  background-color: white;
+  border: 1px solid $light-gray;
+  z-index: 100;
+  .close-btn {
+    background-color: $black;
+    padding: 0 7px;
+    border-radius: 50%;
+    color: $white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .badge-field {
+    line-height: 26px;
+    margin-right: 20px;
+    min-width: 345px;
+  }
+}
+
 .info {
   width: $five-wide;
   text-align: center;
   margin: 0 auto;
-  .info-heading {
-    font-weight: bold;
-    color: $light-blue;
-    font-size: 30px;
-    margin-bottom: 0;
-  }
-  .info-text {
-    color: $brown;
-    font-size: 18px;
-    line-height: 1.5em;
-    margin-top: 10px;
-  }
+}
+.info-heading {
+  font-weight: bold;
+  color: $light-blue;
+  font-size: 30px;
+  margin-bottom: 0;
+}
+.info-text {
+  color: $brown;
+  font-size: 18px;
+  line-height: 1.5em;
+  margin-top: 10px;
 }
 
 .badge-status-info {

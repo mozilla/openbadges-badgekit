@@ -19,6 +19,7 @@ const views = require('./views');
 const api = require('./api');
 const persona = require('express-persona-observer');
 const http = require('http');
+const helmet = require('helmet');
 
 var app = express();
 
@@ -42,6 +43,32 @@ app.use(function (req, res, next) {
   next();
 });
 
+if (config('ENABLE_GELF_LOGS', false)) {
+  var messina = require('messina');
+  logger = messina('badgekit-' + config('NODE_ENV', 'development'));
+  logger.init();
+  app.use(logger.middleware());
+}
+else {
+  app.use(express.logger());
+}
+
+if (process.env.HSTS_DISABLED != 'true') {
+  // Use HSTS
+  app.use(helmet.hsts());
+}
+if (process.env.DISABLE_XFO_HEADERS_DENY != 'true') {
+  // No xframes allowed
+  app.use(helmet.xframe('deny'));
+}
+if (process.env.IEXSS_PROTECTION_DISABLED != 'true') {
+// Use XSS protection
+  app.use(helmet.iexss());
+}
+
+// Hide that we're using Express
+app.use(helmet.hidePoweredBy());
+
 app.use(express.compress());
 app.use(express.bodyParser());
 app.use(middleware.session());
@@ -53,7 +80,8 @@ app.use(staticRoot, express.static(staticDir));
 
 persona.express(app, { audience: config('PERSONA_AUDIENCE'),
                        redirects: { notLoggedIn: '/', notLoggedOut: '/directory' },
-                       selectors: { login: '.js-login', logout: '.js-logout' } });
+                       selectors: { login: '.js-login', logout: '.js-logout' },
+                       middleware: middleware.clearSession });
 
 var secureRouteHandlers = [persona.ensureLoggedIn(), middleware.verifyPermission(config('ACCESS_LIST', []), 'sorry.html')];
 var secureApiHandlers = [middleware.verifyApiRequest()];
@@ -85,6 +113,9 @@ app.get('/settings', 'settings', secureRouteHandlers, views.settings.home);
 app.get('/settings/systems', 'settings.systems', secureRouteHandlers, views.settings.systems);
 app.get('/settings/issuers', 'settings.issuers', secureRouteHandlers, views.settings.issuers);
 app.get('/settings/programs', 'settings.programs', secureRouteHandlers, views.settings.programs);
+app.get('/settings/context', 'settings.context', secureRouteHandlers, views.settings.context);
+app.post('/settings/context', 'settings.setContext', secureRouteHandlers, views.settings.setContext);
+app.get('/settings/context/data', 'settings.contextData', secureRouteHandlers, views.settings.contextData);
 app.get('/settings/users', 'settings.users', secureRouteHandlers, views.settings.users);
 app.post('/settings/users', 'settings.editUser', secureRouteHandlers, views.settings.editUser);
 app.del('/settings/users', 'settings.deleteUser', secureRouteHandlers, views.settings.deleteUser);
@@ -101,8 +132,13 @@ app.post('/applications/:badgeId/:applicationId', 'application.submit', secureRo
 
 app.get('/help', 'help', views.help.home);
 app.get('/about', 'about', views.about.home);
+app.get('/termsofuse', 'termsofuse', views.termsofuse.home);
 
 app.get('/system/:systemId/badge/:badgeId/criteria', 'badge.criteria', views.badge.criteria);
+
+app.get('/share', 'share', secureRouteHandlers, views.share.home);
+app.post('/share', 'share.subscribe', secureRouteHandlers, views.share.subscribe);
+app.get('/share/:shareId', 'share.template', views.share.template);
 
 app.post('/api/user', 'api.user.add', secureApiHandlers, api.user.addUser);
 app.del('/api/user', 'api.user.delete', secureApiHandlers, api.user.deleteUser);

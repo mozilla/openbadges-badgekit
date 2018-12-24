@@ -16,15 +16,31 @@ module.exports.toBadgekitBadge = function toBadgekitBadge(badge) {
   newBadge.rubricUrl = badge.rubricUrl;
   newBadge.timeValue = badge.timeValue;
   newBadge.timeUnits = badge.timeUnits;
+  newBadge.evidenceType = badge.evidenceType;
   newBadge.limit = badge.limit;
   newBadge.unique = badge.unique;
   newBadge.imageUrl = badge.imageUrl;
   newBadge.issuerUrl = badge.issuerUrl;
   newBadge.criteria = badge.criteria;
+  newBadge.alignments = badge.alignments;
   newBadge.created = new Date(badge.created);
   newBadge.lastUpdated = new Date(badge.created); // not a typo.  badgekit-api doesn't yet have a notion of last updated.
   newBadge.badgeType = badge.type;
   newBadge.categories = badge.categories || [];
+  newBadge.tags = badge.tags || [];
+  newBadge.system = badge.system ? badge.system.slug : null;
+  newBadge.issuer = badge.issuer ? badge.issuer.slug : null;
+  newBadge.program = badge.program ? badge.program.slug : null;
+  
+  var milestone = badge.milestones.length ? badge.milestones[0] : null;
+  var supportBadges = milestone ? milestone.supportBadges : null;
+
+  newBadge.milestoneNumRequired = milestone ? milestone.numberRequired : null;
+  newBadge.milestoneAction = milestone ? milestone.action : 'issue';
+  newBadge.isMilestone = milestone ? 1 : 0;
+  newBadge.supportBadges = (supportBadges || []).map(function (supportBadge) {
+    return { supportBadgeSlug: supportBadge.slug, imageUrl: supportBadge.imageUrl };
+  });
 
   return newBadge;
 };
@@ -43,6 +59,7 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
   newBadge.criteriaUrl = config('PERSONA_AUDIENCE') + '/system/' + badge.system + '/badge/' + newBadge.slug + '/criteria';
   newBadge.timeValue = badge.timeValue;
   newBadge.timeUnits = badge.timeUnits;
+  newBadge.evidenceType = badge.evidenceType;
   newBadge.limit = badge.limit;
   newBadge.unique = badge.unique;
   newBadge.criteria = badge.criteria;
@@ -50,10 +67,18 @@ module.exports.toOpenbadgerBadge = function toOpenbadgerBadge(badge) {
     delete criterion.badgeId;
     delete criterion.id;
   });
+  newBadge.alignments = badge.alignments;
+  newBadge.alignments.forEach(function(alignment) {
+    delete alignment.badgeId;
+    delete alignment.id;
+  });
+
   newBadge.type = badge.badgeType;
   newBadge.categories = (badge.categories || []).map(function (category) {
     return category.label;
   });
-  
+  newBadge.tags = (badge.tags || []).map(function (tag) {
+    return tag.value;
+  });
   return newBadge;
 };

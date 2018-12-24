@@ -3,6 +3,16 @@ const SAVING_TEXT = 'Saving';
 
 $(document).ready(function() {
 
+  $(".js-modal").on("click", function() {
+    $(".overlay").show();
+    $(".modal-container").show();
+  });
+
+  $(".js-close").on("click", function() {
+    $(".modal-container").hide();
+    $(".overlay").hide();
+  });
+
   var notification = $('.js-notification');
 
   $(document).ajaxError(function(event, jqXHR, ajaxSetting, thrownError) {
@@ -73,6 +83,29 @@ $(document).ready(function() {
 
     $('.js-criterion').not(criterionDivs).find('.js-add-note').click(toggleNote);
   });
+
+  var numAlignmentsSelect = $('.js-num-alignments');
+
+  numAlignmentsSelect.change(function() {
+    var alignmentDivs = $('.js-alignment');
+    var numAlignments = parseInt(numAlignmentsSelect.val(),10);
+
+    for (var i = alignmentDivs.length-1; i >= 0; i--) {
+      if (i+1 > numAlignments) {
+        alignmentDivs.eq(i).addClass('hidden');
+      } else {
+        alignmentDivs.eq(i).removeClass('hidden');
+      }
+    }
+
+    for (i = numAlignments-1; i >= alignmentDivs.length; i--) {
+      var newAlignmentDiv = nunjucks.render('badge/alignment.html', { index: i });
+      alignmentDivs.last().after(newAlignmentDiv);
+    }
+
+    $('.js-alignment').not(alignmentDivs).find('.js-add-note').click(toggleNote);
+  });
+  numAlignmentsSelect.change();
 
   var categoryAnchors = $('.js-category-anchor');
   var formPages = $('.js-form-page');
@@ -216,6 +249,34 @@ $(document).ready(function() {
     });
   }
 
+  function escapeSlug(slug) {
+    if (slug)
+      return slug.replace(/([ #;?%&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
+    return slug;
+  }
+
+  var supportBadgeCheckbox = $('.js-support-checkbox');
+  supportBadgeCheckbox.change(function() {
+    if($(this).is(":checked")) {
+      var newDiv = nunjucks.render('badge/support-badge.html', { supportBadge: { supportBadgeSlug: $(this).val(), imageUrl: $(this).data('image-url') } });
+      $('.js-plus-button').after(newDiv);
+    }
+    else {
+      $('.js-support-badge[data-slug=' + escapeSlug($(this).val()) + ']').remove();
+    }
+  });
+
+  var isMilestone = $('.js-is-milestone');
+  isMilestone.change(function() {
+    if ($(this).val() == 'yes') {
+      $('.js-milestone-only').show();
+    } 
+    else {
+      $('.js-milestone-only').hide();
+    }
+  });
+  isMilestone.filter(':checked').change();
+
   function validateField(inputName, error, test) {
     var val = $('[name=' + inputName + ']').val();
     if (test(val) == false) {
@@ -237,6 +298,24 @@ $(document).ready(function() {
     return result;
   }
 
+  function validateAlignments() {
+    var result = true;
+    $('.js-alignment:not(.hidden) .js-alignment-name').each(function(index, element) {
+      if (!(element.value.length >= 1)) {
+        notification.append('<p>Alignment ' + (index+1) + ' Name must not be empty</p>');
+        result = false;
+      }
+    });
+    $('.js-alignment:not(.hidden) .js-alignment-url').each(function(index, element) {
+      if (!(element.value.length >= 1)) {
+        notification.append('<p>Alignment ' + (index+1) + ' URL must not be empty</p>');
+        result = false;
+      }
+    });
+
+    return result;
+  }
+
   function validateInput() {
     var valid = true;
     valid = validateField('name', 'Name must be between 1 and 255 characters',
@@ -252,6 +331,7 @@ $(document).ready(function() {
               function(val) { return (val.length >= 1) })
             && valid;
     valid = validateCriteria() && valid;
+    valid = validateAlignments() && valid;
     return valid;
   }
 });

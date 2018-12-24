@@ -1,0 +1,24 @@
+{% macro generateAlignment(index, alignment={id: '', description: '', required: '', note: ''}, disabled=false) %}
+  <div class="js-alignment">
+    <h2>Standards Alignment {{ index+1 }}</h2>
+
+    <input type="hidden" name="alignments[{{ index }}][id]" value="{{ alignment.id }}"></input>
+
+    <div class="form-field-wrapper criteria">
+      <label class="badge-label left" for="alignments[{{ index }}][name]">Name</label>
+      <input class="badge-field js-alignment-name" type="text" {{ disabled }} name="alignments[{{ index }}][name]" value="{{ alignment.name }}"></input>
+    </div>
+
+    <div class="form-field-wrapper criteria">
+      <label class="badge-label left" for="alignments[{{ index }}][url]">URL</label>
+      <input class="badge-field js-alignment-url" type="text" {{ disabled }} name="alignments[{{ index }}][url]" value="{{ alignment.url }}"></input>
+    </div>
+
+    <div class="form-field-wrapper criteria">
+      <label class="badge-label left" for="alignments[{{ index }}][description]">Description</label>
+      <textarea class="badge-field short-textarea js-alignment-description" type="text" {{ disabled }} name="alignments[{{ index }}][description]">{{ alignment.description }}</textarea>
+    </div>
+  </div>
+{% endmacro %}
+
+{{ generateAlignment(index) }}

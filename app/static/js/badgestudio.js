@@ -3,8 +3,11 @@
 
   function noop() {}
 
-  function BadgeStudio(canvasId) {
+  function BadgeStudio(canvasId, config) {
     this.canvas = new fabric.Canvas(canvasId)
+
+    config = config || {}
+    this.brandingLabel = config.brandingLabel || ''
   }
 
   BadgeStudio.util = {
@@ -70,7 +73,7 @@
     shield: {ribbonOptions: { top: -20, left: 80 }}
   }
 
-  BadgeStudio.defaultBrandingCity = 'CHI';
+  BadgeStudio.defaultBrandingLabel = ''
   BadgeStudio.defaultBrandingStyle = {
     left: 0,
     top: 70,
@@ -79,7 +82,7 @@
     fontSize: 40,
     originX: 'center',
     originY: 'center'
-  };
+  }
 
   /**
    * Sets the main shape of the badge. This works by clipping the canvas
@@ -134,7 +137,7 @@
    *
    * @param {String} color A string representing a color. This should be
    *   in one of the formats that `new fabric.Color` accepts:
-   *     - short hex: '#f55';
+   *     - short hex: '#f55'
    *     - long hex: '#123123'
    *     - hex w/o #: '356735'
    *     - rgb: 'rgb(100,0,100)'
@@ -191,23 +194,25 @@
    * Set the top ribbon. Calls `BadgeStudio#styleRibbon` to figure out
    * how to style the ribbon.
    *
-   * @param {String} name The name of the ribbon to load. The SVG file
-   *   should be located in the `ribbons/` folder.
+   * @param {Object} config {name, label} name: The name of the ribbon to load. The SVG file
+   *   should be located in the `ribbons/` folder. label: The label to include on the ribbon.
    *
    * @param {Function} [callback] Invoked once the ribbon has been
    *   applied to the canvas. Optional.
    *
    * @see BadgeStudio#styleRibbon
    */
-  BadgeStudio.prototype.setRibbon = function setRibbon(name, callback) {
+  BadgeStudio.prototype.setRibbon = function setRibbon(config, callback) {
+    var name = config.name
+    var label = config.label || this.brandingLabel || BadgeStudio.defaultBrandingLabel
+
     callback = callback || noop
     var canvas = this.canvas
 
     if (!name) {
-      if (this.ribbon) {
-        canvas.remove(this.ribbon);
-      }
-      return;
+      if (this.ribbon)
+        canvas.remove(this.ribbon)
+      return
     }
 
     BadgeStudio.util.loadRibbon(name, function (ribbon) {
@@ -215,8 +220,8 @@
         canvas.remove(this.ribbon)
 
       this.ribbon = ribbon
-      this.styleRibbon();
-      ribbon.add(new fabric.Text(BadgeStudio.defaultBrandingCity, BadgeStudio.defaultBrandingStyle));
+      this.styleRibbon()
+      ribbon.add(new fabric.Text(label, BadgeStudio.defaultBrandingStyle))
       canvas.add(ribbon).renderAll()
       ribbon.moveTo(Infinity)
       return callback(ribbon)
@@ -294,12 +299,12 @@
     BadgeStudio.util.imageFromURL(url, function (glyph) {
 
       // Try to accommodate for glyphs that are far bigger than the canvas.
-      var wRatio = canvas.width / glyph.width;
-      var hRatio = canvas.height / glyph.height;
+      var wRatio = canvas.width / glyph.width
+      var hRatio = canvas.height / glyph.height
       if (wRatio < 1 || hRatio < 1) {
         // Use whichever ratio is smaller to scale the glyph
-        glyph.setScaleX(wRatio < hRatio ? wRatio : hRatio);
-        glyph.setScaleY(wRatio < hRatio ? wRatio : hRatio);
+        glyph.setScaleX(wRatio < hRatio ? wRatio : hRatio)
+        glyph.setScaleY(wRatio < hRatio ? wRatio : hRatio)
       }
 
       canvas.add(glyph).renderAll()

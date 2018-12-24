@@ -4,6 +4,8 @@ const Badge = require('../models/badge')("DATABASE");
 const BadgeCategory = require('../models/badge-category')("DATABASE");
 const Image = require('../models/image')("DATABASE");
 const async = require('async');
+const url = require('url');
+const config = require('../lib/config');
 
 const openbadger = require('../lib/openbadger');
 const middleware = require('../middleware');
@@ -13,14 +15,18 @@ const studioPath = 'images/studio/';
 function getBadgeById(badgeId, category, context, callback) {
   if (category === 'draft' || category === 'template') {
     Badge.getOne({ id: badgeId }, { relationships: true }, function(err, row) {
-     callback(err, { badge: row } );
-   });
+      if (!row && !err) {
+        err = new Error('User not found');
+        err.code = 404;
+      }
+
+      callback(err, { badge: row } );
+    });
   }
   else {
     context.badge = badgeId;
     openbadger.getBadge(context, function(err, data) {
-      if (err)
-        return callback(err);
+      if (err) return callback(err);
 
       BadgeCategory.get({}, function (err, categories) {
         if (err)
@@ -63,6 +69,10 @@ exports.home = function home (req, res, next) {
                                   data.badge.created.getDate() + ', ' +
                                   data.badge.created.getFullYear();
 
+    if (data.badge.status === 'template') {
+      data.shareUrl = url.resolve(config('PERSONA_AUDIENCE'), res.locals.url('share.template', { shareId: data.badge.slug }));
+    }
+
     res.render('badge/home.html', data);
   });
 };
@@ -74,6 +84,12 @@ exports.del = function del (req, res, next) {
     if (err)
       return res.send(500, err);
 
+    if (!row) {
+      err = new Error('Badge not found');
+      err.code = 404;
+      return next(err);
+    }
+
     row.del(function(err) {
       if (err)
         return res.send(500, err);
@@ -84,14 +100,22 @@ exports.del = function del (req, res, next) {
 };
 
 exports.criteria = function criteria (req, res, next) {
-  const badge = req.params.badgeId;
+  const badgeSlug = req.params.badgeId;
   const system = req.params.systemId;
 
-  getBadgeById(badge, 'published', { system: system }, function(err, data) {
-    if (err)
-      return res.send(404, 'Not Found');
-
-    res.render('badge/criteria.html', data);
+  // not my favorite solution, but iterating over all the badges in the system, transforming their titles into 'slugs'
+  // returning the one that matches.
+  var util = require('util');
+  Badge.getAll({}, function(err, badges) {
+    if (err) console.log("got an error " + err);
+    for (var i in badges) {
+      var badge = badges[i];
+      var oldSlug = badge.name.trim().toLowerCase().replace(/\s+/g, '-');
+      if (badgeSlug == oldSlug) {
+        return res.render('badge/criteria.html', badge);
+      }
+    }
+    return res.send(404, 'Not Found');
   });
 };
 
@@ -115,7 +139,29 @@ exports.edit = function edit (req, res, next) {
           return category.id;
         });
 
-        callback(null, data);
+        var badgeContext = { system: data.badge.system };
+        if (data.badge.issuer) badgeContext.issuer = data.badge.issuer;
+        if (data.badge.program) badgeContext.program = data.badge.program;
+
+        openbadger.getAllBadges(badgeContext, function (err, supportData) {
+          if (err)
+            return callback(err);
+
+          supportData.forEach(function(badgeData) {
+            data.badge.supportBadges.forEach(function(supportBadge) {
+              if (badgeData.slug === supportBadge.supportBadgeSlug) {
+                supportBadge.imageUrl = badgeData.imageUrl;
+                badgeData.checked = true;
+              }
+            });
+          });
+
+          data.availableSupportBadges = supportData.map(function(badge) {
+            return { slug: badge.slug, name: badge.name, imageUrl: badge.imageUrl, checked: badge.checked };
+          });
+
+          callback(null, data);
+        });
       });
     },
     function(callback) {
@@ -137,7 +183,7 @@ exports.edit = function edit (req, res, next) {
     }],
     function(err, results) {
       if (err)
-        return res.send(500, err);
+        return next(err);
 
       var data = results[0];
       data.shapes = results[1];
@@ -208,12 +254,12 @@ function saveBadge(req, callback) {
   const timeValue = parseInt(req.body.timeValue, 10);
   const limitNumber = parseInt(req.body.limitNumber, 10);
   const numCriteria = parseInt(req.body.numCriteria, 10);
+  const numAlignments = parseInt(req.body.numAlignments, 10);
 
   const query = {
     id: req.body.badgeId,
     name: req.body.name,
     description: req.body.description,
-    tags: req.body.tags,
     issuerUrl: req.body.issuerUrl,
     earnerDescription: req.body.earnerDescription,
     consumerDescription: req.body.consumerDescription,
@@ -223,11 +269,13 @@ function saveBadge(req, callback) {
     limit: req.body.limit == 'limit' ? (limitNumber > 0 ? limitNumber : 0) : 0,
     unique: req.body.unique == 'unique' ? 1 : 0,
     multiClaimCode: req.body.multiClaimCode,
-    badgeType: req.body.badgeType
+    badgeType: req.body.badgeType,
+    milestoneNumRequired: req.body.milestoneNumRequired,
+    isMilestone: req.body.isMilestone == 'yes' ? 1 : 0,
+    evidenceType: req.body.evidenceType || null
   };
 
   if ('shape' in req.body) query.studioShape = req.body.shape;
-  if ('background' in req.body) query.studioBackground = req.body.background;
   if ('textType' in req.body) query.studioTextType = req.body.textType;
   if ('textContents' in req.body) query.studioTextContents = req.body.textContents;
   if ('icon' in req.body) query.studioIcon = req.body.icon;
@@ -262,14 +310,30 @@ function saveBadge(req, callback) {
           }
         },
         function(innerCallback) {
-          if (req.files) {
-            var path = req.files.uploadImage.path;
-            var type = req.files.uploadImage.type;
+          if ('alignments' in req.body) {
+            const alignments = req.body.alignments.slice(0,numAlignments).map(function(alignment) {
+              return {
+                id: alignment.id || null,
+                name: alignment.name,
+                url: alignment.url,
+                description: alignment.description
+              };
+            });
 
-            if (req.files.studioImage) {
-              path = req.files.studioImage.path;
-              type = req.files.studioImage.type;
-            }
+            badgeRow.setAlignments(alignments, function(err) {
+              return innerCallback(err);
+            });
+          }
+          else {
+            return innerCallback(null);
+          }
+        },
+        function(innerCallback) {
+          var image = req.files ? (req.files.studioImage || req.files.uploadImage) : null;
+
+          if (image) {
+            var path = image.path;
+            var type = image.type;
 
             // Need to determine acceptable mime types... this is just accepting everything right now.
             fs.readFile(path, function(err, data) {
@@ -307,6 +371,17 @@ function saveBadge(req, callback) {
             return innerCallback(null);
 
           badgeRow.setCategories(req.body.category, innerCallback);
+        },
+        function(innerCallback) {
+          var supportBadges = req.body.supportBadges || [];
+
+          badgeRow.setSupportBadges(supportBadges, innerCallback);
+        },
+        function(innerCallback) {
+          if (!('tags' in req.body))
+            return innerCallback(null);
+
+          badgeRow.setTags(req.body.tags, innerCallback);
         }],
         function(err) {
           callback(err, badgeRow);
@@ -349,8 +424,16 @@ exports.archive = function archive (req, res, next) {
 
 exports.publish = function publish (req, res, next) {
   const badgeId = req.params.badgeId;
+  async.series([
+    function(callback) {
+      if (req.body.skipSave) {
+        return callback();
+      }
 
-  saveBadge(req, function(err, row) {
+      return saveBadge(req, callback);
+    }
+  ],
+  function(err, results) {
     if (err)
       return res.send(500, err.message);
 
@@ -361,9 +444,12 @@ exports.publish = function publish (req, res, next) {
       if (!res.locals.hasPermission({ system: row.system, issuer: row.issuer, program: row.program }, 'publish'))
         return res.send(403, 'You do not have permission to publish this badge');
 
+      if (row.published)
+        return res.send(500, 'This badge has already been published');
+
       var badge = openbadger.toOpenbadgerBadge(row);
 
-      openbadger.createBadge({ system: row.system, issuer: row.issuer, program: row.program, badge: badge }, function(err) {
+      openbadger.createBadge({ system: row.system, issuer: row.issuer, program: row.program, badge: badge }, function(err, newBadge) {
         if (err) {
           if ((/^ResourceConflictError/).test(err.toString())) {
             return res.send(409, 'A badge with that name already exists');
@@ -375,9 +461,28 @@ exports.publish = function publish (req, res, next) {
           if (err)
             return res.send(500, err.message);
 
+          if (row.isMilestone) {
+            async.map(row.supportBadges, function (supportBadge, callback) {
+              openbadger.getBadge({ system: row.system, badge: supportBadge.supportBadgeSlug }, callback);
+            },
+            function (err, supportBadges) {
+              if (err)
+                return console.log('Error creating milestone: ' + err.message);
+
+              var milestone = { numberRequired: row.milestoneNumRequired, action: row.milestoneAction, primaryBadgeId: newBadge.id, supportBadges: [] };
+              supportBadges.forEach(function(supportBadge) {
+                milestone.supportBadges.push(supportBadge.id);
+              });
+
+              openbadger.createMilestone({ system: row.system, milestone: milestone}, function (err) {
+                if (err)
+                  return console.log('Error creating milestone: ' + err.message)
+              });
+            });
+          }
+
           req.session.lastCreatedId = badge.slug;
           req.session.notification = 'published';
-
           return res.send(200, { location: res.locals.url('directory') + '?category=published' });
         });
       });
@@ -413,13 +518,19 @@ exports.copy = function copy (req, res, next) {
       badge.imageId = imageResult.insertId;
       var criteria = badge.criteria;
       delete badge.criteria;
+      var alignments = badge.alignments;
+      delete badge.alignments;
       var categories = badge.categories;
       delete badge.categories;
+      var tags = badge.tags;
+      delete badge.tags;
+      var supportBadges = badge.supportBadges;
+      delete badge.supportBadges;
       badge.status = 'draft';
       badge.system = context.system;
       badge.issuer = context.issuer;
       badge.program = context.program;
-
+      badge.slug = Badge.generateSlug();
       Badge.put(badge, function (err, badgeResult) {
         if (err) {
           return res.send(500, err);
@@ -432,7 +543,10 @@ exports.copy = function copy (req, res, next) {
 
           async.parallel([
             badgeRow.setCriteria.bind(badgeRow, criteria),
-            badgeRow.setCategories.bind(badgeRow, categories)
+            badgeRow.setAlignments.bind(badgeRow, alignments),
+            badgeRow.setCategories.bind(badgeRow, categories),
+            badgeRow.setTags.bind(badgeRow, tags),
+            badgeRow.setSupportBadges.bind(badgeRow, supportBadges),
             ],
             function(err, results) {
               if (err) {

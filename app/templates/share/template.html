@@ -1,0 +1,64 @@
+{% extends "share/layout.html" %}
+
+{% macro generateTagString(tags) -%}
+  {% for tag in tags -%}
+    {% if loop.index0 %},{% endif %}{{ tag.value }}
+  {%- endfor %}
+{%- endmacro %}
+
+{% block content %}
+  <div class="container clearfix">
+    <div class="copied-badge-view clearfix">
+      <p class="left">You are viewing a shared template.</p>
+      <form method="post" action="{{ url('share.subscribe') }}" class="center">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        <input type="hidden" value="{{ badge.slug }}" name="subscription">
+        <button class="btn blue-btn right"><i class="fa fa-copy">Copy to my Badgekit</i></button>
+      </form>
+    </div>
+
+    <div class="badge-details">
+      <img class="badge-image left" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}">
+      <div class="badge-preview-info">
+        <p>{{ badge.name }} </p>
+        <p>Status: <span class="status">{{ badge.status | default('active') | capitalize }}</span></p>
+        <p>License: Share alike</p>
+      </div>
+    </div>
+
+    <ul class="tabs cb">
+      <li class="tab selected js-view-tab"><a>View</a></li>
+    </ul>
+
+    <div class="badge-info  js-badge-info">
+      {% if badge.issuerUrl %}<p class="badge-title">Issuer<span class="badge-description">{{ badge.issuerUrl }}</span></p> {% endif %}
+
+      {% if badge.program %}<p class="badge-title">Program<span class="badge-description">{{ badge.program.name }}</span>
+        <i class="fa fa-question-circle js-tooltip"></i>
+        <div class="tooltip-container js-tooltip-container">
+          <p class="small-copy">Feature Badges by group using the Display API.</p>
+        </div>
+      </p>{% endif %}
+
+      <p class="badge-title">Short Description</p>
+      <p class="badge-description">{{ badge.description }}</p>
+
+      <p class="badge-title">Description for Earners</p>
+      <p class="badge-description">{{ badge.earnerDescription }}</p>
+
+      <p class="badge-title">Technical Description</p>
+      <p class="badge-description">{{ badge.consumerDescription }}</p>
+
+      <p class="badge-title">Tags</p>
+      <p class="badge-description">{{ generateTagString(badge.tags) }}</p>
+
+      {% for criteria in badge.criteria %}
+        <p class="badge-title">Criteria {{ loop.index }}</p>
+        <p class="badge-description">{{ criteria.description }}</p>
+      {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+{%- endblock %}
