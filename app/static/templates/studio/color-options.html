@@ -1,0 +1,9 @@
+<label class="badge-label studio-label block color-label" for="color">Color</label>
+<div class="studio-input-image-container clearfix">
+  {% for color in colors %}
+    <div class="studio-input-image left">
+      <img class="studio-thumb color-pie block" src="{{ color.image }}"/>
+      <input class="radio-badge-field block js-color-radio" type="radio" name="color" value="{{ color.id }}" {% if savedColor == color.id %}checked{% endif %}/>
+    </div>
+  {% endfor %}
+</div>

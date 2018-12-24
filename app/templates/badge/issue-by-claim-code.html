@@ -1,0 +1,24 @@
+{% extends "badge/layout.html" %}
+
+{% block content %}
+  <div class="container">
+    <form class="badge-form" name="input" action="{{ url('badge.issueByEmail', { badgeId: badge.id }) }}" method="post">
+      <h1>Issue Badge by Claim Code</h1>
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+      <input type="hidden" name="badgeId" value="{{ badge.id }}"></input>
+
+      <img class="badge-image right" src="{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}"/>
+
+      <div class="form-field-wrapper">
+        <p><span class="badge-label" for="name">Name:</span> {{ badge.name }}
+      </div>
+
+      <div class="form-field-wrapper">
+        <label class="badge-label" for="email">Number of Codes to Generate:</label>
+        <input class="badge-field" type="number" name="number" value=""/>
+      </div>
+
+      <button class="btn submit-btn" type="submit" disabled>Generate Claim Codes</button>
+    </form>
+  </div>
+{% endblock %}

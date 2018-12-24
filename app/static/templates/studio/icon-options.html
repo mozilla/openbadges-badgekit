@@ -1,0 +1,9 @@
+<label class="badge-label studio-label block" for="icon">Icon</label>
+<div class="studio-input-image-container clearfix">
+  {% for icon in icons %}
+    <div class="studio-input-image studio-input-icon-image left">
+      <img class="studio-thumb studio-icons" src="{{ icon.image }}"/>
+      <input class="radio-badge-field js-icon-radio" type="radio" name="icon" value="{{ icon.id }}" {% if savedIcon == icon.id %}checked{% endif %}/>
+    </div>
+  {% endfor %}
+</div>

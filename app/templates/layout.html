@@ -3,68 +3,112 @@
 <head>
   <title>{% block title %}BadgeKit{% endblock %}</title>
   {% block head -%}
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="{{ static('/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ static('/css/base.css') }}">
     <link rel="stylesheet" href="{{ static('/css/global.css') }}">
+    <link rel="stylesheet" href="{{ static('/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ static('/css/home.css') }}">
+    <link rel="stylesheet" href="{{ static('/css/responsive.css') }}">
+
+    <link rel="shortcut icon" href="{{ static('/images/badgekit-favicon.ico') }}">
   {%- endblock %}
 </head>
 <body>
   {% block body -%}
     {% block headerWrapper -%}
-      <header id="header" class="header-container">
+      <header id="header" class="header-container clearfix">
         {% block header -%}
-          <div class="container">
-            <h1>
-              <a href="http://www.mozilla.org/" class="header-tab">Mozilla</a>
-            </h1>
+          <!-- header for smaller screens -->
+          <!-- <section class="header-small-screen">
+            <i class="fa fa-bars js-small-screen-dropdown"></i>
+            <a href="#" class="menu-item js-login right">
+              <i class="fa fa-gear"></i>
+            </a>
+          </section> -->
+          <!-- <nav class="menu-small-screen js-small-screen-menu">
+            <ul>
+              <p class="menu-title"><i class="fa fa-briefcase"></i>Badges</p>
+              <a href="{{ url('directory') }}?category=template"><li class="first-item">Templates</li></a>
+              <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
+              <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
+              <a href="{{ url('directory') }}?category=archived"><li class="last-item">Archived</li></a>
+            </ul>
 
-            <h1 class="badgekit-logo">
-              <a href="">BadgeKit</a>
-            </h1>
+            <ul>
+              <p class="menu-title second-menu-title"><i class="fa fa-folder-open"></i>Applications</p>
+              <a href=""><li class="first-item">Pending</li></a>
+              <a href=""><li class="last-item">Awarded</li></a>
+            </ul>
+          </nav>
+          <nav class="settings-small-screen"></nav> -->
 
-            <nav class="nav-header">
-              <ul class="menu">
-                <li class="menu-item">
-                  <a href="#">Build</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#">Assess</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#">About</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#">Glossary</a>
-                </li>
-              </ul>
-            </nav>
+          <img src="{{ static('images/badgekit-logo.png') }}" class="badgekit-logo left">
+          <nav class="nav-header homepage-nav">
+            <ul class="navigation-dropdown">
+              <span class="arrow-down"></span>
+              <li class="menu-item">
+                Badges
+                <ul class="menu-hover">
+                  <a href="{{ url('directory') }}?category=template"><li>Templates</li></a>
+                  <a href="{{ url('directory') }}?category=draft"><li>Drafts</li></a>
+                  <a href="{{ url('directory') }}?category=published"><li>Published</li></a>
+                  <a href="{{ url('directory') }}?category=archived"><li>Archived</li></a>
+                  <a href="{{ url('directory.addBadge') }}"><li class="last-item">Create New</li></a>
+                </ul>
+              </li>
+            </ul>
 
-            <div class="home-search">
-              <input placeholder="Search" type="text">
-            </div>
+          {% if loggedInUser %}
+            <ul class="navigation-dropdown">
+              <span class="arrow-down"></span>
+              <li class="menu-item">
+                Applications (27)
+                <ul class="menu-hover hover-applications">
+                  <a href=""><li>Pending</li></a>
+                  <a href=""><li>Awarded</li></a>
+                </ul>
+              </li>
+            </ul>
 
-          </div>
+            <ul class="navigation-dropdown">
+              <li class="menu-item">
+                <a href="{{ url('help') }}">Help</a>
+              </li>
+            </ul>
 
-          <div class="container">
-            {% if loggedInUser %}
-              <div class="dropdown dropdown-signed-in right">
-                <select>
-                  <option value="Welcome Zahra" selected="selected">Welcome {{ loggedInUser }}</option>
-                  <option id="logout" value="Sign Out">Sign Out</option>
-                  <option value="Settings">Settings</option>
-                </select>
-                <span class="arrow-down"></span>
-              </div>
-            {% else %}
-              <div class="dropdown dropdown-signed-in right">
-                <select>
-                  <option id="login" value="Sign In">Sign In</option>
-                  <option value="Create Account">Create Account</option>
-                </select>
-                <span class="arrow-down"></span>
-              </div>
-            {% endif %}
-          </div>
+            <ul class="navigation-dropdown">
+              <span class="arrow-down"></span>
+              <li class="menu-item">
+                {{ loggedInUser }}
+                <ul class="menu-hover logout-hover">
+                  <a href="{{ url('settings') }}"><li>Settings</li></a>
+                  <a class="js-logout" href=""><li>Logout</li></a>
+                </ul>
+              </li>
+            </ul>
+          {% else %}
+            <ul class="navigation-dropdown">
+              <span class="arrow-down about-arrow"></span>
+              <li class="menu-item">
+                About
+                <ul class="menu-hover about-hover">
+                  <a href=""><li>BadgeKit</li></a>
+                  <a href=""><li>Open Badges</li></a>
+                </ul>
+              </li>
+            </ul>
+
+            <ul class="navigation-dropdown">
+              <a href="{{ url('help') }}"><li class="menu-item">Help</li></a>
+            </ul>
+
+            <a href="#" class="menu-item js-login">
+              <i class="fa fa-sign-in"></i>Log In
+            </a>
+
+          {% endif %}
+          </nav>
         {%- endblock %}
       </header>
     {%- endblock %}
@@ -77,51 +121,63 @@
     {%- endblock %}
 
     {% block footerWrapper -%}
-      <footer id="footer" class="footer-container left">
+      <footer id="footer" class="footer-container clearfix">
         {% block footer -%}
-        <div class="container clearfix">
-          <a href="http://openbadges.org" class="open-badges-logo left">Mozilla Open Badges</a>
-          <section class="footnote-container">
-            <p class="footnote">Portions of this content are &copy; 1998-2013 by individual <a href="">mozilla.org</a> contributors. Content available under a <a href="">Creative Commons license.</a></p>
-            <p class="footnote"><a href="">Contribute to this page</a></p>
-          </section>
-
-          <ul class="footer-menu menu left">
-            <li class="menu-item">
-              <a href="#">Contact Us</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Partner With Us</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Donate</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Legal Notices</a>
-            </li>
-            <li class="menu-item">
-              <a href="#">Report Trademark Abuse</a>
-            </li>
-          </ul>
-
-          <section class="other-lang right">
-            <h3>Other languages:</h3>
-            <select id="job_engagement" name="job[engagement]">
-              <option value="English" selected="selected">English</option>
-              <option value="Something">Something</option>
-              <option value="Other">Other</option>
-            </select>
-          </section>
-        </div>
+          <div class="footer-logo-container left">
+            <a href="http://openbadges.org" id="open-badges-logo" target="_blank">
+              <img src="{{ static('images/OpenBadges and Macarthur.png') }}" class="open-mcarther-logo">
+            </a>
+          </div>
+          <div class="footer-links right">
+            <section class="left footer-columns">
+              <h5>About</h5>
+              <ul>
+                <li><a href="http://www.mozilla.org/en-US/mission/">Mission</a></li>
+                <li><a href="http://openbadges.org/jobs/">Jobs</a></li>
+                <li><a href="http://openbadges.org/press/">Press</a></li>
+                <li><a href="http://openbadges.org/legal_faq/ ">FAQ</a></li>
+                <li><a href="https://sendto.mozilla.org/page/contribute/EOYFR2013-newdefault">Join Mozilla</a></li>
+              </ul>
+            </section>
+            <section class="left footer-columns">
+              <h5>Resources</h5>
+              <ul>
+                <li><a href="http://badgekit.openbadges.org/">BadgeKit</a></li>
+                <li><a href="http://community.openbadges.org/">Community</a></li>
+                <li><a href="https://wiki.mozilla.org/Badges">Wiki</a></li>
+                <li><a href="https://github.com/mozilla/openbadges-badgekit">GitHub</a></li>
+              </ul>
+            </section>
+            <section class="left footer-columns">
+              <h5>Connect with Us</h5>
+              <ul>
+                <li><a href="https://twitter.com/openbadges">Twitter</a></li>
+                <li><a href="https://www.facebook.com/MozillaOpenBadges">Facebook</a></li>
+                <li><a href="http://openbadges.tumblr.com/">Blog</a></li>
+                <li><a href="http://www.slideshare.net/OpenBadges">SlideShare</a></li>
+                <li><a href="http://bit.ly/OpenBadgesGroup">Community Google Group</a></li>
+                <li><a href="http://bit.ly/OBIDev">Developer Google Group</a></li>
+                <li><a href="">IRC</a></li>
+              </ul>
+            </section>
+            <section class="left footer-columns">
+              <h5>Legal</h5>
+              <ul>
+                <li><a href="https://www.mozilla.org/en-US/privacy/policies/websites">Privacy Policy</a></li>
+                <li><a href="https://www.mozilla.org/en-US/about/legal.html">Terms of Use</a></li>
+              </ul>
+            </section>
+          </div>
         {%- endblock %}
       </footer>
     {%- endblock %}
   {%- endblock %}
   {% block scripts -%}
     <script src="https://login.persona.org/include.js"></script>
+    <script src="{{ static('/js/jquery.min.js') }}"></script>
+    <script src="{{ static('/js/nunjucks.min.js') }}"></script>
+    <script src="{{ static('/js/masonry.pkgd.min.js') }}"></script>
+    <script src="{{ static('/js/common.js') }}"></script>
     <script src="{{loginScriptUrl}}"></script>
   {%- endblock %}
 </body>

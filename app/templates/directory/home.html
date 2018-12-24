@@ -1,68 +1,108 @@
 {% extends "directory/layout.html" %}
 {% block content %}
-  <div class="container">
-    <div class="badge-details left">
-      <!-- <img src=""> -->
-      <div class="new-placeholder"><span>+</span></div>
-      <a href="" class="gray-btn use-btn">Use</a>
-      <a href="" class="gray-btn edit-btn">Edit</a>
-      <p>Status: <span class="status">Template</span></p>
-      <p>Created: 1/5/2015</p>
-      <p>License: Share alike</p>
-    </div>
-    <div class="badge-info left">
-      <h1>ABC Template</h1>
-      <p class="bold">Program:</p>
-      <p class="small-copy">XYZ Program</p>
-
-      <p class="bold">Shortname:</p>
-      <p class="small-copy"> abc-template-654134</p>
-
-      <p class="bold">Short Description:</p>
-      <p class="small-copy">Boiler plate language. Most of our badges use some variation to describe x, y, and z.</p>
-
-      <p class="bold">Description for Earners:</p>
-      <p class="small-copy">Boiler plate language. Most of our badges use some variation to describe x, y, and z.</p>
-
-      <p class="bold">Technical Description:</p>
-      <p class="small-copy">Boiler plate language. Most of our badges use some variation to describe x, y, and z.</p>
-
-      <p class="bold">Tags:</p>
-      <p class="small-copy">common tags, in our work, tomato, tomahto</p>
-
-      <p class="bold">Criteria:</p>
-      <p class="small-copy">The Summiteer badge is a special edition badge created to acknowledge attendance at the 2013 Mozilla Summit. It is earned by working and sharing among peers at any one of three Summit locales-Santa Clara, Tronoto, Brussels-during the 2013 Mozilla Summit in Brussels, Belgium.</p>
-    </div>
-    <div class="badges-container cb">
-      {% for badge in badges %}
-        <section class="badge-template left">
-          <img class="badgethumb" src="{{ badge.image | default(url('badge.image', { badgeId: badge.id })) }}"/>
-          <h2>{{ badge.name }}</h2>
-          <p>Status: {{ badge.status | default('active') | capitalize }}</p>
-          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn view-btn">View</a>
-          {% if category == 'template' %} <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="gray-btn use-btn">Use</a> {% endif %}
-          <a href="{{ url('badge', { badgeId: badge.id }) }}" class="gray-btn edit-btn ">Edit</a>
-        </section>
-      {% endfor %}
-
-      {% if category == 'template' or category == 'draft' %}
-        <h3 class="category-heading">2014 Template Pack<span class="text-line"></span></h3>
-        <section class="badge-new">
-          <div class="new-placeholder"><span>+</span></div>
-          <h2>Add a New {{ category | capitalize }}</h2>
-          <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="gray-btn blank-import-btn">Blank</a>
-          <a href="" class="gray-btn blank-import-btn">Import</a>
-        </section>
+  <div class="container clearfix">
+      {% if notification == 'published' %}
+        <div class="notification"><p>Your badge has been published.</p></div>
+      {% elif notification == 'created' %}
+        <div class="notification"><p>Your badge has been created.</p></div>
+      {% elif notification == 'archived' %}
+        <div class="notification"><p>Your badge has been archived.</p></div>
+      {% elif notification == 'saved' %}
+        <div class="notification"><p>Your badge has been saved.</p></div>
       {% endif %}
-    </div>
+      {% if category == 'template' %}
+      <section class="info">
+        <h1 class="info-heading">Templates</h1>
+        <p class="info-text">Use templates to create great new badges quickly. Create and edit your own templates and tailor draft badges to your programs and vision.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'draft' %}
+      <section class="info">
+        <h1 class="info-heading">Drafts</h1>
+        <p class="info-text">Work on draft badges. Define badge criteria and visuals, then publish when you're ready.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'published' %}
+      <section class="info">
+        <h1 class="info-heading">Published</h1>
+        <p class="info-text">Manage and issue your published badges.</p>
+      </section>
+      {% endif %}
+
+      {% if category == 'archived' %}
+      <section class="info">
+        <h1 class="info-heading">Archived</h1>
+        <p class="info-text">Manage inactive badges no longer being issued.</p>
+      </section>
+      {% endif %}
+
+      <nav class="nav-header">
+        <ul class="navigation-dropdown right">
+          <li class="menu-item sort-menu">
+            Sort badges <i class="fa fa-caret-down"></i>
+            <ul class="menu-hover sort-menu-hover">
+              <a href="{{ url('directory') }}?category={{ category }}&sort=name"><li>Name</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=applications"><li>Applications</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=awarded"><li>Awarded</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=dateactive"><li>Date Active</li></a>
+              <a href="{{ url('directory') }}?category={{ category }}&sort=datecreated"><li>Date Created</li></a>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="directory-container js-masonry-container cb">
+        {% if category == 'template' or category == 'draft' %}
+          <section class="item badge-new left">
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}">
+              <div class="new-badge-placeholder">+</div>
+            </a>
+            {% if category == 'template' %}
+              <h2>Create a Template</h2>
+            {% else %}
+              <h2>Create a New Draft</h2>
+            {% endif %}
+            <a href="{{ url('directory.addBadge') }}?category={{ category }}" class="btn blank-btn blank-btn-homepage">Start</a>
+          </section>
+        {% endif %}
+
+        {% for badge in badges %}
+          <section class="item badge-template left">
+            <div class="badgethumb js-badgethumb" data-image="url('{{ badge.imageUrl | default(url('badge.image', { badgeId: badge.id })) }}')"></div>
+            <h2>{{ badge.name }}</h2>
+            <p class="small-copy">Status: {{ badge.status | default('active') | capitalize }}</p>
+            <a href="{{ url('badge.edit', { badgeId: badge.id }) }}?category={{ category }}" class="edit-link block"><i class="fa fa-pencil"></i>Edit</a>
+            <a href="{{ url('badge', { badgeId: badge.id }) }}?category={{ category }}" class="btn view-btn">View</a>
+            {% if category == 'template' %}
+              <a href="{{ url('directory.useTemplate') }}?templateId={{ badge.id }}" class="btn use-btn">Use</a>
+            {% endif %}
+            {% if category == 'published' %}
+              <a href="" class="btn action-btn js-action-btn">Action<span class="arrow-down"></span></a>
+              <ul class="action-dropdown js-action-dropdown">
+                <a href=""><li>SHARE</li></a><hr>
+                <a href=""><li>REVIEW APPLICATIONS</li></a>
+                <a href="{{ url('badge.issueByEmail', {badgeId: badge.id }) }}"><li>ISSUE BY EMAIL</li></a>
+                <hr>
+                <a href="{{ url('badge.issueByClaimCode', {badgeId: badge.id }) }}"><li>ISSUE BY CLAIM CODE</li></a>
+                <a href=""><li>VIEW CLAIM CODES</li></a>
+                <hr>
+                <a href="" class="js-copy-btn" data-url="{{ url('badge.copy', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>COPY AS NEW</li></a>
+                <a href="" class="js-archive-btn" data-url="{{ url('badge.archive', {badgeId: badge.id }) }}" data-csrf="{{ csrfToken }}"><li>ARCHIVE</li></a>
+              </ul>
+            {% endif %}
+          </section>
+        {% endfor %}
+      </section>
 
     {% if pages > 1 %}
       <div class="pagenav cb">
         {% if page > 1 %}
-          <a href="?category={{ category }}&page={{ page - 1 }}">Previous Page</a>
+          <a href="?category={{ category }}&page={{ page - 1 }}&sort={{ sort }}">Previous Page</a>
         {% endif %}
         {% if page < pages %}
-          <a href="?category={{ category }}&page={{ page + 1 }}">Next Page</a>
+          <a href="?category={{ category }}&page={{ page + 1 }}&sort={{ sort }}">Next Page</a>
         {% endif %}
       </div>
     {% endif %}

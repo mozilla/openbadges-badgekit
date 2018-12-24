@@ -1,9 +1,199 @@
 @import "base";
-@import "buttons";
 
-.badgeimage {
+.visual-studio-tabs {
+  margin: 30px auto 0 auto;
+  padding: 10px 10px 5px 0;
+  .studio-tab {
+    background-color: $light-gray;
+    display: inline;
+    padding: 5px 15px;
+    margin: 20px 10px 20px 0;
+    border: 1px solid $light-gray;
+    a { color: $dark-gray; }
+  }
+  .selected {
+    background-color: $white;
+    border-bottom: 1px solid $white;
+  }
+}
+
+.nav-inputs {
+  margin: 30px auto 0 auto;
+  position: relative;
+  .badge-field {
+    width: $two-wide;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  .fa-pencil {
+    position: absolute;
+    color: $gray;
+    top: 6px;
+    left: 210px;
+    padding: 3px;
+    cursor: pointer;
+  }
+}
+.review-publish-btn {
+  padding-left: 23px;
+}
+
+.fa-rocket,
+.fa-sign-out {
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+.publish-save {
+  text-align: right;
+}
+
+.save-box {
+  position: relative;
+  margin-top: -5px;
+  margin-left: 15px;
+  .save {
+    background-color: $white;
+    border: none;
+    padding-top: 5px;
+    &:hover {
+      border: none;
+      cursor: default;
+      -webkit-appearance: none;
+    }
+  }
+  .fa-spin {
+    position: absolute;
+    left: 300px;
+    top: 10px;
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.badge-image {
   height: 250px;
-  float: right;
+}
+
+.preview-make-your-badge,
+.make-your-badge {
+  width: $three-wide;
+  padding: 50px 0 0 0;
+  .form-field-wrapper {
+    text-align: center;
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 40px;
+    margin-right: 30px;
+  }
+  .badge-label.studio-label {
+    margin: 0 auto;
+    padding-bottom: 15px;
+  }
+  .badge-field.studio-field {
+    margin: 0 auto;
+    background-color: $light-gray;
+    border: $white;
+    padding: 5px;
+  }
+  .studio-input-image-container {
+    width: 83%;
+    margin: 0 auto;
+    .studio-input-image {
+      width: 90px;
+      margin: 0 35px;
+    }
+    .studio-input-icon-image {
+      width: 30px;
+      margin: 0 25px;
+    }
+  }
+}
+
+.preview-make-your-badge {
+  text-align: center;
+  .submit-btn.studio-submit {
+    margin: 20px;
+    margin-left: 35px;
+  }
+}
+
+.make-your-badge {
+  max-height: 500px;
+  overflow: auto;
+}
+
+.tooltip-container {
+  display: none;
+  z-index: 1;
+  background-color: $light-gray;
+  padding: 10px;
+  margin-top: -10px;
+  position: absolute;
+  width: 200px;
+  @include drop-shadow;
+  .small-copy { margin-bottom: 0; }
+}
+
+.fa-question-circle {
+  cursor: pointer;
+  &:hover { color: $light-blue; }
+}
+
+.studio-thumb {
+  width: 90px;
+  border: 1px solid $light-gray;
+  margin-right: 50px;
+}
+
+.studio-thumb.studio-icons {
+  width: 30px;
+  border: none;
+  margin-right: 0;
+}
+
+.studio-thumb.color-pie { border: none; }
+
+.undo-redo {
+  padding-top: 20px;
+  .fa-undo,
+  .fa-repeat {
+    font-size: 15px;
+    margin-right: 5px;
+  }
+}
+.canvas-wrapper {
+  padding: 10px 30px 0 30px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  margin: 5px 135px;
+  canvas { margin-left: 5px; }
+}
+
+.download-btn {
+  margin-right: 30px;
+  .fa-download {
+    margin-right: 5px;
+    font-size: 15px;
+  }
+}
+
+.visual-shape {
+  width: $three-wide;
+}
+
+.badge-canvas {
+  width: 90px;
+  height: 90px;
+  display: inline;
+}
+
+.color-canvas {
+  display: none;
+}
+
+.badge-preview-info {
+  padding: 20px;
 }
 
 .badge-details {
@@ -12,30 +202,132 @@
     float: none;
     margin: 0 0 20px 0;
   }
-  .use-btn {
-    margin-left: 0;
-  }
+  p { margin: 0; }
 }
 
 .badge-info {
   width: $four-wide;
+  background-color: $white;
+  padding: 30px;
+  margin-top: 20px;
 }
 
-.form-field-wrapper {
-  margin-bottom: 20px;
-}
+.form-field-wrapper { margin-bottom: 20px; }
+
+.submit-button-wrapper { text-align: center; }
 
 .badge-form {
-  width: $four-wide;
-  margin: 0 auto;
+  width: $six-wide;
+  margin: 0 auto 30px auto;
+  background-color: $white;
+  padding: 10px 30px 30px 30px;
+  border: 1px solid $light-gray;
+  .or-seperator {
+    height: 200px;
+    margin: 20px 40px 50px 40px;
+    .or { top: 65px; }
+  }
+  .form-heading {
+    font-size: 18px;
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    .form-heading-span {
+      color: $light-blue;
+      font-weight: bold;
+    }
+  }
   .badge-label {
     font-weight: bold;
+    width: $two-wide;
+    margin-right: 6%;
   }
+  .short-textarea { height: 90px; }
   .badge-field {
-    margin-top: 10px;
     width: $three-wide;
   }
-  .submit-btn {
-    margin-left: 0;
+  .short-description { height: 80px; }
+  .with-button-field { width: 40.6%; }
+  .fa-plus { margin-left: 5px; }
+  .short-badge-field {
+    margin-top: 10px;
+    margin-right: 2px;
+    display: inline;
+    width: $one-wide;
+  }
+  .radio-badge-field {
+    margin-right: 5px;
+    display: inline;
+  }
+  .submit-btn { margin-left: 0; }
+  .hidden { display: none; }
+}
+
+.criteria {
+  margin-bottom: 40px;
+  .add-btn { margin: 20px 0; }
+}
+
+.note-field-block { display: none; }
+
+.design-upload-container {
+  width: 45%;
+  text-align: center;
+  height: 100px;
+  margin: 50px 0;
+  .fa-cloud-upload,
+  .fa-magic {
+    font-size: 30px;
+    color: $light-blue;
+    margin-bottom: 30px;
+  }
+  .design-upload-heading {
+    display: inline;
+    color: $gray;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .design-upload-subhead {
+    margin: 0;
+    color: $light-blue;
+    display: block;
+    margin-top: -30px;
+    font-size: 15px;
+  }
+  .upload-image {
+    margin: 0 auto;
+    border: none;
+    margin-top: 15px;
+    &:hover {
+      border: none;
+      -webkit-box-shadow: 0 0 0;
+      -moz-box-shadow: 0 0 0;
+      box-shadow: 0 0 0;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .badge-form {
+    width: 100%;
+    padding: 20px;
+    .badge-label,
+    .badge-field { width: 100%; }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .badge-form {
+    .tags-field {
+      width: 31.5%;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .badge-form {
+    .tags-field {
+      width: 36.5%;
+    }
   }
 }

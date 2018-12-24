@@ -1,22 +1,23 @@
 @import "base";
 
-.gray-btn {
-  text: {
-    transform: uppercase;
-    decoration: none;
-  }
+.btn {
+  font-family: "Open Sans Light";
+  text-decoration: none;
   font-weight: bold;
-  margin-bottom:7px;
-  margin-left: 7px;
-  background-color: $gray10;
-  color: $gray;
-  height:29px;
-  line-height:31px;
-  padding: 0 20px;
-  font-size:12px;
+  font-size: 12px;
+  letter-spacing: .1em;
+  color: $white;
+  height: 32px;
+  line-height: 31px;
+  padding: 0 25px;
   cursor: pointer;
-  border:1px solid $gray30;
-  letter-spacing:.1em;
+  background-color: $dark-gray;
+  display: inline-block;
+  text-align: center;
+  &:hover {
+    background-color: $hover-gray;
+    color: $white;
+  }
 }
 
 .edit-btn {
@@ -29,12 +30,35 @@
   line-height: 30px;
 }
 
-.submit-btn {
-  margin-left: 0;
+.action-btn {
+  .arrow-down {
+    border-top: 6px solid $white;
+    margin-left: 10px;
+    position: relative;
+    top: 10px;
+  }
 }
 
-.use-btn,
-.view-btn,
-.blank-import-btn {
+.blank-btn,
+.review-publish-btn {
+  background-color: $light-blue;
+  &:hover { background-color: $hover-blue; }
+}
+.add-btn {
+  margin: 0 10px;
+  height: 30px;
+}
+.blank-btn { display: block; }
+.blank-btn-homepage {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}
+
+.import-btn,
+.action-btn,
+.submit-btn,
+.cancel-btn {
   display: inline-block;
 }

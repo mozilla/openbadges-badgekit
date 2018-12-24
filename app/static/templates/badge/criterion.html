@@ -1,0 +1,33 @@
+{% macro generateCriterion(index, criterion={id: '', description: '', required: '', note: ''}, disabled=false) %}
+  <div class="js-criterion">
+    <h2>Criterion {{ index+1 }}</h2>
+
+    <input type="hidden" name="criteria[{{ index }}][id]" value="{{ criterion.id }}"></input>
+
+    <div class="form-field-wrapper criteria">
+      <label class="badge-label left" for="criteria[{{ index }}][description]">Description
+        <br>
+        <input class="radio-badge-field" type="checkbox" {{ disabled }} name="criteria[{{ index }}][required]" {% if criterion.required %} checked {% endif %}>Required</input>
+        <a class="btn add-btn js-add-note">Add Note<i class="fa fa-plus"></i></a>
+      </label>
+      <textarea class="badge-field short-textarea js-criteria-description" type="text" {{ disabled }} name="criteria[{{ index }}][description]">{{ criterion.description }}</textarea>
+    </div>
+
+    <div class="form-field-wrapper cb">
+      <label class="badge-label left" for="criteria[{{ index }}][evidence]">Evidence Accepted</label>
+      <div class="form-dropdown">
+        <span class="arrow-down"></span>
+        <select {{ disabled }} name="criteria[{{ index }}][evidence]">
+        <option value="Feature Coming Soon...">Feature Coming Soon...</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-field-wrapper note-field-block js-note-field-block">
+      <label class="badge-label left" for="criteria[{{ index }}][note]">Note for Mentor and Reviewer:</label>
+      <textarea class="badge-field short-textarea" type="text" {{ disabled }} name="criteria[{{ index }}][note]">{{ criterion.note }}</textarea>
+    </div>
+  </div>
+{% endmacro %}
+
+{{ generateCriterion(index) }}

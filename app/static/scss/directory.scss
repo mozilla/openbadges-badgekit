@@ -1,6 +1,4 @@
-.badgethumb {
-  height: 200px;
-}
+@import "base";
 
 .badgeinfo {
   position: relative;
@@ -11,17 +9,8 @@
   line-height: 50%;
 }
 
-a.badgeinfo {
-  text-decoration: none;
-  color: inherit;
-}
-
 .directoryheader {
   text-align: center;
-}
-
-.highlighted {
-  background-color: #00AAAA;
 }
 
 .pagenav {
@@ -30,4 +19,36 @@ a.badgeinfo {
 
 .addbadge {
   text-align: center;
+}
+
+.action-dropdown {
+  display: none;
+  position: absolute;
+  background: $white;
+  margin: 0;
+  border-top: 4px solid $light-green;
+  z-index:5;
+  padding:0;
+  width: 150px;
+  @include transition;
+  @include dropdown-boxshadow;
+  hr { margin: 0; }
+}
+.action-dropdown li,
+.action-dropdown input {
+  display: block;
+  margin:0;
+}
+
+.action-dropdown input {
+  border: none;
+  background: $white;
+}
+
+.action-dropdown li,
+.action-dropdown input {
+  font-size:13px;
+  padding: 5px 20px;
+  color: $dark-gray;
+  &:hover { color: $light-blue; }
 }

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block head -%}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ static('/css/help.css') }}">
+{%- endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/help.js') }}"></script>
+{%- endblock %}

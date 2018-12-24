@@ -32,19 +32,17 @@
 
 /* ===[ Base styles ]======================================================== */
 .container {
-  width: 90%; /*width: 1200px;*/
-  max-width: 1200px;
+  width: 90%; /*width: 960px;*/
+  max-width: 960px;
   margin: auto;
 }
 
 $one-wide: 13.6%;
 $two-wide: 30.9%;
-$three-wide: 48.2%;
+$three-wide: 50%;
 $four-wide: 65.5%;
 $five-wide: 82.7%;
 $six-wide: 100%;
-$quarter-wide: 22.2%;
-$three-quarters-wide:74.1%;
 
 /*** STANDARD COLORS ***/
 $black: #000;
@@ -52,50 +50,165 @@ $white: #fff;
 $red: #FF0000;
 
 /*** BRAND COLORS  ***/
-$gray: #8892a1;
+$light-blue: #63c6f4;
+$medium-blue: #3184bd;
+$dark-blue: #109eda;
+$tiffany-blue: #00c1cb;
+$hover-blue: #0592d8;
+$medium-green: #4bb96b;
+$light-green: #5BC1A5; /*mozilla green*/
+$dark-green: #349776;
+$light-beige: #f8f9f5;
+$dark-beige: #cbcbc6;
+$brown: #5d5b57;
+$gray: #aeb0b1;
+$dark-gray: #4D4E53; /*mozilla charcoal*/
+$light-gray: #e6e6e6;
+$hover-gray: #282828;
 $gray5: #f9f9fa;
 $gray10: #f3f4f5;
 $gray30: #dbdee3;
 $gray50: #c3c8d0;
-$dark-gray: #41444a;
-$warm-gray: #9a9998;
-$warm-gray30: #e2e1df;
+
+
+@mixin drop-shadow {
+  // use this to add a consistent shadow to modules with dropshadow
+  -webkit-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+@mixin dropdown-boxshadow {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+@mixin transition {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
 
 body {
   font-family: "Open Sans", sans-serif;
+  color: $brown;
 }
 
-h1 { font-size: 24px; }
+h1 {
+  font-size: 38px;
+  font-family: "Open Sans Light";
+  line-height: 1.1em;
+}
+
+h2 { font-size: 20px; }
+
+h5 {
+  font-family: "Open Sans", Arial;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+p {
+  font-family: "Open Sans Light";
+  font-size: 16px;
+}
 
 li {
   list-style: none;
 }
 
-textarea {
-  height: 150px;
+a {
+  color: $light-blue;
+  text-decoration: none;
+  &:hover { color: $hover-blue; }
 }
+
+label { font-family: "Open Sans Light"; }
+
+textarea { height: 150px; }
 
 textarea,
 input {
   border: 1px solid rgb(204, 204, 204);
-  border-radius: 3px;
   display: block;
   padding: 2px 4px;
-  &:hover {
+  &:hover:enabled {
     -webkit-box-shadow: 0 0 2px;
     -moz-box-shadow: 0 0 2px;
     box-shadow: 0 0 2px;
   }
 }
 
+input[type="submit"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+input[type="checkbox"] {
+  display:none;
+}
+
+input[type="checkbox"] + span:before {
+  font-family: 'FontAwesome';
+  padding-right: 3px;
+}
+
+input[type="checkbox"] + span:before {
+  content: "\f096"; /* check-empty */
+}
+
+input[type="checkbox"]:checked + span:before {
+  content: "\f046"; /* check */
+}
+
+/* Let's get this scrollbar started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: $light-gray;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: $dark-gray;
+}
+
+.block {
+  display: block;
+}
+
+.white-container {
+  background-color: $white;
+}
+
+.beige-container {
+  background-color: $light-beige;
+  border: 20px solid $dark-beige;
+  position: relative;
+}
+
+.checkbox {
+  display: inline;
+}
+
 .column {margin-bottom:20px;}
 
 .left { float: left; }
 .right { float: right; }
-.middle {
-  margin-left:3.7%;
-  float:left;
-}
+.middle { margin-left:3.7%; float:left; }
 
 /* apply a natural box layout model to all elements */
 *,

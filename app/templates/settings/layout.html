@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block head -%}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ static('/css/settings.css') }}">
+{%- endblock %}
+
+{% block scripts -%}
+  {{ super() }}
+  <script src="{{ static('/js/settings.js') }}"></script>
+{%- endblock %}

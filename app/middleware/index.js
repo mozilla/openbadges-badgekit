@@ -32,10 +32,11 @@ exports.redirect = function (target, params, status) {
   }
 
   return function (req, res, next) {
+    var url;
     try {
-      var url = res.locals.url(target, params);
+      url = res.locals.url(target, params);
     } catch (e) {
-      var url = target;
+      url = target;
     }
 
     if (params._qsa && req.query) {
@@ -51,7 +52,7 @@ exports.redirect = function (target, params, status) {
     }
 
     return res.redirect(status || 302, url);
-  }
+  };
 };
 
 exports.sass = function (root, prefix) {
@@ -63,3 +64,43 @@ exports.sass = function (root, prefix) {
     debug: config('debug', false)
   });
 };
+
+exports.verifyPermission = function verifyPermission (accessList, deniedPage) {
+  if (typeof accessList === 'string' || accessList instanceof String) {
+    accessList = JSON.parse(accessList);
+  }
+
+  return function (req, res, next) {
+    accessList = accessList || [];
+
+    if (req.fromLoggedInUser()) {
+      if (accessList.some(function(email) { return new RegExp(email.replace('*', '.+?')).test(req.session.email) }))
+        return next();
+      else {
+        if (!deniedPage)
+          return res.send(403, 'Access Denied');
+        else
+          return res.render(deniedPage);
+      }
+    }
+    return next();
+  };
+};
+
+const monthNamesByLanguage = {
+  en: {
+    fullNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    shortNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  }
+}
+
+exports.getMonthName = function getMonthName (monthNum, getShort, lang) {
+  lang = (lang && (lang in monthNamesByLanguage)) ? lang : 'en';
+
+  if (!getShort) {
+    return monthNamesByLanguage[lang].fullNames[monthNum];
+  }
+  else {
+    return monthNamesByLanguage[lang].shortNames[monthNum];
+  }
+}
