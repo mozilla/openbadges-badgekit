@@ -27,7 +27,7 @@
     "node-sass": "~0.7.0",
     "newrelic": "*",
     "helmet": "0.2.1",
-    "validator": "~3.5.1",
+    "validator": "~13.1.1",
     "express-persona-observer": "git+https://github.com/christensenep/express-persona-observer.git#multiple-buttons",
     "async": "~0.2.9",
     "messina": "~0.1.2",
