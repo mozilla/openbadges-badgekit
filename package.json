@@ -14,7 +14,7 @@
     "test": "./node_modules/.bin/mocha -R spec test/*.test.js"
   },
   "dependencies": {
-    "express": "~3.4.0",
+    "express": "~4.17.1",
     "express-monkey-patch": "~0.1.1",
     "nunjucks": "~1.0.4",
     "optimist": "~0.6.0",
