@@ -347,30 +347,38 @@ function saveBadge(req, callback) {
             var path = image.path;
             var type = image.type;
 
-            // Need to determine acceptable mime types... this is just accepting everything right now.
-            fs.readFile(path, function(err, data) {
+            fs.stat(path, function (err, stats) {
               if (err)
                 return innerCallback(err);
 
-              const imageQuery = {
-                id: badgeRow.imageId,
-                mimetype: type,
-                data: data,
-                url: null
-              };
+              if (stats.size > (256 * 1024))
+                return innerCallback(new Error('Maximum image size is 256 KB'));
 
-              Image.put(imageQuery, function(err, imageResult) {
+              // Need to determine acceptable mime types... this is just accepting everything right now.
+              fs.readFile(path, function(err, data) {
                 if (err)
                   return innerCallback(err);
 
-                if (badgeRow.imageId === null) {
-                  Badge.put({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
+                const imageQuery = {
+                  id: badgeRow.imageId,
+                  mimetype: type,
+                  data: data,
+                  url: null
+                };
+
+                Image.put(imageQuery, function(err, imageResult) {
+                  if (err)
                     return innerCallback(err);
-                  });
-                }
-                else {
-                  return innerCallback(null);
-                }
+
+                  if (badgeRow.imageId === null) {
+                    Badge.put({ id: badgeRow.id, imageId: imageResult.insertId }, function(err, result) {
+                      return innerCallback(err);
+                    });
+                  }
+                  else {
+                    return innerCallback(null);
+                  }
+                });
               });
             });
           }
@@ -406,7 +414,7 @@ function saveBadge(req, callback) {
 exports.save = function save (req, res, next) {
   saveBadge(req, function(err, row) {
     if (err)
-      return res.send(500, err);
+      return res.send(500, err.message);
 
     if (!('notification' in req.session)) {
       req.session.notification = 'saved';
